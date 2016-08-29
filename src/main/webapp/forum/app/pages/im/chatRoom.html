@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>chatroom</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  class="chatroom">
+
+  <!--聊天信息-->
+  <div class="imContent">
+    <div *ngFor="let msgItem of listOfChatData">
+      <!--我发送的-->
+      <div class="mine" *ngIf="msgItem.from !== 'tianlei005'">
+        <img src="images/u1.jpg">
+        <div>{{msgItem.data}}</div>
+      </div>
+
+      <!--对方发送的-->
+      <div class="other" *ngIf="msgItem.from === 'tianlei005'">
+        <div>{{msgItem.data}}</div>
+        <img src="images/u2.jpg">
+      </div>
+    </div>
+    <div style="height: 80px;"></div>
+  </div>
+
+  <div class="bootomInput">
+    <ion-input type="text" #msgInput  placeholder="请输入信息" ></ion-input>
+    <button danger (click)="sendMsg(msgInput)" [disabled]="msgInput.value.length <= 0">发送</button>
+  </div>
+
+
+
+</ion-content>
