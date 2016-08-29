@@ -1,9 +1,8 @@
 
-.login{
+.register{
 
-  //display: flex;
-  //justify-content: space-around;
   input{
+
     display: block;
     border: 2px solid cyan;
     width: 85%;
@@ -22,9 +21,6 @@
   .registerBtn,.findPwdBtn{
     width: 25%;
     height: 30px;
-  }
-  .findPwdBtn {
-    float: right;
   }
 
 }

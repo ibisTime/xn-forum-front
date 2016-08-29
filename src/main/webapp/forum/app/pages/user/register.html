@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      注册
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="register">
+
+  <input #account placeholder="请输入账户">
+  <input #pwd placeholder="请输入密码">
+
+  <div text-center>
+    <button  (click)="register(account.value,pwd.value)" >注册</button>
+  </div>
+
+</ion-content>
