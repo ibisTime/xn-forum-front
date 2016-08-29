@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {AlertController, App, ToastController} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
-import {UserService} from "../serve/user-serve";
-import {IMService} from "../contact/im.serve";
+import {UserService} from "../../serve/user.serve";
+import {IMService} from "../../serve/im.serve";
+
 
 @Component({
     templateUrl: "build/pages/login/register.html"
@@ -44,7 +45,6 @@ export class RegisterPage implements OnInit {
   cdAlert(message,confirmAction?: () => void){
 
     let  alert = this.alert.create({
-
       message: message,
       buttons: [{
         text: '确定',
@@ -53,7 +53,6 @@ export class RegisterPage implements OnInit {
           typeof(confirmAction) === "undefined"  ? 1>0 : confirmAction();
         }
       }]
-
     });
     alert.present();
 

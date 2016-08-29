@@ -1,9 +1,8 @@
 
-.login{
-
+.login {
   //display: flex;
   //justify-content: space-around;
-  input{
+  input {
     display: block;
     border: 2px solid cyan;
     width: 85%;
@@ -12,14 +11,14 @@
     margin-top: 20px;
   }
 
-  button{
+  button {
     height: 40px;
     width: 65%;
-    margin:  0 auto;
+    margin: 0 auto;
     margin-top: 10px;
   }
 
-  .registerBtn,.findPwdBtn{
+  .registerBtn, .findPwdBtn {
     width: 25%;
     height: 30px;
   }

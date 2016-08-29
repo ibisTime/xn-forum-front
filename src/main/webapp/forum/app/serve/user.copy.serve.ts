@@ -1,9 +1,6 @@
 /**
  * Created by tianlei on 16/8/29.
  */
-/**
- * Created by tianlei on 16/8/29.
- */
 import { NativeStorage } from 'ionic-native';
 
 import {Injectable} from '@angular/core';
@@ -13,8 +10,7 @@ import {App} from "ionic-angular";
 export const USER_ID = 'userID';
 
 @Injectable()
-export class UserService {
-
+export class UserCopyService {
 
   isLogined:boolean = true;
   //userID 进行保存
@@ -26,7 +22,6 @@ export class UserService {
   saveUserInfo(userID:string){
     this.userId = userID;
     NativeStorage.setItem(USER_ID,userID);
-
   }
 
   loginState(){

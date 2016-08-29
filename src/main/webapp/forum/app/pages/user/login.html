@@ -7,16 +7,12 @@
 </ion-header>
 
 <ion-content padding class="login">
-
   <p text-center>sos</p>
-
   <input #userName placeholder="请输入账户">
   <input #pwd placeholder="请输入密码">
   <div text-center>
-    <button  (click)="login(userName.value,pwd.value)" >登陆</button>
+    <button (click)="login(userName.value,pwd.value)">登陆</button>
   </div>
-  <button class="registerBtn"  (click)="register($event)" >注册</button>
-  <button class="findPwdBtn"  (click)="findPwd($event)" >找回密码</button>
-
-
+  <button class="registerBtn" (click)="register($event)">注册</button>
+  <button class="findPwdBtn" (click)="findPwd($event)">找回密码</button>
 </ion-content>
