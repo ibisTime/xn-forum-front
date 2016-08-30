@@ -266,7 +266,7 @@ export class KefuService {
   }
 
   //发消息
-  sendTextMsg(message,to,successCallBack: (id, serverMsgId) => void, msgtype) {
+  sendTextMsg(message,to,successCallBack: (id, serverMsgId) => void, msgtype, ext?) {
 
       let id = this.conn.getUniqueId();//生成本地消息id
       let msg = new WebIM.message('txt', id);//创建文本消息
@@ -274,18 +274,13 @@ export class KefuService {
         msg: message,
         to: to,
         msgtype: msgtype,
+        ext:ext || "",
         success:  (id, serverMsgId) => {
           successCallBack(id, serverMsgId);
         }
       });
       this.conn.send(msg.body);
   }
-
-
-
-
-
-
 
   //注册
   register(userName,password,nickName): Promise<any>{
@@ -308,14 +303,6 @@ export class KefuService {
     });
   }
 
-  //加好友
-  addFriend(to: string, msg: string){
-    this.conn.subscribe({
-      to: to,
-      message: msg
-    });
-  }
-
   //登陆
   login(userName,password){
     let loginOptions = {
@@ -332,4 +319,22 @@ export class KefuService {
     this.conn.close();
   }
 
+  //满意度调查
+  sendSatisfaction( level, content, session, invite ) {
+      var me = this;
+      var dom = document.getElementById("satisfactionDialog");
+      this.sendTextMsg("", "13333333333", function(){
+        console.log("sendSatisOk");
+      }, "",{
+              weichat: {
+                  ctrlType: 'enquiry'
+                  , ctrlArgs: {
+                      inviteId: invite || ''
+                      , serviceSessionId: session || ''
+                      , detail: content
+                      , summary: level
+                  }
+              }
+          });
+  }
 }

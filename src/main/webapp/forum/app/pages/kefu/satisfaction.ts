@@ -31,7 +31,7 @@ export class Satisfaction {
     this.buttons = this.dom.getElementsByTagName('button');
     this.cancelBtn = this.buttons[0];
     this.submitBtn = this.buttons[1];
-    this.success = this.dom.getElementsByTagName('div')[1];
+    this.success = document.getElementById('satisfactionSuccess');
     this.getStarLevel = ()=> {
       var count = 0;
 
@@ -44,7 +44,7 @@ export class Satisfaction {
     };
     this.clearStars = ()=> {
       for ( var i = this.lis.length; i > 0; i-- ) {
-        this.lis[i-1].className = this.lis[i-1].className.replace("sel", "");
+        this.lis[i-1].className = (this.lis[i-1].className.replace("sel", "")).trim();
       }
     };
 
@@ -59,38 +59,43 @@ export class Satisfaction {
       for ( var i = 0; i < this.lis.length; i++ ) {
         if ( i < Number(cur) ) {
           this.lis[i].className = this.lis[i].className.replace("sel", "");
-          this.lis[i].className = this.lis[i].className + " " + "sel";
+          this.lis[i].className = "sel";
         } else {
           this.lis[i].className = this.lis[i].className.replace("sel", "");
         }
       }
     };
   }
-  cancelSatis(){
-    this.dom.className = this.dom.className.replace('em-hide', "");
+  doCancelSatis(){
+    this.dom.className = (this.dom.className.replace('em-hide', "")).trim();
     this.dom.className = this.dom.className + ' ' +'em-hide';
   }
-  submitSatis(){
+  doSubmitSatis(){
     var level = this.getStarLevel();
 
     if ( level === 0 ) {
       alert('请先选择星级');
       return false;
     }
-    //this.imServe.sendSatisfaction(level, this.msg.value, this.session, this.invite);
+    this.imServe.sendSatisfaction(level, this.msg.value, this.session, this.invite);
 
     this.msg.blur();
-    this.success.className = this.success.className.replace("em-hide", "");
-    setTimeout(function(){
-      this.msg.value = '';
-      this.clearStars();
-      this.success.className = this.success.className + ' ' + 'em-hide';
-      this.dom.className = this.dom.className + ' ' + 'em-hide';
-    }, 1500);
+    this.success.className = this.success.className.replace("em-hide", "").trim();
+    (function(that){
+      setTimeout(function(){
+      that.msg.value = '';
+      that.clearStars();
+      that.success.className = that.success.className.replace("em-hide", "").trim();
+      setTimeout(function(){
+        that.dom.className = (that.dom.className + ' ' + 'em-hide').trim();
+        that.success.className = that.success.className + " " + "em-hide";
+      }, 1500);
+    }, 1500)
+    })(this);
   }
   doPingjia(inviteId:string, serviceSessionId:string){
      this.session = serviceSessionId;
      this.invite = inviteId;
-     this.dom.className = this.dom.className.replace('em-hide', "");
+     this.dom.className = (this.dom.className.replace('em-hide', "")).trim();
   }
 }

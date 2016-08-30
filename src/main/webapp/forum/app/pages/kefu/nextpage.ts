@@ -16,13 +16,11 @@ import {Satisfaction} from "./satisfaction";
 })
 export class NextPage implements OnInit {
 
-  listOfmsg = [{text:"我发送的",isMine:true},
-               {text:"对方",isMine:false},
-               {text:"我发送的",isMine:true}];
   inputValue;
   isMine = true;
   listOfChatData;
   private satisfaction;
+  private scbT = 0;
 
 
   @ViewChild(Content) content: Content;
@@ -49,22 +47,29 @@ export class NextPage implements OnInit {
     this.imServe.handleToMsg(value,this.params.data);
     this.imServe.sendTextMsg(value,this.params.data, (id, serverMsgId) => {
     }, "");
-    this.imServe.addFriend('tianlei004',this.imServe.me);
   }
   doCaidan(id, name){
       this.imServe.handleToMsg(name,this.params.data);
       this.imServe.sendTextMsg(name,this.params.data, (id, serverMsgId) => {
       }, {choice: { menuid: id }});
-      this.imServe.addFriend('tianlei004',this.imServe.me);
   }
   doPingjia(inviteId, serviceSessionId){
     this.satisfaction.initArgs();
     this.satisfaction.doPingjia(inviteId, serviceSessionId);
   }
   cancelSatis(){
-    this.satisfaction.cancelSatis();
+    this.satisfaction.doCancelSatis();
   }
   submitSatis(){
-    this.satisfaction.submitSatis();
+    this.satisfaction.doSubmitSatis();
+  }
+  scrollBottom( wait ) {
+      var ocw = document.getElementById("imCont");
+
+      wait 
+      ? (clearTimeout(this.scbT), this.scbT = setTimeout(function () {
+          ocw.scrollTop = ocw.scrollHeight - ocw.offsetHeight + 10000;
+      }, wait))
+      : (ocw.scrollTop = ocw.scrollHeight - ocw.offsetHeight + 10000);
   }
 }//类的结尾
