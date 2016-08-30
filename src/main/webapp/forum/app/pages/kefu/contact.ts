@@ -18,11 +18,6 @@ export class ContactPage implements AfterViewInit{
   }
 
   //
-  openIm(event){
-    this.navCtrl.push(NextPage,{name: "tianlei", age: 18});
-  }
-
-  //
   url = "http://121.43.101.148:8065/im.html?tenantId=26192&restServer=a1.easemob.com&appKey=xiongniu-123%23chatapp&user=14444444443&to=13333333333&ticket=false&hideKeyboard=true"
   nextPage(event) {
     // this.navCtrl.push(NextPage);
@@ -91,14 +86,11 @@ export class ContactPage implements AfterViewInit{
   }
 
   sendMsg(){
-    this.imServe.addFriend('tianlei004','me');
-
     console.log('发送消息');
     this.imServe.handleToMsg('serve:我要发信息','13333333333');
     this.imServe.sendTextMsg('serve:我要发信息','13333333333',(id, serverMsgId)=>{
       console.log('发送成功'+ id +'----'+ serverMsgId);
     }, "");
-
   }
 
 }
