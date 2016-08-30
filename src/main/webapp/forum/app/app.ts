@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 import {Platform, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
-import {IMService} from "./serve/im.serve";
-import {KefuService} from "./serve/kefu.serve";
 import {UserService} from "./serve/user.serve";
 import {LoginPage} from "./pages/user/login";
-import {UserCopyService} from "./serve/user.copy.serve";
+// import {UserCopyService} from "./serve/user.copy.serve";
+
+import {MY_SERVE} from "./serve/serve";
 
 
 @Component({
@@ -16,12 +16,12 @@ export class MyApp {
 
   private rootPage: any;
 
-  constructor(private platform: Platform,
-              private userServe: UserService) {
+  constructor(private platform: Platform
+              ) {
 
-    this.rootPage = TabsPage;
+    // this.rootPage = TabsPage;
 
-    // this.rootPage = LoginPage;
+    this.rootPage = LoginPage;
 
     // userServe.loginState().then((msg) => {
     //
@@ -41,9 +41,14 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp,
-  [IMService,KefuService,UserService,UserCopyService],
+ionicBootstrap(MyApp, MY_SERVE,
   {
   tabsHideOnSubPages: true,
   backButtonText:'后退'
+
+}).catch( (error) => {
+
+  console.log('app-出现错误');
+  console.log(error);
+
 });

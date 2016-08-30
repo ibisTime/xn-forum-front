@@ -1,9 +1,7 @@
 /**
  * Created by tianlei on 16/8/29.
  */
-/**
- * Created by tianlei on 16/8/29.
- */
+
 import { NativeStorage } from 'ionic-native';
 
 import {Injectable} from '@angular/core';

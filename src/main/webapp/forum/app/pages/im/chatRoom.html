@@ -10,13 +10,13 @@
   <div class="imContent">
     <div *ngFor="let msgItem of listOfChatData">
       <!--我发送的-->
-      <div class="mine" *ngIf="msgItem.from !== 'tianlei005'">
+      <div class="mine" *ngIf="msgItem.from !== imServe.me">
         <img src="images/u1.jpg">
         <div>{{msgItem.data}}</div>
       </div>
 
       <!--对方发送的-->
-      <div class="other" *ngIf="msgItem.from === 'tianlei005'">
+      <div class="other" *ngIf="msgItem.from === imServe.me">
         <div>{{msgItem.data}}</div>
         <img src="images/u2.jpg">
       </div>

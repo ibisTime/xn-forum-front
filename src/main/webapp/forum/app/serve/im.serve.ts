@@ -28,10 +28,11 @@ class ListItem{
 
 @Injectable()
 export class IMService {
+  private  url =  'im-api.easemob.com';
   private  apiUrl = 'http:' + '//a1.easemob.com';
   private  appKey = "easemob-demo#chatdemoui";
   // private  appKey = "xiongniu-123#chatapp";
-  private  url =  'im-api.easemob.com';
+
   me: string = '';
 
   //存储全部聊天数据的对象

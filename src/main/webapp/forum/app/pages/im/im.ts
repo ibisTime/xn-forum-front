@@ -14,12 +14,9 @@ export class ImPage implements AfterViewInit{
   //
   constructor(private navCtrl: NavController,
               public  imServe: IMService) {
-
   }
-
   //
   url = "http://121.43.101.148:8065/im.html?tenantId=26192&restServer=a1.easemob.com&appKey=xiongniu-123%23chatapp&user=14444444443&to=13333333333&ticket=false&hideKeyboard=true"
-
   ngAfterViewInit() {
     //2.登陆
     this.imServe.onTextMessage = (msg) => {
@@ -35,12 +32,6 @@ export class ImPage implements AfterViewInit{
     this.navCtrl.push(ChatRoomPage,from);
   }
 
-  imStart(){
-    this.imServe.login('tianlei005',"123456");
-    this.imServe.onOpened = () => {
-      console.log('外部---连接成功');
-    };
-  }
 
   imClose(){
     console.log(this.navCtrl.parent);
@@ -49,6 +40,10 @@ export class ImPage implements AfterViewInit{
     tab1.tabBadge = "···";
     console.log(this.navCtrl.parent);
     this.imServe.close();
+  }
+
+  addFriend(friendName){
+    this.imServe.addFriend(friendName,`我是${this.imServe.me}`);
   }
 
   sendMsg(){

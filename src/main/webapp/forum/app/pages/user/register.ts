@@ -3,15 +3,17 @@ import {AlertController, App, ToastController} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 import {UserService} from "../../serve/user.serve";
 import {IMService} from "../../serve/im.serve";
+import {WarnService} from "../../serve/warn.serve";
 
 
 @Component({
-    templateUrl: "build/pages/login/register.html"
+    templateUrl: "build/pages/user/register.html",
+    providers: [UserService]
 })
 export class RegisterPage implements OnInit {
-    constructor( private alert: AlertController,
+    constructor(
                  private app:App,
-                 private toast: ToastController,
+                 private warnCtrl: WarnService,
                  private user: UserService,
                  private imServe: IMService) { }
 
@@ -21,41 +23,22 @@ export class RegisterPage implements OnInit {
 
     if (!(userName.length > 5 && pwd.length > 5)) {
 
-      this.cdAlert('请输入正确的账户名和密码');
+      this.warnCtrl.alert('请输入正确的账户名和密码');
 
     } else {
 
       //检测到用户没有注册,帮助注册环信
-      this.imServe.register(userName, pwd, userName);
-
-      let toast = this.toast.create({
-        message: '注册成功',
-        duration: 3000,
-        position: 'top',
+      this.imServe.register(userName, pwd, userName).then(() => {
+        this.imServe.login(userName,pwd);
       });
-      toast.present();
-
+      //提示
+      this.warnCtrl.toast('注册成功');
+      //保存用户信息
       this.user.saveUserInfo(userName);
-
       this.app.getRootNav().setRoot(TabsPage);
     }
 
   }
 
-  cdAlert(message,confirmAction?: () => void){
-
-    let  alert = this.alert.create({
-      message: message,
-      buttons: [{
-        text: '确定',
-        handler: () => {
-          // console.log(confirmAction);
-          typeof(confirmAction) === "undefined"  ? 1>0 : confirmAction();
-        }
-      }]
-    });
-    alert.present();
-
-  };
 
 }

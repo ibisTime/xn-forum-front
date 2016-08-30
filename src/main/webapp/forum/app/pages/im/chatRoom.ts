@@ -25,7 +25,7 @@ export class ChatRoomPage implements OnInit {
   @ViewChild('bootomInput') msgPut: any;
 
   constructor(private  nav: NavController,
-              private imServe: IMService,
+              public imServe: IMService,
               private params: NavParams) {
 
     console.log(params.data);
@@ -39,7 +39,7 @@ export class ChatRoomPage implements OnInit {
 
     setTimeout(() => {
       Keyboard.disableScroll(false);
-    },2000)
+    },1000);
 
   }
 
@@ -59,10 +59,10 @@ export class ChatRoomPage implements OnInit {
     this.imServe.sendTextMsg(msgInput.value,this.params.data, (id, serverMsgId) => {
       msgInput.value = "";
     });
+
     setTimeout(() => {
       this.content.scrollToBottom();
     },200)
-
 
   }
 
