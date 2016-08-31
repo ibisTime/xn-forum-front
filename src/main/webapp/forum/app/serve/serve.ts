@@ -1,6 +1,8 @@
 import {IMService} from "./im.serve";
 import {KefuService} from "./kefu.serve";
 import {WarnService} from "./warn.serve";
+import {UserAccountService} from "./user-account.serve";
+import {UserService} from "./user.serve";
 /**
  * Created by tianlei on 16/8/30.
  */
@@ -8,5 +10,7 @@ import {WarnService} from "./warn.serve";
 export const  MY_SERVE = [
   IMService,
   KefuService,
-  WarnService
+  WarnService,
+  UserAccountService
+
 ];

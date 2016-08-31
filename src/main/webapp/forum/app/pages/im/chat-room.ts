@@ -7,14 +7,13 @@ import { NgFor } from '@angular/common';
 import {NavController, InfiniteScroll, Scroll, Content, NavParams, TextInput} from 'ionic-angular'
 import { Keyboard } from 'ionic-native';
 import {IMService} from "../../serve/im.serve";
-// import {ReleaseServe} from "../serve/Release.serve";
+import {AfterViewInit} from "@angular/core";
 
 
 @Component({
-  templateUrl: 'build/pages/im/chatRoom.html'
-  // styleUrls: ['app/pages/contact/css/base.css']
+  templateUrl: 'build/pages/im/chat-room.html'
 })
-export class ChatRoomPage implements OnInit {
+export class ChatRoomPage implements AfterViewInit {
 
   inputValue;
   isMine = true;
@@ -22,7 +21,7 @@ export class ChatRoomPage implements OnInit {
   disable = false;
 
   @ViewChild(Content) content: Content;
-  @ViewChild('bootomInput') msgPut: any;
+  // @ViewChild('imInput') msgPut: any;
 
   constructor(private  nav: NavController,
               public imServe: IMService,
@@ -30,6 +29,7 @@ export class ChatRoomPage implements OnInit {
 
     console.log(params.data);
     this.listOfChatData = this.imServe.getDataByFromName(params.data);
+
     //1.哪到导航数据就去获取信息
     this.imServe.onTextMessageInner = msg => {
       setTimeout(() => {
@@ -37,16 +37,14 @@ export class ChatRoomPage implements OnInit {
       },300)
     };
 
-    setTimeout(() => {
-      Keyboard.disableScroll(false);
-    },1000);
 
   }
 
-  ngOnInit() {
-
+  ngAfterViewInit() {
+    // this.msgPut.setFocus();
   }
 
+  //解决刚进入时有很多聊天记录
   ionViewWillEnter(){
     setTimeout(() => {
       this.content.scrollToBottom();
@@ -58,6 +56,7 @@ export class ChatRoomPage implements OnInit {
     this.imServe.handleToMsg(msgInput.value,this.params.data);
     this.imServe.sendTextMsg(msgInput.value,this.params.data, (id, serverMsgId) => {
       msgInput.value = "";
+      msgInput.setFocus();
     });
 
     setTimeout(() => {

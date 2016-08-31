@@ -17,7 +17,7 @@ interface UserInfo{
 
 
 @Injectable()
-export class UserService {
+export class UserAccountService {
 
   isLogined: boolean = true;
   //userID 进行保存
@@ -41,7 +41,7 @@ export class UserService {
   }
 
   loginState(){
-    return true;
+    return false;
     // return NativeStorage.getItem(USER).then( () => {
     //
     // }).catch( () => {

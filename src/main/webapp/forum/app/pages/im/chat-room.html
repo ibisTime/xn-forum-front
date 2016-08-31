@@ -25,7 +25,7 @@
   </div>
 
   <div class="bootomInput">
-    <ion-input type="text" #msgInput  placeholder="请输入信息" ></ion-input>
+    <ion-input class="imInput" type="text" #msgInput  placeholder="请输入信息" ></ion-input>
     <button danger (click)="sendMsg(msgInput)" [disabled]="msgInput.value.length <= 0">发送</button>
   </div>
 

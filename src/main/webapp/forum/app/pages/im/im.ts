@@ -1,30 +1,62 @@
 import {Component, AfterViewInit} from '@angular/core';
 import { NavController, App, Tabs } from 'ionic-angular';
-import {ChatRoomPage } from './chatRoom';
+import {ChatRoomPage } from './chat-room';
 
-import { LocalNotifications, Badge} from 'ionic-native';
+import { LocalNotifications, Badge, Keyboard} from 'ionic-native';
 
 import {IMService} from "../../serve/im.serve";
+import {WarnService} from "../../serve/warn.serve";
+import {UserService} from "../../serve/user.serve";
+import {UserAccountService} from "../../serve/user-account.serve";
 
 @Component({
   templateUrl: 'build/pages/im/im.html'
 })
 export class ImPage implements AfterViewInit{
 
-  //
+  url = "http://121.43.101.148:8065/im.html?tenantId=26192&restServer=a1.easemob.com&appKey=xiongniu-123%23chatapp&user=14444444443&to=13333333333&ticket=false&hideKeyboard=true"
+
   constructor(private navCtrl: NavController,
-              public  imServe: IMService) {
+              public  imServe: IMService,
+              private warn: WarnService,
+              private userServe: UserAccountService) {
+
+    console.log("im被创建了");
+
   }
   //
-  url = "http://121.43.101.148:8065/im.html?tenantId=26192&restServer=a1.easemob.com&appKey=xiongniu-123%23chatapp&user=14444444443&to=13333333333&ticket=false&hideKeyboard=true"
+
   ngAfterViewInit() {
-    //2.登陆
+
+    //登陆环信
+    this.imServe.login(this.userServe.userName,
+      this.userServe.password);
+
     this.imServe.onTextMessage = (msg) => {
-
-      this.imServe.handleFromMsg(msg);
       Badge.increase(1);
-
     };
+
+    this.imServe.onPresence = (msg) => {
+
+      if ( msg.type === 'subscribe' ) {
+        this.warn.alertWithCanale(`${msg.from}`+"要添加你为好友", () => {
+
+          this.imServe.conn.subscribed({
+            to: msg.from,
+            message : "[resp:true]"
+          });
+          this.imServe.conn.subscribe({//需要反向添加对方好友
+            to: msg.from,
+            message : "[resp:true]"
+          });
+
+        });
+      }
+    }
+    setTimeout(() => {
+      Keyboard.disableScroll(false);
+    },2000);
+
   }
 
   goChatRoom(from: string){
@@ -46,6 +78,9 @@ export class ImPage implements AfterViewInit{
     this.imServe.addFriend(friendName,`我是${this.imServe.me}`);
   }
 
+  getFriendList(){
+    this.imServe.getFriendList();
+  }
   sendMsg(){
 
     // this.im.·Serve.addFriend('tianlei004','me');

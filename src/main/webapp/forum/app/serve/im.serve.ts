@@ -39,12 +39,14 @@ export class IMService {
   listOfChatRoomData: any = {};
   //存储聊天列表数据的对象
   listOfOpposite: Array<ListItem> = [];
+  //好友列表
+  listOfFriend: any[] = [];
 
   onOpened: () => void; //登陆连接成功回调
   // onClosed: (msg) => void; //连接关闭
   onTextMessage: (msg) => void;
   onTextMessageInner: (msg) => void;
-
+  onPresence: (msg) => void;
   onPictureMessage: (msg) => void;
   onFileMessage: (msg)=> void;
 
@@ -61,11 +63,13 @@ export class IMService {
   constructor() {
 
     this.conn.listen({
-      onOpened:  () => {          //连接成功回调
+      onOpened:  (msg) => {          //连接成功回调
         //如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
         this.conn.setPresence();
         // this.onOpened();
         this.onOpened();
+        //登陆成功获取好友列表
+        this.getFriendList();
       },
       // //连接关闭回调
       onClosed:  (message) => {
@@ -74,14 +78,22 @@ export class IMService {
       },
       onOnline:  () => { console.log('本机网络连接成功'); },                  //本机网络连接成功
       onOffline: () => { console.log('本机网络掉线')},                 //本机网络掉线
-      onPresence: (msg) => { console.log('添加好友请求'); },//添加好友
-      // //收到文本消息
-      onTextMessage:  (message) => {
+      onPresence: (msg) => {
+        console.log('有人要添加好友了请求');
+        console.log(msg);
+        (typeof (this.onPresence) == "function") && this.onPresence(msg);
 
+      },//添加好友
+      // //收到文本消息
+      onTextMessage:  (msg) => {
+
+        //处理收到的信息
+        this.handleFromMsg(msg);
         console.log('imserve' + '收到信息');
-        console.log(message);
-        typeof (this.onTextMessage) == "function" ? this.onTextMessage(message) :"";
-        typeof (this.onTextMessageInner) == "function" ? this.onTextMessageInner(message) :"";
+        console.log(msg);
+        typeof (this.onTextMessage) == "function" ? this.onTextMessage(msg) :"";
+        typeof (this.onTextMessageInner) == "function" ? this.onTextMessageInner(msg) :"";
+
       },
       onPictureMessage: (message) => {
         console.log("picture");
@@ -104,8 +116,9 @@ export class IMService {
   getDataByFromName( from) : Array<MsgObj>{
     //1.不存在数据
     if ( typeof(this.listOfChatRoomData[from]) === "undefined"){
+      this.listOfChatRoomData[from] = [];
       console.log('没有查找到数据');
-      return [];
+      return this.listOfChatRoomData[from];
     }
     //2.存在数据
     console.log('查找到数据');
@@ -225,6 +238,20 @@ export class IMService {
     });
   }
 
+  //获取好友列表
+  getFriendList(){
+   console.log("登陆成功后 获取好友列表");
+    this.conn.getRoster({
+      success : (roster) => {
+        console.log(roster);
+        this.listOfFriend = roster;
+        // console.log(typeof(roster));
+        // (typeof(roster) == "Object") && (this.listOfFriend = roster);
+
+      }
+    })
+  }
+
   //登陆
   login(userName,password){
     this.me = userName;//保存用户信息
@@ -236,6 +263,13 @@ export class IMService {
     };
 
     this.conn.open(loginOptions);
+  }
+
+  clearCurrentData(){
+    this.listOfChatRoomData = {};
+    //存储聊天列表数据的对象
+    this.listOfOpposite = [];
+
   }
 
   close(){

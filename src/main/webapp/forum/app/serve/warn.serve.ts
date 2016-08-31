@@ -19,10 +19,29 @@ export class WarnService {
       buttons: [{
         text: '确定',
         handler: () => {
-          confirmAction ? confirmAction() : 1>0;
+          confirmAction ? confirmAction() : 1;
           // typeof(confirmAction) === "undefined"  ? 1>0 : confirmAction();
         }
       }]
+    });
+    alert.present();
+  }
+  alertWithCanale(msg: string,confirmAction?: () => void){
+    let  alert = this.alertCtrl.create({
+      message: msg,
+      buttons: [
+        {
+          text: '取消',
+          handler: () => {
+          }
+        },
+        {
+          text: '确定',
+          handler: () => {
+            confirmAction ? confirmAction() : 1;
+            // typeof(confirmAction) === "undefined"  ? 1>0 : confirmAction();
+          }
+        }]
     });
     alert.present();
   }

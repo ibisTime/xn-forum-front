@@ -1,23 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import {AlertController, App, ToastController} from "ionic-angular";
+import { App} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 import {UserService} from "../../serve/user.serve";
 import {IMService} from "../../serve/im.serve";
 import {WarnService} from "../../serve/warn.serve";
+import {UserAccountService} from "../../serve/user-account.serve";
 
 
 @Component({
-    templateUrl: "build/pages/user/register.html",
-    providers: [UserService]
+    templateUrl: "build/pages/user/register.html"
 })
 export class RegisterPage implements OnInit {
     constructor(
                  private app:App,
                  private warnCtrl: WarnService,
-                 private user: UserService,
-                 private imServe: IMService) { }
+                 private user: UserAccountService,
+                 private imServe: IMService) {
+    }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   register(userName, pwd) {
 
@@ -27,14 +29,11 @@ export class RegisterPage implements OnInit {
 
     } else {
 
-      //检测到用户没有注册,帮助注册环信
-      this.imServe.register(userName, pwd, userName).then(() => {
-        this.imServe.login(userName,pwd);
-      });
+      //检测到用户没有注册,环信在im模块登陆
       //提示
       this.warnCtrl.toast('注册成功');
       //保存用户信息
-      this.user.saveUserInfo(userName);
+      this.user.saveUserInfo(userName, pwd);
       this.app.getRootNav().setRoot(TabsPage);
     }
 
