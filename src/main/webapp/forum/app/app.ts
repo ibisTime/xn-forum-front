@@ -2,10 +2,11 @@ import {Component} from '@angular/core';
 import {Platform, ionicBootstrap, InfiniteScroll, Content} from 'ionic-angular';
 import {StatusBar, Keyboard} from 'ionic-native';
 import {LoginPage} from "./pages/user/login";
-import {MY_SERVE} from "./serve/serve";
+import {MY_SERVE} from "./serve/services";
 import {TabsPage} from "./pages/tabs/tabs";
 import {UserAccountService} from "./serve/user-account.serve";
 import {Key} from "ionic-angular/util/key";
+import {HttpService} from "./serve/http.service";
 
 
 @Component({
@@ -16,16 +17,21 @@ export class MyApp {
   private rootPage: any;
 
   constructor(private platform: Platform,
-              private userService: UserAccountService
+              private userService: UserAccountService,
+              private http: HttpService
               ) {
 
 
 
-    // this.rootPage = LoginPage;
 
-    // this.rootPage = LoginPage;
+    let hero = {
+      name: "tianlei005",
+      age: 22
+    }
+    this.http.get("tianlei",hero);
+    this.http.get(null,hero,"www.baidu.com");
 
-    // this.imServe.close();is
+
     if(this.userService.loginState()){
 
       this.rootPage = LoginPage;

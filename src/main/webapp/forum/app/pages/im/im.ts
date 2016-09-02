@@ -5,7 +5,7 @@ import {ChatRoomPage } from './chat-room';
 import { LocalNotifications, Badge} from 'ionic-native';
 
 import {IMService} from "../../serve/im.serve";
-import {WarnService} from "../../serve/warn.serve";
+import {WarnService} from "../../serve/warn.service";
 import {UserAccountService} from "../../serve/user-account.serve";
 
 @Component({

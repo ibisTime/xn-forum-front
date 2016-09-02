@@ -15,6 +15,7 @@ export class CaptchaComponent implements OnInit {
   time = 10;
   disabled = false;
   btn;
+  captcha: string;
   @Output() clickCaptchaBtn = new EventEmitter();
 
   constructor() {}
