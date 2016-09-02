@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      下一个聊天界面
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="nextpage">
+
+  <!--聊天信息-->
+  <div class="imContent" id="imCont">
+      <div *ngFor="let msgItem of listOfChatData">
+        <!--对方发送的-->
+        <div class="mine" *ngIf="msgItem.from !== 'tianlei005'">
+          <img src="images/u1.jpg">
+          <div *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'">{{msgItem.data}}</div>
+          <div *ngIf="msgItem.emotionFlag">
+            <span *ngFor="let ed of msgItem.emotionArr">
+              <span *ngIf="ed[0]">{{ed[0]}}</span><img *ngIf="ed[1]" src="{{ed[1]}}"/>
+            </span>
+          </div>
+          <div *ngIf="msgItem.type == 'picture'">
+            <img src="{{msgItem.url}}"/>
+          </div>
+          <div *ngIf="msgItem.type == 'file'">
+            <a style="display:block;" href="{{msgItem.url}}" title="{{msgItem.filename}}">
+              <img class="easemobWidget-msg-fileicon" src="images/file_download.png"/>
+              <span style="float: left">{{msgItem.filename}}</span>
+            </a>
+          </div>
+          <div style="max-width: 100%;" *ngIf="msgItem.ext && msgItem.ext.msgtype && msgItem.ext.msgtype.choice">
+            <div style="display:block;max-width: 100%;">{{msgItem.ext.msgtype.choice.title}}</div>
+            <button style="display:block" *ngFor="let item of msgItem.ext.msgtype.choice.items" (click)="doCaidan(item.id,item.name)">{{item.name}}</button>
+          </div>
+          <div *ngIf="msgItem.type=='satisfactionEvaluation'">
+            <div style="display:block;max-width: 100%;">请对我的服务做出评价</div>
+            <button style="display:block" (click)="doPingjia(msgItem.ext.weichat.ctrlArgs.inviteId,msgItem.ext.weichat.ctrlArgs.serviceSessionId)">立即评价</button>
+          </div>
+        </div>
+
+        <!--我发送的-->
+        <div class="other" *ngIf="msgItem.from === 'tianlei005'">
+          <div *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'">{{msgItem.data}}</div>
+          <div *ngIf="msgItem.emotionFlag">
+            <span *ngFor="let ed of msgItem.emotionArr">
+              <span *ngIf="ed[0]">{{ed[0]}}</span><img *ngIf="ed[1]" src="{{ed[1]}}"/>
+            </span>
+          </div>
+          <div *ngIf="msgItem.type == 'picture'">
+            <img src="{{msgItem.url}}"/>
+          </div>
+          <div *ngIf="msgItem.type == 'file'">
+            <a style="display:block;" href="{{msgItem.url}}" title="{{msgItem.filename}}">
+              <img class="easemobWidget-msg-fileicon" src="images/file_download.png"/>
+              <span style="float: left">{{msgItem.filename}}</span>
+            </a>
+          </div>
+          <div style="max-width: 100%;" *ngIf="msgItem.ext && msgItem.ext.msgtype && msgItem.ext.msgtype.choice">
+            <div style="display:block;max-width: 100%;">{{msgItem.ext.msgtype.choice.title}}</div>
+            <button style="display:block" *ngFor="let item of msgItem.ext.msgtype.choice.items" (click)="doCaidan(item.id,item.name)">{{item.name}}</button>
+          </div>
+          <img src="images/u2.jpg"/>
+        </div>
+      </div>
+  </div>
+  <div style="height: 40px;"></div>
+  <div class="bootomInput">
+    <input  #msgInput [(ngModel)]="inputValue" placeholder="请输入信息">
+    <button (click)="sendMsg(msgInput.value)">发送</button>
+  </div>
+  <div class="easemobWidget-dialog easemobWidget-satisfaction-dialog em-hide" id="satisfactionDialog">
+    <h3>请对我的服务做出评价</h3>
+    <ul><li idx='1'>H</li><li idx='2'>H</li><li idx='3'>H</li><li idx='4'>H</li><li idx='5'>H</li></ul>
+    <textarea spellcheck='false' placeholder='请输入留言'></textarea>
+    <div>
+      <button class='easemobWidget-cancel' (click)="cancelSatis()">取消</button>
+      <button class='bg-color' (click)="submitSatis()">提交</button>
+    </div>
+    <div class='easemobWidget-success-prompt em-hide' id="satisfactionSuccess"><i>A</i><p>提交成功</p></div>
+  </div>
+
+
+</ion-content>
+<!--<ion-footer>-->
+  <!--<div class="bootomInput">-->
+    <!--<input id="msgInput" #msgInput [(ngModel)]="inputValue" placeholder="请输入信息">-->
+    <!--<button (click)="sendMsg($event)">发送</button>-->
+  <!--</div>-->
+<!--</ion-footer>-->
+

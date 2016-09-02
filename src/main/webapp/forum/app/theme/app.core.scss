@@ -1,0 +1,29 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Shared Imports
+// --------------------------------------------------
+// These are the imports which make up the design of this app.
+// By default each design mode includes these shared imports.
+// App Shared Sass variables belong in app.variables.scss.
+
+
+@import "../pages/home/home";
+@import "../serve/serve";
+//im
+@import "../pages/im/chat-room";
+@import "../pages/im/im";
+
+//kefu
+@import "../pages/kefu/contact";
+@import "../pages/kefu/nextpage";
+
+//注册界面
+@import "../pages/user/login";
+@import "../pages/user/register";
+
+//我的
+@import "../pages/mine/mine";
+
+//自定义组件
+@import "../components/cd-component.core";
