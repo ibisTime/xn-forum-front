@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Platform, App, NavController } from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
+
 import { RegisterPage } from './register';
 import {WarnService} from "../../serve/warn.serve";
 import {IMService} from "../../serve/im.serve";
 import {UserAccountService} from "../../serve/user-account.serve";
 
+import { CaptchaComponent } from '../../components/captcha-view/captcha.component'
 
 @Component({
   templateUrl: "build/pages/user/login.html"
@@ -34,7 +36,6 @@ export class LoginPage implements OnInit {
       return;
     }
     let loading = this.warnCtrl.loading('登录中');
-    loading.present();
 
     setTimeout(() => {
 
@@ -44,8 +45,10 @@ export class LoginPage implements OnInit {
         //保存用户信息
         this.userServe.saveUserInfo(userName,pwd);
         //切换控制
-        this.app.getRootNav().setRoot(TabsPage);
+        // this.app.getRootNav().setRoot(TabsPage);
+        this.navCtrl.push(TabsPage,null,{animate: false});
       });
+
 
     },500);
   }
@@ -53,5 +56,7 @@ export class LoginPage implements OnInit {
   register($event) {
     this.navCtrl.push(RegisterPage)
   }
+
+
 
 }

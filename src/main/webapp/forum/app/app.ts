@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {Platform, ionicBootstrap} from 'ionic-angular';
-import {StatusBar} from 'ionic-native';
+import {Platform, ionicBootstrap, InfiniteScroll, Content} from 'ionic-angular';
+import {StatusBar, Keyboard} from 'ionic-native';
 import {LoginPage} from "./pages/user/login";
 import {MY_SERVE} from "./serve/serve";
-
-
+import {TabsPage} from "./pages/tabs/tabs";
+import {UserAccountService} from "./serve/user-account.serve";
+import {Key} from "ionic-angular/util/key";
 
 
 @Component({
@@ -14,24 +15,26 @@ export class MyApp {
 
   private rootPage: any;
 
-  constructor(private platform: Platform
-
+  constructor(private platform: Platform,
+              private userService: UserAccountService
               ) {
 
-    this.rootPage = LoginPage;
+
+
+    // this.rootPage = LoginPage;
 
     // this.rootPage = LoginPage;
 
     // this.imServe.close();is
-    // if(this.userServe.loginState()){
-    //
-    //   this.rootPage = TabsPage;
-    //
-    // } else {
-    //
-    //   this.rootPage = LoginPage
-    //
-    // }
+    if(this.userService.loginState()){
+
+      this.rootPage = LoginPage;
+
+
+    } else {
+      this.rootPage = TabsPage;
+    }
+
     // this.userServe.loginState().then((msg) => {
     //
     //   this.rootPage = TabsPage;
@@ -47,6 +50,8 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      Keyboard.disableScroll(true);
+      Keyboard.hideKeyboardAccessoryBar(false);
       StatusBar.styleDefault();
     });
 
@@ -55,6 +60,7 @@ export class MyApp {
 
 ionicBootstrap(MyApp, MY_SERVE,
   {
+
   tabsHideOnSubPages: true,
   backButtonText:'后退'
 

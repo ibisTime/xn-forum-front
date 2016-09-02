@@ -47,10 +47,13 @@ export class WarnService {
   }
 
   loading(msg?: string){
-    return this.loadingCtrl.create({
+    let loading = this.loadingCtrl.create({
       spinner: 'ios',
       content: msg? msg :'加载中'
-    })
+    });
+    loading.present();
+
+    return loading;
   }
 
   toast(msg: string, duration?: number, position?: string) {

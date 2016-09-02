@@ -1,18 +1,21 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
+<ion-header >
+  <ion-navbar >
+    <ion-title >
       注册
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="register">
+<ion-content  class="register">
 
-  <input #account placeholder="请输入账户">
-  <input #pwd placeholder="请输入密码">
+
+  <input #account class="userNameInput" placeholder="请输入账户">
+  <input #pwd class="pwdInput" type="password" placeholder="请输入密码">
+  <captcha-view class="captcha-view" (clickCaptchaBtn)="captchaClick()" ></captcha-view>
+
 
   <div text-center>
-    <button  (click)="register(account.value,pwd.value)" >注册</button>
+    <button type="button" class="register-btn" (click)="register(account.value,pwd.value)" >注册</button>
   </div>
 
 </ion-content>

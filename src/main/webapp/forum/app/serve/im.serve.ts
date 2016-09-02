@@ -247,7 +247,6 @@ export class IMService {
         this.listOfFriend = roster;
         // console.log(typeof(roster));
         // (typeof(roster) == "Object") && (this.listOfFriend = roster);
-
       }
     })
   }
@@ -269,7 +268,8 @@ export class IMService {
     this.listOfChatRoomData = {};
     //存储聊天列表数据的对象
     this.listOfOpposite = [];
-
+    //好友列表清除
+    this.listOfFriend= [];
   }
 
   close(){

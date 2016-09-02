@@ -2,11 +2,10 @@ import {Component, AfterViewInit} from '@angular/core';
 import { NavController, App, Tabs } from 'ionic-angular';
 import {ChatRoomPage } from './chat-room';
 
-import { LocalNotifications, Badge, Keyboard} from 'ionic-native';
+import { LocalNotifications, Badge} from 'ionic-native';
 
 import {IMService} from "../../serve/im.serve";
 import {WarnService} from "../../serve/warn.serve";
-import {UserService} from "../../serve/user.serve";
 import {UserAccountService} from "../../serve/user-account.serve";
 
 @Component({
@@ -29,13 +28,10 @@ export class ImPage implements AfterViewInit{
   ngAfterViewInit() {
 
     //登陆环信
-    this.imServe.login(this.userServe.userName,
-      this.userServe.password);
-
+    this.imServe.login(this.userServe.userName, this.userServe.password);
     this.imServe.onTextMessage = (msg) => {
       Badge.increase(1);
     };
-
     this.imServe.onPresence = (msg) => {
 
       if ( msg.type === 'subscribe' ) {
@@ -53,9 +49,6 @@ export class ImPage implements AfterViewInit{
         });
       }
     }
-    setTimeout(() => {
-      Keyboard.disableScroll(false);
-    },2000);
 
   }
 

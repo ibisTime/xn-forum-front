@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header hidden="true">
   <ion-navbar>
     <ion-title>
       登陆
@@ -6,13 +6,18 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="login">
-  <p text-center>sos</p>
-  <input #userName placeholder="请输入账户" value="tianlei005">
-  <input #pwd placeholder="请输入密码" value="123456">
-  <div text-center>
-    <button (click)="login(userName.value,pwd.value)">登陆</button>
+<ion-content text-center class="login" >
+  <input #userName class="userNameInput" placeholder="请输入账户" >
+  <input #pwd class="pwdInput" placeholder="请输入密码" >
+
+  <div class="registerAndLogin">
+    <button class="registerBtn" (click)="register($event)">注册</button>
+    <button class="findPwdBtn" (click)="findPwd($event)" no-padding>找回密码</button>
   </div>
-  <button class="registerBtn" (click)="register($event)">注册</button>
-  <button class="findPwdBtn" (click)="findPwd($event)">找回密码</button>
+
+  <div text-center>
+    <button class="loginBtn" (click)="login(userName.value,pwd.value)">登陆</button>
+  </div>
+
+
 </ion-content>

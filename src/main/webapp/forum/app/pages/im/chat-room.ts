@@ -1,34 +1,45 @@
 /**
  * Created by tianlei on 16/8/24.
  */
-import {Component, OnInit, ViewChild, QueryList, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild, QueryList,
+         ElementRef,Renderer,OnChanges,
+  AfterViewChecked} from '@angular/core';
 import { NgFor } from '@angular/common';
 
-import {NavController, InfiniteScroll, Scroll, Content, NavParams, TextInput} from 'ionic-angular'
+import {NavController,Toolbar, Content, NavParams, TextInput, Platform, ViewController} from 'ionic-angular'
 import { Keyboard } from 'ionic-native';
 import {IMService} from "../../serve/im.serve";
 import {AfterViewInit} from "@angular/core";
+import { Observable }  from 'rxjs/Observable'
 
 
 @Component({
   templateUrl: 'build/pages/im/chat-room.html'
 })
-export class ChatRoomPage implements AfterViewInit {
+export class ChatRoomPage implements AfterViewInit , OnChanges{
 
   inputValue;
-  isMine = true;
   listOfChatData;
   disable = false;
+  placeholderView = false;
+  heightValue = "none";
+  height;
 
   @ViewChild(Content) content: Content;
-  // @ViewChild('imInput') msgPut: any;
+  @ViewChild(TextInput) msgPut: any;
 
   constructor(private  nav: NavController,
-              public imServe: IMService,
-              private params: NavParams) {
+              private imServe: IMService,
+              private params: NavParams,
+              private platform: Platform,
+              private vc: ViewController
+              ) {
 
     console.log(params.data);
     this.listOfChatData = this.imServe.getDataByFromName(params.data);
+
+    console.log('检测到平台');
+    console.log(this.platform.height(),this.platform.width());
 
     //1.哪到导航数据就去获取信息
     this.imServe.onTextMessageInner = msg => {
@@ -37,11 +48,50 @@ export class ChatRoomPage implements AfterViewInit {
       },300)
     };
 
+    setTimeout(() => {
+
+      console.log('你们好');
+      // this.platform.ready().then((msg) => {
+      //   Keyboard.disableScroll(false);
+      // });
+      this.platform.ready().then(() => {
+
+        Keyboard.onKeyboardShow().subscribe((msg) => {
+
+          // document.body.clientHeight - msg.keyboardHeight
+          // this.placeholderView = true;
+          this.heightValue = "block";
+          setTimeout(() => {
+
+            this.content.scrollToBottom();
+            console.log('键盘上来了');
+          },100)
+        });
+
+        Keyboard.onKeyboardHide().subscribe(() => {
+          this.placeholderView = false;
+          this.heightValue = "none";
+          setTimeout(() => {
+            this.content.scrollToBottom();
+            console.log('键盘下去了');
+          },100)
+        });
+
+      });
+
+    },2000);
+
+    //
 
   }
 
+  ngOnChanges(){
+    console.log('绑定改变');
+  }
+
+
   ngAfterViewInit() {
-    // this.msgPut.setFocus();
+
   }
 
   //解决刚进入时有很多聊天记录
@@ -53,10 +103,12 @@ export class ChatRoomPage implements AfterViewInit {
 
   sendMsg(msgInput) {
 
+    // this.msgPut.setFocus();
+
     this.imServe.handleToMsg(msgInput.value,this.params.data);
     this.imServe.sendTextMsg(msgInput.value,this.params.data, (id, serverMsgId) => {
       msgInput.value = "";
-      msgInput.setFocus();
+
     });
 
     setTimeout(() => {

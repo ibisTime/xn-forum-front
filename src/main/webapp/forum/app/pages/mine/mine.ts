@@ -3,22 +3,25 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "../../serve/user.serve";
 import {IMService} from "../../serve/im.serve";
+import {UserAccountService} from "../../serve/user-account.serve";
 
 @Component({
     templateUrl:"build/pages/mine/mine.html",
-    providers: [UserService]
+
 })
 export class MinePage implements OnInit {
-    constructor(private  userServe: UserService,private imServe: IMService) { }
+    constructor(private  userServe: UserAccountService,private imServe: IMService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+      // setInterval()
+  }
 
   loginOut($event){
 
     this.userServe.loginOut();
     this.imServe.clearCurrentData();
+    this.imServe.close();
 
   }
 

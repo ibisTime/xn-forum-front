@@ -41,7 +41,7 @@ export class UserAccountService {
   }
 
   loginState(){
-    return false;
+    return true;
     // return NativeStorage.getItem(USER).then( () => {
     //
     // }).catch( () => {

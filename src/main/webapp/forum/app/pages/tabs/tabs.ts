@@ -10,7 +10,6 @@ import {Tab, Tabs} from "ionic-angular";
 })
 export class TabsPage {
 
-  qq: Tabs
   private tab1Root: any;
   private tab2Root: any;
   private tab3Root: any;
