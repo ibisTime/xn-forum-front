@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { App} from "ionic-angular";
+import {App, NavController} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 import {IMService} from "../../serve/im.serve";
 import {WarnService} from "../../serve/warn.serve";
@@ -15,7 +15,7 @@ import {CaptchaComponent} from "../../components/captcha-view/captcha.component"
 export class RegisterPage implements OnInit {
 
   @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
-  constructor(
+  constructor(  private navCtrl: NavController,
                  private app:App,
                  private warnCtrl: WarnService,
                  private user: UserAccountService,
@@ -25,6 +25,7 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
+  //验证码控件
   captchaClick(){
 
     1 && this.captchaView.beginTime();
@@ -52,7 +53,9 @@ export class RegisterPage implements OnInit {
       this.app.getRootNav().setRoot(TabsPage);
 
     }
-
+  }
+  backLogin(){
+    this.navCtrl.pop();
   }
 
 

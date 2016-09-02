@@ -1,13 +1,14 @@
 $percentage: 85%;
 
 .register {
-  //background-color: $background-color;
 
+  //background-color: $background-color;
+  text-align: center;
   .captcha-view{
     background-color: red;
   }
 
-  .userNameInput, .pwdInput {
+  .userNameInput, .pwdInput, .rePwdInput {
     display: block;
     width: $percentage;
     height: 40px;
@@ -19,7 +20,7 @@ $percentage: 85%;
     margin-bottom: 2px;
   }
 
-  .pwdInput {
+  .pwdInput, .rePwdInput {
     margin-bottom: 2px;
   }
 
@@ -31,6 +32,34 @@ $percentage: 85%;
     //background-color: $theme-color;
     color: white;
     margin-top: 30px;
+  }
+
+  .back-login{
+
+    width: $percentage;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 5px;
+    //justify-content: flex-end;
+    align-items: center;
+    height: 20px;
+    button{
+      background-color: $background-color;
+      color: $theme-color;
+      height: 100%;
+      width: 35px;
+      font-size: 14px;
+    };
+  }
+
+  .protocol{
+    margin: 0 auto;
+    margin-top: 20px;
+    width: $percentage;
+    display: flex;
+    //justify-content: flex-end;
+    align-items: center;
+    height: 20px;
   }
 
 }
