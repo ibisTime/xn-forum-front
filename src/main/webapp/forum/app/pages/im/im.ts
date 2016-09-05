@@ -28,33 +28,39 @@ export class ImPage implements AfterViewInit{
   ngAfterViewInit() {
 
     //登陆环信
-    this.imServe.login(this.userServe.userName, this.userServe.password);
+    // this.imServe.login(this.userServe.userName, this.userServe.password);
     this.imServe.onTextMessage = (msg) => {
       Badge.increase(1);
     };
-    this.imServe.onPresence = (msg) => {
 
-      if ( msg.type === 'subscribe' ) {
-        this.warn.alertWithCanale(`${msg.from}`+"要添加你为好友", () => {
-
-          this.imServe.conn.subscribed({
-            to: msg.from,
-            message : "[resp:true]"
-          });
-          this.imServe.conn.subscribe({//需要反向添加对方好友
-            to: msg.from,
-            message : "[resp:true]"
-          });
-
-        });
-      }
-    }
+    /*加好友*/
+    // this.imServe.onPresence = (msg) => {
+    //
+    //   if ( msg.type === 'subscribe' ) {
+    //     this.warn.alertWithCanale(`${msg.from}`+"要添加你为好友", () => {
+    //
+    //       this.imServe.conn.subscribed({
+    //         to: msg.from,
+    //         message : "[resp:true]"
+    //       });
+    //       this.imServe.conn.subscribe({//需要反向添加对方好友
+    //         to: msg.from,
+    //         message : "[resp:true]"
+    //       });
+    //
+    //     });
+    //   }
+    // }
 
   }
 
-  goChatRoom(from: string){
-    console.log(from);
-    this.navCtrl.push(ChatRoomPage,from);
+  goChatRoom(msgItem: any){
+    if(typeof(msgItem) == "string" ){
+      this.navCtrl.push(ChatRoomPage,msgItem);
+      return;
+    }
+    let linkMan = msgItem.from == this.imServe.me ? msgItem.to : msgItem.from;
+    this.navCtrl.push(ChatRoomPage,linkMan);
   }
 
 
@@ -74,22 +80,9 @@ export class ImPage implements AfterViewInit{
   getFriendList(){
     this.imServe.getFriendList();
   }
+
+
   sendMsg(){
-
-    // this.im.·Serve.addFriend('tianlei004','me');
-    console.log('发送通知之前');
-    LocalNotifications.schedule({
-      id:1,
-      title:'通知测试',
-      text: '1211',
-      at: new Date()
-    });
-
-    Badge.set(10);
-
-    LocalNotifications.on("click", () => {
-      console.log('通知被点击了');
-    });
 
     this.imServe.handleToMsg('serve:我要发信息','tianlei003');
     this.imServe.sendTextMsg('serve:我要发信息','tianlei003',(id, serverMsgId) => {

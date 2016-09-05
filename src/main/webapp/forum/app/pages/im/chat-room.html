@@ -9,33 +9,31 @@
   <!--聊天信息-->
   <div class="imContent">
     <div *ngFor="let msgItem of listOfChatData">
+
       <!--我发送的-->
-      <div class="mine" *ngIf="msgItem.from !== imServe.me">
+      <div class="mine" *ngIf="msgItem.from != imServe.me">
         <img src="images/u1.jpg">
         <div>{{msgItem.data}}</div>
       </div>
-
       <!--对方发送的-->
-      <div class="other" *ngIf="msgItem.from === imServe.me">
+      <div class="other" *ngIf="msgItem.from == imServe.me">
         <div>{{msgItem.data}}</div>
         <img src="images/u2.jpg">
       </div>
+
     </div>
 
   </div>
   <div [ngStyle]="{'display': heightValue}"  style="background-color: cyan; height: 226px"></div>
-  <!--<div class="bootomInput">-->
-    <!--<ion-input class="imInput" type="text" #msgInput  placeholder="请输入信息" ></ion-input>-->
-    <!--<button danger (click)="sendMsg(msgInput)" [disabled]="msgInput.value.length <= 0">发送</button>-->
-  <!--</div>-->
 
 </ion-content>
 
 <ion-footer>
   <div class="bootomInput">
     <ion-input class="imInput" type="text" #msgInput  placeholder="请输入信息" ></ion-input>
-    <button danger (click)="sendMsg(msgInput)" [disabled]="msgInput.value.length <= 0">发送</button>
+    <button  (click)="sendMsg(msgInput)" [disabled]="msgInput.value.length <= 0">发送</button>
 
+    <!--<ion-textarea></ion-textarea>-->
     <!--<ion-input >-->
       <!--<input type="text" class="imInput" type="text" #msgInput  placeholder="请输入信息" >-->
       <!--<button danger (click)="sendMsg(msgInput)" [disabled]="msgInput.value.length <= 0">发送</button>-->

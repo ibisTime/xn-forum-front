@@ -1,62 +1,66 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Platform, App, NavController } from "ionic-angular";
+import {App, NavController} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
-
-import { RegisterPage } from './register';
-import {WarnService} from "../../serve/warn.service";
 import {IMService} from "../../serve/im.serve";
+import {WarnService} from "../../serve/warn.service";
 import {UserAccountService} from "../../serve/user-account.serve";
+import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
 
-import { CaptchaComponent } from '../../components/captcha-view/captcha.component'
 
 @Component({
-  templateUrl: "build/pages/user/login.html"
-})
-export class LoginPage implements OnInit {
+  templateUrl: "build/pages/user/forgetPwd.html",
+  directives: [CaptchaComponent]
 
-  constructor(
-              private navCtrl: NavController,
-              private platform: Platform,
-              private app:App,
-              private userServe: UserAccountService,
-              private warnCtrl : WarnService,
-              private imServe: IMService
-             ) {
+})
+export class ForgetPwdPage implements OnInit {
+
+  @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
+  constructor(   private navCtrl: NavController,
+                 private app:App,
+                 private warnCtrl: WarnService,
+                 private user: UserAccountService,
+                 private imServe: IMService
+                 ) {
   }
-  // private toast: ToastController
 
   ngOnInit() {
-    console.log('登陆界面被创建了');
   }
 
-  login(userName,pwd) {
+  //验证码控件
+  captchaClick(){
 
-    if (!(userName.length > 5 && pwd.length >5)) {
-      this.warnCtrl.toast('请输入正确的账户和密码');
+    1 && this.captchaView.beginTime();
+
+  }
+
+  register(userName, pwd, rePwd) {
+
+    if (!(userName.length > 5 && pwd.length > 5)) {
+
+      this.warnCtrl.toast('请输入正确的账户名和密码');
       return;
     }
-    let loading = this.warnCtrl.loading('登录中');
 
-    setTimeout(() => {
+    if(pwd != rePwd){
+      this.warnCtrl.toast('两次密码输入不一致');
+      return;
+    }
 
-      loading.dismiss();
-      this.platform.ready().then(() => {
-        console.log('在真机中使用');
-        //保存用户信息
-        this.userServe.saveUserInfo(userName,pwd);
-        //切换控制
-        // this.app.getRootNav().setRoot(TabsPage);
-        this.navCtrl.push(TabsPage,null,{animate: false});
-      });
+    if(this.captchaView.captcha.length <= 4){
+      this.warnCtrl.toast('请输入正确的验证码');
+      return;
+    }
 
+    //提示
+    this.warnCtrl.toast('注册成功');
 
-    },500);
+    //帮助用户注册环信
+    this.imServe.register(userName,pwd,"");
+
+    //保存用户信息
+    this.user.saveUserInfo(userName, pwd);
+    this.app.getRootNav().setRoot(TabsPage);
+
   }
-
-  register($event) {
-    this.navCtrl.push(RegisterPage)
-  }
-
-
 
 }

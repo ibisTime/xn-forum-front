@@ -22,40 +22,56 @@ export class MyApp {
               ) {
 
 
-
-
-    let hero = {
-      name: "tianlei005",
-      age: 22
-    }
-    this.http.get("tianlei",hero);
-    this.http.get(null,hero,"www.baidu.com");
-
-
-    if(this.userService.loginState()){
-
-      this.rootPage = LoginPage;
-
-
-    } else {
-      this.rootPage = TabsPage;
-    }
-
-    // this.userServe.loginState().then((msg) => {
+    // let hero = {
+    //   lat: 39.9928,
+    //   lng: 116.396,
+    //   cst:1
+    // }
+    // this.http.get(null,hero,"http://apis.baidu.com/wxlink/here/here").then((response) => {
     //
-    //   this.rootPage = TabsPage;
+    //   console.log(response.json()['result']);
     //
     // }).catch((error) => {
-    //
-    //   this.rootPage = LoginPage
-    //
-    // }).catch( (error) => {
-    //
+    //   console.log(error);
     // });
+    //
+    // let date = new Date()
+    // date.getUTCDate();
+    // /*Fri Sep 02 2016 22:12:23 GMT+0800 (CST) 我国时间东八区 gmt + 8*/
+    // let d = new  Date("2016-09-02T14:12:23.509Z")
+    // console.log(d);
+    // console.log(d.getHours() + ":" + d.getMinutes());
+
+
+    this.userService.loginState().then((value) => {
+      if (value != null){
+
+        this.rootPage = TabsPage;
+        this.userService.userName = value;
+
+      } else {
+
+        this.rootPage = LoginPage;
+
+      }
+
+    }).catch((error) => {
+
+    });
+
+    // if(this.userService.loginState()){
+    //
+    //   this.rootPage = LoginPage;
+    //
+    //
+    // } else {
+    //   this.rootPage = TabsPage;
+    // }
+
+
 
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+
       Keyboard.disableScroll(true);
       // Keyboard.hideKeyboardAccessoryBar(false);
       StatusBar.styleDefault();

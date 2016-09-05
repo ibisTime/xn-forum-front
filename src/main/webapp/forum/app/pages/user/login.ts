@@ -7,7 +7,7 @@ import {WarnService} from "../../serve/warn.service";
 import {IMService} from "../../serve/im.serve";
 import {UserAccountService} from "../../serve/user-account.serve";
 
-import { CaptchaComponent } from '../../components/captcha-view/captcha.component'
+import {ForgetPwdPage} from "./forgetPwd";
 
 @Component({
   templateUrl: "build/pages/user/login.html"
@@ -24,6 +24,7 @@ export class LoginPage implements OnInit {
              ) {
   }
   // private toast: ToastController
+
 
   ngOnInit() {
     console.log('登陆界面被创建了');
@@ -49,7 +50,6 @@ export class LoginPage implements OnInit {
         this.navCtrl.push(TabsPage,null,{animate: false});
       });
 
-
     },500);
   }
 
@@ -57,6 +57,9 @@ export class LoginPage implements OnInit {
     this.navCtrl.push(RegisterPage)
   }
 
+  findPwd($event){
+    this.navCtrl.push(ForgetPwdPage);
+  }
 
 
 }

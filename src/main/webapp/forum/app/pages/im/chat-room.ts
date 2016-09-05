@@ -38,8 +38,6 @@ export class ChatRoomPage implements AfterViewInit , OnChanges{
     console.log(params.data);
     this.listOfChatData = this.imServe.getDataByFromName(params.data);
 
-    console.log('检测到平台');
-    console.log(this.platform.height(),this.platform.width());
 
     //1.哪到导航数据就去获取信息
     this.imServe.onTextMessageInner = msg => {
@@ -103,11 +101,11 @@ export class ChatRoomPage implements AfterViewInit , OnChanges{
 
   sendMsg(msgInput) {
 
-    // this.msgPut.setFocus();
 
     this.imServe.handleToMsg(msgInput.value,this.params.data);
     this.imServe.sendTextMsg(msgInput.value,this.params.data, (id, serverMsgId) => {
       msgInput.value = "";
+      let s = this.imServe.listOfChatRoomData;
 
     });
 

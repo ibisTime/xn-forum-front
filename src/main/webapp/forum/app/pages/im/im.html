@@ -8,27 +8,39 @@
 
 <ion-content class="im">
   <!--<button (click)="" >发送</button>-->
-  <input #friend style="border: 2px solid green;">
-  <button (click)="addFriend(friend.value)">+好友</button>
-  <button (click)="getFriendList()">好友列表</button>
-  <br>
-  <button (click)="imClose()">断开连接</button>
-  <button (click)="sendMsg()">发送消息</button>
-  <ion-list>
-    <button ion-item *ngFor="let item of imServe.listOfFriend" (click)=goChatRoom(item.name)>
-      {{item.name}}
-    </button>
-  </ion-list>
-  <ion-list>
-    <button (click)="goChatRoom(msgItem.from)" ion-item *ngFor="let msgItem of imServe.listOfOpposite">
+  <!--<input #friend style="border: 2px solid green;">-->
+  <!--<button (click)="addFriend(friend.value)">+好友</button>-->
+  <!--<button (click)="getFriendList()">好友列表</button>-->
+  <!--<br>-->
+  <!--<button (click)="imClose()">断开连接</button>-->
+  <!--<button (click)="sendMsg()">发送消息</button>-->
 
-      <ion-avatar item-left >
-        <div class="badge"></div>
-        <img src="http://img1.touxiang.cn/uploads/20131103/03-030932_368.jpg">
-      </ion-avatar>
+  <!--<ion-list>-->
+    <!--<button ion-item *ngFor="let item of imServe.listOfFriend" (click)=goChatRoom(item.name)>-->
+      <!--{{item.name}}-->
+    <!--</button>-->
+  <!--</ion-list>-->
 
-      <h2>{{msgItem.from}}</h2>
-      <p>{{msgItem.lastMsg}}</p>
-    </button>
+  <ion-list>
+    <div class="chat-list-outer"  (click)="goChatRoom(msgItem)"
+            *ngFor="let msgItem of imServe.listOfOpposite" >
+      <!---->
+      <div class="badge"></div>
+      <!---->
+      <div class="chat-list-item" >
+        <div class="headImg">
+          <img src="http://img1.touxiang.cn/uploads/20131103/03-030932_368.jpg">
+        </div>
+        <div class="chat-item-content">
+          <h2>{{msgItem.from}}</h2>
+          <p>{{msgItem.lastMsg}}</p>
+        </div>
+        <div class="chat-item-left">
+          <p>{{msgItem.time}}</p>
+        </div>
+      </div>
+
+    </div>
+
   </ion-list>
 </ion-content>

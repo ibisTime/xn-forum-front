@@ -10,6 +10,10 @@
 
 @import "../pages/home/home";
 @import "../serve/serve";
+//好友列表
+@import "../pages/friend/friend";
+@import "../pages/friend/addFriend";
+
 //im
 @import "../pages/im/chat-room";
 @import "../pages/im/im";
@@ -21,6 +25,7 @@
 //注册界面
 @import "../pages/user/login";
 @import "../pages/user/register";
+@import "../pages/user/forgetPwd";
 
 //我的
 @import "../pages/mine/mine";

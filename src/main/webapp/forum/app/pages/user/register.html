@@ -9,10 +9,11 @@
 <ion-content   class="register" >
 
 
-  <input #account class="userNameInput" placeholder="请输入账户">
+  <input #account class="userNameInput" placeholder="请输入手机号">
+  <captcha-view class="captcha-view" (clickCaptchaBtn)="captchaClick()" ></captcha-view>
   <input #pwd class="pwdInput" type="password" placeholder="请输入密码">
   <input #rePwd class="rePwdInput" type="password" placeholder="请确认密码">
-  <captcha-view class="captcha-view" (clickCaptchaBtn)="captchaClick()" ></captcha-view>
+
 
 
   <div text-center>

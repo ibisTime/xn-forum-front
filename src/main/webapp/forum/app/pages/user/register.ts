@@ -6,6 +6,7 @@ import {WarnService} from "../../serve/warn.service";
 import {UserAccountService} from "../../serve/user-account.serve";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
 import {Http, HTTP_PROVIDERS} from "@angular/http";
+import {HttpService} from "../../serve/http.service";
 
 
 @Component({
@@ -21,7 +22,7 @@ export class RegisterPage implements OnInit {
                  private warnCtrl: WarnService,
                  private user: UserAccountService,
                  private imServe: IMService,
-                 private http: Http) {
+                 private http: HttpService) {
     }
 
   ngOnInit() {
@@ -62,17 +63,21 @@ export class RegisterPage implements OnInit {
     // JSON.stringify(hero);
 
       //提示
-      this.warnCtrl.toast('注册成功');
+    // this.http.get("/user/regist",)
 
       //帮助用户注册环信
-      this.imServe.register(userName,pwd,"");
+      this.imServe.register(userName,pwd,"").then(() => {
 
-      //保存用户信息
-      this.user.saveUserInfo(userName, pwd);
-      this.app.getRootNav().setRoot(TabsPage);
+        this.warnCtrl.toast('注册成功');
+        //保存用户信息
+        this.user.saveUserInfo(userName, pwd);
+        this.app.getRootNav().setRoot(TabsPage);
 
-
+      }).catch((error) => {
+        this.warnCtrl.toast('注册失败');
+      });
   }
+
   backLogin(){
     this.navCtrl.pop();
   }

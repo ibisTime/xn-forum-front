@@ -4,13 +4,16 @@
 import { Injectable } from '@angular/core';
 import {Http,Headers} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
+import {IMService} from "./im.serve";
 
 const RELEASE_ADDR = "S";
-const DEBUG_ADDR = "http://tianlei/";
+const DEBUG_ADDR = "http://121.43.101.148:7303/xn-forum-front";
 const TEST_ADDR = "S";
 
 @Injectable()
 export class HttpService {
+
+  // http://121.43.101.148:7303/xn-forum-front/user/login
 
     addr = DEBUG_ADDR;
     constructor( private http: Http) {
@@ -18,6 +21,7 @@ export class HttpService {
     }
 
     get(url: string,parameters: Object,optionURL?: string): Promise<any>{
+
 
       let url1 = optionURL || (this.addr + url);
 
@@ -30,11 +34,9 @@ export class HttpService {
           } else {
             url1 += "&" + key + '=' + parameters[key];
           }
-          console.debug(key);
         }
-        console.debug(url1);
       }
-      console.debug(url1);
+     console.log(url1);
      return this.http.get(url1).toPromise();
     }
 

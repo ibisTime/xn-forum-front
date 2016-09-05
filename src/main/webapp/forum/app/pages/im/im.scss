@@ -1,4 +1,92 @@
+
+$iconHeight: 45px;
+
 .im {
+  p,h2{
+     margin: 0;
+     padding: 0;
+    font-weight: normal;
+  }
+  //*外壳*/
+  .chat-list-outer{
+    &:hover{
+      background-color: lightgray;
+    }
+    position: relative;
+    width: 100%;
+    padding: 7px 10px;
+    background-color: white;
+    border-top: 1px solid gainsboro;
+
+    .badge{
+      position: absolute;
+      top:4px;
+      left: 50px;
+      z-index: 100;
+      background-color: red;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+  }
+  /*内壳*/
+  .chat-list-item{
+
+    display: flex;
+    //background-color: red;
+    align-items: center;
+
+    .headImg{
+      flex: 0 0 $iconHeight;
+      //background-color: green;
+      position: relative;
+      width: $iconHeight;
+      height: $iconHeight;
+      .badge{
+        overflow: visible;
+        //overflow-clip: ;
+        position: absolute;
+        top:-5px;
+        left: 35px;
+        //background-color: red;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+    }
+    .chat-item-content{
+      flex: 1;
+      padding-left: 10px;
+      max-height: $iconHeight - 3px;
+      //background-color: cyan;
+      h2{
+
+        //background-color: blue;
+        font-size: 17px;
+        padding-bottom: 3px;
+      }
+      p{
+        //background-color: red;
+        font-size: 12px;
+        color: gray;
+      }
+
+
+    }
+    .chat-item-left{
+      //background-color: green;
+      margin-top: -20px;
+      text-align: right;
+      flex: 0 0 55px;
+      p{
+        color: gray;
+        //margin-top: 10px;
+        //background-color: red;
+      }
+
+    }
+  }
   .contact{
     .imInput{
       margin-top: 500px;
@@ -7,21 +95,6 @@
       margin: 0 auto;
     }
 
-    .badge{
-      float: left;
-      display: inline-block;
-      position: absolute;
-      text-align: center;
-      background-color: red;
-      min-height: 5px;
-      min-width: 5px;
 
-      //border-radius: 50%;
-      //right:-5px;
-      //left: 45px;
-      //top: 10px;
-      //left:0px;
-      //top: 3px;
-    }
   }
 }
