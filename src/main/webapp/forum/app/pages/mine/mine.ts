@@ -3,15 +3,15 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import {IMService} from "../../serve/im.serve";
-import {UserAccountService} from "../../serve/user-account.serve";
+import {IMService} from "../../serve/im.service";
+import {UserService} from "../../serve/user.serve";
 
 @Component({
     templateUrl:"build/pages/mine/mine.html",
 
 })
 export class MinePage implements OnInit {
-    constructor(private  userServe: UserAccountService,private imServe: IMService) { }
+    constructor(private  userServe: UserService,private imServe: IMService) { }
 
   ngOnInit() {
       // setInterval()

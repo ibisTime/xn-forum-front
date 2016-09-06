@@ -4,8 +4,8 @@ import { TabsPage} from '../tabs/tabs';
 
 import { RegisterPage } from './register';
 import {WarnService} from "../../serve/warn.service";
-import {IMService} from "../../serve/im.serve";
-import {UserAccountService} from "../../serve/user-account.serve";
+import {IMService} from "../../serve/im.service";
+import {UserService} from "../../serve/user.serve";
 
 import {ForgetPwdPage} from "./forgetPwd";
 
@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
               private navCtrl: NavController,
               private platform: Platform,
               private app:App,
-              private userServe: UserAccountService,
+              private userServe: UserService,
               private warnCtrl : WarnService,
               private imServe: IMService
              ) {
@@ -38,6 +38,10 @@ export class LoginPage implements OnInit {
     }
     let loading = this.warnCtrl.loading('登录中');
 
+    let params = {
+
+    };
+    // this.http.post('/login',)
     setTimeout(() => {
 
       loading.dismiss();

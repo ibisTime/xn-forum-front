@@ -4,9 +4,9 @@ import {ChatRoomPage } from './chat-room';
 
 import { LocalNotifications, Badge} from 'ionic-native';
 
-import {IMService} from "../../serve/im.serve";
+import {IMService} from "../../serve/im.service";
 import {WarnService} from "../../serve/warn.service";
-import {UserAccountService} from "../../serve/user-account.serve";
+import {UserService} from "../../serve/user.serve";
 
 @Component({
   templateUrl: 'build/pages/im/im.html'
@@ -18,7 +18,7 @@ export class ImPage implements AfterViewInit{
   constructor(private navCtrl: NavController,
               public  imServe: IMService,
               private warn: WarnService,
-              private userServe: UserAccountService) {
+              private userServe: UserService) {
 
     console.log("im被创建了");
 
@@ -29,9 +29,9 @@ export class ImPage implements AfterViewInit{
 
     //登陆环信
     // this.imServe.login(this.userServe.userName, this.userServe.password);
-    this.imServe.onTextMessage = (msg) => {
-      Badge.increase(1);
-    };
+    // this.imServe.onTextMessage = (msg) => {
+    //   Badge.increase(1);
+    // };
 
     /*加好友*/
     // this.imServe.onPresence = (msg) => {
@@ -55,12 +55,16 @@ export class ImPage implements AfterViewInit{
   }
 
   goChatRoom(msgItem: any){
+    /*从好友列表进入,只能传用户名进入下一级*/
     if(typeof(msgItem) == "string" ){
       this.navCtrl.push(ChatRoomPage,msgItem);
       return;
     }
+
     let linkMan = msgItem.from == this.imServe.me ? msgItem.to : msgItem.from;
+    msgItem.showBadage = false;
     this.navCtrl.push(ChatRoomPage,linkMan);
+
   }
 
 
@@ -82,11 +86,11 @@ export class ImPage implements AfterViewInit{
   }
 
 
-  sendMsg(){
-
-    this.imServe.handleToMsg('serve:我要发信息','tianlei003');
-    this.imServe.sendTextMsg('serve:我要发信息','tianlei003',(id, serverMsgId) => {
-      console.log('发送成功'+ id +'----'+ serverMsgId);
-    });
-  }
+  // sendMsg(){
+  //
+  //   this.imServe.handleToMsg('serve:我要发信息','tianlei003');
+  //   this.imServe.sendTextMsg('serve:我要发信息','tianlei003',(id, serverMsgId) => {
+  //     console.log('发送成功'+ id +'----'+ serverMsgId);
+  //   });
+  // }
 }

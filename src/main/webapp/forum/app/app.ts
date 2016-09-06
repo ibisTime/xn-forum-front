@@ -4,10 +4,10 @@ import {StatusBar, Keyboard} from 'ionic-native';
 import {LoginPage} from "./pages/user/login";
 import {MY_SERVE} from "./serve/services";
 import {TabsPage} from "./pages/tabs/tabs";
-import {UserAccountService} from "./serve/user-account.serve";
-import {Key} from "ionic-angular/util/key";
-import {HttpService} from "./serve/http.service";
-
+import {UserService} from "./serve/user.serve";
+import {Observable} from "rxjs/Observable";
+import  'rxjs/add/observable/of';
+import { Splashscreen } from 'ionic-native';
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
@@ -15,12 +15,19 @@ import {HttpService} from "./serve/http.service";
 export class MyApp {
 
   private rootPage: any;
-
+  test = 5;
   constructor(private platform: Platform,
-              private userService: UserAccountService,
-              private http: HttpService
+              private userService: UserService
               ) {
 
+
+
+
+   // this.http.get("/captcha").then((rep) => {
+   //   console.log(rep);
+   // }).catch((error) => {
+   //
+   // });
 
     // let hero = {
     //   lat: 39.9928,
@@ -59,19 +66,15 @@ export class MyApp {
 
     });
 
-    // if(this.userService.loginState()){
-    //
-    //   this.rootPage = LoginPage;
-    //
-    //
-    // } else {
-    //   this.rootPage = TabsPage;
-    // }
-
+    /*HH:mm*/
+     let date = new Date();
+    console.log(date.getDay(),date.getHours(),date.getMinutes(),date.getTime());
 
 
     platform.ready().then(() => {
 
+      Splashscreen.hide();
+      // this.platform.setDefault('ios');
       Keyboard.disableScroll(true);
       // Keyboard.hideKeyboardAccessoryBar(false);
       StatusBar.styleDefault();
@@ -84,7 +87,8 @@ ionicBootstrap(MyApp, MY_SERVE,
   {
 
   tabsHideOnSubPages: true,
-  backButtonText:'后退'
+  backButtonText:'后退',
+    mode: 'ios'
 
 }).catch( (error) => {
 

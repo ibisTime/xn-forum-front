@@ -1,16 +1,34 @@
-import {Component} from '@angular/core';
-import {NavController, Button} from 'ionic-angular';
-import {IMService} from "../../serve/im.serve";
+import {Component, AfterViewInit} from '@angular/core';
+import {NavController, Tabs} from 'ionic-angular';
+import {IMService} from "../../serve/im.service";
 import {ChatRoomPage} from "../im/chat-room";
 import {AddFriendPage} from "./addFriend";
-
+import {WarnService} from "../../serve/warn.service";
+import { Observable }  from 'rxjs/Observable'
 
 @Component({
   templateUrl: 'build/pages/friend/friend.html'
 })
-export class FriendPage {
+export class FriendPage implements AfterViewInit{
+
   constructor(private navCtrl: NavController,
-              private imServe: IMService) {
+              private imServe: IMService,
+              private warnServe: WarnService) {
+
+  }
+
+  ngAfterViewInit(){
+
+    // Observable.from( this.imServe.listOfFutureFriend.length)
+
+
+    setTimeout(()=>{
+
+      let tab =  this.navCtrl.parent.getSelected();
+      tab.tabBadgeStyle = "danger";
+      // tab.tabBadge = this.imServe.listOfFutureFriend.length;
+      // tab.tabBadge = " ";
+    },3000);
 
   }
 
@@ -29,8 +47,14 @@ export class FriendPage {
   addFriend(){
     this.navCtrl.push(AddFriendPage,"search");
   }
+
   deleteFriend(friend){
-   let a = 1;
+
+   this.imServe.deleteFriend(friend).then(() => {
+     this.warnServe.toast("删除成功");
+   }).catch( (error) => {
+     this.warnServe.toast("删除失败");
+   });
   }
 
 }

@@ -1,6 +1,18 @@
 .friend {
 
+
   padding: 20px;
+  .new-friend-badge{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    left: 48px;
+    top: 8px;
+    background-color: red;
+    position: absolute;
+
+  }
+
   .n-button:active {
     background-color: lightgray;
   }

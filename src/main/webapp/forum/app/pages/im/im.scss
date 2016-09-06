@@ -20,13 +20,16 @@ $iconHeight: 45px;
 
     .badge{
       position: absolute;
-      top:4px;
+      padding: 2px;
+      font-size: 10px;
+      top:5px;
       left: 50px;
       z-index: 100;
       background-color: red;
-      width: 10px;
-      height: 10px;
+      min-width: 10px;
+      min-height: 10px;
       border-radius: 50%;
+      color: white;
     }
 
   }
@@ -56,6 +59,9 @@ $iconHeight: 45px;
       }
     }
     .chat-item-content{
+      position: relative;
+
+
       flex: 1;
       padding-left: 10px;
       max-height: $iconHeight - 3px;

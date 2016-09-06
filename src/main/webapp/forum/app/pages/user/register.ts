@@ -1,12 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {App, NavController} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
-import {IMService} from "../../serve/im.serve";
+import {IMService} from "../../serve/im.service";
 import {WarnService} from "../../serve/warn.service";
-import {UserAccountService} from "../../serve/user-account.serve";
+import {UserService} from "../../serve/user.serve";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
-import {Http, HTTP_PROVIDERS} from "@angular/http";
-import {HttpService} from "../../serve/http.service";
 
 
 @Component({
@@ -20,9 +18,8 @@ export class RegisterPage implements OnInit {
   constructor(   private navCtrl: NavController,
                  private app:App,
                  private warnCtrl: WarnService,
-                 private user: UserAccountService,
-                 private imServe: IMService,
-                 private http: HttpService) {
+                 private user: UserService,
+                 private imServe: IMService) {
     }
 
   ngOnInit() {

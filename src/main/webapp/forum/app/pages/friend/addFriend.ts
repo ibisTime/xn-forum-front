@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController,Item, AlertController, ViewController, NavParams} from 'ionic-angular';
-import {IMService} from "../../serve/im.serve";
+import {IMService} from "../../serve/im.service";
 import {ChatRoomPage} from "../im/chat-room";
 import {WarnService} from "../../serve/warn.service";
 
@@ -91,12 +91,21 @@ export class AddFriendPage {
 
   /*接受朋友的请求*/
   accept(friendName) {
+    this.warn.toast("接受好友成功");
+    this.remove(friendName);
     this.imServe.accept(friendName)
   }
 
   /*拒绝一个朋友的请求*/
   rejectFriend(friendName) {
-
+    this.remove(friendName);
+    this.imServe.conn.unsubscribed({
+      to: friendName,
+      message : `${this.imServe.me}拒绝了你的好友请求`
+    });
+  }
+  /*从准好友列表中移除*/
+  remove(friendName){
     let indexAddr;
     this.imServe.listOfFutureFriend.find((value,index,obj) => {
 
@@ -106,10 +115,5 @@ export class AddFriendPage {
     });
 
     this.imServe.listOfFutureFriend.splice(indexAddr);
-
-    this.imServe.conn.unsubscribed({
-      to: friendName,
-      message : `${this.imServe.me}拒绝了你的好友请求`
-    });
   }
 }

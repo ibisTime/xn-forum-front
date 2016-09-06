@@ -2,45 +2,32 @@
  * Created by tianlei on 16/8/26.
  */
 import {Injectable , OnInit} from '@angular/core';
-
+import { LocalNotifications } from 'ionic-native';
+import { MsgObj, IMBaseService} from './im-base.service'
 declare var WebIM: any;
 
-interface MsgObj {
-  id?: string,
-  type?: string,
-  from: string,
-  msgtype?: any,
-  emotionArr?: any,
-  emotionFlag?: boolean,
-  to?: string,
-  data?: string,
-  delay?: string,
-  ext?: any
-}
 class ListItem{
   from: string = '';
   to: string = '';
   lastMsg: string = '';
   /*存入我国东八区时间*/
   time: string;
-  constructor(from,to,lastMsg,time){
+  showBadage = false;
+  constructor(from,to,lastMsg,time,showBadage){
     this.from = from;
     this.lastMsg = lastMsg;
     this.time = time;
     this.to = to;
+    this.showBadage = showBadage;
   }
 }
 
 @Injectable()
 export class IMService {
-  private  url =  'im-api.easemob.com';
-  private  apiUrl = 'http:' + '//a1.easemob.com';
-  private  appKey = "easemob-demo#chatdemoui";
-  // private  appKey = "xiongniu-123#chatapp";
 
-  // tianlei005
   me: string = '';
-
+  /*存入当前聊天对象*/
+  currentLinkMan = "";
   /*存储全部聊天数据的对象*/
   listOfChatRoomData: any = {};
   /*存储聊天列表数据的对象*/
@@ -50,73 +37,22 @@ export class IMService {
   /*要加好友的人*/
   listOfFutureFriend = [];
 
-  onOpened: () => void; //登陆连接成功回调
-  // onClosed: (msg) => void; //连接关闭
-  onTextMessage: (msg) => void;
-  onTextMessageInner: (msg) => void;
-  // onPresence: (msg) => void;
-  onPictureMessage: (msg) => void;
-  onFileMessage: (msg)=> void;
+  /*链接对象*/
+  conn;
 
-  imUndefine = (msg) => { throw msg;};
-  onRoster: (msg)=>void; //处理好友请求
+  constructor( private imBase :IMBaseService) {
+    console.log("调用基础连接");
 
-  conn = new WebIM.connection({
-    https: false,
-    url: this.url,
-    isAutoLogin: true,
-    isMultiLoginSessions: false
-  });
+    this.conn = this.imBase.conn;
+    this.imBase.imMessage = msg => this.handleFromMsg(msg);
+    this.imBase.imPresence = msg => this.handleSubscriptionData(msg);
+    this.imBase.imOpened = msg => this.imOpened(msg);
 
-  constructor() {
+  }
 
-    this.conn.listen({
-      onOpened:  (msg) => {          //连接成功回调
-        //如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
-
-        console.log("登陆成功");
-        /*登陆成功获取好友列表*/
-        this.getFriendList();
-        //
-        this.conn.setPresence();
-        (typeof(this.onOpened) == "function") && this.onOpened();
-
-      },
-      // //连接关闭回调
-      onClosed:  (message) => {
-      },
-      onRoster:  (message) => {
-      },
-      onOnline:  () => { console.log('本机网络连接成功'); },                  //本机网络连接成功
-      onOffline: () => { console.log('本机网络掉线')},                 //本机网络掉线
-      onPresence: (msg) => { this.handleSubscriptionData(msg) },//添加好友
-      // //收到文本消息
-      onTextMessage:  (msg) => {
-
-        //处理收到的信息
-        this.handleFromMsg(msg);
-        console.log('imserve' + '收到信息');
-        console.log(msg);
-        typeof (this.onTextMessage) == "function" ? this.onTextMessage(msg) :"";
-        typeof (this.onTextMessageInner) == "function" ? this.onTextMessageInner(msg) :"";
-
-      },
-      onPictureMessage: (message) => {
-        console.log("picture");
-        message.type = "picture";
-        (typeof (this.onPictureMessage) == "function") && this.onPictureMessage(message);
-      }, //收到图片消息
-      onFileMessage: (message) => {
-        console.log("file");
-        message.type = "file";
-        (typeof (this.onFileMessage) == "function") && this.onFileMessage(message);
-      },
-      // //连接错误
-      onError:  (error) => {
-        console.log('im发生错误');
-        console.log(error);
-      }
-    });
+  imOpened(msg){
+    console.log("imService success");
+    this.getFriendList();
   }
 
   /*0.根据聊天人获取聊天数据*/
@@ -148,6 +84,13 @@ export class IMService {
 
   /*2.处理收到的信息*/
   handleFromMsg(msg:MsgObj) {
+    let copy = this;
+    LocalNotifications.schedule({
+      id: 1,
+      title: msg.from,
+      text: msg.data
+    });
+
     //1.全部数据
     console.log(msg.from);
     let from = msg.from;
@@ -184,13 +127,17 @@ export class IMService {
   handleExternalMsgData(msg:MsgObj){
 
     let linkMan = msg.from == this.me ? msg.to : msg.from ;
+
     let chatContent = msg.data;
     let date = new Date(); //收到时间
     if (typeof(msg.delay) != "undefined"){
-       date = new Date(msg.delay);
+      date = new Date(msg.delay);
+
     }
     let dateStr = date.getHours() +":"+ date.getMinutes();
-    let shortMsg = new ListItem(linkMan,msg.to, chatContent,dateStr);
+
+    /*注意判断显示badage*/
+    let shortMsg = new ListItem(linkMan,msg.to, chatContent,dateStr,(msg.from != this.me)&&(msg.from != this.currentLinkMan));
 
 
     if (this.listOfOpposite.length > 0) {
@@ -208,6 +155,7 @@ export class IMService {
         console.log('有自己进行数据修改');
         model.lastMsg = chatContent;
         model.time = dateStr;
+        model.showBadage = shortMsg.showBadage;
       }
 
     } else {
@@ -230,12 +178,14 @@ export class IMService {
     // };
 
     if (msg.type == "subscribe"){//别人要添加你为好友
+
       /*加入 待添加好友*/
       this.listOfFutureFriend.push(msg);
 
-
-
     } else if( msg.type === 'subscribed' ) {//别人同意你的好友申请
+
+      let friend = {name: msg.from}
+      this.listOfFriend.push(friend);
 
     } else if( msg.type === 'unsubscribed'){//别人删除了好友关系
 
@@ -249,16 +199,16 @@ export class IMService {
   //发消息
   sendTextMsg(message,to,successCallBack: (id, serverMsgId) => void ) {
 
-      let id = this.conn.getUniqueId();//生成本地消息id
-      let msg = new WebIM.message('txt', id);//创建文本消息
-      msg.set({
-        msg: message,
-        to: to,
-        success:  (id, serverMsgId) => {
-          successCallBack(id, serverMsgId);
-        }
-      });
-      this.conn.send(msg.body);
+    let id = this.conn.getUniqueId();//生成本地消息id
+    let msg = new WebIM.message('txt', id);//创建文本消息
+    msg.set({
+      msg: message,
+      to: to,
+      success:  (id, serverMsgId) => {
+        successCallBack(id, serverMsgId);
+      }
+    });
+    this.conn.send(msg.body);
   }
 
   //注册
@@ -268,14 +218,14 @@ export class IMService {
         username: userName,
         password: password,
         nickname: nickName,
-        appKey: this.appKey,
+        appKey: this.imBase.appKey,
         success: function () {
           resolve();
         },
         error: function (error) {
           reject(error);
         },
-        apiUrl: this.apiUrl
+        apiUrl: this.imBase.apiUrl
       };
       WebIM.utils.registerUser(registerOptions);
 
@@ -305,7 +255,7 @@ export class IMService {
 
   /*获取好友列表*/
   getFriendList(){
-   console.log("登陆成功后 获取好友列表");
+    console.log("登陆成功后 获取好友列表");
     this.conn.getRoster({
       success : (roster) => {
         let trueFriend = [];
@@ -321,36 +271,47 @@ export class IMService {
   }
 
   /*删除好友*/
-  removeFriend(friendName){
-    this.conn.removeRoster({
-      to: friendName,
-      success: function () {//删除成功
-        /*删除内存中*/
-        let indexAddr;
-        this.listOfFriend.find((value,index,obj) => {
+  deleteFriend(friendName){
+    return new Promise((resolve,rejet) => {
 
-          indexAddr = index;
-          return value.from == friendName;
+      this.conn.removeRoster({
+        to: friendName,
+        success:  () => {//删除成功
+          /*删除成功回调*/
+          resolve();
 
-        });
-        this.imServe.listOfFriend.splice(indexAddr);
-        /*取消订阅*/
-        this.conn.unsubscribed({
-          to: friendName
-        });
-      },
-      error : function () {}//删除失败
+          /*删除内存中*/
+          let indexAddr;
+
+          this.listOfFriend.find((value,index,obj) => {
+            indexAddr = index;
+            return value.name == friendName;
+          });
+
+          this.listOfFriend.splice(indexAddr);
+          /*取消订阅*/
+          this.conn.unsubscribed({
+            to: friendName
+          });
+        },
+        error : function () {
+          rejet("failure");
+        }//删除失败
+      });
+
     });
+
   }
+
 
   /*登陆*/
   login(userName,password){
     this.me = userName;//保存用户信息
     let loginOptions = {
-      apiUrl: this.apiUrl,
+      apiUrl: this.imBase.apiUrl,
       user: userName,
       pwd: password,
-      appKey: this.appKey
+      appKey: this.imBase.appKey
     };
 
     this.conn.open(loginOptions);
@@ -369,3 +330,6 @@ export class IMService {
   }
 
 }
+/**
+ * Created by tianlei on 16/9/6.
+ */

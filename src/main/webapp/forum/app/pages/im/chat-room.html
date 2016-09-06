@@ -5,13 +5,12 @@
 </ion-header>
 
 <ion-content  class="chatroom" >
-
+  <!--<li *ngFor="let item of items; let i = index; trackBy: trackByFn">...</li>-->
   <!--聊天信息-->
   <div class="imContent">
-    <div *ngFor="let msgItem of listOfChatData">
-
+    <div *ngFor="let msgItem of listOfChatData; trackBy:trackById;">
       <!--我发送的-->
-      <div class="mine" *ngIf="msgItem.from != imServe.me">
+      <div *ngIf="msgItem.from != imServe.me"  class="mine" >
         <img src="images/u1.jpg">
         <div>{{msgItem.data}}</div>
       </div>

@@ -17,7 +17,7 @@ interface UserInfo {
 
 
 @Injectable()
-export class UserAccountService {
+export class UserService {
 
   isLogined: boolean = true;
   //userID 进行保存
@@ -51,8 +51,11 @@ export class UserAccountService {
   loginState() {
 
     let value;
+
+    /*webStorage only use web*/
     let localStorage = new LocalStorage(LocalStorage);
     localStorage.get("password").then((value) => {
+      /**/
       this.password = value;
     });
     return localStorage.get("userName");

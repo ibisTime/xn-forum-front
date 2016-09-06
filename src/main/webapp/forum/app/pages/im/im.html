@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Contact
+      橙袋
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -25,13 +25,14 @@
     <div class="chat-list-outer"  (click)="goChatRoom(msgItem)"
             *ngFor="let msgItem of imServe.listOfOpposite" >
       <!---->
-      <div class="badge"></div>
+      <div class="badge" *ngIf="msgItem.showBadage"></div>
       <!---->
       <div class="chat-list-item" >
         <div class="headImg">
           <img src="http://img1.touxiang.cn/uploads/20131103/03-030932_368.jpg">
         </div>
         <div class="chat-item-content">
+
           <h2>{{msgItem.from}}</h2>
           <p>{{msgItem.lastMsg}}</p>
         </div>

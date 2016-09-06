@@ -5,8 +5,8 @@ import {ContactPage} from "../kefu/contact";
 import {MinePage} from "../mine/mine";
 import {Tab, Tabs} from "ionic-angular";
 import {FriendPage} from "../friend/friend";
-import {IMService} from "../../serve/im.serve";
-import {UserAccountService} from "../../serve/user-account.serve";
+import {IMService} from "../../serve/im.service";
+import {UserService} from "../../serve/user.serve";
 
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html'
@@ -21,7 +21,7 @@ export class TabsPage {
 
 
   constructor( private  imService : IMService,
-               private  userServe: UserAccountService) {
+               private  userServe: UserService) {
 
     this.tab1Root = HomePage;
     this.tab2Root = ImPage;

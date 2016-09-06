@@ -4,24 +4,25 @@
 import { Injectable } from '@angular/core';
 import {Http,Headers} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
-import {IMService} from "./im.serve";
 
 const RELEASE_ADDR = "S";
+// http://121.43.101.148:7303
 const DEBUG_ADDR = "http://121.43.101.148:7303/xn-forum-front";
 const TEST_ADDR = "S";
 
-@Injectable()
-export class HttpService {
 
-  // http://121.43.101.148:7303/xn-forum-front/user/login
+export class HttpRuner {
+
 
     addr = DEBUG_ADDR;
     constructor( private http: Http) {
-
     }
 
-    get(url: string,parameters: Object,optionURL?: string): Promise<any>{
-
+    get(url: string,parameters?: Object,optionURL?: string): Promise<any>{
+      
+      // let headers = new Headers({
+      //   "Access-Control-Allow-Origin" : "*"
+      // });
 
       let url1 = optionURL || (this.addr + url);
 
@@ -39,6 +40,7 @@ export class HttpService {
      console.log(url1);
      return this.http.get(url1).toPromise();
     }
+
 
     post(url: string,parameters: Object,optionURL?: string){
 

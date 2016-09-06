@@ -8,7 +8,7 @@ import { NgFor } from '@angular/common';
 
 import {NavController,Toolbar, Content, NavParams, TextInput, Platform, ViewController} from 'ionic-angular'
 import { Keyboard } from 'ionic-native';
-import {IMService} from "../../serve/im.serve";
+import {IMService} from "../../serve/im.service";
 import {AfterViewInit} from "@angular/core";
 import { Observable }  from 'rxjs/Observable'
 
@@ -16,7 +16,7 @@ import { Observable }  from 'rxjs/Observable'
 @Component({
   templateUrl: 'build/pages/im/chat-room.html'
 })
-export class ChatRoomPage implements AfterViewInit , OnChanges{
+export class ChatRoomPage implements AfterViewInit {
 
   inputValue;
   listOfChatData;
@@ -35,16 +35,15 @@ export class ChatRoomPage implements AfterViewInit , OnChanges{
               private vc: ViewController
               ) {
 
-    console.log(params.data);
-    this.listOfChatData = this.imServe.getDataByFromName(params.data);
-
+    // console.log(params.data);
+    this.listOfChatData = this.imServe.getDataByFromName( params.data);
 
     //1.哪到导航数据就去获取信息
-    this.imServe.onTextMessageInner = msg => {
-      setTimeout(() => {
-        this.content.scrollToBottom();
-      },300)
-    };
+    // this.imServe.onTextMessageInner = msg => {
+    //   setTimeout(() => {
+    //     this.content.scrollToBottom();
+    //   },300)
+    // };
 
     setTimeout(() => {
 
@@ -80,13 +79,18 @@ export class ChatRoomPage implements AfterViewInit , OnChanges{
     },2000);
 
     //
-
   }
 
-  ngOnChanges(){
-    console.log('绑定改变');
+  ionViewDidEnter(){
+    this.imServe.currentLinkMan = this.params.data;
+    /*删除当前*/
   }
-
+  ionViewDidLeave(){
+    this.imServe.currentLinkMan = "";
+  }
+  ionViewWillLeave(){
+    // this.imServe.onTextMessageInner = () => {};
+  }
 
   ngAfterViewInit() {
 
@@ -97,6 +101,12 @@ export class ChatRoomPage implements AfterViewInit , OnChanges{
     setTimeout(() => {
       this.content.scrollToBottom();
     },50)
+  }
+
+  trackById(index,item){
+
+    return item.id;
+
   }
 
   sendMsg(msgInput) {

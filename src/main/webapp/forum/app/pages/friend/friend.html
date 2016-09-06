@@ -19,6 +19,7 @@
   <ion-item-group>
 
     <button ion-item no-lines detail-none style="border-top: 1px solid lightgray; background-color: white" (click)="lookFriendAsk()">
+      <div *ngIf="imServe.listOfFutureFriend.length > 0" class="new-friend-badge"></div>
       <div  class="friend-list-item">
         <div class="icon">
           <img src="images/u1.jpg">
@@ -38,19 +39,20 @@
 
     <ion-item-group >
       <ion-item-divider style="height: 20px; ">好友列表</ion-item-divider>
+      <ion-item [hidden]="imServe.listOfFriend.length > 0"><h2>暂无好友</h2></ion-item>
 
       <ion-item-sliding *ngFor="let friendItem of imServe.listOfFriend">
         <button class="n-button" ion-item no-lines detail-none style="border-top: 1px solid lightgray; background-color: white" (click)="goChat(friendItem.name)">
-          <div (press)="deleteFriend(friendItem.name)" class="friend-list-item" >
+          <div class="friend-list-item" >
             <div class="icon">
               <img src="images/u1.jpg">
             </div>
             <p>{{friendItem.name}}</p>
           </div>
         </button>
-        <!--<ion-item-options>-->
-          <!--<button danger>删除</button>-->
-        <!--</ion-item-options>-->
+        <ion-item-options>
+          <button danger (click)="deleteFriend(friendItem.name)">删除好友</button>
+        </ion-item-options>
       </ion-item-sliding>
 
     </ion-item-group>
