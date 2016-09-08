@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      下一个聊天界面
+      客服
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -10,65 +10,104 @@
 <ion-content class="nextpage">
 
   <!--聊天信息-->
-  <div class="imContent" id="imCont">
+  <div class="imContent easemobWidgetWrapper-mobile" id="imCont">
       <div *ngFor="let msgItem of listOfChatData">
+
         <!--对方发送的-->
-        <div class="mine" *ngIf="msgItem.from !== 'tianlei009'">
-          <img src="images/u1.jpg">
-          <div *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'">{{msgItem.data}}</div>
-          <div *ngIf="msgItem.emotionFlag">
-            <span *ngFor="let ed of msgItem.emotionArr">
-              <span *ngIf="ed[0]">{{ed[0]}}</span><img *ngIf="ed[1]" src="{{ed[1]}}"/>
-            </span>
+        <div *ngIf="msgItem.from !== 'tianlei009'" class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fl">
+          <!--普通文本消息-->
+          <div class="easemobWidget-left" *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'">
+            <div class="easemobWidget-msg-wrapper">
+              <i class="easemobWidget-corner"></i>
+              <div class="easemobWidget-msg-container">
+                <pre>{{msgItem.data}}</pre>
+              </div>
+            </div>
           </div>
-          <div *ngIf="msgItem.type == 'picture'">
-            <img src="{{msgItem.url}}"/>
+          <!--菜单列表-->
+          <div *ngIf="msgItem.ext && msgItem.ext.msgtype && msgItem.ext.msgtype.choice" class="easemobWidget-left">
+            <div class="easemobWidget-msg-wrapper">
+              <i class="easemobWidget-corner"></i>
+              <div class="easemobWidget-msg-container">
+                <p>{{msgItem.ext.msgtype.choice.title}}</p>
+              </div>
+            </div>
+            <div class="easemobWidget-list-btns">
+              <button class="easemobWidget-list-btn js_robertbtn" *ngFor="let item of msgItem.ext.msgtype.choice.items" (click)="doCaidan(item.id,item.name)">
+                {{item.name}}
+              </button>
+            </div>
           </div>
-          <div *ngIf="msgItem.type == 'file'">
-            <a style="display:block;" href="{{msgItem.url}}" title="{{msgItem.filename}}">
-              <img class="easemobWidget-msg-fileicon" src="images/file_download.png"/>
-              <span style="float: left">{{msgItem.filename}}</span>
-            </a>
+          <!--满意度评价-->
+          <div class="easemobWidget-left" *ngIf="msgItem.type=='satisfactionEvaluation'">
+            <div class="easemobWidget-msg-wrapper">
+              <i class="easemobWidget-corner"></i>
+              <div class="easemobWidget-msg-container">
+                <p>请对我的服务做出评价</p>
+              </div>
+            </div>
+            <div class="easemobWidget-list-btns">
+              <button class="easemobWidget-list-btn js_satisfybtn" (click)="doPingjia(msgItem.ext.weichat.ctrlArgs.inviteId,msgItem.ext.weichat.ctrlArgs.serviceSessionId)">
+                立即评价
+              </button> 
+            </div>
           </div>
-          <div style="max-width: 100%;" *ngIf="msgItem.ext && msgItem.ext.msgtype && msgItem.ext.msgtype.choice">
-            <div style="display:block;max-width: 100%;">{{msgItem.ext.msgtype.choice.title}}</div>
-            <button style="display:block" *ngFor="let item of msgItem.ext.msgtype.choice.items" (click)="doCaidan(item.id,item.name)">{{item.name}}</button>
+          <!--表情-->
+          <div class="easemobWidget-left" *ngIf="msgItem.emotionFlag">
+            <div class="easemobWidget-msg-wrapper">
+              <i class="easemobWidget-corner"></i>
+              <div class="easemobWidget-msg-container">
+                <pre>
+                  <span class="inline_block" *ngFor="let ed of msgItem.emotionArr">
+                    <span *ngIf="ed[0]">{{ed[0]}}</span>
+                    <img class="em-emotion" *ngIf="ed[1]" src="{{ed[1]}}"/>
+                  </span>
+                </pre>
+              </div>
+            </div>
           </div>
-          <div *ngIf="msgItem.type=='satisfactionEvaluation'">
-            <div style="display:block;max-width: 100%;">请对我的服务做出评价</div>
-            <button style="display:block" (click)="doPingjia(msgItem.ext.weichat.ctrlArgs.inviteId,msgItem.ext.weichat.ctrlArgs.serviceSessionId)">立即评价</button>
+          <!--图片-->
+          <div class="easemobWidget-left" *ngIf="msgItem.type == 'picture'">
+            <div class="easemobWidget-msg-wrapper">
+              <i class="easemobWidget-corner"></i>
+              <div class="easemobWidget-msg-container inline_table">
+                <a class="easemobWidget-noline" href="javascript:;">
+                  <img class="easemobWidget-imgview" src="{{msgItem.url}}">
+                </a>
+              </div>
+            </div>
+          </div>
+          <!--下载链接-->
+          <div class="easemobWidget-left" *ngIf="msgItem.type == 'file'">
+            <div class="easemobWidget-msg-wrapper easemobWidget-msg-file">
+              <i class="easemobWidget-corner"></i>
+              <div class="easemobWidget-msg-container">
+                <a target="_blank" href="{{msgItem.url}}" class="easemobWidget-fileMsg" title="{{msgItem.filename}}">
+                  <img class="easemobWidget-msg-fileicon" src="images/file_download.png">
+                  <span>{{msgItem.filename}}</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
         <!--我发送的-->
-        <div class="other" *ngIf="msgItem.from === 'tianlei009'">
-          <div *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'">{{msgItem.data}}</div>
-          <div *ngIf="msgItem.emotionFlag">
-            <span *ngFor="let ed of msgItem.emotionArr">
-              <span *ngIf="ed[0]">{{ed[0]}}</span><img *ngIf="ed[1]" src="{{ed[1]}}"/>
-            </span>
+        <div class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fr" *ngIf="msgItem.from === 'tianlei009'">
+          <div class="easemobWidget-right">
+            <div *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'" class="easemobWidget-msg-wrapper">
+              <i class="easemobWidget-corner"></i>
+              <div class="easemobWidget-msg-container">
+                <pre>{{msgItem.data}}</pre>
+              </div>
+            </div>
           </div>
-          <div *ngIf="msgItem.type == 'picture'">
-            <img src="{{msgItem.url}}"/>
-          </div>
-          <div *ngIf="msgItem.type == 'file'">
-            <a style="display:block;" href="{{msgItem.url}}" title="{{msgItem.filename}}">
-              <img class="easemobWidget-msg-fileicon" src="images/file_download.png"/>
-              <span style="float: left">{{msgItem.filename}}</span>
-            </a>
-          </div>
-          <div style="max-width: 100%;" *ngIf="msgItem.ext && msgItem.ext.msgtype && msgItem.ext.msgtype.choice">
-            <div style="display:block;max-width: 100%;">{{msgItem.ext.msgtype.choice.title}}</div>
-            <button style="display:block" *ngFor="let item of msgItem.ext.msgtype.choice.items" (click)="doCaidan(item.id,item.name)">{{item.name}}</button>
-          </div>
-          <img src="images/u2.jpg"/>
         </div>
       </div>
   </div>
   <div style="height: 40px;"></div>
   <div class="bootomInput">
     <input  #msgInput [(ngModel)]="inputValue" placeholder="请输入信息">
-    <button (click)="sendMsg(msgInput.value)">发送</button>
+    <a (click)="sendMsg(msgInput.value)">发送</a>
   </div>
   <div class="easemobWidget-dialog easemobWidget-satisfaction-dialog em-hide" id="satisfactionDialog">
     <h3>请对我的服务做出评价</h3>
