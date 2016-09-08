@@ -72,7 +72,7 @@ export class KefuService {
 
   private  url =  'im-api.easemob.com';
 
-  me: string = 'tianlei005';
+  me: string = 'tianlei009';
   //存储全部聊天数据的对象
   listOfChatRoomData: any = {};
   //存储聊天列表数据的对象
@@ -97,12 +97,22 @@ export class KefuService {
   });
 
   constructor() {
+    this.onFileMessage = (msg) => {
+      this.handleFromMsg(msg);
+    }
+    this.onPictureMessage = (msg) => {
+      this.handleFromMsg(msg);
+    }
+    this.onTextMessage = (msg) => {
+      this.handleFromMsg(msg);
+    }
 
     this.conn.listen({
       onOpened:  () => {          //连接成功回调
         //如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
         this.conn.setPresence();
         // this.onOpened();
+        console.log("opened")
         this.onOpened();
       },
       // //连接关闭回调
@@ -138,16 +148,10 @@ export class KefuService {
         (typeof (this.onFileMessage) == "function") && this.onFileMessage(message);
       },
     });
+    this.listOfChatRoomData.from = [];
   }
 
-  getDataByFromName( from) : Array<MsgObj>{
-    //1.不存在数据
-    if ( typeof(this.listOfChatRoomData.from) === "undefined"){
-      console.log('没有查找到数据');
-      return [];
-    }
-    //2.存在数据
-    console.log('查找到数据');
+  getDataByFromName() : Array<MsgObj>{
     return this.listOfChatRoomData.from;
   }
 

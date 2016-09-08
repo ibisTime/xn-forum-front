@@ -13,7 +13,7 @@
   <div class="imContent" id="imCont">
       <div *ngFor="let msgItem of listOfChatData">
         <!--对方发送的-->
-        <div class="mine" *ngIf="msgItem.from !== 'tianlei005'">
+        <div class="mine" *ngIf="msgItem.from !== 'tianlei009'">
           <img src="images/u1.jpg">
           <div *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'">{{msgItem.data}}</div>
           <div *ngIf="msgItem.emotionFlag">
@@ -41,7 +41,7 @@
         </div>
 
         <!--我发送的-->
-        <div class="other" *ngIf="msgItem.from === 'tianlei005'">
+        <div class="other" *ngIf="msgItem.from === 'tianlei009'">
           <div *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'">{{msgItem.data}}</div>
           <div *ngIf="msgItem.emotionFlag">
             <span *ngFor="let ed of msgItem.emotionArr">

@@ -44,19 +44,18 @@ public class MemberController extends BaseController {
     @Resource(name = "imageCaptchaService")
     private MyCaptchaService imageCaptchaService;
 
-    // 检查用户名已存在
+    // ****主流程start************
     @RequestMapping(value = "/mobile/check", method = RequestMethod.POST)
     @ResponseBody
     public Object checkMobileExist(@RequestParam("loginName") String mobile) {
         return userAO.checkMobileExit(mobile);
     }
-    
-    // 用户注册
+
     @RequestMapping(value = "/regist", method = RequestMethod.POST)
     @ResponseBody
     public Object doRegister(@RequestParam("loginName") String mobile,
             @RequestParam("captcha") String captcha,
-            @RequestParam(value = "userReferee", required = false) String userReferee) {
+            @RequestParam("userReferee") String userReferee) {
 
         String sessionId = ControllerContext.getRequest().getSession().getId();
         boolean flag = imageCaptchaService.validateResponseForID(sessionId,
@@ -67,8 +66,7 @@ public class MemberController extends BaseController {
         }
         return userAO.doRegister(mobile, userReferee);
     }
-    
-    // 用户登录
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public Object doLogin(@RequestParam("loginName") String loginName,
@@ -96,16 +94,14 @@ public class MemberController extends BaseController {
           */
         return true;
     }
-    
-    // 获取用户信息
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public XN805056Res doGetUser(
             @RequestParam(value = "userId", required = false) String userId) {
         return userAO.doGetUser(getSessionUserId(userId));
     }
-    
-    // 新增用户地址（收货）
+
     @RequestMapping(value = "/add/address", method = RequestMethod.POST)
     @ResponseBody
     public Object addAddress(@RequestParam("addressee") String addressee,
@@ -119,15 +115,13 @@ public class MemberController extends BaseController {
         return userAO.addAddress(getSessionUserId(userId), addressee, mobile,
             province, city, district, detailAddress, isDefault);
     }
-    
-    // 删除用户地址（收货）
+
     @RequestMapping(value = "/delete/address", method = RequestMethod.POST)
     @ResponseBody
     public Object deleteAddress(@RequestParam(value = "code") String code) {
         return userAO.deleteAddress(code);
     }
-    
-    // 修改用户地址（收货）
+
     @RequestMapping(value = "/edit/address", method = RequestMethod.POST)
     @ResponseBody
     public Object editAddress(@RequestParam("code") String code,
@@ -142,8 +136,7 @@ public class MemberController extends BaseController {
         return userAO.editAddress(code, getSessionUserId(userId), addressee,
             mobile, province, city, district, detailAddress, isDefault);
     }
-    
-    // 设置用户默认地址（收货）
+
     @RequestMapping(value = "/edit/setDefaultAddress", method = RequestMethod.POST)
     @ResponseBody
     public Object setDefaultAddress(@RequestParam("code") String code,
@@ -159,15 +152,13 @@ public class MemberController extends BaseController {
             @RequestParam(value = "isDefault", required = false) String isDefault) {
         return userAO.queryAddresses(code, getSessionUserId(userId), isDefault);
     }
-    
-    // 查询地址（收货）
+
     @RequestMapping(value = "/queryAddress", method = RequestMethod.GET)
     @ResponseBody
     public Object queryAddress(@RequestParam("code") String code) {
         return userAO.queryAddress(code);
     }
-    
-    // 用户退出
+
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
     public boolean logout() {
@@ -175,7 +166,9 @@ public class MemberController extends BaseController {
         return true;
     }
 
-    // 新增用户银行卡
+    // ****主流程end************
+
+    // ****银行卡start**********
     @RequestMapping(value = "/bankcard/bind", method = RequestMethod.POST)
     @ResponseBody
     public boolean doBindBankCard(
@@ -191,16 +184,14 @@ public class MemberController extends BaseController {
         flag = true;
         return flag;
     }
-    
-    // 列表查看用户银行卡
+
     @RequestMapping(value = "/bankcard/list", method = RequestMethod.GET)
     @ResponseBody
     public Object queryBankCardList(
             @RequestParam(value = "userId", required = false) String userId) {
         return bankCardAO.queryBankCardList(getSessionUserId(userId));
     }
-    
-    // 分页查看用户银行卡
+
     @RequestMapping(value = "/bankcard/page", method = RequestMethod.GET)
     @ResponseBody
     public Object queryBankCardPage(
@@ -212,8 +203,7 @@ public class MemberController extends BaseController {
         return bankCardAO.queryBankCardPage(getSessionUserId(userId), start,
             limit, orderColumn, orderDir);
     }
-    
-    // 查看用户银行卡详情
+
     @RequestMapping(value = "/bankcard/detail", method = RequestMethod.GET)
     @ResponseBody
     public Object queryBankCard(@RequestParam(value = "id") String id) {
@@ -242,7 +232,9 @@ public class MemberController extends BaseController {
             bankCode, bankCardNo, subbranch);
     }
 
-    // 登录密码重置
+    // ****银行卡end**********
+
+    // ****登陆密码start******
     @RequestMapping(value = "/loginpwd/reset", method = RequestMethod.POST)
     @ResponseBody
     public boolean doResetLoginPwd(@RequestParam("oldLoginPwd") String oldPwd,
@@ -252,8 +244,7 @@ public class MemberController extends BaseController {
         // 重新登陆
         return logout();
     }
-    
-    // 找回登录密码
+
     @RequestMapping(value = "/loginpwd/find", method = RequestMethod.POST)
     @ResponseBody
     public boolean doFindLoginPwd(@RequestParam("mobile") String mobile,
@@ -262,42 +253,42 @@ public class MemberController extends BaseController {
         userAO.doFindLoginPwd(mobile, newLoginPwd, smsCaptcha);
         return true;
     }
-    
-//    // ****交易密码start****
-//    @RequestMapping(value = "/tradepwd/set", method = RequestMethod.POST)
-//    @ResponseBody
-//    public boolean doSetTradePwd(@RequestParam("tradePwd") String tradePwd,
-//            @RequestParam("smsCaptcha") String smsCaptcha,
-//            @RequestParam(value = "userId", required = false) String userId) {
-//        userAO.doSetTradePwd(getSessionUserId(userId), tradePwd, smsCaptcha);
-//        return true;
-//    }
-//
-//    @RequestMapping(value = "/tradepwd/reset", method = RequestMethod.POST)
-//    @ResponseBody
-//    public boolean doResetTradePwd(
-//            @RequestParam("oldTradePwd") String oldTradePwd,
-//            @RequestParam("newTradePwd") String newTradePwd,
-//            @RequestParam(value = "userId", required = false) String userId) {
-//        userAO.doResetTradePwd(getSessionUserId(userId), oldTradePwd,
-//            newTradePwd);
-//        return true;
-//    }
-//
-//    @RequestMapping(value = "/tradepwd/find", method = RequestMethod.POST)
-//    @ResponseBody
-//    public boolean doFindTradePwd(
-//            @RequestParam("newTradePwd") String newTradePwd,
-//            @RequestParam("smsCaptcha") String smsCaptcha,
-//            @RequestParam(value = "userId", required = false) String userId) {
-//        userAO
-//            .doFindTradePwd(getSessionUserId(userId), newTradePwd, smsCaptcha);
-//        return true;
-//    }
+
+    // ****登陆密码end******
+    // ****交易密码start****
+    @RequestMapping(value = "/tradepwd/set", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean doSetTradePwd(@RequestParam("tradePwd") String tradePwd,
+            @RequestParam("smsCaptcha") String smsCaptcha,
+            @RequestParam(value = "userId", required = false) String userId) {
+        userAO.doSetTradePwd(getSessionUserId(userId), tradePwd, smsCaptcha);
+        return true;
+    }
+
+    @RequestMapping(value = "/tradepwd/reset", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean doResetTradePwd(
+            @RequestParam("oldTradePwd") String oldTradePwd,
+            @RequestParam("newTradePwd") String newTradePwd,
+            @RequestParam(value = "userId", required = false) String userId) {
+        userAO.doResetTradePwd(getSessionUserId(userId), oldTradePwd,
+            newTradePwd);
+        return true;
+    }
+
+    @RequestMapping(value = "/tradepwd/find", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean doFindTradePwd(
+            @RequestParam("newTradePwd") String newTradePwd,
+            @RequestParam("smsCaptcha") String smsCaptcha,
+            @RequestParam(value = "userId", required = false) String userId) {
+        userAO
+            .doFindTradePwd(getSessionUserId(userId), newTradePwd, smsCaptcha);
+        return true;
+    }
 
     // ****交易密码end****
-    
-    // 修改手机号
+    // **** 换手机号start************
     @RequestMapping(value = "/mobile/change", method = RequestMethod.POST)
     @ResponseBody
     public boolean doChangeMobile(
@@ -310,17 +301,18 @@ public class MemberController extends BaseController {
             tradePwd);
         return true;
     }
-//
-//    @RequestMapping(value = "/kyc", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Object doKyc(
-//            @RequestParam(value = "userId", required = false) String userId) {
-//        return userAO.doKyc(getSessionUserId(userId));
-//    }
 
-//    @RequestMapping(value = "/getHpsList", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Object getHpsList() {
-//        return userAO.getHpsList();
-//    }
+    // **** 换手机号end************
+    @RequestMapping(value = "/kyc", method = RequestMethod.GET)
+    @ResponseBody
+    public Object doKyc(
+            @RequestParam(value = "userId", required = false) String userId) {
+        return userAO.doKyc(getSessionUserId(userId));
+    }
+
+    @RequestMapping(value = "/getHpsList", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getHpsList() {
+        return userAO.getHpsList();
+    }
 }

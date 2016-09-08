@@ -8,7 +8,7 @@
  */
 package com.xnjr.moom.front.util;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 /** 
  * @author: miyb 

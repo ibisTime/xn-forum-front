@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {HomePage} from '../home/home';
 import {ImPage} from '../im/im';
-import {ContactPage} from "../kefu/contact";
+import {NextPage} from "../kefu/nextpage";
 import {MinePage} from "../mine/mine";
 import {Tab, Tabs} from "ionic-angular";
 import {FriendPage} from "../friend/friend";
@@ -25,11 +25,10 @@ export class TabsPage {
 
     this.tab1Root = HomePage;
     this.tab2Root = ImPage;
-    this.tab3Root = ContactPage;
+    this.tab3Root = NextPage;
     this.tab4Root = FriendPage;
     this.tab5Root = MinePage;
     //登陆成功
     this.imService.login(this.userServe.userName,this.userServe.password);
-
   }
 }

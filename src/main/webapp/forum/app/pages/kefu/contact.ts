@@ -63,7 +63,7 @@ export class ContactPage implements AfterViewInit{
     this.imServe.onPictureMessage = (msg) => {
       this.imServe.handleFromMsg(msg);
     }
-    this.imServe.register('tianlei003',"123456","").then( ()  => {
+    this.imServe.register('tianlei009',"123456","").then( ()  => {
       console.log('zhuce---连接成功');
     });
   }
