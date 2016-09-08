@@ -14,7 +14,7 @@
       <div *ngFor="let msgItem of listOfChatData">
 
         <!--对方发送的-->
-        <div *ngIf="msgItem.from !== 'tianlei009'" class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fl">
+        <div *ngIf="msgItem.from !== uServe.userName" class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fl">
           <!--普通文本消息-->
           <div class="easemobWidget-left" *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'">
             <div class="easemobWidget-msg-wrapper">
@@ -92,7 +92,7 @@
         </div>
 
         <!--我发送的-->
-        <div class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fr" *ngIf="msgItem.from === 'tianlei009'">
+        <div class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fr" *ngIf="msgItem.from === uServe.userName">
           <div class="easemobWidget-right">
             <div *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'" class="easemobWidget-msg-wrapper">
               <i class="easemobWidget-corner"></i>
@@ -105,10 +105,7 @@
       </div>
   </div>
   <div style="height: 40px;"></div>
-  <div class="bootomInput">
-    <input  #msgInput [(ngModel)]="inputValue" placeholder="请输入信息">
-    <a (click)="sendMsg(msgInput.value)">发送</a>
-  </div>
+
   <div class="easemobWidget-dialog easemobWidget-satisfaction-dialog em-hide" id="satisfactionDialog">
     <h3>请对我的服务做出评价</h3>
     <ul><li idx='1'>H</li><li idx='2'>H</li><li idx='3'>H</li><li idx='4'>H</li><li idx='5'>H</li></ul>
@@ -122,10 +119,10 @@
 
 
 </ion-content>
-<!--<ion-footer>-->
-  <!--<div class="bootomInput">-->
-    <!--<input id="msgInput" #msgInput [(ngModel)]="inputValue" placeholder="请输入信息">-->
-    <!--<button (click)="sendMsg($event)">发送</button>-->
-  <!--</div>-->
-<!--</ion-footer>-->
+<ion-footer>
+    <div class="bootomInput">
+    <input  #msgInput [(ngModel)]="inputValue" placeholder="请输入信息">
+    <a (click)="sendMsg(msgInput.value)">发送</a>
+  </div>
+</ion-footer>
 

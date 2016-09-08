@@ -2,21 +2,10 @@
  * Created by tianlei on 16/8/26.
  */
 import {Injectable , OnInit} from '@angular/core';
+import {IMBaseService,MsgObj} from "./im-base.service";
 
 declare var WebIM: any;
 
-interface MsgObj {
-  id?: string,
-  type?: string,
-  from: string,
-  to?: string,
-  data?: string,
-  delay?: string,
-  ext?: any,
-  msgtype?: any,
-  emotionArr?: any,
-  emotionFlag?: boolean
-}
 
 class ListItem{
   from: string;
@@ -29,12 +18,12 @@ class ListItem{
 
 @Injectable()
 export class KefuService {
-  private  apiUrl = 'http:' + '//a1.easemob.com';
-  // private  appKey = "easemob-demo#chatdemoui";
-  private  appKey = "xiongniu-123#chatapp";
+
+
   private appName = "chatapp";
   private orgName = "xiongniu-123";
   private tenantId = "26192";
+  private to;
   private map = {
     '[):]': 'ee_1.png',
     '[:D]': 'ee_2.png',
@@ -75,94 +64,38 @@ export class KefuService {
 
   private  url =  'im-api.easemob.com';
 
-  me: string = 'tianlei009';
+  me: string = '18868824532';
   //存储全部聊天数据的对象
   listOfChatRoomData: any = {};
 
-  onOpened: () => void; //登陆连接成功回调
-  // onClosed: (msg) => void; //连接关闭
   onTextMessage: (msg) => void;
-  onTextMessageInner: (msg) => void;
-
   onPictureMessage: (msg) => void;
   onFileMessage: (msg)=> void;
 
-  imUndefine = (msg) => { throw msg;};
-  onRoster: (msg)=>void; //处理好友请求
 
-  conn = new WebIM.connection({
-    https: false,
-    url: this.url,
-    isAutoLogin: true,
-    isMultiLoginSessions: false
-  });
+  conn;
 
-  constructor() {
-    this.onFileMessage = (msg) => {
+  constructor(private imBase: IMBaseService) {
+
+    this.conn = imBase.conn;
+    this.to = imBase.to;
+    imBase.kefuMessage = (msg) => {
       this.handleFromMsg(msg);
     }
-    this.onPictureMessage = (msg) => {
-      this.handleFromMsg(msg);
-    }
-    this.onTextMessage = (msg) => {
-      this.handleFromMsg(msg);
-    }
-
-    this.conn.listen({
-      onOpened:  () => {          //连接成功回调
-        //如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
-        this.conn.setPresence();
-        // this.onOpened();
-        console.log("opened")
-        this.onOpened();
-      },
-      // //连接关闭回调
-      onClosed:  (message) => {
-      },
-      onRoster:  (message) => {
-        console.log("roster");
-      },
-      onOnline:  () => { console.log('本机网络连接成功'); },                  //本机网络连接成功
-      onOffline: () => { console.log('本机网络掉线')},                 //本机网络掉线
-      onPresence: (msg) => { console.log('添加好友请求'); console.log("presence");},//添加好友
-      // //收到文本消息
-      onTextMessage:  (message) => {
-
-        console.log('imserve' + '收到信息');
-        console.log(message);
-        typeof (this.onTextMessage) == "function" ? this.onTextMessage(message) :"";
-        typeof (this.onTextMessageInner) == "function" ? this.onTextMessageInner(message) :"";
-      },
-      // //连接错误
-      onError:  (error) => {
-        console.log('im发生错误');
-        console.log(error);
-      },
-      onPictureMessage: (message) => {
-        console.log("picture");
-        message.type = "picture";
-        (typeof (this.onPictureMessage) == "function") && this.onPictureMessage(message);
-      }, //收到图片消息
-      onFileMessage: (message) => {
-        console.log("file");
-        message.type = "file";
-        (typeof (this.onFileMessage) == "function") && this.onFileMessage(message);
-      },
-    });
     this.listOfChatRoomData.from = [];
   }
   getChatGroupId() {
-    
+
   }
   getDataByFromName() : Array<MsgObj>{
     return this.listOfChatRoomData.from;
   }
 
   //1.处理自己发送的信息
-  handleToMsg(msg: string,to: string){
+  handleToMsg(msg: string){
     let msgItem: MsgObj = {
       from: `${this.me}`,
-      to: `${to}`,
+      to: `${this.to}`,
       data: `${msg}`
     };
     this.handleMsgData(msgItem);
@@ -243,13 +176,13 @@ export class KefuService {
   }
 
   //发消息
-  sendTextMsg(message,to,successCallBack: (id, serverMsgId) => void, msgtype, ext?) {
+  sendTextMsg(message,successCallBack: (id, serverMsgId) => void, msgtype, ext?) {
 
       let id = this.conn.getUniqueId();//生成本地消息id
       let msg = new WebIM.message('txt', id);//创建文本消息
       msg.set({
         msg: message,
-        to: to,
+        to: this.to,
         msgtype: msgtype,
         ext:ext || "",
         success:  (id, serverMsgId) => {
@@ -259,48 +192,11 @@ export class KefuService {
       this.conn.send(msg.body);
   }
 
-  //注册
-  register(userName,password,nickName): Promise<any>{
-    return new Promise( (resolve,reject) =>{
-      var registerOptions = {
-        username: userName,
-        password: password,
-        nickname: nickName,
-        appKey: this.appKey,
-        success: function () {
-          resolve();
-        },
-        error: function (error) {
-          reject(error);
-        },
-        apiUrl: this.apiUrl
-      };
-      WebIM.utils.registerUser(registerOptions);
-
-    });
-  }
-
-  //登陆
-  login(userName,password){
-    let loginOptions = {
-      apiUrl: this.apiUrl,
-      user: userName,
-      pwd: password,
-      appKey: this.appKey
-    };
-
-    this.conn.open(loginOptions);
-  }
-
-  close(){
-    this.conn.close();
-  }
-
   //满意度调查
   sendSatisfaction( level, content, session, invite ) {
       var me = this;
       var dom = document.getElementById("satisfactionDialog");
-      this.sendTextMsg("", "13333333333", function(){
+      this.sendTextMsg("", function(){
         console.log("sendSatisOk");
       }, "",{
               weichat: {

@@ -25,6 +25,7 @@ export class IMBaseService {
   public url = 'im-api.easemob.com';
   public apiUrl = 'http:' + '//a1.easemob.com';
   public  appKey = "wlqsltz#chatapp";
+  public to = "tianlei";
 
   // http://a1.easemob.com/xiongniu-123/chatapp/users
   // http://a1.easemob.com/easemob-demo/chatdemoui/users
@@ -56,8 +57,12 @@ export class IMBaseService {
   imPresence;
 
   impFunction(imFunc,kefuFunc,msg){
-    (typeof(imFunc) =="function")&&(imFunc(msg));
-    (typeof(kefuFunc) =="function")&&(imFunc(msg));
+    console.log(msg.from ,this.to);
+    if(msg.from == this.to){
+      (typeof(kefuFunc) =="function")&&(kefuFunc(msg));
+    }else{
+      (typeof(imFunc) =="function")&&(imFunc(msg));
+    }
   }
   constructor() {
 
