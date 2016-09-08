@@ -32,6 +32,9 @@ export class KefuService {
   private  apiUrl = 'http:' + '//a1.easemob.com';
   // private  appKey = "easemob-demo#chatdemoui";
   private  appKey = "xiongniu-123#chatapp";
+  private appName = "chatapp";
+  private orgName = "xiongniu-123";
+  private tenantId = "26192";
   private map = {
     '[):]': 'ee_1.png',
     '[:D]': 'ee_2.png',
@@ -75,8 +78,6 @@ export class KefuService {
   me: string = 'tianlei009';
   //存储全部聊天数据的对象
   listOfChatRoomData: any = {};
-  //存储聊天列表数据的对象
-  listOfOpposite: Array<ListItem> = [];
 
   onOpened: () => void; //登陆连接成功回调
   // onClosed: (msg) => void; //连接关闭
@@ -150,7 +151,9 @@ export class KefuService {
     });
     this.listOfChatRoomData.from = [];
   }
-
+  getChatGroupId() {
+    
+  }
   getDataByFromName() : Array<MsgObj>{
     return this.listOfChatRoomData.from;
   }
@@ -163,8 +166,6 @@ export class KefuService {
       data: `${msg}`
     };
     this.handleMsgData(msgItem);
-    //处理外部列表数据
-    this.handleExternalMsgData(to,msg);
   }
 
   //2.处理收到的信息
@@ -178,8 +179,6 @@ export class KefuService {
       this.handleFileData(msg);
     }else{
       this.handleMsgData(msg);
-      //2.外部列表数据
-      this.handleExternalMsgData(from,msg.data);
     }
 
   };
@@ -219,32 +218,6 @@ export class KefuService {
       console.log('已经定义');
       this.listOfChatRoomData.from.push(msg);
     }
-  }
-
-  //4.对插入的外部列表数据进行处理
-  handleExternalMsgData(linkMan: string,chatContent: string){
-
-    if (this.listOfOpposite.length > 0) {
-
-      let model = this.listOfOpposite.find((value, index, obj) => {
-        return value.from === linkMan;
-      });
-
-      if (typeof(model) === "undefine") {//没有找到,添加
-
-        let shortMsg = new ListItem(linkMan, chatContent);
-        this.listOfOpposite.push(shortMsg);
-
-      } else {//找到数据进行修改
-        console.log('找到数据进行修改');
-        model.lastMsg = chatContent;
-      }
-
-    } else {
-      let shortMsg = new ListItem(linkMan, chatContent);
-      this.listOfOpposite.push(shortMsg);
-    }
-
   }
 
   handleFileData (msg:MsgObj){
