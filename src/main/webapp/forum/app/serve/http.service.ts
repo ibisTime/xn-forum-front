@@ -10,12 +10,14 @@ import {AlertController} from "ionic-angular";
 
 const RELEASE_ADDR = "S";
 const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
+// const DEBUG_ADDR = "http://121.43.101.148:7303/xn-forum-front";
 const TEST_ADDR = "S";
 
 @Injectable()
 export class HttpService {
 
-    addr = DEBUG_ADDR;
+  src = DEBUG_ADDR + '/captcha';
+  addr = DEBUG_ADDR;
     public headers;
     constructor(private http: Http,
                 private alertCtrl: AlertController ) {

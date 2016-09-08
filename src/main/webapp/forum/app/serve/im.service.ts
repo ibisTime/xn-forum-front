@@ -4,24 +4,41 @@
 import {Injectable, OnInit, Inject} from '@angular/core';
 import { LocalNotifications } from 'ionic-native';
 import { MsgObj, IMBaseService} from './im-base.service'
+import {Events} from "ionic-angular";
 declare var WebIM: any;
 const IM_PASSWORD = "123456";
 
-class ListItem{
-  from: string = '';
-  to: string = '';
-  lastMsg: string = '';
+export const FUTURE_FRIEND_COUNT = "friend:futureCount"
+// class ListItem{
+//   from: string = '';
+//   to: string = '';
+//   lastMsg: string = '';
+//   /*存入我国东八区时间*/
+//   time: string;
+//   showBadage = false;
+//   badgeCount = 0;
+//
+//   constructor(from,to,lastMsg,time,showBadage,badgeCount){
+//     this.from = from;
+//     this.lastMsg = lastMsg;
+//     this.time = time;
+//     this.to = to;
+//     this.showBadage = showBadage;
+//     this.badgeCount =
+//   }
+// }
+
+interface ListItem{
+
+  from: string;
+  to: string;
+  lastMsg: string;
   /*存入我国东八区时间*/
   time: string;
-  showBadage = false;
-  constructor(from,to,lastMsg,time,showBadage){
-    this.from = from;
-    this.lastMsg = lastMsg;
-    this.time = time;
-    this.to = to;
-    this.showBadage = showBadage;
-  }
+  showBadge: boolean;
+  badgeCount: Number;
 }
+
 
 @Injectable()
 export class IMService {
@@ -41,7 +58,8 @@ export class IMService {
   /*链接对象*/
   conn;
 
-  constructor(  private  imBase: IMBaseService) {
+  constructor(  private  imBase: IMBaseService,
+                private events: Events) {
     console.log("调用基础连接");
 
     this.conn = this.imBase.conn;
@@ -88,7 +106,6 @@ export class IMService {
     //1.文本信息
     //2.图片信息
     //3.文件信息
-
     let from = msg.from;
     /*内部聊天数据*/
     this.handleMsgData(msg,false);
@@ -133,7 +150,19 @@ export class IMService {
     let dateStr = date.getHours() +":"+ date.getMinutes();
 
     /*注意判断显示badage*/
-    let shortMsg = new ListItem(linkMan,msg.to, chatContent,dateStr,(msg.from != this.me)&&(msg.from != this.currentLinkMan));
+    // let shortMsg = new ListItem(linkMan,msg.to, chatContent,dateStr,(msg.from != this.me)&&(msg.from != this.currentLinkMan));
+
+    let isShowBadge = (msg.from != this.me)&&(msg.from != this.currentLinkMan);
+    // let count =
+
+    let shortMsg: ListItem = {
+      from: linkMan,
+      to: msg.to,
+      lastMsg: chatContent,
+      time: dateStr,
+      showBadge: isShowBadge,
+      badgeCount: 0
+    };
 
 
     if (this.listOfOpposite.length > 0) {
@@ -151,7 +180,7 @@ export class IMService {
         console.log('有自己进行数据修改');
         model.lastMsg = chatContent;
         model.time = dateStr;
-        model.showBadage = shortMsg.showBadage;
+        model.showBadge = shortMsg.showBadge;
       }
 
     } else {
@@ -177,6 +206,8 @@ export class IMService {
 
       /*加入 待添加好友*/
       this.listOfFutureFriend.push(msg);
+      /*发送有好友的通知*/
+      this.events.publish(FUTURE_FRIEND_COUNT,this.listOfFutureFriend.length);
 
     } else if( msg.type === 'subscribed' ) {//别人同意你的好友申请
 
@@ -190,7 +221,6 @@ export class IMService {
     }
 
   }
-
 
   /*发文本消息*/
   sendTextMsg(message,to,successCallBack: (id, serverMsgId) => void ) {
@@ -298,7 +328,6 @@ export class IMService {
     });
 
   }
-
 
   /*登陆*/
   login(userName){

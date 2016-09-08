@@ -14,7 +14,7 @@
   <input #pwd class="pwdInput" type="password" placeholder="请输入密码">
   <input #rePwd class="rePwdInput" type="password" placeholder="请确认密码">
   <div class="img-captcha">
-    <input #imgCaptcha placeholder="输入图片验证码"><img (click)="refreshImg($event)" src="http://localhost:8080/xn-forum-front/captcha">
+    <input #imgCaptcha placeholder="输入图片验证码"><img (click)="refreshImg($event)" [src]="src">
   </div>
 
   <div text-center>

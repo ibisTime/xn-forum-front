@@ -15,6 +15,7 @@ import {HttpService} from "../../serve/http.service";
 })
 export class RegisterPage implements OnInit {
 
+  src;
   @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
   constructor(   private navCtrl: NavController,
                  private warnCtrl: WarnService,
@@ -22,10 +23,12 @@ export class RegisterPage implements OnInit {
                  private imServe: IMService,
                  private http: HttpService
                  ) {
+    this.src = this.http.src;
     }
 
   ngOnInit() {
   }
+
 
   //验证码控件
   captchaClick(){
@@ -35,7 +38,7 @@ export class RegisterPage implements OnInit {
   }
 
   refreshImg($event){
-    $event.target.src = "http://localhost:8080/xn-forum-front/captcha";
+    $event.target.src = this.src;
   }
 
   register(userName, pwd, rePwd, imgCaptcha) {

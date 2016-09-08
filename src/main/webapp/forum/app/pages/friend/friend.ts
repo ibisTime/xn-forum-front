@@ -22,10 +22,11 @@ export class FriendPage implements AfterViewInit{
     setTimeout(()=>{
 
       let tab =  this.navCtrl.parent.getSelected();
-      tab.tabBadgeStyle = "danger";
+      tab.tabBadge = null;
+      // tab.tabBadgeStyle = "danger";
       // tab.tabBadge = this.imServe.listOfFutureFriend.length;
       // tab.tabBadge = " ";
-    },3000);
+    },50);
 
   }
 
