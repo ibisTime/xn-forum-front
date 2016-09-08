@@ -1,10 +1,11 @@
 /**
  * Created by tianlei on 16/8/26.
  */
-import {Injectable , OnInit} from '@angular/core';
+import {Injectable, OnInit, Inject} from '@angular/core';
 import { LocalNotifications } from 'ionic-native';
 import { MsgObj, IMBaseService} from './im-base.service'
 declare var WebIM: any;
+const IM_PASSWORD = "123456";
 
 class ListItem{
   from: string = '';
@@ -40,7 +41,7 @@ export class IMService {
   /*链接对象*/
   conn;
 
-  constructor( private imBase :IMBaseService) {
+  constructor(  private  imBase: IMBaseService) {
     console.log("调用基础连接");
 
     this.conn = this.imBase.conn;
@@ -84,15 +85,10 @@ export class IMService {
 
   /*2.处理收到的信息*/
   handleFromMsg(msg:MsgObj) {
-    let copy = this;
-    LocalNotifications.schedule({
-      id: 1,
-      title: msg.from,
-      text: msg.data
-    });
+    //1.文本信息
+    //2.图片信息
+    //3.文件信息
 
-    //1.全部数据
-    console.log(msg.from);
     let from = msg.from;
     /*内部聊天数据*/
     this.handleMsgData(msg,false);
@@ -196,10 +192,10 @@ export class IMService {
   }
 
 
-  //发消息
+  /*发文本消息*/
   sendTextMsg(message,to,successCallBack: (id, serverMsgId) => void ) {
 
-    let id = this.conn.getUniqueId();//生成本地消息id
+    let id = this.conn.getUniqueId();
     let msg = new WebIM.message('txt', id);//创建文本消息
     msg.set({
       msg: message,
@@ -211,12 +207,12 @@ export class IMService {
     this.conn.send(msg.body);
   }
 
-  //注册
-  register(userName,password,nickName): Promise<any>{
+  /*注册*/
+  register(userName,nickName): Promise<any>{
     return new Promise( (resolve,reject) =>{
       var registerOptions = {
         username: userName,
-        password: password,
+        password: IM_PASSWORD,
         nickname: nickName,
         appKey: this.imBase.appKey,
         success: function () {
@@ -305,12 +301,12 @@ export class IMService {
 
 
   /*登陆*/
-  login(userName,password){
+  login(userName){
     this.me = userName;//保存用户信息
     let loginOptions = {
       apiUrl: this.imBase.apiUrl,
       user: userName,
-      pwd: password,
+      pwd: IM_PASSWORD,
       appKey: this.imBase.appKey
     };
 

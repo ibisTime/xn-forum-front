@@ -8,6 +8,7 @@ import {UserService} from "./serve/user.serve";
 import {Observable} from "rxjs/Observable";
 import  'rxjs/add/observable/of';
 import { Splashscreen } from 'ionic-native';
+import {Http} from "@angular/http";
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
@@ -17,12 +18,16 @@ export class MyApp {
   private rootPage: any;
   test = 5;
   constructor(private platform: Platform,
-              private userService: UserService
+              private userService: UserService,
+              private http: Http
               ) {
 
 
+    // this.http.get('http://121.43.101.148:7303/xn-forum-front/captcha').subscribe((res) =>{
+    //   console.log(res.text());
+    // });
 
-
+   //  let http = new HttpRuner();
    // this.http.get("/captcha").then((rep) => {
    //   console.log(rep);
    // }).catch((error) => {

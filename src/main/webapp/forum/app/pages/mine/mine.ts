@@ -5,17 +5,25 @@
 import { Component, OnInit } from '@angular/core';
 import {IMService} from "../../serve/im.service";
 import {UserService} from "../../serve/user.serve";
-
+import {ForgetPwdPage} from  '../user/forgetPwd'
+import {NavController} from "ionic-angular";
 @Component({
     templateUrl:"build/pages/mine/mine.html",
 
 })
 export class MinePage implements OnInit {
-    constructor(private  userServe: UserService,private imServe: IMService) { }
+    constructor(private  userServe: UserService,
+                private imServe: IMService,
+                private navCtrl: NavController) { }
 
   ngOnInit() {
       // setInterval()
   }
+
+  changePassword(){
+    this.navCtrl.push(ForgetPwdPage,"修改密码");
+  }
+
 
   loginOut($event){
 

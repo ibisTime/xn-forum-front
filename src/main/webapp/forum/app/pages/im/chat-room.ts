@@ -31,8 +31,7 @@ export class ChatRoomPage implements AfterViewInit {
   constructor(private  nav: NavController,
               private imServe: IMService,
               private params: NavParams,
-              private platform: Platform,
-              private vc: ViewController
+              private platform: Platform
               ) {
 
     // console.log(params.data);
@@ -48,15 +47,10 @@ export class ChatRoomPage implements AfterViewInit {
     setTimeout(() => {
 
       console.log('你们好');
-      // this.platform.ready().then((msg) => {
-      //   Keyboard.disableScroll(false);
-      // });
+
       this.platform.ready().then(() => {
 
         Keyboard.onKeyboardShow().subscribe((msg) => {
-
-          // document.body.clientHeight - msg.keyboardHeight
-          // this.placeholderView = true;
           this.heightValue = "block";
           setTimeout(() => {
 

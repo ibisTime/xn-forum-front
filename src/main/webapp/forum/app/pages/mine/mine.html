@@ -4,6 +4,11 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="mine">
-  <button ion-item (click)="loginOut($event)">退出登陆</button>
+<ion-content  class="mine">
+  <ion-list>
+    <button ion-item (click)="changePassword()" style="background-color: white;">修改密码</button>
+  </ion-list>
+  <div class="login-out">
+  <button  (click)="loginOut($event)">退出登陆</button>
+  </div>
 </ion-content>

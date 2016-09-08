@@ -5,6 +5,7 @@ import {IMService} from "../../serve/im.service";
 import {WarnService} from "../../serve/warn.service";
 import {UserService} from "../../serve/user.serve";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
+import {HttpService} from "../../serve/http.service";
 
 
 @Component({
@@ -16,10 +17,11 @@ export class RegisterPage implements OnInit {
 
   @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
   constructor(   private navCtrl: NavController,
-                 private app:App,
                  private warnCtrl: WarnService,
                  private user: UserService,
-                 private imServe: IMService) {
+                 private imServe: IMService,
+                 private http: HttpService
+                 ) {
     }
 
   ngOnInit() {
@@ -32,47 +34,70 @@ export class RegisterPage implements OnInit {
 
   }
 
-  register(userName, pwd, rePwd) {
+  refreshImg($event){
+    $event.target.src = "http://localhost:8080/xn-forum-front/captcha";
+  }
 
-    if (!(userName.length > 5 && pwd.length > 5)) {
+  register(userName, pwd, rePwd, imgCaptcha) {
+
+    if (!(userName.length > 5 && pwd.length >= 0)) {
 
       this.warnCtrl.toast('请输入正确的账户名和密码');
       return;
     }
+    //
+    // if(pwd != rePwd){
+    //   this.warnCtrl.toast('两次密码输入不一致');
+    //   return;
+    // }
 
-    if(pwd != rePwd){
-      this.warnCtrl.toast('两次密码输入不一致');
-      return;
-    }
-
-    if(this.captchaView.captcha.length <= 4){
+    // if(this.captchaView.captcha.length <= 4){
+    //   this.warnCtrl.toast('请输入正确的验证码');
+    //   return;
+    // }
+    if(imgCaptcha.length <= 0){
       this.warnCtrl.toast('请输入正确的验证码');
       return;
     }
 
+    let params = {
+      loginName : userName,
+      captcha: imgCaptcha,
+      userReferee: "tianlei"
+    }
 
-      //检测到用户没有注册,环信在im模块登陆
-    // this.http.get()
-    // let hero = {
-    //   name: "tianlei005",
-    //   age: 22
-    // }
-    // JSON.stringify(hero);
 
-      //提示
-    // this.http.get("/user/regist",)
 
+    let loading = this.warnCtrl.loading('');
+    /*注册*/
+    this.http.post("/user/regist",params).then( res => {
+      console.log(res);
+      this.warnCtrl.toast('注册成功');
       //帮助用户注册环信
-      this.imServe.register(userName,pwd,"").then(() => {
+      this.imServe.register(userName,"").then(() => {
 
-        this.warnCtrl.toast('注册成功');
+        this.warnCtrl.toast('注册IM成功');
         //保存用户信息
         this.user.saveUserInfo(userName, pwd);
-        this.app.getRootNav().setRoot(TabsPage);
-
+        this.navCtrl.push(TabsPage);
+        loading.dismiss();
       }).catch((error) => {
-        this.warnCtrl.toast('注册失败');
+        this.warnCtrl.toast('注册IM失败');
+        loading.dismiss();
       });
+
+    }).catch( error => {
+
+      loading.dismiss();
+      console.log('外部--失败');
+
+    });
+
+
+
+
+
+
   }
 
   backLogin(){
