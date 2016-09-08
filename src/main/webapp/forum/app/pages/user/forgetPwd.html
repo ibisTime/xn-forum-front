@@ -1,7 +1,7 @@
 <ion-header >
   <ion-navbar >
     <ion-title >
-      忘记密码
+      {{title}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,7 +9,7 @@
 <ion-content   class="forget-pwd" >
 
 
-  <input #account class="userNameInput" placeholder="请输入手机号">
+  <input #account [disabled]="inputDisable" [value]="userNameValue" class="userNameInput" placeholder="请输入手机号">
   <captcha-view class="captcha-view" (clickCaptchaBtn)="captchaClick()" ></captcha-view>
   <input #pwd class="pwdInput" type="password" placeholder="请输入密码">
   <input #rePwd class="rePwdInput" type="password" placeholder="请确认密码">

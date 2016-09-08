@@ -1,5 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {App, NavController} from "ionic-angular";
+import {
+  Component, AfterViewInit, ViewChild, Renderer, Directive, ElementRef
+
+} from '@angular/core';
+import {App, NavController, NavParams} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 import {IMService} from "../../serve/im.service";
 import {WarnService} from "../../serve/warn.service";
@@ -7,23 +10,52 @@ import {UserService} from "../../serve/user.serve";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
 
 
+@Directive({ selector: 'input' })
+export class InputItem {}
+
 @Component({
   templateUrl: "build/pages/user/forgetPwd.html",
   directives: [CaptchaComponent]
 
 })
-export class ForgetPwdPage implements OnInit {
+export class ForgetPwdPage implements AfterViewInit {
 
+  title = "忘记密码";
+  @ViewChild(InputItem) userNameInput: InputItem;
   @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
+  list;
+  inputDisable = "";
+  userNameValue = null;
   constructor(   private navCtrl: NavController,
                  private app:App,
                  private warnCtrl: WarnService,
                  private user: UserService,
-                 private imServe: IMService
+                 private para: NavParams,
+                 private render: Renderer,
+                 private ele: ElementRef
                  ) {
   }
 
+  ngAfterViewInit(){
+
+    if(this.para.data == "修改密码"){
+      this.title = this.para.data;
+      let an =  this.userNameInput;
+      this.inputDisable = "disabled";
+      this.userNameValue = this.user.userName;
+    }
+    // this.inputDisable = false;
+    setTimeout(() => {
+      console.log(this.userNameInput);
+
+    },3000);
+
+    // let userNameInput = this.ele.nativeElement.query('input');
+
+  }
+
   ngOnInit() {
+
   }
 
   //验证码控件
@@ -52,15 +84,12 @@ export class ForgetPwdPage implements OnInit {
     }
 
     //提示
-    this.warnCtrl.toast('注册成功');
-
+    this.warnCtrl.toast('修改成功');
     //帮助用户注册环信
-    this.imServe.register(userName,pwd,"");
 
     //保存用户信息
     this.user.saveUserInfo(userName, pwd);
     this.app.getRootNav().setRoot(TabsPage);
-
   }
 
 }

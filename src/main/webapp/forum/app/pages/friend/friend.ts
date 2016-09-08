@@ -19,9 +19,6 @@ export class FriendPage implements AfterViewInit{
 
   ngAfterViewInit(){
 
-    // Observable.from( this.imServe.listOfFutureFriend.length)
-
-
     setTimeout(()=>{
 
       let tab =  this.navCtrl.parent.getSelected();

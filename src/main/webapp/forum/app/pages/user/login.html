@@ -8,16 +8,15 @@
 
 <ion-content text-center class="login" >
   <input #userName class="userNameInput" placeholder="请输入账户" >
-  <input #pwd class="pwdInput" placeholder="请输入密码" >
+  <input #pwd class="pwdInput" type="password" placeholder="请输入密码" >
 
   <div class="registerAndLogin">
     <button class="registerBtn" (click)="register($event)">注册</button>
-    <button class="findPwdBtn" (click)="findPwd($event)" no-padding>找回密码</button>
+    <button class="findPwdBtn" t (click)="findPwd($event)" no-padding>找回密码</button>
   </div>
 
   <div text-center>
     <button class="loginBtn" (click)="login(userName.value,pwd.value)">登陆</button>
   </div>
-
 
 </ion-content>

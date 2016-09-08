@@ -3,6 +3,7 @@ import {KefuService} from "./kefu.serve";
 import {WarnService} from "./warn.service";
 import {UserService} from "./user.serve";
 import {IMBaseService} from "./im-base.service";
+import {HttpService} from "./http.service";
 /**
  * Created by tianlei on 16/8/30.
  */
@@ -12,5 +13,7 @@ export const  MY_SERVE = [
   KefuService,
   WarnService,
   UserService,
-  IMBaseService
+  IMBaseService,
+  HttpService,
+
 ];

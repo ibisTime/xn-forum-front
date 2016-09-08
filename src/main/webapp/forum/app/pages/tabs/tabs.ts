@@ -28,7 +28,7 @@ export class TabsPage {
     this.tab3Root = NextPage;
     this.tab4Root = FriendPage;
     this.tab5Root = MinePage;
-    //登陆成功
-    this.imService.login(this.userServe.userName,this.userServe.password);
+    //登陆成功 密码默认
+    this.imService.login(this.userServe.userName);
   }
 }

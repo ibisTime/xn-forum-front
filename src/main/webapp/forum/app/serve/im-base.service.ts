@@ -24,8 +24,12 @@ export class IMBaseService {
 
   public url = 'im-api.easemob.com';
   public apiUrl = 'http:' + '//a1.easemob.com';
-  public appKey = "easemob-demo#chatdemoui";
-  // private  appKey = "xiongniu-123#chatapp";
+  // public appKey = "easemob-demo#chatdemoui";
+  public  appKey = "wlqsltz#chatapp";
+  // public  appKey = "experience-kefu#sandbox";
+
+  // http://a1.easemob.com/xiongniu-123/chatapp/users
+  // http://a1.easemob.com/easemob-demo/chatdemoui/users
 
   conn = new WebIM.connection({
     https: false,
