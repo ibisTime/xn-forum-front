@@ -1,65 +1,59 @@
-.chatroom {
-  //height: 420px;
-  padding-bottom: 300px;
-  background-color: lightgray;
+//.chatroom {
+//  //height: 420px;
+//  padding-bottom: 300px;
+//  background-color: lightgray;
+//
+//  .imContent {
+//    flex:1;
+//
+//    padding: 10px;
+//    max-width: 100%;
+//    //background-color: yellow;
+//    div{
+//      //background-color: green;
+//      //我发送消息
+//      .mine {
+//        img {
+//          width: 40px;
+//          height: 40px;
+//          border-radius: 20px;
+//        }
+//        div {
+//          border: 2px solid orange;
+//          text-align: left;
+//          margin: 0px;
+//          max-width: 40%;
+//          min-width: 60px;
+//          min-height: 35px;
+//          padding: 7px;
+//          display: inline-block;
+//          background-color: white;
+//        }
+//      }
+//      //对方发送消息
+//      .other{
+//        text-align: right;
+//        img {
+//          width: 40px;
+//          height: 40px;
+//          border-radius: 20px;
+//        }
+//        div {
+//          text-align: left;
+//          margin: 0px;
+//          max-width: 40%;
+//          min-width: 60px;
+//          min-height: 35px;
+//          padding: 7px;
+//          display: inline-block;
+//          background-color: white;
+//          border: 2px solid orange;
+//        }
+//      }
+//    }
+//  }
+//}
 
-  .imContent {
-    flex:1;
-
-    padding: 10px;
-    max-width: 100%;
-    //background-color: yellow;
-    div{
-      //background-color: green;
-      //我发送消息
-      .mine {
-        img {
-          width: 40px;
-          height: 40px;
-          border-radius: 20px;
-        }
-        div {
-          border: 2px solid orange;
-          text-align: left;
-          margin: 0px;
-          max-width: 40%;
-          min-width: 60px;
-          min-height: 35px;
-          padding: 7px;
-          display: inline-block;
-          background-color: white;
-        }
-      }
-      //对方发送消息
-      .other{
-        text-align: right;
-        img {
-          width: 40px;
-          height: 40px;
-          border-radius: 20px;
-        }
-        div {
-          text-align: left;
-          margin: 0px;
-          max-width: 40%;
-          min-width: 60px;
-          min-height: 35px;
-          padding: 7px;
-          display: inline-block;
-          background-color: white;
-          border: 2px solid orange;
-        }
-      }
-    }
-  }
-
-
-
-
-
-
-
-}
 
 /*底部输入框*/
 .bootomInput {

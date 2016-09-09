@@ -39,14 +39,14 @@ export class NextPage implements AfterViewInit {
     this.satisfaction = new Satisfaction(this.imServe);
     this.imServe.scroll_bottom = ()=>{
       this.scrollBottom();
-    } 
+    }
   }
 
   ngAfterViewInit() {
     this.chatView.me = this.imServe.me;
     this.chatView.listOfChatData = this.listOfChatData;
     this.imServe.getHistory();
-    
+
   }
 
   sendMsg(value) {
@@ -55,15 +55,15 @@ export class NextPage implements AfterViewInit {
     this.imServe.sendTextMsg(value, (id, serverMsgId) => {
     }, "");
   }
-  doCaidan(id, name){
-      this.imServe.handleToMsg(name);
-      this.imServe.sendTextMsg(name, (id, serverMsgId) => {
-      }, {choice: { menuid: id }});
-  }
-  doPingjia(inviteId, serviceSessionId){
-    this.satisfaction.initArgs();
-    this.satisfaction.doPingjia(inviteId, serviceSessionId);
-  }
+  // doCaidan(id, name){
+  //     this.imServe.handleToMsg(name);
+  //     this.imServe.sendTextMsg(name, (id, serverMsgId) => {
+  //     }, {choice: { menuid: id }});
+  // }
+  // doPingjia(inviteId, serviceSessionId){
+  //   this.satisfaction.initArgs();
+  //   this.satisfaction.doPingjia(inviteId, serviceSessionId);
+  // }
   cancelSatis(){
     this.satisfaction.doCancelSatis();
   }
@@ -94,5 +94,16 @@ export class NextPage implements AfterViewInit {
       this.timer = setTimeout(()=>{
           this.content.scrollToBottom();
       }, 200);
+  }
+  doCaidan(caidan){
+
+    console.log(caidan);
+
+  }
+
+  doPingjia(pingjia){
+
+    console.log(pingjia);
+
   }
 }//类的结尾

@@ -25,7 +25,7 @@
           </div>
           <div class="easemobWidget-list-btns">
             <button class="easemobWidget-list-btn js_robertbtn" *ngFor="let item of msgItem.ext.msgtype.choice.items"
-                    (click)="doCaidan(item.id,item.name)">
+                    (click)="doCaidanCopy(item.id,item.name)">
               {{item.name}}
             </button>
           </div>
@@ -40,7 +40,7 @@
           </div>
           <div class="easemobWidget-list-btns">
             <button class="easemobWidget-list-btn js_satisfybtn"
-                    (click)="doPingjia(msgItem.ext.weichat.ctrlArgs.inviteId,msgItem.ext.weichat.ctrlArgs.serviceSessionId)">
+                    (click)="doPingjiaCopy(msgItem.ext.weichat.ctrlArgs.inviteId,msgItem.ext.weichat.ctrlArgs.serviceSessionId)">
               立即评价
             </button>
           </div>

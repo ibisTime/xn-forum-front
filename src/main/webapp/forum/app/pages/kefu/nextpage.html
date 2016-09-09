@@ -16,7 +16,7 @@
       refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-  <chat-view></chat-view>
+  <chat-view (doCaidan)="doCaidan($event)" (doPingjia)="doPingjia($event)" ></chat-view>
 
   <div class="easemobWidget-dialog easemobWidget-satisfaction-dialog em-hide" id="satisfactionDialog">
     <h3>请对我的服务做出评价</h3>

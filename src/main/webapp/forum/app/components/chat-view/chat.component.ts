@@ -1,7 +1,7 @@
 /**
  * Created by tianlei on 16/9/9.
  */
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
    templateUrl: "build/components/chat-view/chat.component.html",
@@ -21,9 +21,34 @@ export class ChatViewComponent implements OnInit {
       this._me = me;
     }
 
+  // doCaidan(item.id,item.name)
+  //   doCaidan(item.id,item.name)
+  // doPingjia(msgItem.ext.weichat.ctrlArgs.inviteId,msgItem.ext.weichat.ctrlArgs.serviceSessionId)
+
+   @Output() doPingjia: EventEmitter<any> = new EventEmitter();
+   @Output() doCaidan: EventEmitter<any> = new EventEmitter();
 
 
-    ngOnInit() { }
+  doCaidanCopy(id,name){
+    let item = {
+      "id" : id,
+      "name" : name
+    }
+    this.doCaidan.emit(item);
 
+  }
+
+  doPingjiaCopy(inviteId,serviceSessionId){
+
+    let item = {
+      "inviteId" : inviteId,
+      "serviceSessionId" : serviceSessionId
+    }
+
+    this.doCaidan.emit(item);
+
+  }
+
+  ngOnInit() { }
 
 }
