@@ -10,10 +10,12 @@ import {KefuService} from "../../serve/kefu.serve";
 import {Satisfaction} from "./satisfaction";
 import {UserService} from "../../serve/user.serve";
 import {HttpService} from "../../serve/http.service";
+import {ChatViewComponent} from "../../components/chat-view/chat.component";
 
 
 @Component({
-    templateUrl: 'build/pages/kefu/nextpage.html'
+    templateUrl: 'build/pages/kefu/nextpage.html',
+    directives: [ChatViewComponent]
     // styleUrls: ['app/pages/contact/css/base.css']
 })
 export class NextPage implements AfterViewInit {
@@ -27,6 +29,7 @@ export class NextPage implements AfterViewInit {
 
 
   @ViewChild(Content) content: Content;
+  @ViewChild(ChatViewComponent) chatView: ChatViewComponent;
 
   constructor(private  nav: NavController,
               private imServe: KefuService,
@@ -40,9 +43,10 @@ export class NextPage implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    //2.登陆
-    //this.imServe.login('tianlei009',"123456");
+    this.chatView.me = this.imServe.me;
+    this.chatView.listOfChatData = this.listOfChatData;
     this.imServe.getHistory();
+    
   }
 
   sendMsg(value) {

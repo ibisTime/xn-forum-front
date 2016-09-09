@@ -390,8 +390,8 @@
   .clearfix {
       zoom: 1;
   }
-  .imContent>.clearfix:last-child{
-    margin-bottom: 15px;
+  .imContent .clearfix::last-child{
+      margin-top: 15px;
   }
 }
 .nextpage-foot {

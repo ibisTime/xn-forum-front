@@ -1,6 +1,7 @@
 <div class="chatView">
+
   <div class="imContent easemobWidgetWrapper-mobile" id="imCont">
-    <div *ngFor="let msgItem of _listOfChatData">
+    <div class="clearfix" *ngFor="let msgItem of _listOfChatData">
 
       <!--对方发送的-->
       <div *ngIf="msgItem.from !== _me" class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fl">
