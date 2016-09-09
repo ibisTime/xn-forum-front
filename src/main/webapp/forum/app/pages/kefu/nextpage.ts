@@ -4,7 +4,7 @@
 import {Component, OnInit, ViewChild, QueryList, ElementRef, AfterViewInit} from '@angular/core';
 import { NgFor } from '@angular/common';
 
-import {NavController, InfiniteScroll, Scroll, Content} from 'ionic-angular'
+import {NavController,ViewController, InfiniteScroll, Scroll, Content, Tab,Tabs} from 'ionic-angular'
 import { Keyboard } from 'ionic-native';
 import {KefuService} from "../../serve/kefu.serve";
 import {Satisfaction} from "./satisfaction";
@@ -23,6 +23,7 @@ export class NextPage implements AfterViewInit {
   listOfChatData;
   private satisfaction;
   private timer;
+  private isActive = false;
 
 
   @ViewChild(Content) content: Content;
@@ -33,15 +34,15 @@ export class NextPage implements AfterViewInit {
               private ajax: HttpService) {
     this.listOfChatData = this.imServe.getDataByFromName();
     this.satisfaction = new Satisfaction(this.imServe);
-    this.imServe.scroll_bottom = () => {
+    this.imServe.scroll_bottom = ()=>{
       this.scrollBottom();
-    }
+    } 
   }
 
   ngAfterViewInit() {
     //2.登陆
     //this.imServe.login('tianlei009',"123456");
-    //this.imServe.getHistory();
+    this.imServe.getHistory();
   }
 
   sendMsg(value) {
@@ -65,7 +66,24 @@ export class NextPage implements AfterViewInit {
   submitSatis(){
     this.satisfaction.doSubmitSatis();
   }
+
+  ionViewDidEnter(){
+    this.imServe.totalMsg = 0;
+    this.scrollBottom();
+    this.isActive = true;
+  }
+  ionViewDidLeave(){
+    this.imServe.totalMsg = 0;
+    this.isActive = false;
+  }
+  doRefresh(event){
+    this.imServe.getHistory();
+  }
   scrollBottom() {
+      if(!this.isActive){
+          let tab =  this.nav.parent.getByIndex(2);
+          tab.tabBadge = this.imServe.totalMsg && `${this.imServe.totalMsg}` || null;
+      }
       if(this.timer){
           clearTimeout(this.timer);
       }

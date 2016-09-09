@@ -58,10 +58,9 @@ export class IMBaseService {
   /*好友*/
   imPresence;
 
-  impFunction(imFunc,kefuFunc,msg){
-    console.log(msg.from ,this.to);
+  impFunction(imFunc,kefuFunc,msg, type?){
     if(msg.from == this.to){
-      (typeof(kefuFunc) =="function")&&(kefuFunc(msg));
+      (typeof(kefuFunc) =="function")&&(kefuFunc(msg, type));
     }else{
       (typeof(imFunc) =="function")&&(imFunc(msg));
     }
@@ -73,15 +72,15 @@ export class IMBaseService {
 
       /*1.文本消息*/
       onTextMessage: (msg) => {
-       this.impFunction(this.imMessage,this.kefuMessage,msg);
+       this.impFunction(this.imMessage,this.kefuMessage,msg, "txt");
       },
       /*2.图片消息*/
       onPictureMessage: (msg) => {
-        this.impFunction(this.imMessage,this.kefuMessage,msg);
+        this.impFunction(this.imMessage,this.kefuMessage,msg, "picture");
       },
       /*3.文件消息*/
       onFileMessage: (msg) => {
-        this.impFunction(this.imMessage,this.kefuMessage,msg);
+        this.impFunction(this.imMessage,this.kefuMessage,msg, "file");
       },
       /*好友 1.接受你的好友申请  2.申请加你为好友*/
       onPresence: (msg) => {

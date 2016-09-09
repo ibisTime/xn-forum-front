@@ -26,6 +26,8 @@ export class KefuService {
   private to;
   private appkey;
   private chatGroupId = "0";
+  public totalMsg = 0;
+  private chatGroupSeqId = 0;
   
   private map = {
     '[):]': 'ee_1.png',
@@ -85,7 +87,9 @@ export class KefuService {
     this.to = imBase.to;
     this.tenantId = imBase.tenantId;
     this.appkey = imBase.appKey;
-    imBase.kefuMessage = (msg) => {
+    imBase.kefuMessage = (msg, type) => {
+      this.totalMsg++;
+      msg.type = type;
       this.handleFromMsg(msg);
     }
     this.listOfChatRoomData.from = [];
@@ -97,20 +101,20 @@ export class KefuService {
        this.chatGroupId = msg;
       });
   }
-  getHistory() {
+  getHistory(refresh?) {
     if(this.chatGroupId === "0"){
       this.getChatGroupId().then(()=>{
-        this.getMyHistory();
+        this.getMyHistory(refresh);
       });
     }else{
-      this.getMyHistory();
+      this.getMyHistory(refresh);
     }
   }
-  getMyHistory() {
+  getMyHistory(refresh?) {
     this.ajax.get(null, null,
-      'http://kefu.easemob.com/v1/webimplugin/visitors/msgHistory?fromSeqId=0&size=10&chatGroupId='+this.chatGroupId+'&tenantId='+this.tenantId)
+      'http://kefu.easemob.com/v1/webimplugin/visitors/msgHistory?fromSeqId='+(this.chatGroupSeqId || 0)+'&size=10&chatGroupId='+this.chatGroupId+'&tenantId='+this.tenantId)
       .then((msg)=>{
-        this.handleHistoryData(msg);
+        this.handleHistoryData(msg, refresh);
       })
   }
   getDataByFromName() : Array<MsgObj>{
@@ -213,7 +217,7 @@ export class KefuService {
     return fmt;   
   };
 
-  handleHistoryData(chatHistory){
+  handleHistoryData(chatHistory, refresh){
       var me = this;
 
       if ( chatHistory.length > 0 ) {
@@ -253,7 +257,9 @@ export class KefuService {
                   }
               }
           }
+          this.chatGroupSeqId = +chatHistory[chatHistory.length - 1].chatGroupSeqId - 1;
       }
+      refresh && refresh.complete();
   }
   //发消息
   sendTextMsg(message,successCallBack: (id, serverMsgId) => void, msgtype, ext?) {

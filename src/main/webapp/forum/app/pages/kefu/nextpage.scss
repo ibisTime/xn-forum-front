@@ -379,14 +379,26 @@
     color: #ADAEAF;
     font-size: 12px;
   }
+  .clearfix:after {
+    content: "";
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+  }
+
+  .clearfix {
+      zoom: 1;
+  }
+  .imContent>.clearfix:last-child{
+    margin-bottom: 15px;
+  }
 }
 .nextpage-foot {
   /*底部输入框*/
   .bootomInput {
-    bottom: 0px;
     display: flex;
     align-items: center;
-    position: absolute;
     height: auto;
     padding: 3px 80px 3px 8px;
     box-sizing: border-box;
