@@ -7,6 +7,7 @@ import {Tab, Tabs, Events} from "ionic-angular";
 import {FriendPage} from "../friend/friend";
 import {IMService, FUTURE_FRIEND_COUNT} from "../../serve/im.service";
 import {UserService} from "../../serve/user.serve";
+import {KefuService} from "../../serve/kefu.serve";
 
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html'
@@ -25,7 +26,8 @@ export class TabsPage implements AfterViewInit{
 
   constructor(private  imService: IMService,
               private  userServe: UserService,
-              private events: Events) {
+              private events: Events,
+              private kefuService: KefuService) {
 
     this.tab1Root = HomePage;
     this.tab2Root = ImPage;
@@ -34,6 +36,8 @@ export class TabsPage implements AfterViewInit{
     this.tab5Root = MinePage;
     //登陆成功 密码默认
     this.imService.login(this.userServe.userName);
+    this.kefuService.me = this.userServe.userName;
+
     this.events.subscribe(FUTURE_FRIEND_COUNT, msg => {
       /*事件*/
       console.log(msg[0]);

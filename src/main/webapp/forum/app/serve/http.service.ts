@@ -85,7 +85,6 @@ export class HttpService {
     };
 
     handleRes(res,resolve,reject){
-
       console.log(res);
       let resObj = res.json();
       if(resObj.eType == 2){
@@ -95,7 +94,6 @@ export class HttpService {
       } else {
         resolve(resObj);
       }
-
     }
 
     handelError(error,reject){

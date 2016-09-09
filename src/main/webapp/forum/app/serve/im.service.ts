@@ -69,10 +69,12 @@ export class IMService {
 
   }
 
+
   imOpened(msg){
     console.log("imService success");
     this.getFriendList();
   }
+
 
   /*0.根据聊天人获取聊天数据*/
   getDataByFromName( from) : Array<MsgObj>{

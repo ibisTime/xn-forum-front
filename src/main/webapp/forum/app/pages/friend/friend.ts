@@ -39,7 +39,11 @@ export class FriendPage implements AfterViewInit{
   }
 
   lookFriendAsk(){
+
+    let tab =  this.navCtrl.parent.getSelected();
+    tab.tabBadge = null;
     this.navCtrl.push(AddFriendPage);
+
   }
 
   addFriend(){
