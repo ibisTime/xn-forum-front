@@ -23,48 +23,28 @@ export class ImPage implements AfterViewInit{
     console.log("im被创建了");
 
   }
-  //
 
   ngAfterViewInit() {
-
-    //登陆环信
-    // this.imServe.login(this.userServe.userName, this.userServe.password);
-    // this.imServe.onTextMessage = (msg) => {
-    //   Badge.increase(1);
-    // };
-
-    /*加好友*/
-    // this.imServe.onPresence = (msg) => {
-    //
-    //   if ( msg.type === 'subscribe' ) {
-    //     this.warn.alertWithCanale(`${msg.from}`+"要添加你为好友", () => {
-    //
-    //       this.imServe.conn.subscribed({
-    //         to: msg.from,
-    //         message : "[resp:true]"
-    //       });
-    //       this.imServe.conn.subscribe({//需要反向添加对方好友
-    //         to: msg.from,
-    //         message : "[resp:true]"
-    //       });
-    //
-    //     });
-    //   }
-    // }
-
   }
 
   goChatRoom(msgItem: any){
-    /*从好友列表进入,只能传用户名进入下一级*/
-    if(typeof(msgItem) == "string" ){
-      this.navCtrl.push(ChatRoomPage,msgItem);
-      return;
+
+    let tab =  this.navCtrl.parent.getSelected();
+    // /*从好友列表进入,只能传用户名进入下一级*/
+    // if(typeof(msgItem) == "string" ){
+    //   this.navCtrl.push(ChatRoomPage,msgItem);
+    //   return;
+    // }
+    let linkMan = msgItem.from == this.imServe.me ? msgItem.to : msgItem.from;
+
+    msgItem.showBadge = false;
+    if(this.imServe.msgTotalCount > 0 && msgItem.badgeCount > 0){
+      this.imServe.msgTotalCount -= msgItem.badgeCount;
+      msgItem.badgeCount = 0;
     }
 
-    let linkMan = msgItem.from == this.imServe.me ? msgItem.to : msgItem.from;
-    msgItem.showBadage = false;
+    tab.tabBadge = (this.imServe.msgTotalCount == 0) ? null :`${this.imServe.msgTotalCount}`;
     this.navCtrl.push(ChatRoomPage,linkMan);
-
   }
 
 
@@ -93,4 +73,5 @@ export class ImPage implements AfterViewInit{
   //     console.log('发送成功'+ id +'----'+ serverMsgId);
   //   });
   // }
+
 }

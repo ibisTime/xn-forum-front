@@ -34,9 +34,13 @@ export class ChatRoomPage implements AfterViewInit {
               private platform: Platform
               ) {
 
-    // console.log(params.data);
+    /*通过聊天人获取数据*/
     this.listOfChatData = this.imServe.getDataByFromName( params.data);
 
+    let peo = {
+      name : 'd'
+    }
+    console.log(typeof(peo),typeof('sdds'));
     //1.哪到导航数据就去获取信息
     // this.imServe.onTextMessageInner = msg => {
     //   setTimeout(() => {
@@ -46,7 +50,6 @@ export class ChatRoomPage implements AfterViewInit {
 
     setTimeout(() => {
 
-      console.log('你们好');
 
       this.platform.ready().then(() => {
 
@@ -97,10 +100,9 @@ export class ChatRoomPage implements AfterViewInit {
     },50)
   }
 
+  /*进行列表优化*/
   trackById(index,item){
-
     return item.id;
-
   }
 
   sendMsg(msgInput) {

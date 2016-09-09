@@ -7,25 +7,12 @@
 </ion-header>
 
 <ion-content class="im">
-  <!--<button (click)="" >发送</button>-->
-  <!--<input #friend style="border: 2px solid green;">-->
-  <!--<button (click)="addFriend(friend.value)">+好友</button>-->
-  <!--<button (click)="getFriendList()">好友列表</button>-->
-  <!--<br>-->
-  <!--<button (click)="imClose()">断开连接</button>-->
-  <!--<button (click)="sendMsg()">发送消息</button>-->
-
-  <!--<ion-list>-->
-    <!--<button ion-item *ngFor="let item of imServe.listOfFriend" (click)=goChatRoom(item.name)>-->
-      <!--{{item.name}}-->
-    <!--</button>-->
-  <!--</ion-list>-->
 
   <ion-list>
     <div class="chat-list-outer"  (click)="goChatRoom(msgItem)"
             *ngFor="let msgItem of imServe.listOfOpposite" >
       <!---->
-      <div class="badge" *ngIf="msgItem.showBadge"></div>
+      <div class="badge" *ngIf="msgItem.showBadge">{{(msgItem.badgeCount > 99) ? '99+' : msgItem.badgeCount}}</div>
       <!---->
       <div class="chat-list-item" >
         <div class="headImg">

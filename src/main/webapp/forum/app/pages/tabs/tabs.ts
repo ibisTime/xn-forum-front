@@ -5,7 +5,7 @@ import {NextPage} from "../kefu/nextpage";
 import {MinePage} from "../mine/mine";
 import {Tab, Tabs, Events} from "ionic-angular";
 import {FriendPage} from "../friend/friend";
-import {IMService, FUTURE_FRIEND_COUNT} from "../../serve/im.service";
+import {IMService, FUTURE_FRIEND_COUNT, MSG_TOTAL_COUNT} from "../../serve/im.service";
 import {UserService} from "../../serve/user.serve";
 import {KefuService} from "../../serve/kefu.serve";
 
@@ -40,10 +40,22 @@ export class TabsPage implements AfterViewInit{
 
     this.events.subscribe(FUTURE_FRIEND_COUNT, msg => {
       /*事件*/
-      console.log(msg[0]);
       this.myTabs.getByIndex(3).tabBadge = msg[0] > 0 ? `${msg[0]}`: null;
-
     });
+
+    this.events.subscribe(MSG_TOTAL_COUNT, msg => {
+      let count = msg[0];
+      let tabBadge = null;
+      if( count > 0 && count <= 99) {
+        tabBadge = `${count}`;
+      } else if(count > 99) {
+        tabBadge = '99+';
+      } else if(tabBadge == 0) {
+
+      }
+      this.myTabs.getByIndex(1).tabBadge = tabBadge;
+    });
+
   }
   ngAfterViewInit(){
 

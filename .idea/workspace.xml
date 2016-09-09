@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="153875d5-9b25-42cf-969e-cbe2b1cd2982" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/app.ts" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/app.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/components/captcha-view/captcha.component.scss" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/components/captcha-view/captcha.component.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/friend.ts" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/friend.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.html" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.ts" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.html" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.scss" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.ts" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.html" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.ts" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/login.scss" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/login.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/serve/http.service.ts" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/serve/http.service.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/forum/app/serve/im.service.ts" afterPath="$PROJECT_DIR$/src/main/webapp/forum/app/serve/im.service.ts" />
     </list>
     <ignored path="论坛.iws" />
@@ -31,11 +35,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="im.service.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/im.service.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="772">
+              <caret line="374" column="0" selection-start-line="374" selection-start-column="0" selection-end-line="374" selection-end-column="0" />
+              <folding>
+                <element signature="e#406#424#0" expanded="false" />
+                <element signature="n#!!block;n#getDataByFromName#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#handleToMsg#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#handleFromMsg#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#handleMsgData#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#handleSubscriptionData#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#sendTextMsg#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#register#0;n#IMService#0" expanded="false" />
+                <element signature="e#5850#6237#0" expanded="false" />
+                <element signature="n#!!block;n#accept#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#addFriend#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#getFriendList#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#deleteFriend#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#login#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#clearCurrentData#0;n#IMService#0" expanded="false" />
+                <element signature="n#!!block;n#close#0;n#IMService#0" expanded="false" />
+                <element signature="e#9213#9253#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="http.service.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/http.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="64" />
+            <state relative-caret-position="20">
+              <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
               <folding>
                 <element signature="e#41#84#0" expanded="true" />
               </folding>
@@ -43,31 +75,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/register.scss">
+      <file leaf-file-name="tabs.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+            <state relative-caret-position="392">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/register.ts">
+      <file leaf-file-name="tabs.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="friend.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/friend.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+            <state relative-caret-position="80">
+              <caret line="3" column="69" selection-start-line="3" selection-start-column="69" selection-end-line="3" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -76,60 +98,62 @@
       <file leaf-file-name="chat-room.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="800">
+              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding>
-                <marker date="1473167514000" expanded="false" signature="732:769" ph="..." />
+                <marker date="1473398860000" expanded="false" signature="732:769" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nextpage.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/kefu/nextpage.scss">
+      <file leaf-file-name="im.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="358" column="3" selection-start-line="358" selection-start-column="3" selection-end-line="358" selection-end-column="3" />
+            <state relative-caret-position="223">
+              <caret line="14" column="77" selection-start-line="14" selection-start-column="77" selection-end-line="14" selection-end-column="77" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tabs.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.html">
+      <file leaf-file-name="im.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="3" column="98" selection-start-line="3" selection-start-column="85" selection-end-line="3" selection-end-column="98" />
+            <state relative-caret-position="420">
+              <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tabs.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.ts">
+      <file leaf-file-name="chat-room.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="38" column="50" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="50" />
+            <state relative-caret-position="320">
+              <caret line="42" column="44" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="friend.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/friend.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/login.html">
+      <file leaf-file-name="im.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/login.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
+            <state relative-caret-position="1260">
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -155,7 +179,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/component/captcha-view/captcha.component.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/components/cd-component.core.scss" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/components/cd-component.core.ts" />
-        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/components/captcha-view/captcha.component.scss" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/theme/forum.theme.scss" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/theme/app.ios.scss" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/components/captcha-view/captcha.component.ts" />
@@ -168,22 +191,17 @@
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/addFriend.scss" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/addFriend.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/friend.scss" />
-        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.scss" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/theme/app.md.scss" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/serve/user.serve.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/config.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/addFriend.ts" />
-        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/serve/im.serve.ts" />
-        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.scss" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/mine/mine.scss" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/mine/mine.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/mine/mine.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/forgetPwd.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/register.scss" />
-        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/app.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/serve/http-runer.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/serve/warn.service.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/serve/services.ts" />
@@ -193,15 +211,21 @@
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/serve/im-base.service.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/register.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/register.ts" />
-        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/friend.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/home/home.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.ts" />
-        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/serve/im.service.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/serve/http.service.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/login.scss" />
+        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/components/captcha-view/captcha.component.scss" />
+        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/app.ts" />
+        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.ts" />
         <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/friend.ts" />
+        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.ts" />
+        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.ts" />
+        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/serve/im.service.ts" />
+        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.scss" />
+        <option value="$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.html" />
       </list>
     </option>
   </component>
@@ -215,9 +239,9 @@
     <handled-path value="$PROJECT_DIR$/src/main/webapp/forum/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="56" />
-    <option name="y" value="46" />
-    <option name="width" value="1193" />
+    <option name="x" value="92" />
+    <option name="y" value="31" />
+    <option name="width" value="1093" />
     <option name="height" value="692" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -409,6 +433,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="serve" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="论坛" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="论坛" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="forum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="pages" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -448,6 +506,82 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tabs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="论坛" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="论坛" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="forum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="im" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="论坛" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="论坛" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="forum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="friend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -575,18 +709,18 @@
       <workItem from="1472968171941" duration="19005000" />
       <workItem from="1473058598473" duration="20075000" />
       <workItem from="1473157237229" duration="10282000" />
-      <workItem from="1473223368730" duration="41626000" />
+      <workItem from="1473223368730" duration="56252000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="207746000" />
+    <option name="totallyTimeSpent" value="222372000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="56" y="46" width="1193" height="692" extended-state="0" />
+    <frame x="92" y="31" width="1093" height="692" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26706484" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30876866" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2746615" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -620,105 +754,21 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/im.service.ts</url>
-          <line>11</line>
+          <line>13</line>
           <properties />
           <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="15" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/node_modules/ionic-angular/components/input/input-base.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1305">
-          <caret line="38" column="9" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/node_modules/@angular/http/src/static_response.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="80" column="4" selection-start-line="80" selection-start-column="4" selection-end-line="80" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/home/home.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/home/home.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/forgetPwd.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/app.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-180">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/node_modules/ionic-angular/components/toast/toast-options.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="17" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/node_modules/ionic-angular/components/toast/toast.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="105" column="23" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/serve.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/node_modules/@angular/core/src/di/decorators.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/services.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -834,46 +884,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="16" column="91" selection-start-line="16" selection-start-column="91" selection-end-line="16" selection-end-column="91" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="27" column="47" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/typescriptCompiler/external/lib.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-24030">
-          <caret line="7084" column="10" selection-start-line="7084" selection-start-column="10" selection-end-line="7084" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/node_modules/ionic-angular/components/tabs/tabs.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3400">
@@ -906,55 +916,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/im-base.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
-          <folding>
-            <marker date="1473328848000" expanded="true" signature="1212:1216" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/user.serve.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/kefu.serve.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="150" column="26" selection-start-line="150" selection-start-column="26" selection-end-line="150" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/im.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-460">
-          <caret line="74" column="15" selection-start-line="74" selection-start-column="15" selection-end-line="74" selection-end-column="15" />
-          <folding>
-            <element signature="e#357#375#0" expanded="false" />
-            <element signature="n#!!block;n#getDataByFromName#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#handleToMsg#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#handleFromMsg#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#handleMsgData#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#handleExternalMsgData#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#handleSubscriptionData#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#sendTextMsg#0;n#IMService#0" expanded="false" />
-            <element signature="e#5580#5967#0" expanded="false" />
-            <element signature="n#!!block;n#accept#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#addFriend#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#getFriendList#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#deleteFriend#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#login#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#clearCurrentData#0;n#IMService#0" expanded="false" />
-            <element signature="n#!!block;n#close#0;n#IMService#0" expanded="false" />
-            <element signature="e#7822#7862#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1000,62 +966,164 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/http.service.ts">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/kefu/nextpage.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="64" />
-          <folding>
-            <element signature="e#41#84#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-37">
+          <caret line="358" column="3" selection-start-line="358" selection-start-column="3" selection-end-line="358" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/register.scss">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        <state relative-caret-position="220">
+          <caret line="16" column="91" selection-start-line="16" selection-start-column="91" selection-end-line="16" selection-end-column="91" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/register.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
+        <state relative-caret-position="-160">
           <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/friend.ts">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/user/register.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+        <state relative-caret-position="1520">
+          <caret line="78" column="2" selection-start-line="78" selection-start-column="2" selection-end-line="78" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/components/captcha-view/captcha.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/components/captcha-view/captcha.component.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/node_modules/@angular/core/src/facade/lang.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="138" column="21" selection-start-line="138" selection-start-column="21" selection-end-line="138" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/components/captcha-view/captcha.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/node_modules/@angular/common/src/facade/intl.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-220">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/services.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/kefu.serve.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="150" column="26" selection-start-line="150" selection-start-column="26" selection-end-line="150" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/app.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/im-base.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="92" column="21" selection-start-line="92" selection-start-column="21" selection-end-line="92" selection-end-column="25" />
+          <folding>
+            <marker date="1473328848000" expanded="true" signature="1212:1216" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/node_modules/ionic-angular/util/events.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-108">
+          <caret line="27" column="21" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="800">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding>
-            <marker date="1473167514000" expanded="false" signature="732:769" ph="..." />
+            <marker date="1473398860000" expanded="false" signature="732:769" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/kefu/nextpage.scss">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/chat-room.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="358" column="3" selection-start-line="358" selection-start-column="3" selection-end-line="358" selection-end-column="3" />
+        <state relative-caret-position="320">
+          <caret line="42" column="44" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/typescriptCompiler/external/lib.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="1114" column="4" selection-start-line="1114" selection-start-column="4" selection-end-line="1114" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.ts">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/friend/friend.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="38" column="50" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="50" />
+        <state relative-caret-position="212">
+          <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -1063,7 +1131,75 @@
     <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
-          <caret line="3" column="98" selection-start-line="3" selection-start-column="85" selection-end-line="3" selection-end-column="98" />
+          <caret line="3" column="69" selection-start-line="3" selection-start-column="69" selection-end-line="3" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/tabs/tabs.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1260">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/http.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+          <folding>
+            <element signature="e#41#84#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/serve/im.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="772">
+          <caret line="374" column="0" selection-start-line="374" selection-start-column="0" selection-end-line="374" selection-end-column="0" />
+          <folding>
+            <element signature="e#406#424#0" expanded="false" />
+            <element signature="n#!!block;n#getDataByFromName#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#handleToMsg#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#handleFromMsg#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#handleMsgData#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#handleSubscriptionData#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#sendTextMsg#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#register#0;n#IMService#0" expanded="false" />
+            <element signature="e#5850#6237#0" expanded="false" />
+            <element signature="n#!!block;n#accept#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#addFriend#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#getFriendList#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#deleteFriend#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#login#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#clearCurrentData#0;n#IMService#0" expanded="false" />
+            <element signature="n#!!block;n#close#0;n#IMService#0" expanded="false" />
+            <element signature="e#9213#9253#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/forum/app/pages/im/im.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="14" column="77" selection-start-line="14" selection-start-column="77" selection-end-line="14" selection-end-column="77" />
           <folding />
         </state>
       </provider>
