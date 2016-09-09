@@ -92,6 +92,7 @@
         </div>
 
         <!--我发送的-->
+        <div *ngIf="msgItem.from === uServe.userName && msgItem.date" class=" easemobWidget-date">{{msgItem.date}}</div>
         <div class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fr" *ngIf="msgItem.from === uServe.userName">
           <div class="easemobWidget-right">
             <div *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'" class="easemobWidget-msg-wrapper">
@@ -105,7 +106,6 @@
       </div>
   </div>
   <div style="height: 40px;"></div>
-
   <div class="easemobWidget-dialog easemobWidget-satisfaction-dialog em-hide" id="satisfactionDialog">
     <h3>请对我的服务做出评价</h3>
     <ul><li idx='1'>H</li><li idx='2'>H</li><li idx='3'>H</li><li idx='4'>H</li><li idx='5'>H</li></ul>
@@ -119,10 +119,10 @@
 
 
 </ion-content>
-<ion-footer>
+<ion-footer class="nextpage-foot">
     <div class="bootomInput">
-    <input  #msgInput [(ngModel)]="inputValue" placeholder="请输入信息">
-    <a (click)="sendMsg(msgInput.value)">发送</a>
-  </div>
+      <input  #msgInput [(ngModel)]="inputValue" placeholder="请输入信息">
+      <a (click)="sendMsg(msgInput.value)">发送</a>
+    </div>
 </ion-footer>
 

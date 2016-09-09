@@ -16,7 +16,8 @@ export interface MsgObj {
   to?: string,
   data?: string,
   delay?: string,
-  ext?: any
+  ext?: any,
+  date?: any
 }
 
 @Injectable()
@@ -26,6 +27,7 @@ export class IMBaseService {
   public apiUrl = 'http:' + '//a1.easemob.com';
   public  appKey = "wlqsltz#chatapp";
   public to = "tianlei";
+  public tenantId = "26192";
 
   // http://a1.easemob.com/xiongniu-123/chatapp/users
   // http://a1.easemob.com/easemob-demo/chatdemoui/users

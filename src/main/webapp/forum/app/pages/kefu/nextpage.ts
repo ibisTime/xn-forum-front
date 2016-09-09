@@ -9,6 +9,7 @@ import { Keyboard } from 'ionic-native';
 import {KefuService} from "../../serve/kefu.serve";
 import {Satisfaction} from "./satisfaction";
 import {UserService} from "../../serve/user.serve";
+import {HttpService} from "../../serve/http.service";
 
 
 @Component({
@@ -21,26 +22,26 @@ export class NextPage implements AfterViewInit {
   isMine = true;
   listOfChatData;
   private satisfaction;
-  private scbT = 0;
+  private timer;
 
 
   @ViewChild(Content) content: Content;
 
   constructor(private  nav: NavController,
               private imServe: KefuService,
-              private uServe: UserService) {
-     
-    
-
-
-    //console.log(params.data);
+              private uServe: UserService,
+              private ajax: HttpService) {
     this.listOfChatData = this.imServe.getDataByFromName();
     this.satisfaction = new Satisfaction(this.imServe);
+    this.imServe.scroll_bottom = () => {
+      this.scrollBottom();
+    }
   }
 
   ngAfterViewInit() {
     //2.登陆
     //this.imServe.login('tianlei009',"123456");
+    //this.imServe.getHistory();
   }
 
   sendMsg(value) {
@@ -64,13 +65,12 @@ export class NextPage implements AfterViewInit {
   submitSatis(){
     this.satisfaction.doSubmitSatis();
   }
-  scrollBottom( wait ) {
-      var ocw = document.getElementById("imCont");
-
-      wait 
-      ? (clearTimeout(this.scbT), this.scbT = setTimeout(function () {
-          ocw.scrollTop = ocw.scrollHeight - ocw.offsetHeight + 10000;
-      }, wait))
-      : (ocw.scrollTop = ocw.scrollHeight - ocw.offsetHeight + 10000);
+  scrollBottom() {
+      if(this.timer){
+          clearTimeout(this.timer);
+      }
+      this.timer = setTimeout(()=>{
+          this.content.scrollToBottom();
+      }, 200);
   }
 }//类的结尾
