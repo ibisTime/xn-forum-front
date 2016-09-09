@@ -6,15 +6,17 @@ import {Component, OnInit, ViewChild, QueryList,
   AfterViewChecked} from '@angular/core';
 import { NgFor } from '@angular/common';
 
-import {NavController,Toolbar, Content, NavParams, TextInput, Platform, ViewController} from 'ionic-angular'
+import {NavController,Toolbar, Content, NavParams, TextInput, Platform, ViewController, Refresher} from 'ionic-angular'
 import { Keyboard } from 'ionic-native';
 import {IMService} from "../../serve/im.service";
 import {AfterViewInit} from "@angular/core";
 import { Observable }  from 'rxjs/Observable'
+import {ChatViewComponent} from "../../components/chat-view/chat.component";
 
 
 @Component({
-  templateUrl: 'build/pages/im/chat-room.html'
+  templateUrl: 'build/pages/im/chat-room.html',
+  directives: [ChatViewComponent]
 })
 export class ChatRoomPage implements AfterViewInit {
 
@@ -27,6 +29,7 @@ export class ChatRoomPage implements AfterViewInit {
 
   @ViewChild(Content) content: Content;
   @ViewChild(TextInput) msgPut: any;
+  @ViewChild(ChatViewComponent) chatView: ChatViewComponent;
 
   constructor(private  nav: NavController,
               private imServe: IMService,
@@ -34,9 +37,13 @@ export class ChatRoomPage implements AfterViewInit {
               private platform: Platform
               ) {
 
-    // console.log(params.data);
+    /*通过聊天人获取数据*/
     this.listOfChatData = this.imServe.getDataByFromName( params.data);
 
+    let peo = {
+      name : 'd'
+    }
+    console.log(typeof(peo),typeof('sdds'));
     //1.哪到导航数据就去获取信息
     // this.imServe.onTextMessageInner = msg => {
     //   setTimeout(() => {
@@ -46,7 +53,6 @@ export class ChatRoomPage implements AfterViewInit {
 
     setTimeout(() => {
 
-      console.log('你们好');
 
       this.platform.ready().then(() => {
 
@@ -88,6 +94,8 @@ export class ChatRoomPage implements AfterViewInit {
 
   ngAfterViewInit() {
 
+    this.chatView.me = this.imServe.me;
+    this.chatView.listOfChatData = this.listOfChatData;
   }
 
   //解决刚进入时有很多聊天记录
@@ -97,10 +105,9 @@ export class ChatRoomPage implements AfterViewInit {
     },50)
   }
 
+  /*进行列表优化*/
   trackById(index,item){
-
     return item.id;
-
   }
 
   sendMsg(msgInput) {

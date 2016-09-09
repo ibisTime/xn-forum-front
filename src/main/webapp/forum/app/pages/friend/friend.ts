@@ -4,12 +4,12 @@ import {IMService} from "../../serve/im.service";
 import {ChatRoomPage} from "../im/chat-room";
 import {AddFriendPage} from "./addFriend";
 import {WarnService} from "../../serve/warn.service";
-import { Observable }  from 'rxjs/Observable'
+import {Observable}  from 'rxjs/Observable'
 
 @Component({
   templateUrl: 'build/pages/friend/friend.html'
 })
-export class FriendPage implements AfterViewInit{
+export class FriendPage implements AfterViewInit {
 
   constructor(private navCtrl: NavController,
               private imServe: IMService,
@@ -17,46 +17,47 @@ export class FriendPage implements AfterViewInit{
 
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
 
-    setTimeout(()=>{
+    setTimeout(()=> {
 
-      let tab =  this.navCtrl.parent.getSelected();
+      let tab = this.navCtrl.parent.getSelected();
       tab.tabBadge = null;
       // tab.tabBadgeStyle = "danger";
       // tab.tabBadge = this.imServe.listOfFutureFriend.length;
       // tab.tabBadge = " ";
-    },50);
+    }, 50);
 
   }
 
-  goChat(friendName){
-    this.navCtrl.push(ChatRoomPage,friendName);
-
+  goChat(friendName) {
+    /**/
+    this.navCtrl.push(ChatRoomPage, friendName);
   }
-  searchAction(){
+
+  searchAction() {
     console.log("搜索了");
   }
 
-  lookFriendAsk(){
+  lookFriendAsk() {
 
-    let tab =  this.navCtrl.parent.getSelected();
+    let tab = this.navCtrl.parent.getSelected();
     tab.tabBadge = null;
     this.navCtrl.push(AddFriendPage);
 
   }
 
-  addFriend(){
-    this.navCtrl.push(AddFriendPage,"search");
+  addFriend() {
+    this.navCtrl.push(AddFriendPage, "search");
   }
 
-  deleteFriend(friend){
+  deleteFriend(friend) {
 
-   this.imServe.deleteFriend(friend).then(() => {
-     this.warnServe.toast("删除成功");
-   }).catch( (error) => {
-     this.warnServe.toast("删除失败");
-   });
+    this.imServe.deleteFriend(friend).then(() => {
+      this.warnServe.toast("删除成功");
+    }).catch((error) => {
+      this.warnServe.toast("删除失败");
+    });
   }
 
 }

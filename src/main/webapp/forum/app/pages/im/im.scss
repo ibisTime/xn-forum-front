@@ -21,14 +21,14 @@ $iconHeight: 45px;
     .badge{
       position: absolute;
       padding: 2px;
-      font-size: 10px;
+      font-size: 8px;
       top:5px;
       left: 50px;
       z-index: 100;
       background-color: red;
       min-width: 10px;
       min-height: 10px;
-      border-radius: 50%;
+      border-radius: 5px;
       color: white;
     }
 
@@ -84,7 +84,7 @@ $iconHeight: 45px;
       //background-color: green;
       margin-top: -20px;
       text-align: right;
-      flex: 0 0 55px;
+      flex: 0 0 70px;
       p{
         color: gray;
         //margin-top: 10px;

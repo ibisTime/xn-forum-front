@@ -9,6 +9,8 @@ declare var WebIM: any;
 const IM_PASSWORD = "123456";
 
 export const FUTURE_FRIEND_COUNT = "friend:futureCount"
+export const MSG_TOTAL_COUNT = "msg:totalCount"
+
 // class ListItem{
 //   from: string = '';
 //   to: string = '';
@@ -36,7 +38,7 @@ interface ListItem{
   /*存入我国东八区时间*/
   time: string;
   showBadge: boolean;
-  badgeCount: Number;
+  badgeCount: number;
 }
 
 
@@ -46,6 +48,7 @@ export class IMService {
   me: string = '';
   /*存入当前聊天对象*/
   currentLinkMan = "";
+
   /*存储全部聊天数据的对象*/
   listOfChatRoomData: any = {};
   /*存储聊天列表数据的对象*/
@@ -54,12 +57,16 @@ export class IMService {
   listOfFriend: any[] = [];
   /*要加好友的人*/
   listOfFutureFriend = [];
-
   /*链接对象*/
   conn;
 
+  /*消息总数*/
+  msgTotalCount = 0;
+
+
   constructor(  private  imBase: IMBaseService,
                 private events: Events) {
+
     console.log("调用基础连接");
 
     this.conn = this.imBase.conn;
@@ -149,13 +156,18 @@ export class IMService {
       date = new Date(msg.delay);
 
     }
-    let dateStr = date.getHours() +":"+ date.getMinutes();
+    // date = new Date('2015-09-08T14:12:23.509Z');
+    let dateStr = this.dateStr(date);
 
     /*注意判断显示badage*/
     // let shortMsg = new ListItem(linkMan,msg.to, chatContent,dateStr,(msg.from != this.me)&&(msg.from != this.currentLinkMan));
 
     let isShowBadge = (msg.from != this.me)&&(msg.from != this.currentLinkMan);
-    // let count =
+
+    if (isShowBadge){
+      this.msgTotalCount += 1;
+      this.events.publish(MSG_TOTAL_COUNT,this.msgTotalCount);
+    }
 
     let shortMsg: ListItem = {
       from: linkMan,
@@ -163,7 +175,7 @@ export class IMService {
       lastMsg: chatContent,
       time: dateStr,
       showBadge: isShowBadge,
-      badgeCount: 0
+      badgeCount: 1
     };
 
 
@@ -179,10 +191,13 @@ export class IMService {
         this.listOfOpposite.push(shortMsg);
 
       } else {//找到数据进行修改
+
         console.log('有自己进行数据修改');
         model.lastMsg = chatContent;
         model.time = dateStr;
         model.showBadge = shortMsg.showBadge;
+        model.badgeCount = model.badgeCount + 1;
+
       }
 
     } else {
@@ -356,7 +371,52 @@ export class IMService {
     this.conn.close();
   }
 
+  dateStr(date1:Date){
+
+    let date2 = new Date();
+    let year = date1.getFullYear() == date2.getFullYear();
+    let mon = date1.getMonth() == date2.getMonth();
+    let day = date1.getDate() == date2.getDate();//每月的几号
+    // console.log(date1.getDate,date2.getDate);
+
+    if(year && mon && day){
+      return  this.formatStr(date1.getHours())+ ':' + this.formatStr(date1.getMinutes());
+    }
+
+    let oneDay = 24*60*60*1000;
+    let difMilli =  date2.getMilliseconds() - date1.getMilliseconds();
+    if(year && (date2.getDay() - date1.getDay()) && difMilli<7*oneDay ){ //同一周
+
+      let w = {
+        "1" : "星期一",
+        "2" : "星期二",
+        "3" : "星期三",
+        "4" : "星期四",
+        "5" : "星期五",
+        "6" : "星期六",
+        "7" : "星期日"
+      }
+      return w[date1.getDay()];
+    }
+
+    if(year){ //今年
+
+      return this.formatStr(date1.getMonth())+ ":" + this.formatStr(date1.getDate());
+
+    }
+
+    return date1.getFullYear() + '-' + this.formatStr(date1.getMonth()) + '-' +   this.formatStr(date1.getDate());
+  }
+  formatStr(str){
+
+    if(`${str}`.length == 1){
+      return '0' + str;
+    }
+    return str;
+  }
+
 }
+
 /**
  * Created by tianlei on 16/9/6.
  */

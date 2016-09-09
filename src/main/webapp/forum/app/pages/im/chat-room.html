@@ -5,25 +5,26 @@
 </ion-header>
 
 <ion-content  class="chatroom" >
-  <!--<li *ngFor="let item of items; let i = index; trackBy: trackByFn">...</li>-->
+
+  <chat-view></chat-view>
+
   <!--聊天信息-->
-  <div class="imContent">
-    <div *ngFor="let msgItem of listOfChatData; trackBy:trackById;">
-      <!--我发送的-->
-      <div *ngIf="msgItem.from != imServe.me"  class="mine" >
-        <img src="images/u1.jpg">
-        <div>{{msgItem.data}}</div>
-      </div>
-      <!--对方发送的-->
-      <div class="other" *ngIf="msgItem.from == imServe.me">
-        <div>{{msgItem.data}}</div>
-        <img src="images/u2.jpg">
-      </div>
+  <!--<div class="imContent">-->
+    <!--<div *ngFor="let msgItem of listOfChatData; trackBy:trackById;">-->
+      <!--&lt;!&ndash;我发送的&ndash;&gt;-->
+      <!--<div *ngIf="msgItem.from != imServe.me"  class="mine" >-->
+        <!--<img src="images/u1.jpg">-->
+        <!--<div>{{msgItem.data}}</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash;对方发送的&ndash;&gt;-->
+      <!--<div class="other" *ngIf="msgItem.from == imServe.me">-->
+        <!--<div>{{msgItem.data}}</div>-->
+        <!--<img src="images/u2.jpg">-->
+      <!--</div>-->
 
-    </div>
+    <!--</div>-->
 
-  </div>
-  <!--<div [ngStyle]="{'display': heightValue}"  style="background-color: cyan; height: 226px"></div>-->
+  <!--</div>-->
 
 </ion-content>
 
@@ -38,6 +39,6 @@
       <!--<button danger (click)="sendMsg(msgInput)" [disabled]="msgInput.value.length <= 0">发送</button>-->
     <!--</ion-input>-->
 
-
   </div>
+
 </ion-footer>
