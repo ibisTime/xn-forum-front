@@ -66,6 +66,9 @@ export class ImPage implements AfterViewInit{
   }
 
 
+  ionViewDidEnter(){
+
+  }
   // sendMsg(){
   //
   //   this.imServe.handleToMsg('serve:我要发信息','tianlei003');
