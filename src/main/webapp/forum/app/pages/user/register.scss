@@ -30,19 +30,23 @@ $percentage: 85%;
   .img-captcha{
     margin: 0px auto;
     margin-top: 2px;
-    display: flex;
+    display: block;
+   
     height: 40px;
 
     width: $percentage;
     input{
-      flex: 1;
       margin: 0 auto;
+      width: 70%;
+      height: 40px;
+      vertical-align: middle;
     }
 
     img{
-      margin-left: 2px;
-      flex: 0 0 0px;
+      margin-left: 1%;
       height: 100%;
+      vertical-align: middle;
+      width: 29%;
     }
 
   }

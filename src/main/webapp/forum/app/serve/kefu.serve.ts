@@ -151,7 +151,7 @@ export class KefuService {
   //获取机器人欢迎语
   getRobertWelcome(){
     this.ajax.get(null, null, 
-      location.href + 'rvisitor/'+this.tenantId+'/robots/visitor/greetings?tenantId='+this.tenantId)
+      location.host + location.pathname + 'rvisitor/'+this.tenantId+'/robots/visitor/greetings?tenantId='+this.tenantId)
       .then((rGreeting)=>{
           let msg;
           switch ( rGreeting.greetingTextType ) {
