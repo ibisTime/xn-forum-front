@@ -45,7 +45,7 @@ export class ChatViewComponent implements OnInit {
       "serviceSessionId" : serviceSessionId
     }
 
-    this.doCaidan.emit(item);
+    this.doPingjia.emit(item);
 
   }
 

@@ -11,9 +11,9 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="arrow-dropdown"
-      pullingText="Pull to refresh"
+      pullingText="下拉加载"
       refreshingSpinner="circles"
-      refreshingText="Refreshing...">
+      refreshingText="加载中...">
     </ion-refresher-content>
   </ion-refresher>
   <chat-view (doCaidan)="doCaidan($event)" (doPingjia)="doPingjia($event)" ></chat-view>
@@ -32,7 +32,7 @@
 </ion-content>
 <ion-footer class="nextpage-foot">
     <div class="bootomInput">
-      <input  #msgInput [(ngModel)]="inputValue" placeholder="请输入信息">
+      <input #msgInput [(ngModel)]="inputValue" placeholder="请输入信息">
       <a (click)="sendMsg(msgInput.value)">发送</a>
     </div>
 </ion-footer>

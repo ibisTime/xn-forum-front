@@ -28,6 +28,7 @@ export class KefuService {
   private chatGroupId = "0";
   public totalMsg = 0;
   private chatGroupSeqId = 0;
+  private timestamp = 0;
   
   private map = {
     '[):]': 'ee_1.png',
@@ -69,14 +70,11 @@ export class KefuService {
 
   private  url =  'im-api.easemob.com';
 
-  me: string = '18868824532';
+  me: string;
   //存储全部聊天数据的对象
   listOfChatRoomData: any = {};
-
-  // onTextMessage: (msg) => void;
-  // onPictureMessage: (msg) => void;
-  // onFileMessage: (msg)=> void;
   scroll_bottom;
+  scroll_top;
 
   conn;
 
@@ -101,7 +99,9 @@ export class KefuService {
        this.chatGroupId = msg;
       });
   }
+  //获取历史消息（refresh表示是否是上滑加载历史消息）
   getHistory(refresh?) {
+    //如果没有chatGroupId，则先获取
     if(this.chatGroupId === "0"){
       this.getChatGroupId().then(()=>{
         this.getMyHistory(refresh);
@@ -110,28 +110,113 @@ export class KefuService {
       this.getMyHistory(refresh);
     }
   }
+  //获取历史消息
   getMyHistory(refresh?) {
     this.ajax.get(null, null,
-      'http://kefu.easemob.com/v1/webimplugin/visitors/msgHistory?fromSeqId='+(this.chatGroupSeqId || 0)+'&size=10&chatGroupId='+this.chatGroupId+'&tenantId='+this.tenantId)
+      this.baseurl + '/v1/webimplugin/visitors/msgHistory?fromSeqId='+(this.chatGroupSeqId || 0)+'&size=10&chatGroupId='+this.chatGroupId+'&tenantId='+this.tenantId)
       .then((msg)=>{
+        //第一次打开页面的时候去获取
+        if(!refresh){
+          this.getCompanyWelcome();
+        }
         this.handleHistoryData(msg, refresh);
-      })
+      });
   }
+  //获取当前聊天记录
   getDataByFromName() : Array<MsgObj>{
     return this.listOfChatRoomData.from;
   }
+  //获取企业欢迎语
+  getCompanyWelcome(){
+    this.ajax.get(null, null, 
+      this.baseurl + '/v1/webimplugin/welcome?tenantId='+this.tenantId)
+      .then((msg)=>{
+        this.getRobertWelcome();
+        let msgItem;
+        msgItem = {
+          type: "txt",
+          from: this.to,
+          to: this.me,
+          data: msg
+        }
+        let now = new Date();
+        if(!this.timestamp || ( +now.getTime() > +this.timestamp + 60000 ) ){
+          this.timestamp = now.getTime();
+          msgItem.date = this.format(now, "M月d日 hh:mm");
+        }
+        this.handleMsgData(msgItem);
+      });
+  }
 
-  //1.处理自己发送的信息
+  //获取机器人欢迎语
+  getRobertWelcome(){
+    this.ajax.get(null, null, 
+      location.href + 'rvisitor/'+this.tenantId+'/robots/visitor/greetings?tenantId='+this.tenantId)
+      .then((rGreeting)=>{
+          let msg;
+          switch ( rGreeting.greetingTextType ) {
+              case 0:
+                  //robert text greeting
+                  msg = {
+                      data: rGreeting.greetingText,
+                      type: 'txt',
+                      from: this.to
+                  };
+                  let now = new Date();
+                  if(!this.timestamp || ( +now.getTime() > +this.timestamp + 60000 ) ){
+                      this.timestamp = now.getTime();
+                      msg.date = this.format(now, "M月d日 hh:mm");
+                  }
+                  this.handleMsgData(msg);
+                  break;
+              case 1:
+                  try {
+                      let greetingObj = JSON.parse(rGreeting.greetingText.replace(/&quot;/g, '"'));
+                      
+                      if ( rGreeting.greetingText === '{}' ) {
+                          msg = {
+                              data: '该菜单不存在',
+                              type: 'txt',
+                              from: this.to
+                          };
+                        
+                      } else {
+                          //robert list greeting
+                          msg = {
+                              from: this.to,
+                              ext: greetingObj.ext,
+                              data: ""
+                          };
+                      }
+                      let now = new Date();
+                      if(!this.timestamp || ( +now.getTime() > +this.timestamp + 60000 ) ){
+                          this.timestamp = now.getTime();
+                          msg.date = this.format(now, "M月d日 hh:mm");
+                      }
+                      this.handleMsgData(msg);
+                  } catch ( e ) {}
+                  break;
+              default: break;
+          }
+      });
+  }
+
+  //处理自己发送的信息
   handleToMsg(msg: string){
     let msgItem: MsgObj = {
       from: `${this.me}`,
       to: `${this.to}`,
       data: `${msg}`
     };
+    let now = new Date();
+    if(!this.timestamp || ( +now.getTime() > +this.timestamp + 60000 ) ){
+      this.timestamp = now.getTime();
+      msgItem.date = this.format(now, "M月d日 hh:mm");
+    }
     this.handleMsgData(msgItem);
   }
 
-  //2.处理收到的信息
+  //处理收到的信息
   handleFromMsg(msg:MsgObj) {
     //1.全部数据
     if(msg.type == "picture"){
@@ -144,8 +229,8 @@ export class KefuService {
     this.scroll_bottom();
   };
 
-  //3.对插入数组的聊天数据进行处理
-  handleMsgData(msg:MsgObj, isHistory?) {
+  //满意度、表情、菜单、文字
+  handleMsgData(msg:MsgObj, isHistory?, refresh?) {
     let flag = false;
     if ( msg.ext && msg.ext.weichat && msg.ext.weichat.ctrlType
       && msg.ext.weichat.ctrlType == 'inviteEnquiry' && msg.from !== this.me) {
@@ -176,26 +261,39 @@ export class KefuService {
     }else{
       this.listOfChatRoomData.from.unshift(msg);
     }
-    this.scroll_bottom();
+    if(refresh){
+      this.scroll_top();
+    }else{
+      this.scroll_bottom();
+    }
   }
-
-  handleFileData (msg:MsgObj, isHistory?){
+  //文件下载
+  handleFileData (msg:MsgObj, isHistory?, refresh?){
     if (!isHistory) {
       this.listOfChatRoomData.from.push(msg);
     } else {
       this.listOfChatRoomData.from.unshift(msg);
     }
-    this.scroll_bottom();
+    if(refresh){
+      this.scroll_top();
+    }else{
+      this.scroll_bottom();
+    }
   }
-
-  handlePictureData (msg:MsgObj, isHistory?){
+  //图片
+  handlePictureData (msg:MsgObj, isHistory?, refresh?){
     if (!isHistory) {
       this.listOfChatRoomData.from.push(msg);
     } else {
       this.listOfChatRoomData.from.unshift(msg);
     }
-    this.scroll_bottom();
+    if(refresh){
+      this.scroll_top();
+    }else{
+      this.scroll_bottom();
+    }
   }
+  //日期格式化
   private format ( date, fmt ) {
     var o = {
       'M+': date.getMonth() + 1,	//月份
@@ -216,8 +314,8 @@ export class KefuService {
     }
     return fmt;   
   };
-
-  handleHistoryData(chatHistory, refresh){
+  //处理历史消息
+  handleHistoryData(chatHistory, refresh?){
       var me = this;
 
       if ( chatHistory.length > 0 ) {
@@ -235,7 +333,7 @@ export class KefuService {
                           msg.from = this.me;
                           msg.data = msg.msg;
                           msg.date = this.format(new Date(msgBody.timestamp), 'M月d日 hh:mm');
-                          this.handleMsgData(msg, true);
+                          this.handleMsgData(msg, true, refresh);
                       }
                   //客服或机器人发出的消息
                   } else {
@@ -243,16 +341,16 @@ export class KefuService {
                       if(msg.type == "img"){
                           msg.type = "picture";
                           msg.url = /^http/.test(msg.url) ? msg.url : this.baseurl + msg.url;
-                          this.handlePictureData(msg, true);
+                          this.handlePictureData(msg, true, refresh);
                       }else if(msg.type == "file"){
                           msg.url = /^http/.test(msg.url) ? msg.url : this.baseurl + msg.url;
-                          this.handleFileData(msg, true);
+                          this.handleFileData(msg, true, refresh);
                       }else{
                           if(msgBody.ext){
                               msg.ext = msgBody.ext;
                           }
                           msg.data = msg.msg;
-                          this.handleMsgData(msg, true);
+                          this.handleMsgData(msg, true, refresh);
                       }
                   }
               }
@@ -282,9 +380,7 @@ export class KefuService {
   sendSatisfaction( level, content, session, invite ) {
       var me = this;
       var dom = document.getElementById("satisfactionDialog");
-      this.sendTextMsg("", function(){
-        console.log("sendSatisOk");
-      }, "",{
+      this.sendTextMsg("", function(){}, "",{
               weichat: {
                   ctrlType: 'enquiry'
                   , ctrlArgs: {

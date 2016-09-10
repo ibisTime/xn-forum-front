@@ -2,7 +2,7 @@
 
   <div class="imContent easemobWidgetWrapper-mobile" id="imCont">
     <div class="clearfix" *ngFor="let msgItem of _listOfChatData">
-
+      <div *ngIf="msgItem.date && msgItem.data" class=" easemobWidget-date">{{msgItem.date}}</div>
       <!--对方发送的-->
       <div *ngIf="msgItem.from !== _me" class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fl">
         <!--普通文本消息-->
@@ -85,8 +85,7 @@
       </div>
 
       <!--我发送的-->
-      <div *ngIf="msgItem.from === _me && msgItem.date" class=" easemobWidget-date">{{msgItem.date}}</div>
-      <div class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fr" *ngIf="msgItem.from === _me">
+      <div class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fr" *ngIf="msgItem.from === _me && msgItem.data">
         <div class="easemobWidget-right">
           <div *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'"
                class="easemobWidget-msg-wrapper">

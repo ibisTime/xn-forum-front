@@ -150,20 +150,15 @@
     border: 1px solid #E4E4E4;
     float: left;
   }
-  .easemobWidget-dialog div {
-    width: 90%;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .easemobWidgetWrapper .easemobWidget-success-prompt {
+  .easemobWidget-success-prompt {
     position: absolute;
-    width: 100%;
+    width: 100% !important;
     height: 100%;
     top: 0;
     left: 0;
     background-color: #fff;
   }
-  #EasemobKefuWebim .em-hide, .easemobWidgetWrapper .hide, .em-hide, .hide {
+  #EasemobKefuWebim .em-hide, .hide, .em-hide, .hide {
     display: none;
   }
   .easemobWidget-success-prompt i {
@@ -186,7 +181,20 @@
   .easemobWidget-satisfaction-dialog li.sel {
     color: #ffb31a;
   }
-
+  .easemobWidget-success-prompt i:after {
+    content: 'G';
+    position: absolute;
+    font-size: 60px;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
 
   .easemobWidget-left, .easemobWidget-right {
     display: block;

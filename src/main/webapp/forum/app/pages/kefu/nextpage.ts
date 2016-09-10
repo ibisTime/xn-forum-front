@@ -24,7 +24,8 @@ export class NextPage implements AfterViewInit {
   isMine = true;
   listOfChatData;
   private satisfaction;
-  private timer;
+  private timer_top;
+  private timer_bottom;
   private isActive = false;
 
 
@@ -40,6 +41,9 @@ export class NextPage implements AfterViewInit {
     this.imServe.scroll_bottom = ()=>{
       this.scrollBottom();
     }
+    this.imServe.scroll_top = ()=>{
+      this.scrollTop();
+    }
   }
 
   ngAfterViewInit() {
@@ -50,20 +54,11 @@ export class NextPage implements AfterViewInit {
   }
 
   sendMsg(value) {
-
     this.imServe.handleToMsg(value);
     this.imServe.sendTextMsg(value, (id, serverMsgId) => {
     }, "");
+    this.inputValue = "";
   }
-  // doCaidan(id, name){
-  //     this.imServe.handleToMsg(name);
-  //     this.imServe.sendTextMsg(name, (id, serverMsgId) => {
-  //     }, {choice: { menuid: id }});
-  // }
-  // doPingjia(inviteId, serviceSessionId){
-  //   this.satisfaction.initArgs();
-  //   this.satisfaction.doPingjia(inviteId, serviceSessionId);
-  // }
   cancelSatis(){
     this.satisfaction.doCancelSatis();
   }
@@ -81,29 +76,38 @@ export class NextPage implements AfterViewInit {
     this.isActive = false;
   }
   doRefresh(event){
-    this.imServe.getHistory();
+    this.imServe.getHistory(event);
   }
   scrollBottom() {
       if(!this.isActive){
           let tab =  this.nav.parent.getByIndex(2);
           tab.tabBadge = this.imServe.totalMsg && `${this.imServe.totalMsg}` || null;
       }
-      if(this.timer){
-          clearTimeout(this.timer);
+      if(this.timer_bottom){
+          clearTimeout(this.timer_bottom);
       }
-      this.timer = setTimeout(()=>{
+      this.timer_bottom = setTimeout(()=>{
           this.content.scrollToBottom();
       }, 200);
   }
-  doCaidan(caidan){
-
-    console.log(caidan);
+  scrollTop() {
+      if(this.timer_top){
+          clearTimeout(this.timer_top);
+      }
+      this.timer_top = setTimeout(()=>{
+          this.content.scrollToTop();
+      }, 200);
+  }
+  doCaidan(item){
+    this.imServe.handleToMsg(item.name);
+    this.imServe.sendTextMsg(item.name, (id, serverMsgId) => {
+    }, {choice: { menuid: item.id }});
 
   }
 
-  doPingjia(pingjia){
-
-    console.log(pingjia);
+  doPingjia(item){
+    this.satisfaction.initArgs();
+    this.satisfaction.doPingjia(item.inviteId, item.serviceSessionId);
 
   }
 }//类的结尾

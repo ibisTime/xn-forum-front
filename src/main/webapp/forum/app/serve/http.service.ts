@@ -42,7 +42,7 @@ export class HttpService {
 
         this.http.get(url1).subscribe(
           (res) => {
-            this.handleRes(res,resolve,reject);
+            this.handleRes(res,resolve,reject, url1);
           },
           (error) => {
             this.handelError(error,reject);
@@ -73,7 +73,7 @@ export class HttpService {
 
         this.http.post(url1,body,reqOptions).subscribe(
           (res) => {
-            this.handleRes(res,resolve,reject);
+            this.handleRes(res,resolve,reject,url1);
           },
           (error) => {
             this.handelError(error,reject);
@@ -84,16 +84,23 @@ export class HttpService {
 
     };
 
-    handleRes(res,resolve,reject){
-      console.log(res);
-      let resObj = res.json();
-      if(resObj.eType == 2){
-
-        this.alert(resObj.msg);
-        reject('发生异常');
-      } else {
-        resolve(resObj);
+    handleRes(res,resolve,reject,url1){
+      try{
+        let resObj = res.json();
+        if(resObj.eType == 2){
+          reject('发生异常');
+        } else {
+          resolve(resObj);
+        }
+      }catch(e){
+        if(url1.indexOf("webimplugin/welcome?") != -1){
+          resolve(res._body);
+        }else{
+          reject('发生异常');
+        }
       }
+      
+      
     }
 
     handelError(error,reject){

@@ -80,7 +80,6 @@ export class Satisfaction {
     this.imServe.sendSatisfaction(level, this.msg.value, this.session, this.invite);
 
     this.msg.blur();
-    this.success.className = this.success.className.replace("em-hide", "").trim();
     (function(that){
       setTimeout(function(){
       that.msg.value = '';
