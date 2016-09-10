@@ -25,6 +25,8 @@ export class MyApp {
               ) {
 
 
+     // console.log(JSON.parse('[''韩国''\'']'));
+
     this.userService.loginState().then((value) => {
 
       if (value != null){

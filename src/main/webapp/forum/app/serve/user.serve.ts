@@ -23,27 +23,26 @@ export class UserService {
   //userID 进行保存
   userName: string = "";
   password: string = "";
+  userId: string = "";
 
   constructor(private app: App,
               private platform: Platform) {
-    // this.userName = "tianlei005";
-    // this.password = "123456";
 
   }
 
-  saveUserInfo(userName: string, password: string) {
+  saveUserInfo(userName: string,userId: string) {
 
     this.userName = userName;
-    this.password = password;
+    this.userId = userId;
 
     /*存储在浏览器中*/
     let localStorage = new LocalStorage(LocalStorage);
     localStorage.set("userName", userName);
-    localStorage.set("password", password);
+    localStorage.set("userId", userId);
 
     NativeStorage.setItem(USER, {
       userName: `${userName}`,
-      password: `${password}`
+      password: `${userId}`
     });
 
   }
@@ -51,15 +50,13 @@ export class UserService {
   loginState() {
 
     let value;
-
     /*webStorage only use web*/
     let localStorage = new LocalStorage(LocalStorage);
-    localStorage.get("password").then((value) => {
+    localStorage.get("userId").then((value) => {
       /**/
-      this.password = value;
+      this.userId = value;
     });
     return localStorage.get("userName");
-
     // return false;
     // return NativeStorage.getItem(USER).then( () => {
     //
@@ -70,12 +67,13 @@ export class UserService {
 
   loginOut() {
 
+    /**/
     this.userName = "";
-    this.password = "";
-    //
+    this.userId = "";
     let localStorage =  new LocalStorage(LocalStorage);
     localStorage.remove("userName");
-    localStorage.remove("password");
+    localStorage.remove("userId");
+    /**/
 
     this.platform.ready().then(() => {
 

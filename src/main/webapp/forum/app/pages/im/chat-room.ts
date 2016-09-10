@@ -27,6 +27,8 @@ export class ChatRoomPage implements AfterViewInit {
   heightValue = "none";
   height;
 
+  bottom="250px";
+
   @ViewChild(Content) content: Content;
   @ViewChild(TextInput) msgPut: any;
   @ViewChild(ChatViewComponent) chatView: ChatViewComponent;
@@ -40,16 +42,12 @@ export class ChatRoomPage implements AfterViewInit {
     /*通过聊天人获取数据*/
     this.listOfChatData = this.imServe.getDataByFromName( params.data);
 
-    let peo = {
-      name : 'd'
-    }
-    console.log(typeof(peo),typeof('sdds'));
     //1.哪到导航数据就去获取信息
-    // this.imServe.onTextMessageInner = msg => {
-    //   setTimeout(() => {
-    //     this.content.scrollToBottom();
-    //   },300)
-    // };
+    this.imServe.imTextMessageInner = msg => {
+      setTimeout(() => {
+        this.content.scrollToBottom();
+      },300)
+    };
 
     setTimeout(() => {
 
@@ -58,10 +56,24 @@ export class ChatRoomPage implements AfterViewInit {
 
         Keyboard.onKeyboardShow().subscribe((msg) => {
           this.heightValue = "block";
-          setTimeout(() => {
 
+          setTimeout(() => {
+            console.log(msg);
             this.content.scrollToBottom();
-            console.log('键盘上来了');
+
+            if(this.platform.is('ios')){
+              // let h = this.platform.height();
+              // let elem:any = document.getElementsByClassName('show-page')[0];
+              // if(elem.style.height == "100%"){
+              //   console.log(msg.keyboardHeight);
+              //   let ro = 1 -  msg.keyboardHeight/h;
+              //   elem.style.height = `${ro*100}%`;
+              //   console.log('键盘上来了');
+              // }
+              // this.bottom = '250px';
+              // document.getElementById('tianleiInput').style.bottom = "226px";
+            }
+
           },100)
         });
 
@@ -70,6 +82,12 @@ export class ChatRoomPage implements AfterViewInit {
           this.heightValue = "none";
           setTimeout(() => {
             this.content.scrollToBottom();
+
+            // if(this.platform.is('ios')){
+            //   let elem:any = document.getElementsByClassName('show-page')[0];
+            //   elem.style.height = "100%";
+            // }
+            // this.bottom = '250px';
             console.log('键盘下去了');
           },100)
         });
@@ -112,11 +130,12 @@ export class ChatRoomPage implements AfterViewInit {
 
   sendMsg(msgInput) {
 
-
+    this.msgPut.setFocus();
     this.imServe.handleToMsg(msgInput.value,this.params.data);
     this.imServe.sendTextMsg(msgInput.value,this.params.data, (id, serverMsgId) => {
+
       msgInput.value = "";
-      let s = this.imServe.listOfChatRoomData;
+      this.msgPut.setFocus();
 
     });
 

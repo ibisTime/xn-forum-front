@@ -8,6 +8,8 @@
 
   <chat-view></chat-view>
 
+
+
 </ion-content>
 
 
@@ -15,11 +17,6 @@
   <div class="bootomInput">
     <ion-input class="imInput" type="text" #msgInput  placeholder="请输入信息" ></ion-input>
     <button  (click)="sendMsg(msgInput)" [disabled]="msgInput.value.length <= 0">发送</button>
-    <!--<ion-textarea></ion-textarea>-->
-    <!--<ion-input >-->
-      <!--<input type="text" class="imInput" type="text" #msgInput  placeholder="请输入信息" >-->
-      <!--<button danger (click)="sendMsg(msgInput)" [disabled]="msgInput.value.length <= 0">发送</button>-->
-    <!--</ion-input>-->
   </div>
 
 </ion-footer>

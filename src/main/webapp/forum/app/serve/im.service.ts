@@ -62,7 +62,7 @@ export class IMService {
 
   /*消息总数*/
   msgTotalCount = 0;
-
+  imTextMessageInner;
 
   constructor(  private  imBase: IMBaseService,
                 private events: Events) {
@@ -70,7 +70,11 @@ export class IMService {
     console.log("调用基础连接");
 
     this.conn = this.imBase.conn;
-    this.imBase.imMessage = msg => this.handleFromMsg(msg);
+    this.imBase.imMessage = msg => {
+      this.handleFromMsg(msg);
+      (typeof(this.imTextMessageInner) == "function")&&(this.imTextMessageInner())
+    };
+
     this.imBase.imPresence = msg => this.handleSubscriptionData(msg);
     this.imBase.imOpened = msg => this.imOpened(msg);
 

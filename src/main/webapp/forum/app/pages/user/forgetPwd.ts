@@ -8,6 +8,7 @@ import {IMService} from "../../serve/im.service";
 import {WarnService} from "../../serve/warn.service";
 import {UserService} from "../../serve/user.serve";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
+import {HttpService} from "../../serve/http.service";
 
 
 @Directive({ selector: 'input' })
@@ -32,7 +33,8 @@ export class ForgetPwdPage implements AfterViewInit {
                  private user: UserService,
                  private para: NavParams,
                  private render: Renderer,
-                 private ele: ElementRef
+                 private ele: ElementRef,
+                 private http: HttpService
                  ) {
   }
 
@@ -83,6 +85,16 @@ export class ForgetPwdPage implements AfterViewInit {
       return;
     }
 
+    let find = {
+      "mobile" : userName,
+      "smsCaptcha":this.captchaView.captcha,
+      "newLoginPwd" :pwd
+    }
+    this.http.post('/user/loginpwd/find',find).then((res) => {
+
+    }).catch((error) => {
+
+    });
     //提示
     this.warnCtrl.toast('修改成功');
     //帮助用户注册环信
