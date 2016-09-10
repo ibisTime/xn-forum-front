@@ -6,6 +6,10 @@ import {NavController} from 'ionic-angular';
 })
 export class HomePage {
   constructor(private navCtrl: NavController) {
-  
+
+  }
+
+  chooseZone(){
+    console.log('选择了');
   }
 }

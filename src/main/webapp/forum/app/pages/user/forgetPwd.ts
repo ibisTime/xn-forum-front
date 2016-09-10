@@ -27,6 +27,7 @@ export class ForgetPwdPage implements AfterViewInit {
   list;
   inputDisable = "";
   userNameValue = null;
+  phone='';
   constructor(   private navCtrl: NavController,
                  private app:App,
                  private warnCtrl: WarnService,
@@ -63,7 +64,20 @@ export class ForgetPwdPage implements AfterViewInit {
   //验证码控件
   captchaClick(){
 
-    1 && this.captchaView.beginTime();
+    if (this.phone.length < 5){
+
+      this.warnCtrl.toast('请输入正确的手机号吗');
+      return;
+    }
+
+    let mobile = {
+      "mobile" : this.phone
+    };
+    this.http.post('/gene/findloginpwd/send',mobile).then((res) => {
+      this.captchaView.beginTime();
+    }).catch((error) => {
+
+    });
 
   }
 
@@ -80,10 +94,11 @@ export class ForgetPwdPage implements AfterViewInit {
       return;
     }
 
-    if(this.captchaView.captcha.length <= 4){
+    if(this.captchaView.captcha.length < 4){
       this.warnCtrl.toast('请输入正确的验证码');
       return;
     }
+
 
     let find = {
       "mobile" : userName,
@@ -92,13 +107,13 @@ export class ForgetPwdPage implements AfterViewInit {
     }
     this.http.post('/user/loginpwd/find',find).then((res) => {
 
+      this.warnCtrl.toast('修改成功');
+
     }).catch((error) => {
 
     });
-    //提示
-    this.warnCtrl.toast('修改成功');
-    //帮助用户注册环信
 
+    //帮助用户注册环信
     //保存用户信息
     this.user.saveUserInfo(userName, pwd);
     this.app.getRootNav().setRoot(TabsPage);
