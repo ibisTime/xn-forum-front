@@ -41,9 +41,9 @@ export class RegisterPage implements OnInit {
     $event.target.src = this.src;
   }
 
-  register(userName, pwd, rePwd, imgCaptcha) {
+  register(userName ,imgCaptcha) {
 
-    if (!(userName.length > 5 && pwd.length >= 0)) {
+    if (!(userName.length > 5 )) {
 
       this.warnCtrl.toast('请输入正确的账户名和密码');
       return;
@@ -75,13 +75,13 @@ export class RegisterPage implements OnInit {
     /*注册*/
     this.http.post("/user/regist",params).then( res => {
       console.log(res);
+
       this.warnCtrl.toast('注册成功');
       //帮助用户注册环信
       this.imServe.register(userName,"").then(() => {
-
         this.warnCtrl.toast('注册IM成功');
         //保存用户信息
-        this.user.saveUserInfo(userName, pwd);
+        this.user.saveUserInfo(userName, userName);
         this.navCtrl.push(TabsPage);
         loading.dismiss();
       }).catch((error) => {

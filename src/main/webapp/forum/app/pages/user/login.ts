@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
 
   login(userName,pwd) {
 
-    if (!(userName.length > 5 && pwd.length >5)) {
+    if (!(userName.length > 5 && pwd.length >3)) {
       this.warnCtrl.toast('请输入正确的账户和密码');
       return;
     }

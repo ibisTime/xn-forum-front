@@ -11,14 +11,14 @@
 
   <input #account class="userNameInput" placeholder="请输入手机号">
   <!--<captcha-view class="captcha-view" (clickCaptchaBtn)="captchaClick()" ></captcha-view>-->
-  <input #pwd class="pwdInput" type="password" placeholder="请输入密码">
-  <input #rePwd class="rePwdInput" type="password" placeholder="请确认密码">
+  <!--<input #pwd class="pwdInput" type="password" placeholder="请输入密码">-->
+  <!--<input #rePwd class="rePwdInput" type="password" placeholder="请确认密码">-->
   <div class="img-captcha">
     <input #imgCaptcha placeholder="输入图片验证码"><img (click)="refreshImg($event)" [src]="src">
   </div>
 
   <div text-center>
-    <button type="button" class="register-btn" (click)="register(account.value,pwd.value,rePwd.value,imgCaptcha.value)" >注册</button>
+    <button type="button" class="register-btn" (click)="register(account.value,imgCaptcha.value)" >注册</button>
   </div>
   <!--服务条款-->
   <div class="protocol"><input type="checkbox" checked="true">  我已经阅读并同意《forum服务协议》</div>
