@@ -26,7 +26,7 @@ export class ForgetPwdPage implements AfterViewInit {
   @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
   list;
   inputDisable = "";
-  userNameValue = null;
+  userNameValue = "";
   phone='';
   constructor(   private navCtrl: NavController,
                  private app:App,

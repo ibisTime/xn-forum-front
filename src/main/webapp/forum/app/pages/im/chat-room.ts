@@ -107,7 +107,7 @@ export class ChatRoomPage implements AfterViewInit {
     this.imServe.currentLinkMan = "";
   }
   ionViewWillLeave(){
-    // this.imServe.onTextMessageInner = () => {};
+    this.imServe.imTextMessageInner = () => {};
   }
 
   ngAfterViewInit() {
