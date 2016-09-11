@@ -1,14 +1,31 @@
 <ion-header>
   <ion-navbar>
     <ion-title>我的</ion-title>
+    <ion-buttons end><button (click)="goSetting()">设置</button></ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content  class="mine">
+
   <ion-list>
+    <button ion-item style="height: 80px; background-color: white;">
+      <ion-avatar item-left>
+        <img src="http://img1.touxiang.cn/uploads/20131103/03-030932_368.jpg">
+      </ion-avatar>
+      <h2>{{userServe.userName}}</h2>
+    </button>
+  </ion-list>
+
+  <!--<ion-item>-->
+    <!--<ion-avatar src="http://v1.qzone.cc/avatar/201401/31/20/11/52eb92dd6bcdf173.jpg%21200x200.jpg"></ion-avatar>-->
+  <!--</ion-item>-->
+
+
+ <!-- <ion-list>
+
     <button ion-item (click)="changePassword()" style="background-color: white;">修改密码</button>
   </ion-list>
   <div class="login-out">
   <button  (click)="loginOut($event)">退出登陆</button>
-  </div>
+  </div>-->
 </ion-content>

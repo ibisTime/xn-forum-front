@@ -43,19 +43,11 @@ export class ImPage implements AfterViewInit{
       msgItem.badgeCount = 0;
     }
 
-    tab.tabBadge = (this.imServe.msgTotalCount == 0) ? null :`${this.imServe.msgTotalCount}`;
+    tab.tabBadge = (this.imServe.msgTotalCount <= 0) ? null :`${this.imServe.msgTotalCount}`;
     this.navCtrl.push(ChatRoomPage,linkMan);
   }
 
 
-  imClose(){
-    console.log(this.navCtrl.parent);
-    let tabs: Tabs =  this.navCtrl.parent;
-    let tab1 = tabs.getByIndex(0);
-    tab1.tabBadge = "···";
-    console.log(this.navCtrl.parent);
-    this.imServe.close();
-  }
 
   addFriend(friendName){
     this.imServe.addFriend(friendName,`我是${this.imServe.me}`);
@@ -65,16 +57,5 @@ export class ImPage implements AfterViewInit{
     this.imServe.getFriendList();
   }
 
-
-  ionViewDidEnter(){
-
-  }
-  // sendMsg(){
-  //
-  //   this.imServe.handleToMsg('serve:我要发信息','tianlei003');
-  //   this.imServe.sendTextMsg('serve:我要发信息','tianlei003',(id, serverMsgId) => {
-  //     console.log('发送成功'+ id +'----'+ serverMsgId);
-  //   });
-  // }
 
 }

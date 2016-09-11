@@ -48,12 +48,6 @@ export class ForgetPwdPage implements AfterViewInit {
       this.userNameValue = this.user.userName;
     }
     // this.inputDisable = false;
-    setTimeout(() => {
-      console.log(this.userNameInput);
-
-    },3000);
-
-    // let userNameInput = this.ele.nativeElement.query('input');
 
   }
 
@@ -64,14 +58,14 @@ export class ForgetPwdPage implements AfterViewInit {
   //验证码控件
   captchaClick(){
 
-    if (this.phone.length < 5){
+    if (this.userNameValue.length < 5){
 
       this.warnCtrl.toast('请输入正确的手机号吗');
       return;
     }
 
     let mobile = {
-      "mobile" : this.phone
+      "mobile" : this.userNameValue
     };
     this.http.post('/gene/findloginpwd/send',mobile).then((res) => {
       this.captchaView.beginTime();

@@ -50,7 +50,7 @@ export class TabsPage implements AfterViewInit{
         tabBadge = `${count}`;
       } else if(count > 99) {
         tabBadge = '99+';
-      } else if(tabBadge == 0) {
+      } else if(tabBadge <= 0) {
 
       }
       this.myTabs.getByIndex(1).tabBadge = tabBadge;
