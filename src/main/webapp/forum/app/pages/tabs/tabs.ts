@@ -1,4 +1,4 @@
-import {Component, ViewChild, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
+import {Component, ViewChild, ViewChildren, QueryList, AfterViewInit, Renderer} from '@angular/core';
 import {HomePage} from '../home/home';
 import {ImPage} from '../im/im';
 import {NextPage} from "../kefu/nextpage";
@@ -27,7 +27,8 @@ export class TabsPage implements AfterViewInit{
   constructor(private  imService: IMService,
               private  userServe: UserService,
               private events: Events,
-              private kefuService: KefuService) {
+              private kefuService: KefuService,
+              private render: Renderer) {
 
     this.tab1Root = HomePage;
     this.tab2Root = ImPage;

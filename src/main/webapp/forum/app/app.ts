@@ -49,19 +49,18 @@ export class MyApp {
 
   }
 
-
 }
-
 
 
 ionicBootstrap(MyApp, MY_SERVE,
   {
 
-  tabsHideOnSubPages: true,
-  backButtonText:'后退',
-    mode: 'ios'
+    tabsHideOnSubPages: true,
+    backButtonText: '后退',
+    mode: 'ios',
+    iconMode: 'ios'
 
-}).catch( (error) => {
+  }).catch((error) => {
 
   console.log('app-出现错误');
   console.log(error);
