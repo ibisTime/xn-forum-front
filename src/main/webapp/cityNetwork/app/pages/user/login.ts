@@ -25,7 +25,6 @@ export class LoginPage implements OnInit {
               private http: HttpService
              ) {
   }
-  // private toast: ToastController
 
 
   ngOnInit() {
@@ -46,11 +45,6 @@ export class LoginPage implements OnInit {
       terminalType: 1
     }
 
-    // /**/
-    // this.imServe.login(this.userServe.userName);
-    // this.navCtrl.push(TabsPage,null,{animate: false});
-    // this.userServe.saveUserInfo(userName, pwd);
-    // /**/
 
     let loading = this.warnCtrl.loading('登录中');
     this.http.post('/user/login',params).then((res) => {
@@ -77,6 +71,5 @@ export class LoginPage implements OnInit {
   findPwd($event){
     this.navCtrl.push(ForgetPwdPage);
   }
-
 
 }
