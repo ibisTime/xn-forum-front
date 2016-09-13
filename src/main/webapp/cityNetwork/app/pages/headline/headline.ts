@@ -8,8 +8,19 @@ import {NavController, Platform} from 'ionic-angular';
 export class HeadlinePage implements AfterViewInit {
 
   bannerHeight: string;
-  func3 = ['积分商城','每日签到','同城活动'];
-  func8 = ['招聘','出租','二手','求助','便民','车友','情感','吃货'];
+  func3 = ['../../images/headline/headline-mall.png',
+           '../../images/headline/headline-sign.png',
+           '../../images/headline/headline-activity.png'];
+  func8 = [
+    {'name':'招聘','src':'../../images/headline/headline-zp.png'},
+    {'name':'二手','src':'../../images/headline/headline-es.png'},
+    {'name':'出租','src':'../../images/headline/headline-cz.png'},
+    {'name':'求助','src':'../../images/headline/headline-qz.png'},
+    {'name':'便民','src':'../../images/headline/headline-bm.png'},
+    {'name':'车友','src':'../../images/headline/headline-cy.png'},
+    {'name':'情感','src':'../../images/headline/headline-qg.png'},
+    {'name':'吃货','src':'../../images/headline/headline-ch.png'}
+  ];
 
   h8: string;
   h3h;

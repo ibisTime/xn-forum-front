@@ -7,6 +7,7 @@ import {NavController, Platform} from 'ionic-angular';
 })
 export class MinePage {
 
+  className = 'test-class';
   forumData = [
     {"name": '帖子',"count":'16'},
     {"name": '关注',"count":'26'},
@@ -15,12 +16,12 @@ export class MinePage {
   ];
 
   listItem = [
-    {"name":'我的物品',"src":''},
-    {"name":'我的收藏',"src":''},
-    {"name":'草稿箱',"src":''},
-    {"name":'我的消息',"src":''},
-    {"name":'设置',"src":''},
-    {"name":'退出登录',"src":''},
+    {"name":'我的物品',"src":'iconfont icon-search'},
+    {"name":'我的收藏',"src":'&#xe60e;'},
+    {"name":'草稿箱',"src":'&#xe613;'},
+    {"name":'我的消息',"src":'&#xe610;'},
+    {"name":'设置',"src":'&#xe603;'},
+    {"name":'退出登录',"src":'&#xe617;'},
   ];
 
   constructor(private navCtrl: NavController,
