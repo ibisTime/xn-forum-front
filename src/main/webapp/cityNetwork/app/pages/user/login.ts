@@ -3,12 +3,12 @@ import {Platform, App, NavController } from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 
 import { RegisterPage } from './register';
-import {WarnService} from "../../serve/warn.service";
-import {IMService} from "../../serve/im.service";
-import {UserService} from "../../serve/user.serve";
+import {WarnService} from "../../services/warn.service";
+import {IMService} from "../../services/im.service";
+import {UserService} from "../../services/user.services";
 
 import {ForgetPwdPage} from "./forgetPwd";
-import {HttpService} from "../../serve/http.service";
+import {HttpService} from "../../services/http.service";
 
 @Component({
   templateUrl: "build/pages/user/login.html"

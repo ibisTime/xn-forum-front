@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {App, NavController} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
-import {IMService} from "../../serve/im.service";
-import {WarnService} from "../../serve/warn.service";
-import {UserService} from "../../serve/user.serve";
+import {IMService} from "../../services/im.service";
+import {WarnService} from "../../services/warn.service";
+import {UserService} from "../../services/user.services";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
-import {HttpService} from "../../serve/http.service";
+import {HttpService} from "../../services/http.service";
 
 
 @Component({
