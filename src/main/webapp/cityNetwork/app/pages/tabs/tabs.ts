@@ -11,6 +11,8 @@ export class TabsPage {
   private tab1Root: any;
   private tab2Root: any;
   private tab3Root: any;
+  private tab4Root: any;
+  private tab5Root: any;
 
 
   constructor() {
@@ -18,6 +20,6 @@ export class TabsPage {
     // should be each tab's root Page
     this.tab1Root = HeadlinePage;
     this.tab2Root = ForumPage;
-    this.tab3Root = MinePage;
+    this.tab5Root = MinePage;
   }
 }
