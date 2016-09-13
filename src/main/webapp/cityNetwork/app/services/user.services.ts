@@ -6,7 +6,7 @@ import {NativeStorage} from 'ionic-native';
 
 import {Injectable} from '@angular/core';
 // import {LoginPage} from "../pages/user/login";
-import {App, Platform, LocalStorage,Tabs} from "ionic-angular";
+import {App, Platform, LocalStorage} from "ionic-angular";
 
 export const USER = 'user';
 
@@ -42,7 +42,7 @@ export class UserService {
 
     NativeStorage.setItem(USER, {
       userName: `${userName}`,
-      userId: `${userId}`
+      password: `${userId}`
     });
 
   }
