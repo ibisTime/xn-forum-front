@@ -1,15 +1,38 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>头条</ion-title>
+  <ion-navbar navbar-color>
+    <ion-buttons>
+      <button>
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <ion-buttons>
+        <button style="font-size: 20px">
+          乐清城市网
+          <ion-icon name="arrow-down" style=" padding-left: 3px; padding-top: 3px;">
+        </ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-title>
+    <ion-buttons end>
+      <button>
+        <ion-icon name="book"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="headline">
 
-  <ion-slides [style.height]="bannerHeight">
-    <ion-slide style="height: 100%;">
-      <div class="banner-content"></div>
+  <ion-slides [style.height]="bannerHeight" [options]="mySlideOptions">
+    <ion-slide>
+      <!--<div class="banner-content"></div>-->
+      <img src="http://a.hiphotos.baidu.com/image/h%3D200/sign=af9259bf03082838770ddb148898a964/6159252dd42a2834bc76c4ab5fb5c9ea14cebfba.jpg">
       <div class="banner-title">征文比赛启示</div>
+    </ion-slide>
+    <ion-slide>
+      <div class="banner-content"></div>
+      <div class="banner-title">？？比赛启示</div>
     </ion-slide>
     <ion-slide>
       <div class="banner-content"></div>
@@ -18,28 +41,34 @@
   </ion-slides>
 
   <div class="content">
+
     <div class="three-func">
-      <div class="func"></div>
-      <div class="func"></div>
-      <div class="func"></div>
+      <div class="func" *ngFor="let title of func3" [ngClass]="{width:h3w,height:h3h}">{{title}}</div>
     </div>
+
     <div class="eight-func">
-      <div class="func"></div>
-      <div class="func"></div>
-      <div class="func"></div>
-      <div class="func"></div>
-      <div class="func"></div>
-      <div class="func"></div>
-      <div class="func"></div>
-      <div class="func"></div>
+      <div *ngFor="let title of func8" class="func" [style.height]="h8" [style.width]="h8">
+        <div>
+          <img src="http://image2.90e.com/image/1024x768/12764.jpg">
+          <div class="func8-title">{{title}}</div>
+        </div>
+      </div>
     </div>
+
     <div class="article">
       <div class="article-row">
+        <div class="left-img"></div>
+        <div>
+          <div class="article-title">fksadjfkaslfkajljl</div>
+          <div class="article-date">9999999</div>
+          <div class="focuse-count">9999999</div>
+        </div>
 
       </div>
       <div class="article-row">
       </div>
     </div>
+
   </div>
 
 

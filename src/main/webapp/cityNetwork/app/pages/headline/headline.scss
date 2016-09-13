@@ -1,21 +1,41 @@
+
+$banner-text-height: 40px;
+
+@mixin display-flex{
+  display: flex;
+  display: -webkit-box;
+}
+
+@mixin flex-1{
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  flex: 1;
+}
+
+@mixin align-items($func){
+  align-items: $func;
+  -webkit-box-align: $func;
+}
+
+
 .headline {
-  div{
+  *{
     margin: 0px;
     padding: 0px;
   }
 
   .banner-content {
-    background: url("http://pic22.nipic.com/20120621/10381980_112950399193_2.jpg");
-    height: 100px;
+    background-image:url("http://pic22.nipic.com/20120621/10381980_112950399193_2.jpg");
+    height: 100%;
     background-size: cover;
     background-color: green;
-
   }
+
   .banner-title {
     position: absolute;
     bottom: 0px;
     font-size: 20px;
-    line-height: 40px;
+    line-height: $banner-text-height;
     background-color: rgba(0, 0, 0, 0.3);
     width: 100%;
     color: white;
@@ -31,6 +51,7 @@
 
     @mixin func-common{
       display: flex;
+      display: -webkit-flex;
       justify-content: space-between;
       margin-bottom: 10px;
       flex-wrap: wrap;
@@ -39,11 +60,15 @@
     .three-func {
       @include func-common;
       .func {
+        text-align: center;
+        color: white;
+        font-size: 20px;
         border-radius: 4px;
         border: 1px solid $line-color;
         background-color: cyan;
         flex: 0 0 31.9%;
-        height: 60px;
+        background: url("https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D200/sign=16fda4b766d0f703f9b292dc38fb5148/b3119313b07eca80f9d6cb47952397dda04483bb.jpg") center;
+        line-height: 45px;
       }
     }
     /*八个功能*/
@@ -52,24 +77,55 @@
       @include func-common;
 
       .func {
-        margin-bottom: 8px;
-        background-color: cyan;
+        margin-bottom: 5px;
         flex: 0 0 24%;
-        height: 80px;
         border-radius: 4px;
         border: 1px solid $line-color;
+        text-align: center;
+
+        div{
+          //background-color: red;
+          margin: 20% 25%;
+          height: 70%;
+          text-align: center;
+          img{
+            width: 100%;
+          }
+          .func8-title{
+            margin: 0px;
+            width: 100%;
+            color: rgb(112,112,113);
+            margin-top: 5px;
+            font-size: 16px;
+            height: 20px;
+            //background-color: orange;
+          }
+
+        }
+
       }
 
     }
 
+    /*文章*/
     .article{
       padding: 0px;
 
       .article-row{
         border-top: 1px solid $line-color;
-        height: 90px;
+        height: 100px;
         padding: 10px 0px;
-        //background-color: orange;
+        display: flex;
+
+        .left-img{
+          margin-right: 10px;
+          height: 100%;
+          width: 30%;
+          background: url("https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D200/sign=16fda4b766d0f703f9b292dc38fb5148/b3119313b07eca80f9d6cb47952397dda04483bb.jpg") center;
+        }
+        .article-title{
+
+        }
 
       }
 
@@ -77,4 +133,26 @@
 
   }
 
+}
+
+/*banner pager*/
+.swiper-container-horizontal > .swiper-pagination {
+  padding-right: 10px;
+  text-align: right;
+  bottom: 13px;
+  left: 0;
+  width: 100%;
+}
+
+.swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  display: inline-block;
+  border-radius: 100%;
+  background: white;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: red;
 }
