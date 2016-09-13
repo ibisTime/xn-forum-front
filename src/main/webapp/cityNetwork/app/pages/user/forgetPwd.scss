@@ -1,0 +1,38 @@
+$percentage: 85%;
+
+.forget-pwd {
+
+  //background-color: $background-color;
+  text-align: center;
+  .captcha-view{
+    background-color: red;
+  }
+
+  .userNameInput, .pwdInput, .rePwdInput {
+    display: block;
+    width: $percentage;
+    height: 40px;
+    margin: 0 auto;
+  }
+
+  .userNameInput {
+    margin-top: 40px;
+    margin-bottom: 2px;
+  }
+
+  .pwdInput, .rePwdInput {
+    margin-top: 2px;
+  }
+
+  .register-btn {
+    height: 40px;
+    width: $percentage;
+    margin: 0 auto;
+
+    //background-color: $theme-color;
+    color: white;
+    margin-top: 30px;
+  }
+
+
+}

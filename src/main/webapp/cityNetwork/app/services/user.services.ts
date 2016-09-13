@@ -42,7 +42,7 @@ export class UserService {
 
     NativeStorage.setItem(USER, {
       userName: `${userName}`,
-      password: `${userId}`
+      userId: `${userId}`
     });
 
   }

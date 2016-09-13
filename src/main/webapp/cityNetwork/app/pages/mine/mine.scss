@@ -77,4 +77,22 @@
     }
   }
 
+  ion-list{
+    button{
+      background-color: white;
+    }
+    i{
+      //background-color: red;
+      margin-top: -3px;
+      display: inline-block;
+      vertical-align: middle;
+      padding: 0 10px 0 5px;
+    }
+    span{
+      //background-color: red;
+      display: inline-block;
+      vertical-align: middle;
+    };
+  }
+
 }
