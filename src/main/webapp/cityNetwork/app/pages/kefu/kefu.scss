@@ -1,0 +1,451 @@
+.nextpage{
+  background-color: #F4F7FA;
+  .imContent {
+    max-width: 100%;
+    div{
+      //我发送消息
+      .mine {
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 20px;
+        }
+        div {
+          text-align: left;
+          margin: 0px;
+          max-width: 40%;
+          min-width: 60px;
+          min-height: 35px;
+          padding: 7px;
+          display: inline-block;
+          border: 2px solid yellow;
+          background-color: green;
+        }
+      }
+      //对方发送消息
+      .other{
+        text-align: right;
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 20px;
+        }
+        div {
+          text-align: left;
+          margin: 0px;
+          max-width: 40%;
+          min-width: 60px;
+          min-height: 35px;
+          padding: 7px;
+          display: inline-block;
+          border: 2px solid yellow;
+          background-color: green;
+        }
+
+
+      }
+
+    }
+  }
+
+
+
+  
+
+  li, ul {
+    list-style: none;
+  }
+  pre, p, ul{
+    padding: 0;
+    margin: 0;
+  }
+  .easemobWidget-corner:after, .easemobWidget-face:after, .easemobWidget-file:after, .easemobWidget-left .easemobWidget-msg-voice, .easemobWidget-msg-status i, .easemobWidget-msgcount.mutiCount:after, .easemobWidget-msgcount:after, .easemobWidget-note:after, .easemobWidget-notem:after, .easemobWidget-pop-bar i:after, .easemobWidget-satisfaction-dialog li, .easemobWidget-success-prompt i, .easemobWidget-unimage, .easemobWidget-word-close:after, .easemobWidgetHeader-audio:after, .easemobWidgetHeader-keyboard:after, .easemobWidgetHeader-min:after, .easemobWidgetHeader-silence:after {
+    font-family: easemobim!important;
+    font-size: 30px;
+    font-style: normal;
+    text-align: center;
+    line-height: 30px;
+    -webkit-text-stroke-width: .2px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .easemobWidget-dialog {
+    z-index: 3;
+    position: fixed;
+    width: 320px;
+    height: 380px;
+    background-color: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,.3);
+    top: 50%;
+    left: 50%;
+    margin-left: -160px;
+    margin-top: -180px;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #efefef\9;
+  }
+  .easemobWidget-satisfaction-dialog {
+    font-size: 13px;
+  }
+  .easemobWidget-satisfaction-dialog h3 {
+    font-weight: 400;
+    color: #646464;
+    margin: 20px 0 30px 16px;
+    font-size: 13px;
+  }
+  .easemobWidget-satisfaction-dialog ul {
+    width: 96%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .easemobWidget-satisfaction-dialog li {
+    display: inline-block;
+    position: relative;
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    cursor: pointer;
+    width: 80px\9;
+    height: 80px\9;
+    zoom: 50%\9;
+    font-size: 60px;
+    left: -2.5px;
+    color: #ccc;
+  }
+  button, input, textarea {
+    outline: 0;
+  }
+  .easemobWidget-satisfaction-dialog textarea {
+    resize: none;
+    width: 90%;
+    padding: 6px;
+    box-sizing: border-box;
+    height: 120px;
+    margin: 35px auto 25px;
+    display: block;
+    border: 1px solid #E4E4E4;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  .easemobWidget-dialog div {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .easemobWidget-dialog button {
+    width: 40%;
+    padding: 0;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 4px;
+    color: #fff;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    float: right;
+  }
+  .easemobWidget-dialog .easemobWidget-cancel {
+    background-color: #fff;
+    color: #A6A6A6;
+    border: 1px solid #E4E4E4;
+    float: left;
+  }
+  .easemobWidget-success-prompt {
+    position: absolute;
+    width: 100% !important;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+  }
+  #EasemobKefuWebim .em-hide, .hide, .em-hide, .hide {
+    display: none;
+  }
+  .easemobWidget-success-prompt i {
+    display: block;
+    position: relative;
+    color: #59BE00;
+    font-size: 150px;
+    width: 150px;
+    height: 150px;
+    margin: 80px auto 0;
+    line-height: 150px;
+  }
+  .easemobWidget-success-prompt p {
+    margin-top: -10px;
+    font-size: 13px;
+    width: 100%;
+    color: #59BE00;
+    text-align: center;
+  }
+  .easemobWidget-satisfaction-dialog li.sel {
+    color: #ffb31a;
+  }
+  .easemobWidget-success-prompt i:after {
+    content: 'G';
+    position: absolute;
+    font-size: 60px;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  .easemobWidget-left, .easemobWidget-right {
+    display: block;
+    text-decoration: none;
+    width: 98%;
+    text-align: left;
+    margin-top: 15px;
+  }
+  .easemobWidget-right {
+    float: right;
+  }
+  .easemobWidget-right .easemobWidget-msg-wrapper {
+    float: right;
+    margin-right: 12px;
+  }
+  .easemobWidget-msg-wrapper {
+      position: relative;
+  }
+  .easemobWidget-right .easemobWidget-corner {
+    position: absolute;
+    top: 5px;
+    right: -17px;
+    width: 30px;
+    height: 30px;
+    color: #e3ecfc;
+    text-shadow: 1px 0 0 #c3cbd9;
+  }
+  .easemobWidgetWrapper-mobile .easemobWidget-corner {
+    top: 4px;
+  }
+  .easemobWidget-right .easemobWidget-corner:after {
+    content: 'J';
+  }
+  .easemobWidget-msg-container {
+    display: inline-block;
+    border-radius: 6px;
+    max-width: 190px;
+    padding: 10px;
+    min-width: 20px;
+    min-height: 20px;
+    vertical-align: middle;
+    text-align: left;
+    font-size: 13px;
+    border: 1px solid #e5e5e5;
+  }
+  .easemobWidget-right .easemobWidget-msg-container {
+    background-color: #e3ecfc;
+    float: right;
+    border: 1px solid #c3cbd9;
+  }
+  .easemobWidgetWrapper-mobile .easemobWidget-list-btn, .easemobWidgetWrapper-mobile .easemobWidget-msg-container {
+    font-size: 17px;
+  }
+  .easemobWidgetWrapper-mobile .easemobWidget-msg-container {
+    padding: 8px 10px;
+  }
+  .easemobWidget-msg-container pre {
+    word-break: break-all;
+    white-space: inherit;
+  }
+  .easemobWidget-left {
+    float: left;
+  }
+  .easemobWidget-left .easemobWidget-msg-wrapper {
+    float: left;
+    margin-left: 12px;
+  }
+  .easemobWidget-left .easemobWidget-corner:after {
+    content: 'K';
+  }
+  .easemobWidget-left .easemobWidget-msg-container {
+    background-color: #fff;
+  }
+  .easemobWidget-left .easemobWidget-corner {
+    position: absolute;
+    top: 5px;
+    left: -17px;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    text-shadow: -1px 0 0 #e5e5e5;
+  }
+  .easemobWidget-list-btns {
+    position: relative;
+    border-radius: 6px;
+    background-color: #e4e9f2;
+    margin: 0 0 20px 12px;
+    padding: 1px 5px 5px;
+    float: left;
+    top: 10px;
+    text-align: center;
+    clear: both;
+  }
+  button, input, textarea {
+    outline: 0;
+  }
+  .easemobWidget-list-btn {
+    font-size: 13px;
+    display: block;
+    border: none;
+    padding: 0 5px;
+    min-width: 100px;
+    height: 30px;
+    line-height: 30px;
+    color: #000;
+    background-color: #fafafa;
+    border-radius: 5px;
+    box-shadow: inset 0 -1px 2px rgba(0,0,0,.2);
+    cursor: pointer;
+    margin: 4px auto 0;
+  }
+  .easemobWidgetWrapper-mobile .easemobWidget-list-btn {
+    height: 32px;
+    line-height: 32px;
+    box-shadow: none;
+  }
+  .easemobWidget-list-btns:after {
+    content: '';
+    clear: both;
+  }
+  img {
+      border: none;
+  }
+  .easemobWidget-msg-container img {
+      border-radius: 2px;
+      max-width: 190px;
+      word-wrap: break-word;
+      vertical-align: middle;
+  }
+  .easemobWidget-msg-container .chat-face-all, .easemobWidget-msg-container .em-emotion {
+    width: 24px;
+    height: 24px;
+  }
+  .easemobWidget-chat:after {
+    content: '';
+    display: block;
+    clear: both;
+    zoom: 1;
+    overflow: hidden;
+  }
+  .inline_block {
+    display: inline-block;
+  }
+  .inline_table {
+    display: inline-table;
+  }
+  .easemobWidget-noline {
+    text-decoration: none;
+    cursor: zoom-in;
+  }
+  .easemobWidget-msg-file .easemobWidget-msg-container {
+    padding: 0;
+    min-width: 190px;
+    height: 80px;
+    overflow: hidden;
+  }
+  .easemobWidgetWrapper-mobile .easemobWidget-msg-file .easemobWidget-msg-container {
+    padding: 0;
+  }
+  .easemobWidget-msg-file a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+  }
+  img.easemobWidget-msg-fileicon {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    right: 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .easemobWidget-msg-file span {
+    position: absolute;
+    right: 90px;
+    left: 10px;
+    top: 6px;
+    word-wrap: break-word;
+    margin: auto;
+    line-height: 24px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 50%;
+    overflow: hidden;
+  }
+  .easemobWidget-date {
+    text-align: center;
+    clear: both;
+    padding: 20px 0 0;
+    color: #ADAEAF;
+    font-size: 12px;
+  }
+  .clearfix:after {
+    content: "";
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+  }
+
+  .clearfix {
+      zoom: 1;
+  }
+  .imContent .clearfix::last-child{
+      margin-top: 15px;
+  }
+}
+.nextpage-foot {
+  /*底部输入框*/
+  .bootomInput {
+    display: flex;
+    align-items: center;
+    height: auto;
+    padding: 3px 80px 3px 8px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 -1px 0 #e5e5e5;
+    width: 100%;
+
+    input {
+      width: 100%;
+      font-size: 15px;
+      height: 34px;
+      max-height: 88px;
+      bottom: 0;
+      margin-top: 4px;
+      margin-bottom: 1px;
+      border-radius: 4px;
+      padding: 9px 36px 9px 9px;
+      overflow-x: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,.2) inset;
+    }
+
+    a {
+      position: absolute;
+      border-radius: 4px;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      width: 64px;
+      right: 8px;
+      top: auto;
+      bottom: 5px;
+      background-color: #FFA500;
+      height: 33px;
+      line-height: 33px;
+      font-size: 15px;
+    }
+    a.disabled{
+      background-color: #ccc;
+    }
+
+  }
+}

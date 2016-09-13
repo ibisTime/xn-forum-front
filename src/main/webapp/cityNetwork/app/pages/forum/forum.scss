@@ -1,5 +1,8 @@
 .forum{
     background-color: #fff;
+    .iconfont{
+        margin: 0;
+    }
     .mask{
         position: fixed;
         margin: auto;
@@ -188,6 +191,9 @@
 .forum-head{
     .icon{
         font-size: 2rem;
+    }
+    .iconfont{
+        margin: 0;
     }
     font-family: Microsoft YaHei,'宋体',Tahoma,Arial,sans-serif;
     .toolbar-background{
