@@ -9,6 +9,7 @@ import {UserService} from "../../services/user.services";
 
 import {ForgetPwdPage} from "./forgetPwd";
 import {HttpService} from "../../services/http.service";
+import {KefuService} from "../../services/kefu.serve";
 
 @Component({
   templateUrl: "build/pages/user/login.html"
@@ -18,11 +19,11 @@ export class LoginPage implements OnInit {
   constructor(
               private navCtrl: NavController,
               private platform: Platform,
-              private app:App,
               private userServe: UserService,
               private warnCtrl : WarnService,
               private imServe: IMService,
-              private http: HttpService
+              private http: HttpService,
+              private kefu: KefuService
              ) {
   }
 
@@ -45,17 +46,23 @@ export class LoginPage implements OnInit {
       terminalType: 1
     }
 
-
     let loading = this.warnCtrl.loading('登录中');
     this.http.post('/user/login',params).then((res) => {
 
       loading.dismiss();
       this.platform.ready().then(() => {
+
         console.log('在真机中使用');
         //保存用户信息
         this.userServe.saveUserInfo(userName,pwd);
         //切换控制
         this.navCtrl.push(TabsPage,null,{animate: false});
+        //登录环信
+        this.imServe.login(userName);
+        //客服,赋值
+        this.kefu.me = userName;
+        this.navCtrl.popToRoot();
+
       });
 
     }).catch(error => {
