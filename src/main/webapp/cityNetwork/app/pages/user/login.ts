@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Platform, App, NavController } from "ionic-angular";
+import {Platform, App, NavController,Tab } from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 
 import { RegisterPage } from './register';
