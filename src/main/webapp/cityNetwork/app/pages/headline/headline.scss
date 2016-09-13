@@ -137,7 +137,11 @@ $banner-text-height: 40px;
   }
 
 }
-
+.headline-header{
+  .iconfont{
+    margin: 0;
+  }
+}
 /*banner pager*/
 .swiper-container-horizontal > .swiper-pagination {
   padding-right: 10px;
@@ -158,4 +162,14 @@ $banner-text-height: 40px;
 
 .swiper-pagination-bullet-active {
   background-color: $navbar-color;
+}
+.ion-ios-default-user,
+.ion-ios-default-user-outline,
+.ion-md-default-user{
+
+  content: url(../../images/tab_bar_xiaomi.png);
+  height: 30px;
+  //padding: 0px 4px 2px;
+  //margin: 5px;
+  opacity: 0.9;
 }
