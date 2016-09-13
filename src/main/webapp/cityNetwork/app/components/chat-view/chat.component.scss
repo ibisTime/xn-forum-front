@@ -88,14 +88,22 @@
   .easemobWidget-right .easemobWidget-msg-wrapper {
     float: right;
     margin-right: 12px;
+    img{
+      float: right;
+    }
   }
   .easemobWidget-msg-wrapper {
       position: relative;
+      img{
+        width: 45px;
+        vertical-align: middle;
+      }
   }
+  
   .easemobWidget-right .easemobWidget-corner {
     position: absolute;
     top: 5px;
-    right: -17px;
+    right: 36px;
     width: 30px;
     height: 30px;
     color: #e3ecfc;
@@ -123,6 +131,7 @@
     background-color: #e3ecfc;
     float: right;
     border: 1px solid #c3cbd9;
+    margin-right: 8px;
   }
   .easemobWidgetWrapper-mobile .easemobWidget-list-btn, .easemobWidgetWrapper-mobile .easemobWidget-msg-container {
     font-size: 17px;
@@ -152,7 +161,7 @@
   .easemobWidget-left .easemobWidget-corner {
     position: absolute;
     top: 5px;
-    left: -17px;
+    left: 38px;
     width: 30px;
     height: 30px;
     color: #fff;
@@ -162,7 +171,7 @@
     position: relative;
     border-radius: 6px;
     background-color: #e4e9f2;
-    margin: 0 0 20px 12px;
+    margin: 0 0 20px 66px;
     padding: 1px 5px 5px;
     float: left;
     top: 10px;

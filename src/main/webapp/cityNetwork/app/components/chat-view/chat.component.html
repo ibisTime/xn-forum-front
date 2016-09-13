@@ -9,6 +9,7 @@
         <div class="easemobWidget-left"
              *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'">
           <div class="easemobWidget-msg-wrapper">
+            <img src="images/tab-bar-xiaomi.png"/>
             <i class="easemobWidget-corner"></i>
             <div class="easemobWidget-msg-container">
               <pre>{{msgItem.data}}</pre>
@@ -18,6 +19,7 @@
         <!--菜单列表-->
         <div *ngIf="msgItem.ext && msgItem.ext.msgtype && msgItem.ext.msgtype.choice" class="easemobWidget-left">
           <div class="easemobWidget-msg-wrapper">
+            <img src="images/tab-bar-xiaomi.png"/>
             <i class="easemobWidget-corner"></i>
             <div class="easemobWidget-msg-container">
               <p>{{msgItem.ext.msgtype.choice.title}}</p>
@@ -33,6 +35,7 @@
         <!--满意度评价-->
         <div class="easemobWidget-left" *ngIf="msgItem.type=='satisfactionEvaluation'">
           <div class="easemobWidget-msg-wrapper">
+            <img src="images/tab-bar-xiaomi.png"/>
             <i class="easemobWidget-corner"></i>
             <div class="easemobWidget-msg-container">
               <p>请对我的服务做出评价</p>
@@ -48,6 +51,7 @@
         <!--表情-->
         <div class="easemobWidget-left" *ngIf="msgItem.emotionFlag">
           <div class="easemobWidget-msg-wrapper">
+            <img src="images/tab-bar-xiaomi.png"/>
             <i class="easemobWidget-corner"></i>
             <div class="easemobWidget-msg-container">
                 <pre>
@@ -62,6 +66,7 @@
         <!--图片-->
         <div class="easemobWidget-left" *ngIf="msgItem.type == 'picture'">
           <div class="easemobWidget-msg-wrapper">
+            <img src="images/tab-bar-xiaomi.png"/>
             <i class="easemobWidget-corner"></i>
             <div class="easemobWidget-msg-container inline_table">
               <a class="easemobWidget-noline" href="javascript:;">
@@ -73,6 +78,7 @@
         <!--下载链接-->
         <div class="easemobWidget-left" *ngIf="msgItem.type == 'file'">
           <div class="easemobWidget-msg-wrapper easemobWidget-msg-file">
+            <img src="images/tab-bar-xiaomi.png"/>
             <i class="easemobWidget-corner"></i>
             <div class="easemobWidget-msg-container">
               <a target="_blank" href="{{msgItem.url}}" class="easemobWidget-fileMsg" title="{{msgItem.filename}}">
@@ -93,6 +99,7 @@
             <div class="easemobWidget-msg-container">
               <pre>{{msgItem.data}}</pre>
             </div>
+            <img src="images/marty-avatar.png"/>
           </div>
         </div>
       </div>

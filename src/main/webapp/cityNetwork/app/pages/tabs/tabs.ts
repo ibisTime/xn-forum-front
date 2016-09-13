@@ -3,6 +3,7 @@ import {HeadlinePage} from "../headline/headline";
 import {ForumPage} from "../forum/forum";
 import {MinePage} from "../mine/mine";
 import {KefuPage} from "../kefu/kefu";
+import {VideoPage} from "../video/video";
 
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html'
@@ -22,6 +23,7 @@ export class TabsPage {
     this.tab1Root = HeadlinePage;
     this.tab2Root = ForumPage;
     this.tab3Root = KefuPage;
+    this.tab4Root = VideoPage;
     this.tab5Root = MinePage;
   }
 }
