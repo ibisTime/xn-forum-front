@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {HeadlinePage} from "../headline/headline";
 import {ForumPage} from "../forum/forum";
-import {MinePage} from "../../../../forum/app/pages/mine/mine";
+import {MinePage} from "../mine/mine";
 
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html'

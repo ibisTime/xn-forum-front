@@ -43,7 +43,7 @@
   <div class="content">
 
     <div class="three-func">
-      <div class="func" *ngFor="let title of func3" [ngClass]="{width:h3w,height:h3h}">{{title}}</div>
+      <div class="func" *ngFor="let title of func3" [style.line-height]="h3h" [style.width]="h3w">{{title}}</div>
     </div>
 
     <div class="eight-func">
