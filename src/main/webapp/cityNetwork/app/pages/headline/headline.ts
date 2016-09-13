@@ -1,5 +1,6 @@
 import {Component,AfterViewInit} from '@angular/core';
-import {NavController, Platform} from 'ionic-angular';
+import {NavController, Platform, ModalController} from 'ionic-angular';
+import {LoginPage} from "../user/login";
 
 
 @Component({
@@ -44,4 +45,10 @@ export class HeadlinePage implements AfterViewInit {
     this.h3w = `${(w - 36)/3}px`;
     this.h3h = `${(w - 36)/9}px`;
   }
+
+  writeArticle(){
+
+  this.navCtrl.push(LoginPage);
+  }
+
 }

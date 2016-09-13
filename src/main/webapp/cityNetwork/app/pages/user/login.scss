@@ -1,10 +1,7 @@
 
-//@import "../../theme/forum.theme";
 $percentage: 85%;
 
 .login {
-
-  //background-color: $background-color;
 
   input {
     display: block;
@@ -32,9 +29,8 @@ $percentage: 85%;
      font-size: 10px;
 
     .registerBtn, .findPwdBtn {
-      background-color: rgb(245,245,245);
-      color: $theme-color;
-      //width: 65px;
+      background-color: orange;
+      color: white;
       height: 30px;
     }
 

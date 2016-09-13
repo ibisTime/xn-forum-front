@@ -6,6 +6,7 @@ import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.services";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
 import {HttpService} from "../../services/http.service";
+import {KefuService} from "../../services/kefu.serve";
 
 
 @Component({
@@ -21,7 +22,8 @@ export class RegisterPage implements OnInit {
                  private warnCtrl: WarnService,
                  private user: UserService,
                  private imServe: IMService,
-                 private http: HttpService
+                 private http: HttpService,
+                 private kefu: KefuService
                  ) {
     this.src = this.http.src;
     }
@@ -77,13 +79,21 @@ export class RegisterPage implements OnInit {
       console.log(res);
 
       this.warnCtrl.toast('注册成功');
+
       //帮助用户注册环信
       this.imServe.register(userName,"").then(() => {
         this.warnCtrl.toast('注册IM成功');
         //保存用户信息
         this.user.saveUserInfo(userName, userName);
         this.navCtrl.push(TabsPage);
+
+        //登录环信
+        this.imServe.login(userName);
+        //客服,赋值
+        this.kefu.me = userName;
+         this.navCtrl.popToRoot();
         loading.dismiss();
+
       }).catch((error) => {
         this.warnCtrl.toast('注册IM失败');
         loading.dismiss();
