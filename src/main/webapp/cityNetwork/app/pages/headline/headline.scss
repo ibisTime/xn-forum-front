@@ -167,9 +167,21 @@ $banner-text-height: 40px;
 .ion-ios-default-user-outline,
 .ion-md-default-user{
 
-  content: url(../../images/tab_bar_xiaomi.png);
-  height: 30px;
-  //padding: 0px 4px 2px;
-  //margin: 5px;
-  opacity: 0.9;
+  content: url(../../images/tab-bar-xiaomi.png);
+  height: 90px;
+  width: 90px;
+  top: -45px;
+  opacity: 1;
+  position: absolute;
+}
+a.activated .ion-ios-default-user,
+a.activated .ion-ios-default-user-outline,
+a.activated .ion-md-default-user{
+    -moz-transform: scale(1.1, 1.1);
+    -webkit-transform: scale(1.1, 1.1);
+    -o-transform: scale(1.1, 1.1);
+    transform: scale(1.1, 1.1);
+}
+ion-tabs a{
+  overflow: visible !important;
 }
