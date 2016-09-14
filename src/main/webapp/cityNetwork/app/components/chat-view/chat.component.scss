@@ -157,6 +157,7 @@
   }
   .easemobWidget-left .easemobWidget-msg-container {
     background-color: #fff;
+    margin-left: 5px;
   }
   .easemobWidget-left .easemobWidget-corner {
     position: absolute;
@@ -255,19 +256,20 @@
     height: 80px;
     position: absolute;
     right: 0;
+    top: 0;
     border-radius: 0 4px 4px 0;
   }
   .easemobWidget-msg-file span {
     position: absolute;
     right: 90px;
-    left: 10px;
+    left: 66px;
     top: 6px;
     word-wrap: break-word;
     margin: auto;
     line-height: 24px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 50%;
+    width: 38%;
     overflow: hidden;
   }
   .easemobWidget-date {

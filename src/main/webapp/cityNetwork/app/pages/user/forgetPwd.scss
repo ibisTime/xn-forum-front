@@ -1,7 +1,9 @@
 $percentage: 85%;
 
 .forget-pwd {
-
+  .button, .button.activated{
+    background: #ce3f42;
+  }
   //background-color: $background-color;
   text-align: center;
   .captcha-view{
@@ -25,7 +27,7 @@ $percentage: 85%;
   }
 
   .register-btn {
-    height: 40px;
+    height: 50px;
     width: $percentage;
     margin: 0 auto;
 

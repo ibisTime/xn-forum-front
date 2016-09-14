@@ -4,7 +4,9 @@ $percentage: 85%;
 
   //background-color: $background-color;
   text-align: center;
-
+  .button, .button.activated{
+    background: #ce3f42;
+  }
   .captcha-view{
     background-color: red;
     margin-bottom: 10px;
