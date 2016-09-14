@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      消息列表
+    </ion-title>
+    <ion-buttons  end>
+      <button (click)="addFriend()" ><i class="iconfont">&#xe618;</i></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="im">
+   <ion-list>
+
+   </ion-list>
+
+  <ion-list>
+    <div class="chat-list-outer"  (click)="goChatRoom(msgItem)"
+            *ngFor="let msgItem of imServe.listOfOpposite" >
+      <!---->
+
+      <!---->
+      <div class="chat-list-item" >
+        <div class="headImg">
+          <img src="marty-avatar.png">
+          <div class="badge" *ngIf="msgItem.showBadge">{{(msgItem.badgeCount > 99) ? '99+' : msgItem.badgeCount}}</div>
+        </div>
+        <div class="chat-item-content">
+
+          <h2>{{msgItem.from}}</h2>
+          <p>{{msgItem.lastMsg}}</p>
+        </div>
+        <div class="chat-item-left">
+          <p>{{msgItem.time}}</p>
+        </div>
+      </div>
+
+    </div>
+
+  </ion-list>
+</ion-content>

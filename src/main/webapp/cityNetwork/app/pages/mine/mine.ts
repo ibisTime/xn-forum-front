@@ -1,6 +1,7 @@
 import {Component,AfterViewInit} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import {UserService} from "../../services/user.services";
+import {ImPage} from "./im/im";
 
 
 @Component({
@@ -33,6 +34,10 @@ export class MinePage {
 
   loginOut(){
     this.userService.loginOut();
+  }
+
+  goChat(){
+    this.navCtrl.push(ImPage);
 
   }
 
