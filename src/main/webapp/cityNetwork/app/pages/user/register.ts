@@ -45,11 +45,12 @@ export class RegisterPage implements OnInit {
 
   register(userName ,imgCaptcha) {
 
-    if (!(userName.length > 5 )) {
+    if (!(userName.length != 11 )) {
 
-      this.warnCtrl.toast('账号好像太短了');
+      this.warnCtrl.toast("请输入正确的手机号码");
       return;
     }
+
     //
     // if(pwd != rePwd){
     //   this.warnCtrl.toast('两次密码输入不一致');
@@ -60,6 +61,7 @@ export class RegisterPage implements OnInit {
     //   this.warnCtrl.toast('请输入正确的验证码');
     //   return;
     // }
+
     if(imgCaptcha.length <= 3){
       this.warnCtrl.toast('请输入正确的验证码');
       return;

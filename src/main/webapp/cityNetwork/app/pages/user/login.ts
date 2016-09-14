@@ -22,6 +22,7 @@ export class LoginPage implements OnInit {
               private platform: Platform,
               private warnCtrl : WarnService,
               private http: HttpService
+
              ) {
 
   }
@@ -54,7 +55,7 @@ export class LoginPage implements OnInit {
         this.uService.saveUserInfo(userName,pwd);
 
         //切换控制
-        this.navCtrl.push(TabsPage,null,{animate: false});
+        this.navCtrl.push(TabsPage);
 
         // this.navCtrl.pop();
         // //登录环信

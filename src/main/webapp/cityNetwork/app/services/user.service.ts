@@ -5,7 +5,7 @@
 import {Injectable} from '@angular/core';
 // import {LoginPage} from "../pages/user/login";
 import {App, Platform, LocalStorage} from "ionic-angular";
-import {LoginPage} from "../pages/user/login";
+// import {LoginPage} from "../pages/user/login";
 
 export const USER = 'user';
 
@@ -99,7 +99,7 @@ export class UserService {
 
     this.platform.ready().then(() => {
 
-      this.app.getRootNav().setRoot(LoginPage);
+
 
       // NativeStorage.remove(USER).then(() => {
       //

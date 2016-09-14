@@ -76,9 +76,9 @@ export class ForgetPwdPage implements AfterViewInit {
 
   register(userName, pwd, rePwd) {
 
-    if (!(userName.length > 5 && pwd.length > 5)) {
+    if (!(userName.length > 5 && pwd.length > 5 && pwd.length < 16)) {
 
-      this.warnCtrl.toast("请输入6~16位的账户和密码");
+      this.warnCtrl.toast("请输入6~13位的账户和密码");
       return;
     }
 

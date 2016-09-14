@@ -225,6 +225,11 @@ export class IMService {
 
     if (msg.type == "subscribe"){//别人要添加你为好友
 
+      if(msg.status == "[resp:true]"){
+        this.accept(msg.from);
+        return;
+      }
+
       /*加入 待添加好友*/
       this.listOfFutureFriend.push(msg);
       /*发送有好友的通知*/
@@ -424,3 +429,6 @@ export class IMService {
 /**
  * Created by tianlei on 16/9/6.
  */
+// status
+//   :
+//   "[resp:true]"
