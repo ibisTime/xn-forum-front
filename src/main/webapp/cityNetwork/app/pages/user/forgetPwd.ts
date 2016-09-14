@@ -9,6 +9,7 @@ import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.services";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
 import {HttpService} from "../../services/http.service";
+import {Observable} from "rxjs";
 
 
 @Directive({ selector: 'input' })
@@ -29,14 +30,13 @@ export class ForgetPwdPage implements AfterViewInit {
   userNameValue = "";
   phone='';
   constructor(   private navCtrl: NavController,
-                 private app:App,
                  private warnCtrl: WarnService,
                  private user: UserService,
                  private para: NavParams,
-                 private render: Renderer,
-                 private ele: ElementRef,
-                 private http: HttpService
+                 private http: HttpService,
+                 private imServe: IMService
                  ) {
+    let t = this.navCtrl;
   }
 
   ngAfterViewInit(){
@@ -93,24 +93,40 @@ export class ForgetPwdPage implements AfterViewInit {
       return;
     }
 
-
     let find = {
       "mobile" : userName,
       "smsCaptcha":this.captchaView.captcha,
       "newLoginPwd" :pwd
     }
-    this.http.post('/user/loginpwd/find',find).then((res) => {
 
-      this.warnCtrl.toast('修改成功');
+    let load = this.warnCtrl.loading("");
+      this.http.post('/user/loginpwd/find',find).then((res) => {
 
-    }).catch((error) => {
+        this.warnCtrl.toast('修改成功');
 
-    });
+        //保存用户信息
+        this.user.saveUserInfo(userName, pwd);
+        this.imServe.login(userName);
+        load.dismiss();
+        // setTimeout(() => {
+        //   this.navCtrl.pop();
+        // },50);
+        this.imServe.login(userName);
+        this.navCtrl.parent.parent.push(TabsPage);
 
-    //帮助用户注册环信
-    //保存用户信息
-    this.user.saveUserInfo(userName, pwd);
-    this.app.getRootNav().setRoot(TabsPage);
+      }).catch((error) => {
+
+        load.dismiss();
+
+      });
+
+
+
+
+  }
+
+  pop(){
+    this.navCtrl.popToRoot();
   }
 
 }

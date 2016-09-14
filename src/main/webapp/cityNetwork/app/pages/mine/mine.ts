@@ -1,5 +1,6 @@
 import {Component,AfterViewInit} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
+import {UserService} from "../../services/user.services";
 
 
 @Component({
@@ -25,7 +26,13 @@ export class MinePage {
   ];
 
   constructor(private navCtrl: NavController,
-              private platform: Platform) {
+              private platform: Platform,
+              private userService: UserService) {
+
+  }
+
+  loginOut(){
+    this.userService.loginOut();
 
   }
 

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {App, NavController} from "ionic-angular";
+import {App, NavController, Events} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 import {IMService} from "../../services/im.service";
 import {WarnService} from "../../services/warn.service";
@@ -91,8 +91,8 @@ export class RegisterPage implements OnInit {
         this.imServe.login(userName);
         //客服,赋值
         this.kefu.me = userName;
-         this.navCtrl.popToRoot();
         loading.dismiss();
+        this.navCtrl.parent.parent.push(TabsPage);
 
       }).catch((error) => {
         this.warnCtrl.toast('注册IM失败');

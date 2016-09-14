@@ -40,10 +40,29 @@ export class UserService {
     localStorage.set("userName", userName);
     localStorage.set("userId", userId);
 
-    NativeStorage.setItem(USER, {
-      userName: `${userName}`,
-      userId: `${userId}`
+    // NativeStorage.setItem(USER, {
+    //   userName: `${userName}`,
+    //   userId: `${userId}`
+    // });
+
+  }
+
+  whetherLogin(): boolean{
+    if(this.userName.length > 0){
+      return true;
+    }
+
+    let value;
+    /*webStorage only use web*/
+    let localStorage = new LocalStorage(LocalStorage);
+    localStorage.get("userName").then((value) => {
+      /**/
+      this.userName = value;
+
     });
+
+    // let userName: any = localStorage.get("userName");
+    return typeof(value) != "undefined";
 
   }
 

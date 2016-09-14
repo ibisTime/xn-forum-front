@@ -61,8 +61,7 @@ export class LoginPage implements OnInit {
         this.imServe.login(userName);
         //客服,赋值
         this.kefu.me = userName;
-        this.navCtrl.popToRoot();
-
+        this.navCtrl.parent.parent.push(TabsPage);
       });
 
     }).catch(error => {
