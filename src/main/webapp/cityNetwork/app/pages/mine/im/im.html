@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar navbar-color>
     <ion-title>
       消息列表
     </ion-title>
@@ -22,7 +22,7 @@
       <!---->
       <div class="chat-list-item" >
         <div class="headImg">
-          <img src="marty-avatar.png">
+          <img src="images/marty-avatar.png">
           <div class="badge" *ngIf="msgItem.showBadge">{{(msgItem.badgeCount > 99) ? '99+' : msgItem.badgeCount}}</div>
         </div>
         <div class="chat-item-content">
