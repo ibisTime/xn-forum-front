@@ -135,17 +135,19 @@
                             border-bottom: 1px solid #fff;
                             color:#7E0100;
                             .t-3dot{
-                                font-size: 1.4rem;
+                                font-size: 1.2rem;
+                                padding-left: 8px;
                             }
                             button{
                                 background-color: transparent;
                                 border: none;
                                 padding: 0;
                                 margin-top: 2px;
+                                font-size: 1.2rem;
                             }
                         }
                         .com-bottom{
-                            font-size: 1.4rem;
+                            font-size: 1.2rem;
                             padding: 6px 0px;
                             .u-name{
                                 color: #7D0000;
@@ -153,14 +155,14 @@
                             .item{
                                 background-color: transparent;
                                 border-top: none !important;
-                                min-height: 1.4em;
-                                line-height: 1.4em;
+                                min-height: 1.2em;
+                                line-height: 1.2em;
                                 border-bottom: none !important;
                                 .item-inner{
                                     margin-left: 0;
                                     border-bottom: none !important;
                                     ion-label{
-                                        font-size: 1.4rem;
+                                        font-size: 1.2rem;
                                         margin: 0;
                                         white-space: normal;
                                     }

@@ -6,6 +6,9 @@ import {KefuPage} from "../kefu/kefu";
 import {VideoPage} from "../video/video";
 import {UserService} from "../../services/user.services";
 import {KefuService} from "../../services/kefu.serve";
+import {NavController} from 'ionic-angular';
+import {LoginPage} from '../user/login';
+
 
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html'
@@ -20,7 +23,8 @@ export class TabsPage {
 
 
   constructor(private userServe: UserService,
-              private kefuService: KefuService) {
+              private kefuService: KefuService,
+              private nav: NavController) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
     this.tab1Root = HeadlinePage;

@@ -168,11 +168,8 @@ $banner-text-height: 40px;
 .ion-md-default-user{
 
   content: url(../../images/tab-bar-xiaomi.png);
-  height: 90px;
-  width: 90px;
-  top: -45px;
-  opacity: 1;
-  position: absolute;
+  height: 48px;
+  width: 35px;
 }
 a.activated .ion-ios-default-user,
 a.activated .ion-ios-default-user-outline,
@@ -184,4 +181,20 @@ a.activated .ion-md-default-user{
 }
 ion-tabs a{
   overflow: visible !important;
+}
+.toolbar-background{
+  border-color: #ae2c2f;
+    background: #ce3f42;
+}
+.toolbar-title{
+  color: #fff;
+}
+.bar-button-default{
+  color: #fff;
+}
+.button{
+  background: #ce3f42;
+}
+body{
+  font-family: Microsoft YaHei,'宋体',Tahoma,Arial,sans-serif;
 }

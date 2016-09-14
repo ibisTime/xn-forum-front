@@ -11,7 +11,7 @@ import {Satisfaction} from "./satisfaction";
 import {UserService} from "../../services/user.services";
 import {HttpService} from "../../services/http.service";
 import {ChatViewComponent} from "../../components/chat-view/chat.component";
-
+import {LoginPage} from '../user/login';
 
 @Component({
     templateUrl: 'build/pages/kefu/kefu.html',
@@ -67,9 +67,10 @@ export class KefuPage implements AfterViewInit {
   }
 
   ionViewDidEnter(){
-    this.imServe.totalMsg = 0;
-    this.scrollBottom();
-    this.isActive = true;
+      this.imServe.totalMsg = 0;
+      this.scrollBottom();
+      this.isActive = true;
+    
   }
   ionViewDidLeave(){
     this.imServe.totalMsg = 0;
