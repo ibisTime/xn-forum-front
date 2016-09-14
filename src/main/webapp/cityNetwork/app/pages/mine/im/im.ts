@@ -12,6 +12,11 @@ import {FriendPage} from "../friend/friend";
 })
 export class ImPage implements AfterViewInit{
 
+  func3 = [
+    {"name":"提到我的","src":"../../images/mine/mine-msg-@.png"},
+    {"name":"评论","src":"../../images/mine/mine-msg-comment.png"},
+    {"name":"系统消息","src":"../../images/mine/mine-msg-system-msg.png"},
+  ];
 
   constructor(private navCtrl: NavController,
               public  imServe: IMService,

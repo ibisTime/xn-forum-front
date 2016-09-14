@@ -11,8 +11,15 @@
 
 <ion-content class="im">
    <ion-list>
-
+     <button ion-item *ngFor="let item of func3" style="background-color: white;" >
+      <ion-avatar item-left>
+        <img src={{item.src}}>
+      </ion-avatar> <span>{{item.name}}</span>
+     </button>
    </ion-list>
+
+
+  <h6 *ngIf="imServe.listOfOpposite.length <= 0" style="padding-left: 40px;">暂无消息</h6>
 
   <ion-list>
     <div class="chat-list-outer"  (click)="goChatRoom(msgItem)"

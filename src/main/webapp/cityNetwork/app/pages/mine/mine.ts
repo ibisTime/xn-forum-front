@@ -2,6 +2,7 @@ import {Component,AfterViewInit} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import {UserService} from "../../services/user.services";
 import {ImPage} from "./im/im";
+import {IMService} from "../../services/im.service";
 
 
 @Component({
@@ -28,12 +29,15 @@ export class MinePage {
 
   constructor(private navCtrl: NavController,
               private platform: Platform,
-              private userService: UserService) {
+              private userService: UserService,
+              private imService: IMService) {
 
   }
 
   loginOut(){
     this.userService.loginOut();
+    this.imService.clearCurrentData();
+    this.imService.close();
   }
 
   goChat(){

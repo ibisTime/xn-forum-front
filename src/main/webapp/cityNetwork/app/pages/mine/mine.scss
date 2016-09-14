@@ -77,11 +77,14 @@
       }
 
     }
+
+
   }
 
   ion-list{
     button{
       background-color: white;
+
     }
     i{
       //background-color: red;
@@ -95,6 +98,15 @@
       display: inline-block;
       vertical-align: middle;
     };
+    .badage{
+      position: absolute;
+      background-color: red;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      top: 9px;
+      left: 38px;
+    }
   }
 
 }
