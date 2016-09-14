@@ -57,11 +57,13 @@ export class LoginPage implements OnInit {
         this.userServe.saveUserInfo(userName,pwd);
         //切换控制
         this.navCtrl.push(TabsPage,null,{animate: false});
-        //登录环信
-        this.imServe.login(userName);
-        //客服,赋值
-        this.kefu.me = userName;
-        this.navCtrl.parent.parent.push(TabsPage);
+
+        // this.navCtrl.pop();
+        // //登录环信
+        // this.imServe.login(userName);
+        // //客服,赋值
+        // this.kefu.me = userName;
+        // this.navCtrl.parent.parent.push(TabsPage);
       });
 
     }).catch(error => {

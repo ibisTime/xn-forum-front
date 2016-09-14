@@ -82,17 +82,17 @@ export class RegisterPage implements OnInit {
 
       //帮助用户注册环信
       this.imServe.register(userName,"").then(() => {
+        loading.dismiss();
         this.warnCtrl.toast('注册IM成功');
         //保存用户信息
         this.user.saveUserInfo(userName, userName);
         this.navCtrl.push(TabsPage);
 
-        //登录环信
-        this.imServe.login(userName);
-        //客服,赋值
-        this.kefu.me = userName;
-        loading.dismiss();
-        this.navCtrl.parent.parent.push(TabsPage);
+        // //登录环信
+        // this.imServe.login(userName);
+        // //客服,赋值
+        // this.kefu.me = userName;
+        // this.navCtrl.parent.parent.push(TabsPage);
 
       }).catch((error) => {
         this.warnCtrl.toast('注册IM失败');

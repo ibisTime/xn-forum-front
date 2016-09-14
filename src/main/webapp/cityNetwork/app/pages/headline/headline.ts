@@ -50,12 +50,16 @@ export class HeadlinePage implements AfterViewInit {
 
   writeArticle(){
 
+    this.userService.whetherLogin().then((value) => {
+      if(value != null){
 
-    if (this.userService.whetherLogin()) {
 
-    } else {
-      this.navCtrl.push(LoginPage);
-    }
+      } else {
+        this.navCtrl.push(LoginPage);
+      }
+
+    });
+
 
   }
 
