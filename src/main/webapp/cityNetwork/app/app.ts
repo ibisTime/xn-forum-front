@@ -3,6 +3,8 @@ import {Platform, ionicBootstrap, Config} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 import {MY_SERVE} from "./services/services";
+import {UserService} from "./services/user.services";
+import {LoginPage} from "./pages/user/login";
 
 
 @Component({
@@ -12,8 +14,22 @@ export class MyApp {
 
   private rootPage: any;
 
-  constructor(private platform: Platform) {
-    this.rootPage = TabsPage;
+  constructor(private platform: Platform,
+              private userServe:UserService) {
+
+    this.userServe.whetherLogin().then((msg) => {
+
+      if(msg != null){
+
+        this.userServe.userName = msg;
+        this.rootPage = TabsPage;
+
+      } else {
+        this.rootPage = LoginPage;
+      }
+
+    });
+    // this.rootPage = TabsPage;
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

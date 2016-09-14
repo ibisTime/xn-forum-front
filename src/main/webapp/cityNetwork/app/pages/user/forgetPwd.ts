@@ -108,11 +108,14 @@ export class ForgetPwdPage implements AfterViewInit {
         this.user.saveUserInfo(userName, pwd);
         this.imServe.login(userName);
         load.dismiss();
+        this.navCtrl.push(TabsPage,null,{animate: false});
+
+
         // setTimeout(() => {
         //   this.navCtrl.pop();
         // },50);
-        this.imServe.login(userName);
-        this.navCtrl.parent.parent.push(TabsPage);
+        // this.imServe.login(userName);
+        // this.navCtrl.parent.parent.push(TabsPage);
 
       }).catch((error) => {
 

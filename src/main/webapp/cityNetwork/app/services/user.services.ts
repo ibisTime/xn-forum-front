@@ -47,22 +47,26 @@ export class UserService {
 
   }
 
-  whetherLogin(): boolean{
-    if(this.userName.length > 0){
-      return true;
-    }
+  whetherLogin(){
+    // if((this.userName != null)&& (this.userName.length > 0)){
+    //   return true;
+    // }
 
     let value;
+
     /*webStorage only use web*/
     let localStorage = new LocalStorage(LocalStorage);
-    localStorage.get("userName").then((value) => {
-      /**/
-      this.userName = value;
 
-    });
+    return localStorage.get("userName");
 
-    // let userName: any = localStorage.get("userName");
-    return typeof(value) != "undefined";
+    // .then((value) => {
+    //   /**/
+    //   this.userName = value;
+    //
+    // });
+    //
+    // // let userName: any = localStorage.get("userName");
+    // return typeof(value) != "undefined";
 
   }
 
