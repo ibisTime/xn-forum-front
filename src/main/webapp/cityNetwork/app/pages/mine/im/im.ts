@@ -4,7 +4,7 @@ import {ChatRoomPage } from './chat-room';
 
 import {IMService} from "../../../services/im.service";
 import {WarnService} from "../../../services/warn.service";
-import {UserService} from "../../../services/user.services";
+import {UserService} from "../../../services/user.service";
 import {FriendPage} from "../friend/friend";
 
 @Component({

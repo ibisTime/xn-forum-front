@@ -2,8 +2,6 @@
  * Created by tianlei on 16/8/29.
  */
 
-import {NativeStorage} from 'ionic-native';
-
 import {Injectable} from '@angular/core';
 // import {LoginPage} from "../pages/user/login";
 import {App, Platform, LocalStorage} from "ionic-angular";

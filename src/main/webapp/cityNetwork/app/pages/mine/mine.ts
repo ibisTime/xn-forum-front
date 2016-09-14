@@ -1,6 +1,6 @@
 import {Component,AfterViewInit} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
-import {UserService} from "../../services/user.services";
+import {UserService} from "../../services/user.service";
 import {ImPage} from "./im/im";
 import {IMService} from "../../services/im.service";
 

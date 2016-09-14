@@ -1,32 +1,30 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, Inject} from '@angular/core';
 import {Platform, App, NavController } from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 
 import { RegisterPage } from './register';
 import {WarnService} from "../../services/warn.service";
-import {IMService} from "../../services/im.service";
-import {UserService} from "../../services/user.services";
 
 import {ForgetPwdPage} from "./forgetPwd";
 import {HttpService} from "../../services/http.service";
-import {KefuService} from "../../services/kefu.serve";
+import {UserService} from "../../services/user.service";
 
 @Component({
+
   templateUrl: "build/pages/user/login.html"
+
 })
 export class LoginPage implements OnInit {
 
   constructor(
+              private uService: UserService,
               private navCtrl: NavController,
               private platform: Platform,
-              private userServe: UserService,
               private warnCtrl : WarnService,
-              private imServe: IMService,
-              private http: HttpService,
-              private kefu: KefuService
+              private http: HttpService
              ) {
-  }
 
+  }
 
   ngOnInit() {
     console.log('登陆界面被创建了');
@@ -38,7 +36,6 @@ export class LoginPage implements OnInit {
       this.warnCtrl.toast('请输入正确的账户和密码');
       return;
     }
-
 
     let params = {
       loginName: userName,
@@ -54,7 +51,8 @@ export class LoginPage implements OnInit {
 
         console.log('在真机中使用');
         //保存用户信息
-        this.userServe.saveUserInfo(userName,pwd);
+        this.uService.saveUserInfo(userName,pwd);
+
         //切换控制
         this.navCtrl.push(TabsPage,null,{animate: false});
 

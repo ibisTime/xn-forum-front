@@ -8,7 +8,7 @@ import {NavController,ViewController, InfiniteScroll, Scroll, Content, Tab,Tabs,
 import { Keyboard } from 'ionic-native';
 import {KefuService} from "../../services/kefu.serve";
 import {Satisfaction} from "./satisfaction";
-import {UserService} from "../../services/user.services";
+import {UserService} from "../../services/user.service";
 import {HttpService} from "../../services/http.service";
 import {ChatViewComponent} from "../../components/chat-view/chat.component";
 import {LoginPage} from '../user/login';
@@ -72,7 +72,7 @@ export class KefuPage implements AfterViewInit {
       this.imServe.totalMsg = 0;
       this.scrollBottom();
       this.isActive = true;
-    
+
   }
   ionViewDidLeave(){
     this.imServe.totalMsg = 0;

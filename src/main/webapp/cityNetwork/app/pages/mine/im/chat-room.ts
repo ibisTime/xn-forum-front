@@ -1,9 +1,7 @@
 /**
  * Created by tianlei on 16/8/24.
  */
-import {Component, OnInit, ViewChild, QueryList,
-         ElementRef,Renderer,OnChanges,
-  AfterViewChecked} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgFor } from '@angular/common';
 
 import {NavController,Toolbar, Content, NavParams, TextInput, Platform, ViewController, Refresher} from 'ionic-angular'

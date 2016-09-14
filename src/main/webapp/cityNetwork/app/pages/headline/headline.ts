@@ -1,7 +1,7 @@
 import {Component,AfterViewInit} from '@angular/core';
 import {NavController, Platform, ModalController} from 'ionic-angular';
 import {LoginPage} from "../user/login";
-import {UserService} from "../../services/user.services";
+import {UserService} from "../../services/user.service";
 
 
 @Component({
@@ -50,15 +50,15 @@ export class HeadlinePage implements AfterViewInit {
 
   writeArticle(){
 
-    this.userService.whetherLogin().then((value) => {
-      if(value != null){
-
-
-      } else {
-        this.navCtrl.push(LoginPage);
-      }
-
-    });
+    // this.userService.whetherLogin().then((value) => {
+    //   if(value != null){
+    //
+    //
+    //   } else {
+    //     this.navCtrl.push(LoginPage);
+    //   }
+    //
+    // });
 
 
   }

@@ -6,10 +6,9 @@ import {App, NavController, NavParams} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 import {IMService} from "../../services/im.service";
 import {WarnService} from "../../services/warn.service";
-import {UserService} from "../../services/user.services";
+import {UserService} from "../../services/user.service";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
 import {HttpService} from "../../services/http.service";
-import {Observable} from "rxjs";
 
 
 @Directive({ selector: 'input' })

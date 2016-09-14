@@ -3,8 +3,9 @@ import {Platform, ionicBootstrap, Config} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 import {MY_SERVE} from "./services/services";
-import {UserService} from "./services/user.services";
+import {UserService} from "./services/user.service";
 import {LoginPage} from "./pages/user/login";
+import {KefuService} from "./services/kefu.serve";
 
 
 @Component({
@@ -15,7 +16,8 @@ export class MyApp {
   private rootPage: any;
 
   constructor(private platform: Platform,
-              private userServe:UserService) {
+              private userServe:UserService,
+              private kefu: KefuService) {
 
     this.userServe.whetherLogin().then((msg) => {
 
@@ -25,7 +27,9 @@ export class MyApp {
         this.rootPage = TabsPage;
 
       } else {
+
         this.rootPage = LoginPage;
+
       }
 
     });

@@ -4,7 +4,7 @@ import {ForumPage} from "../forum/forum";
 import {MinePage} from "../mine/mine";
 import {KefuPage} from "../kefu/kefu";
 import {VideoPage} from "../video/video";
-import {UserService} from "../../services/user.services";
+import {UserService} from "../../services/user.service";
 import {KefuService} from "../../services/kefu.serve";
 import {NavController} from 'ionic-angular';
 import {LoginPage} from '../user/login';

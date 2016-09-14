@@ -3,7 +3,7 @@ import {App, NavController, Events} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 import {IMService} from "../../services/im.service";
 import {WarnService} from "../../services/warn.service";
-import {UserService} from "../../services/user.services";
+import {UserService} from "../../services/user.service";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
 import {HttpService} from "../../services/http.service";
 import {KefuService} from "../../services/kefu.serve";
@@ -47,7 +47,7 @@ export class RegisterPage implements OnInit {
 
     if (!(userName.length > 5 )) {
 
-      this.warnCtrl.toast('请输入正确的账户名和密码');
+      this.warnCtrl.toast('账号好像太短了');
       return;
     }
     //
@@ -60,7 +60,7 @@ export class RegisterPage implements OnInit {
     //   this.warnCtrl.toast('请输入正确的验证码');
     //   return;
     // }
-    if(imgCaptcha.length <= 0){
+    if(imgCaptcha.length <= 3){
       this.warnCtrl.toast('请输入正确的验证码');
       return;
     }
