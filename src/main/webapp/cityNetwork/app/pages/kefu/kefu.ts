@@ -4,7 +4,7 @@
 import {Component, OnInit, ViewChild, QueryList, ElementRef, AfterViewInit} from '@angular/core';
 import { NgFor } from '@angular/common';
 
-import {NavController,ViewController, InfiniteScroll, Scroll, Content, Tab,Tabs} from 'ionic-angular'
+import {NavController,ViewController, InfiniteScroll, Scroll, Content, Tab,Tabs, TextInput} from 'ionic-angular'
 import { Keyboard } from 'ionic-native';
 import {KefuService} from "../../services/kefu.serve";
 import {Satisfaction} from "./satisfaction";
@@ -31,6 +31,7 @@ export class KefuPage implements AfterViewInit {
 
   @ViewChild(Content) content: Content;
   @ViewChild(ChatViewComponent) chatView: ChatViewComponent;
+  @ViewChild(TextInput) msgPut: any;
 
   constructor(private  nav: NavController,
               private imServe: KefuService,
@@ -54,6 +55,7 @@ export class KefuPage implements AfterViewInit {
   }
 
   sendMsg(value) {
+    this.msgPut.setFocus();
     this.imServe.handleToMsg(value);
     this.imServe.sendTextMsg(value, (id, serverMsgId) => {
     }, "");
