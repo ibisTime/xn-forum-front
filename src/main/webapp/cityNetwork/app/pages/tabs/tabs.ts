@@ -8,6 +8,7 @@ import {UserService} from "../../services/user.services";
 import {KefuService} from "../../services/kefu.serve";
 import {NavController} from 'ionic-angular';
 import {LoginPage} from '../user/login';
+import {IMService} from "../../services/im.service";
 
 
 @Component({
@@ -24,7 +25,8 @@ export class TabsPage {
 
   constructor(private userServe: UserService,
               private kefuService: KefuService,
-              private nav: NavController) {
+              private nav: NavController,
+              private imServe: IMService) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
     this.tab1Root = HeadlinePage;
@@ -33,9 +35,19 @@ export class TabsPage {
     this.tab4Root = VideoPage;
     this.tab5Root = MinePage;
 
-    if(this.userServe.whetherLogin()){
-      this.kefuService.me = this.userServe.userName;
-    }
+    this.kefuService.me = this.userServe.userName;
+    this.imServe.login(this.userServe.userName);
+
+    // this.userServe.whetherLogin().then((msg) => {
+    //
+    //   if(msg != null){
+    //     this.userServe.userName = msg;
+    //     this.kefuService.me = msg;
+    //     this.imServe.login(msg);
+    //   }
+    //
+    // });
+
   }
 }
 
