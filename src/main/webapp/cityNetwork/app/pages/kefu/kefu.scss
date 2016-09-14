@@ -411,6 +411,7 @@
     padding: 3px 80px 3px 8px;
     box-sizing: border-box;
     background-color: #fff;
+    box-shadow: 0 -1px 0 #e5e5e5;
     width: 100%;
 
     input {
@@ -424,7 +425,6 @@
       border-radius: 4px;
       padding: 9px 36px 9px 9px;
       overflow-x: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,.2) inset;
     }
 
     a {
