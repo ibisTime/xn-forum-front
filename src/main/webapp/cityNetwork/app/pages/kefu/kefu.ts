@@ -54,6 +54,12 @@ export class KefuPage implements AfterViewInit {
 
   }
 
+  doFocus(e){
+      setTimeout(()=>{
+          window.scrollTo(0, 1000);
+      }, 1);
+  }
+
   sendMsg(value) {
     this.msgPut.setFocus();
     this.imServe.handleToMsg(value);

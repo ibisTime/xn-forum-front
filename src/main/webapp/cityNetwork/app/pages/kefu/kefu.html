@@ -32,7 +32,7 @@
 </ion-content>
 <ion-footer class="nextpage-foot">
     <div class="bootomInput">
-      <ion-input #msgInput [(ngModel)]="inputValue" placeholder="请输入信息"></ion-input>
+      <ion-input #msgInput [(ngModel)]="inputValue" (focus)="doFocus($event)" placeholder="请输入信息"></ion-input>
       <a (click)="sendMsg(msgInput.value)">发送</a>
     </div>
 </ion-footer>

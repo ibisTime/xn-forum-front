@@ -201,10 +201,13 @@
     .toolbar-background{
         background: #D23E3E;
     }
+    .toolbar-background{
+        border-bottom-width: 0;
+    }
     button{
         color: #fff;
     }
-    .toolbar .segment-button{
+    .toolbar div.toolbar-content .segment-button{
         background-color:transparent;
         border-color: #fff;
         border-width: 0;
@@ -213,7 +216,7 @@
         height: 100%;
         color: #E59D9F;
     }
-    .segment-button.segment-activated{
+    .toolbar div.toolbar-content .segment-button.segment-activated{
         background-color:inherit;
         border-bottom-width: 4px;
         border-color: inherit;
