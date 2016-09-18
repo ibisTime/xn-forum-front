@@ -172,16 +172,6 @@
                     </ion-item>
                 </ion-card>
             </ion-item>
-            <div id="ylImg" class="mask hidden" (click)="closeImg();">
-                <div>
-                    <div class="wrapper">
-                        <div class="scroller" [style.line-height]="pHeight">
-                            <img id="yl-img"/>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </ion-list>
 
         <ion-list *ngSwitchCase="'ltan'">
@@ -192,3 +182,13 @@
     </div>
 
 </ion-content>
+<div id="ylImg" class="mask hidden" (click)="closeImg();">
+    <div>
+        <div class="wrapper">
+            <div class="scroller" [style.line-height]="pHeight">
+                <img id="yl-img"/>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -3,46 +3,6 @@
     .iconfont{
         margin: 0;
     }
-    .mask{
-        position: fixed;
-        margin: auto;
-        overflow: hidden;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #000;
-        .wrapper{
-            float: left;
-            z-index: 1;
-            overflow: hidden;
-            text-align: center;
-            width: 100%;
-            height: 100%;
-            .scroller{
-                transform-origin: 0px 0px 0px;
-                transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);
-                transition-duration: 0ms;
-                transform: translate(0px, 0px) scale(1) translateZ(0px);
-                img{
-                    max-width: 100%;
-                    vertical-align: middle;
-                    -webkit-transition: opacity .3s ease-out;
-                }
-            }
-        }
-    }
-    .mask>div{
-        position: relative;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 100%;
-        transform: translate(0px, 0px) translateZ(0px);
-    }
-    .hidden {
-        display: none !important;
-    }
     .fr{
         float: right;
     }
@@ -219,7 +179,51 @@
     .toolbar div.toolbar-content .segment-button.segment-activated{
         background-color:inherit;
         border-bottom-width: 4px;
-        border-color: inherit;
+        border-color: #fff;
         color: #fff;
     }
+}
+.zIndex999{
+    z-index: 999 !important;
+}
+.mask{
+    position: fixed;
+    margin: auto;
+    overflow: hidden;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    .wrapper{
+        float: left;
+        z-index: 1;
+        overflow: hidden;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        .scroller{
+            transform-origin: 0px 0px 0px;
+            transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);
+            transition-duration: 0ms;
+            transform: translate(0px, 0px) scale(1) translateZ(0px);
+            img{
+                max-width: 100%;
+                vertical-align: middle;
+                -webkit-transition: opacity .3s ease-out;
+            }
+        }
+    }
+}
+.mask>div{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    transform: translate(0px, 0px) translateZ(0px);
+}
+.hidden {
+    display: none !important;
 }

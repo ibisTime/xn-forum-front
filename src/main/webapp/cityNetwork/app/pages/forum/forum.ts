@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {NavController, Platform} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {NavController, Platform, Content} from 'ionic-angular';
 
 
 @Component({
@@ -12,6 +12,9 @@ export class ForumPage {
   imgHeight: string;
   pHeight: string;
   imgUrl: string;
+
+  @ViewChild(Content) content: Content;
+
   constructor(private navCtrl: NavController,
               private platform: Platform) {
       this.isAndroid = platform.is('android');
