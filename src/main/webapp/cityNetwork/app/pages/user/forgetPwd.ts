@@ -127,8 +127,12 @@ export class ForgetPwdPage implements AfterViewInit {
 
   }
 
+
   pop(){
+
     this.navCtrl.popToRoot();
+
   }
+
 
 }

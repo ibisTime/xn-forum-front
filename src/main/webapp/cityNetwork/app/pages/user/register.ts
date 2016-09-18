@@ -45,10 +45,11 @@ export class RegisterPage implements OnInit {
 
   register(userName ,imgCaptcha) {
 
-    if (!(userName.length != 11 )) {
+    if (userName.length != 11 ) {
 
       this.warnCtrl.toast("请输入正确的手机号码");
       return;
+
     }
 
     //
@@ -107,10 +108,6 @@ export class RegisterPage implements OnInit {
       console.log('外部--失败');
 
     });
-
-
-
-
 
 
   }

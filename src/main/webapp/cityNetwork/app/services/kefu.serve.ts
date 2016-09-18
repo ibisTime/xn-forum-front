@@ -29,7 +29,7 @@ export class KefuService {
   public totalMsg = 0;
   private chatGroupSeqId = 0;
   private timestamp = 0;
-  
+
   private map = {
     '[):]': 'ee_1.png',
     '[:D]': 'ee_2.png',
@@ -128,7 +128,7 @@ export class KefuService {
   }
   //获取企业欢迎语
   getCompanyWelcome(){
-    this.ajax.get(null, null, 
+    this.ajax.get(null, null,
       this.baseurl + '/v1/webimplugin/welcome?tenantId='+this.tenantId)
       .then((msg)=>{
         this.getRobertWelcome();
@@ -150,7 +150,7 @@ export class KefuService {
 
   //获取机器人欢迎语
   getRobertWelcome(){
-    this.ajax.get(null, null, 
+    this.ajax.get(null, null,
       location.origin + location.pathname + 'rvisitor/'+this.tenantId+'/robots/visitor/greetings?tenantId='+this.tenantId)
       .then((rGreeting)=>{
           let msg;
@@ -172,14 +172,14 @@ export class KefuService {
               case 1:
                   try {
                       let greetingObj = JSON.parse(rGreeting.greetingText.replace(/&quot;/g, '"'));
-                      
+
                       if ( rGreeting.greetingText === '{}' ) {
                           msg = {
                               data: '该菜单不存在',
                               type: 'txt',
                               from: this.to
                           };
-                        
+
                       } else {
                           //robert list greeting
                           msg = {
@@ -312,7 +312,7 @@ export class KefuService {
         fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? o[k] : (('00' + o[k]).substr(('' + o[k]).length)));
       }
     }
-    return fmt;   
+    return fmt;
   };
   //处理历史消息
   handleHistoryData(chatHistory, refresh?){
@@ -392,4 +392,5 @@ export class KefuService {
               }
           });
   }
+
 }

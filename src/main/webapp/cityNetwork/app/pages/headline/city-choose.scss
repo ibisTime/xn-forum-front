@@ -1,0 +1,53 @@
+
+.city-choose-header{
+  .search-input-outer{
+    display: flex;
+    background-color: cyan;
+  }
+  input{
+    display: inline-block;
+    margin-left: 10%;
+    max-height: 100%;
+    width: 70%;
+    //background-color: red;
+    border: 0;
+    border-bottom: 1px solid $line-color;
+  }
+  button{
+    background-color: white;
+    color: black;
+    border: 1px solid $line-color;
+    border-radius: 4px;
+    //max-height: 80%;
+    height: 44%;
+    font-size: 18px;
+  }
+
+}
+
+.city-choose{
+
+  ion-item-divider{
+    padding-left:  20px;
+    //margin: 10px 0px;
+    min-height: 30px;
+    border: 0;
+    *{
+      margin: 0px;
+      font-size: 17px;
+    }
+  }
+
+  .city-cell{
+
+    &:active{
+      background-color: darkgrey;
+    }
+    line-height: 32px;
+    font-size: 17px;
+    padding: 2px 0 2px 20px;
+    background-color: white;
+  }
+
+
+}

@@ -1,0 +1,20 @@
+<ion-header class="headline-header" class="city-choose-header">
+  <ion-navbar white-them >
+    <div class="search-input-outer">
+    <input class="search-city-input" placeholder="请输入城市名称或拼音首字母">
+      <button (click)="back()">取消</button>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="city-choose">
+
+  <ion-list>
+    <ion-item-group *ngFor="let obj of cityS.citys">
+      <ion-item-divider sticky>
+        {{obj.letter}}
+      </ion-item-divider>
+      <div class="city-cell" (tap)="confirmCity(city)" *ngFor="let city of obj.data">{{city.name}}</div>
+    </ion-item-group>
+  </ion-list>
+</ion-content>
