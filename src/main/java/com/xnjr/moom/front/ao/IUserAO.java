@@ -10,7 +10,6 @@ package com.xnjr.moom.front.ao;
 
 import com.xnjr.moom.front.res.XN602601Res;
 import com.xnjr.moom.front.res.XN805043Res;
-import com.xnjr.moom.front.res.XN805056Res;
 
 /** 
  * @author: miyb 
@@ -77,7 +76,7 @@ public interface IUserAO {
      * @create: 2014-12-10 下午7:37:18 miyb
      * @history:
      */
-    public XN805056Res doGetUser(String userId);
+    public Object doGetUser(String userId);
 
     /**
      * 找回登录密码

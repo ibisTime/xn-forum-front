@@ -32,7 +32,6 @@ import com.xnjr.moom.front.req.XNfd0004Req;
 import com.xnjr.moom.front.res.XN602601Res;
 import com.xnjr.moom.front.res.XN801215Res;
 import com.xnjr.moom.front.res.XN805043Res;
-import com.xnjr.moom.front.res.XN805056Res;
 import com.xnjr.moom.front.res.XNfd0003Res;
 import com.xnjr.moom.front.util.PwdUtil;
 import com.xnjr.moom.front.util.UploadUtil;
@@ -123,13 +122,13 @@ public class UserAOImpl implements IUserAO {
     }
 
     @Override
-    // XN805056Res
-    public XN805056Res doGetUser(String userId) {
+    // Object
+    public Object doGetUser(String userId) {
         if (StringUtils.isBlank(userId)) {
             throw new BizException("A010001", "用户编号不能为空");
         }
         return BizConnecter.getBizData("805056",
-            JsonUtils.string2Json("userId", userId), XN805056Res.class);
+            JsonUtils.string2Json("userId", userId), Object.class);
     }
 
     @Override
@@ -231,12 +230,7 @@ public class UserAOImpl implements IUserAO {
 
     @Override
     public boolean doIdentityCheck(String userId) {
-        boolean flag = true;
-        XN805056Res user = this.doGetUser(userId);
-        if (StringUtils.isBlank(user.getIdKind())
-                || StringUtils.isBlank(user.getIdNo())) {
-            flag = false;
-        }
+        boolean flag = false;
         return flag;
     }
 

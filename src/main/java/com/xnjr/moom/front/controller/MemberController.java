@@ -19,7 +19,6 @@ import com.xnjr.moom.front.enums.ETermType;
 import com.xnjr.moom.front.exception.BizException;
 import com.xnjr.moom.front.localToken.UserDAO;
 import com.xnjr.moom.front.res.XN805043Res;
-import com.xnjr.moom.front.res.XN805056Res;
 import com.xnjr.moom.front.session.ISessionProvider;
 import com.xnjr.moom.front.session.SessionUser;
 
@@ -89,11 +88,9 @@ public class MemberController extends BaseController {
             @RequestParam("terminalType") String terminalType,
             @RequestParam(value = "kind", required = false) String kind) {
         XN805043Res res = userAO.doLogin(loginName, loginPwd, kind);
-        XN805056Res res1 = userAO.doGetUser(res.getUserId());
         if (ETermType.WEB.getCode().equals(terminalType)) {
             SessionUser sessionUser = new SessionUser();
             sessionUser.setUserId(res.getUserId());
-            sessionUser.setKind(res1.getKind());
             // 创建session
             setSessionUser(sessionUser);
         }/*
@@ -113,7 +110,7 @@ public class MemberController extends BaseController {
     // 获取用户信息
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public XN805056Res doGetUser(
+    public Object doGetUser(
             @RequestParam(value = "userId", required = false) String userId) {
         return userAO.doGetUser(getSessionUserId(userId));
     }
