@@ -139,6 +139,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/gene/smscaptcha/send" />
 			<mvc:mapping path="/user/**" />
+			<mvc:mapping path="/rs/**" />
 			<mvc:mapping path="/company/**" />
 			<mvc:mapping path="/account/**" />
 			<mvc:mapping path="/project/**" />
@@ -153,6 +154,7 @@
 			<!-- 注册相关 start  -->
 			<mvc:exclude-mapping path="/gene/register/send" />
 			<mvc:exclude-mapping path="/user/mobile/check" />
+			<mvc:exclude-mapping path="/user/reg" />
 		 	<mvc:exclude-mapping path="/user/regist" />
 		 	<mvc:exclude-mapping path="/user/getHpsList" />
 		 	<!-- 注册相关 end 

@@ -15,6 +15,7 @@ import com.xnjr.moom.front.req.XN602803Req;
 import com.xnjr.moom.front.req.XN602804Req;
 import com.xnjr.moom.front.req.XN602805Req;
 import com.xnjr.moom.front.req.XN805040Req;
+import com.xnjr.moom.front.req.XN805041Req;
 import com.xnjr.moom.front.req.XN805043Req;
 import com.xnjr.moom.front.req.XN805045Req;
 import com.xnjr.moom.front.req.XN805047Req;
@@ -23,6 +24,9 @@ import com.xnjr.moom.front.req.XN805049Req;
 import com.xnjr.moom.front.req.XN805051Req;
 import com.xnjr.moom.front.req.XN805055Req;
 import com.xnjr.moom.front.req.XN805057Req;
+import com.xnjr.moom.front.req.XN805073Req;
+import com.xnjr.moom.front.req.XN805074Req;
+import com.xnjr.moom.front.req.XN805075Req;
 import com.xnjr.moom.front.req.XNfd0003Req;
 import com.xnjr.moom.front.req.XNfd0004Req;
 import com.xnjr.moom.front.res.XN602601Res;
@@ -31,6 +35,7 @@ import com.xnjr.moom.front.res.XN805043Res;
 import com.xnjr.moom.front.res.XN805056Res;
 import com.xnjr.moom.front.res.XNfd0003Res;
 import com.xnjr.moom.front.util.PwdUtil;
+import com.xnjr.moom.front.util.UploadUtil;
 
 /** 
  * @author: miyb 
@@ -417,4 +422,48 @@ public class UserAOImpl implements IUserAO {
         return BizConnecter.getBizData("805055", JsonUtils.object2Json(req),
             Object.class);
     }
+
+	@Override
+	public Object doReg(String mobile, String loginPwd, String smsCaptcha,
+			String userReferee) {
+		XN805041Req req = new XN805041Req();
+		req.setMobile(mobile);
+		req.setLoginPwd(loginPwd);
+		req.setLoginPwdStrength(PwdUtil.calculateSecurityLevel(loginPwd));
+		req.setSmsCaptcha(smsCaptcha);
+		req.setUserReferee(userReferee);
+		return BizConnecter.getBizData("805041", JsonUtils.object2Json(req),
+	            Object.class);
+	}
+
+	@Override
+	public Object setAvatar(String userId, String photo) {
+		XN805073Req req = new XN805073Req();
+		req.setUserId(userId);
+		req.setPhoto(UploadUtil.uploadPicture(photo));
+		return BizConnecter.getBizData("805073", JsonUtils.object2Json(req),
+	            Object.class);
+	}
+
+	@Override
+	public Object setProfile(String userId, String gender, String birthday,
+			String region, String introduce) {
+		XN805074Req req = new XN805074Req();
+		req.setUserId(userId);
+		req.setGender(gender);
+		req.setBirthday(birthday);
+		req.setRegion(region);
+		req.setIntroduce(introduce);
+		return BizConnecter.getBizData("805074", JsonUtils.object2Json(req),
+	            Object.class);
+	}
+
+	@Override
+	public Object setNickName(String userId, String nickname) {
+		XN805075Req req = new XN805075Req();
+		req.setUserId(userId);
+		req.setNickname(nickname);
+		return BizConnecter.getBizData("805075", JsonUtils.object2Json(req),
+	            Object.class);
+	}
 }
