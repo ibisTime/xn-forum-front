@@ -28,7 +28,7 @@ public class ViewController extends BaseController {
             @RequestParam(value = "parentCode", required = false) String parentCode,
             @RequestParam(value = "siteCode", required = false) String siteCode) {
     	XN610031Req req = new XN610031Req();
-    	req.setCode(siteCode);
+    	req.setCode(code);
     	req.setTitle(title);
     	req.setStatus(status);
     	req.setType(type);
