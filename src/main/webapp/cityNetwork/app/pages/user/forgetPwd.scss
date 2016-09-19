@@ -16,6 +16,9 @@ $percentage: 85%;
     height: 40px;
     margin: 0 auto;
   }
+  .button{
+    height: 45px;
+  }
 
   .userNameInput {
     margin-top: 40px;
@@ -25,15 +28,31 @@ $percentage: 85%;
   .pwdInput, .rePwdInput {
     margin-top: 2px;
   }
-
+  .save-div{
+    padding: 16px;
+  }
+  .capt-item button{
+    width: 6em;
+  }
   .register-btn {
-    height: 45px;
-    width: $percentage;
+    height: 50px;
+    width: 100%;
     margin: 0 auto;
 
     //background-color: $theme-color;
     color: white;
-    margin-top: 30px;
+  }
+  ion-list > .item{
+    padding-right: 16px;
+  }
+  ion-list > .item:first-child{
+    border-top: none;
+  }
+  ion-list > .item:last-child{
+    border-bottom: none;
+  }
+  ion-list > .item:last-child .item-inner{
+    border-bottom: 1px solid #c8c7cc;
   }
 
 

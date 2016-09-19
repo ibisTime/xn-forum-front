@@ -250,13 +250,14 @@ public interface IUserAO {
      * @history:
      */
     public Object getHpsList();
-    
-    public Object doReg(String mobile, String loginPwd, String smsCaptcha, String userReferee);
-    
+
+    public Object doReg(String mobile, String loginPwd, String smsCaptcha,
+            String userReferee);
+
     public Object setAvatar(String userId, String photo);
-    
-    public Object setProfile(String userId, String gender, String birthday, 
-    		String region, String introduce);
-    
+
+    public Object setProfile(String userId, String gender, String birthday,
+            String region, String introduce);
+
     public Object setNickName(String userId, String nickname);
 }

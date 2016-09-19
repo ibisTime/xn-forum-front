@@ -27,6 +27,7 @@ export class ForgetPwdPage implements AfterViewInit {
   list;
   inputDisable = "";
   userNameValue = "";
+  captchaValue = "";
   phone='';
   constructor(   private navCtrl: NavController,
                  private warnCtrl: WarnService,
@@ -55,7 +56,7 @@ export class ForgetPwdPage implements AfterViewInit {
   }
 
   //验证码控件
-  captchaClick(){
+  captchaClick(e){
 
     if (this.userNameValue.length < 5){
 
@@ -63,20 +64,39 @@ export class ForgetPwdPage implements AfterViewInit {
       return;
     }
 
+    let btn = e.target;
+    while( !/^button$/gi.test(btn.nodeName) ){
+      btn = btn.parentNode;
+    }
+    btn.setAttribute("disabled", "disabled");
+
+    for(var i = 0; i <= 30; i++){
+        (function (i) {
+            setTimeout(function(){
+                if(i < 30){
+                    btn.innerText = (30 - i) + "s";
+                }else{
+                    btn.removeAttribute("disabled");
+                    btn.innerText = "发送验证码";
+                }
+            }, 1000*i);
+        })(i);
+    }
+
     let mobile = {
       "mobile" : this.userNameValue
     };
     this.http.post('/gene/findloginpwd/send',mobile).then((res) => {
-      this.captchaView.beginTime();
+      //this.captchaView.beginTime();
     }).catch((error) => {
-
+      this.warnCtrl.toast('验证码发送失败，请稍后重试!');
     });
 
   }
 
-  register(userName, pwd, rePwd) {
+  register(userName, captcha, pwd, rePwd) {
 
-    if (!(userName.length > 5 && pwd.length > 5 && pwd.length < 16)) {
+    if (!userName || !(userName.length > 5 && pwd.length > 5 && pwd.length < 16)) {
 
       this.warnCtrl.toast("请输入6~13位的账户和密码");
       return;
@@ -87,14 +107,14 @@ export class ForgetPwdPage implements AfterViewInit {
       return;
     }
 
-    if(this.captchaView.captcha.length < 4){
+    if(!captcha || captcha.length < 4){
       this.warnCtrl.toast('请输入正确的验证码');
       return;
     }
 
     let find = {
       "mobile" : userName,
-      "smsCaptcha":this.captchaView.captcha,
+      "smsCaptcha":captcha,
       "newLoginPwd" :pwd
     }
 

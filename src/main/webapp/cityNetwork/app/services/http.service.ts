@@ -9,8 +9,8 @@ import 'rxjs/add/observable/throw';
 import {AlertController} from "ionic-angular";
 
 const RELEASE_ADDR = "S";
-const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
-// const DEBUG_ADDR = "http://121.43.101.148:8080/xn-forum-front";
+// const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
+const DEBUG_ADDR = "http://121.43.101.148:8080/xn-forum-front";
 const TEST_ADDR = "S";
 
 @Injectable()

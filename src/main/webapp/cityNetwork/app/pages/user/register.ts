@@ -17,6 +17,7 @@ import {KefuService} from "../../services/kefu.serve";
 export class RegisterPage implements OnInit {
 
   src;
+  userNameValue;
   @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
   constructor(   private navCtrl: NavController,
                  private warnCtrl: WarnService,
@@ -33,9 +34,41 @@ export class RegisterPage implements OnInit {
 
 
   //验证码控件
-  captchaClick(){
+  captchaClick(e){
 
-    1 && this.captchaView.beginTime();
+    if (this.userNameValue.length < 5){
+
+      this.warnCtrl.toast('请输入正确的手机号吗');
+      return;
+    }
+
+    let btn = e.target;
+    while( !/^button$/gi.test(btn.nodeName) ){
+      btn = btn.parentNode;
+    }
+    btn.setAttribute("disabled", "disabled");
+
+    for(var i = 0; i <= 30; i++){
+        (function (i) {
+            setTimeout(function(){
+                if(i < 30){
+                    btn.innerText = (30 - i) + "s";
+                }else{
+                    btn.removeAttribute("disabled");
+                    btn.innerText = "发送验证码";
+                }
+            }, 1000*i);
+        })(i);
+    }
+
+    let mobile = {
+      "mobile" : this.userNameValue
+    };
+    this.http.post('/gene/register/send',mobile).then((res) => {
+      //this.captchaView.beginTime();
+    }).catch((error) => {
+      this.warnCtrl.toast('验证码发送失败，请稍后重试!');
+    });
 
   }
 
@@ -43,34 +76,33 @@ export class RegisterPage implements OnInit {
     $event.target.src = this.src;
   }
 
-  register(userName ,imgCaptcha) {
+  register(userName, captcha, pwd, rePwd, imgCaptcha) {
 
-    if (userName.length != 11 ) {
-
+    if (!userName || userName.length != 11 ) {
       this.warnCtrl.toast("请输入正确的手机号码");
       return;
-
+    }
+    
+    if(pwd != rePwd){
+      this.warnCtrl.toast('两次密码输入不一致');
+      return;
     }
 
-    //
-    // if(pwd != rePwd){
-    //   this.warnCtrl.toast('两次密码输入不一致');
-    //   return;
-    // }
+    if(!captcha || captcha.length <= 3){
+      this.warnCtrl.toast('请输入正确的验证码');
+      return;
+    }
 
-    // if(this.captchaView.captcha.length <= 4){
-    //   this.warnCtrl.toast('请输入正确的验证码');
-    //   return;
-    // }
-
-    if(imgCaptcha.length <= 3){
+    if(!imgCaptcha || imgCaptcha.length <= 3){
       this.warnCtrl.toast('请输入正确的验证码');
       return;
     }
 
     let params = {
       loginName : userName,
+      loginPwd: pwd,
       captcha: imgCaptcha,
+      smsCaptcha: captcha,
       userReferee: "tianlei"
     }
 

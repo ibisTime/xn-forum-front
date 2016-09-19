@@ -1,9 +1,9 @@
 package com.xnjr.moom.front.res;
 
 import java.util.Date;
+import java.util.List;
 
 public class XN805056Res {
-	
 
     // userId
     private String userId;
@@ -28,165 +28,175 @@ public class XN805056Res {
 
     // 真实姓名
     private String realName;
-	
+
     private String loginName;
-    
+
     private String remark;
-    
+
+    private List<String> userExt;
+
+    public List<String> getUserExt() {
+        return userExt;
+    }
+
+    public void setUserExt(List<String> userExt) {
+        this.userExt = userExt;
+    }
+
     public String getUserId() {
-		return userId;
-	}
+        return userId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public String getMobile() {
-		return mobile;
-	}
+    public String getMobile() {
+        return mobile;
+    }
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
-	public String getLoginPwdStrength() {
-		return loginPwdStrength;
-	}
+    public String getLoginPwdStrength() {
+        return loginPwdStrength;
+    }
 
-	public void setLoginPwdStrength(String loginPwdStrength) {
-		this.loginPwdStrength = loginPwdStrength;
-	}
+    public void setLoginPwdStrength(String loginPwdStrength) {
+        this.loginPwdStrength = loginPwdStrength;
+    }
 
-	public String getKind() {
-		return kind;
-	}
+    public String getKind() {
+        return kind;
+    }
 
-	public void setKind(String kind) {
-		this.kind = kind;
-	}
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
 
-	public String getUserReferee() {
-		return userReferee;
-	}
+    public String getUserReferee() {
+        return userReferee;
+    }
 
-	public void setUserReferee(String userReferee) {
-		this.userReferee = userReferee;
-	}
+    public void setUserReferee(String userReferee) {
+        this.userReferee = userReferee;
+    }
 
-	public String getIdKind() {
-		return idKind;
-	}
+    public String getIdKind() {
+        return idKind;
+    }
 
-	public void setIdKind(String idKind) {
-		this.idKind = idKind;
-	}
+    public void setIdKind(String idKind) {
+        this.idKind = idKind;
+    }
 
-	public String getIdNo() {
-		return idNo;
-	}
+    public String getIdNo() {
+        return idNo;
+    }
 
-	public void setIdNo(String idNo) {
-		this.idNo = idNo;
-	}
+    public void setIdNo(String idNo) {
+        this.idNo = idNo;
+    }
 
-	public String getRealName() {
-		return realName;
-	}
+    public String getRealName() {
+        return realName;
+    }
 
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
 
-	public String getLoginName() {
-		return loginName;
-	}
+    public String getLoginName() {
+        return loginName;
+    }
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
+    public String getRemark() {
+        return remark;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public String getUpdateDatetime() {
-		return updateDatetime;
-	}
+    public String getUpdateDatetime() {
+        return updateDatetime;
+    }
 
-	public void setUpdateDatetime(String updateDatetime) {
-		this.updateDatetime = updateDatetime;
-	}
+    public void setUpdateDatetime(String updateDatetime) {
+        this.updateDatetime = updateDatetime;
+    }
 
-	public String getUpdater() {
-		return updater;
-	}
+    public String getUpdater() {
+        return updater;
+    }
 
-	public void setUpdater(String updater) {
-		this.updater = updater;
-	}
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
 
-	public String getTradePwdStrength() {
-		return tradePwdStrength;
-	}
+    public String getTradePwdStrength() {
+        return tradePwdStrength;
+    }
 
-	public void setTradePwdStrength(String tradePwdStrength) {
-		this.tradePwdStrength = tradePwdStrength;
-	}
+    public void setTradePwdStrength(String tradePwdStrength) {
+        this.tradePwdStrength = tradePwdStrength;
+    }
 
-	public Date getCreateDatetime() {
-		return createDatetime;
-	}
+    public Date getCreateDatetime() {
+        return createDatetime;
+    }
 
-	public void setCreateDatetime(Date createDatetime) {
-		this.createDatetime = createDatetime;
-	}
+    public void setCreateDatetime(Date createDatetime) {
+        this.createDatetime = createDatetime;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public String getServeList() {
-		return serveList;
-	}
+    public String getServeList() {
+        return serveList;
+    }
 
-	public void setServeList(String serveList) {
-		this.serveList = serveList;
-	}
+    public void setServeList(String serveList) {
+        this.serveList = serveList;
+    }
 
-	public String getQuoteList() {
-		return quoteList;
-	}
+    public String getQuoteList() {
+        return quoteList;
+    }
 
-	public void setQuoteList(String quoteList) {
-		this.quoteList = quoteList;
-	}
+    public void setQuoteList(String quoteList) {
+        this.quoteList = quoteList;
+    }
 
-	public Integer getLevel() {
-		return level;
-	}
+    public Integer getLevel() {
+        return level;
+    }
 
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
 
-	public String getIndividualCode() {
-		return individualCode;
-	}
+    public String getIndividualCode() {
+        return individualCode;
+    }
 
-	public void setIndividualCode(String individualCode) {
-		this.individualCode = individualCode;
-	}
+    public void setIndividualCode(String individualCode) {
+        this.individualCode = individualCode;
+    }
 
-	private String updateDatetime;
-    
+    private String updateDatetime;
+
     private String updater;
 
     // 安全密码强度
@@ -206,7 +216,7 @@ public class XN805056Res {
 
     // 用户等级
     private Integer level;
-    
+
     // 个体户
     private String individualCode;
 
