@@ -2,7 +2,7 @@
  * Created by tianlei on 16/9/17.
  */
 import {Injectable} from '@angular/core';
-import {HttpService} from "../../services/http.service";
+import {HttpService} from "./http.service";
 
 export interface City{
 
@@ -43,63 +43,136 @@ export class CityService {
   baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
   baidu = 'http://api.map.baidu.com/location/ip';
   // baidu = "http://localhost:8080/baidu-map/";
-  constructor( private  http: HttpService) {
+  public headlineData = {
+  "banner": [],
+  "func3": [],
+  "func8": [],
+  "tabs": []
+  };
 
+  currentCity: City = {"name":"未知地点"}; //根据经纬度获得
+
+  constructor( private  http: HttpService) {
   }
 
-  getCity(success?,failure?){
-    this.http.get('/site/list').then( res => {
+  getCity(){
+   return this.http.get('/site/list').then( res => {
 
       if(res["data"] instanceof Array ){
 
         this.citys = this.pySegSort(res["data"]);
       }
-      (typeof(success) == "function")&&(success());
-      (typeof(failure) == "function")&&(failure());
-
-    }).catch(error => {
 
     });
-    //
-    // let args = [{name:"乐青城市网"},
-    //   {name:"温州在线"},
-    //   {name:"缙云在线"},
-    //   {name:"张"}];
-    // this.citys = this.pySegSort(args);
+
   }
 
   getDetail(code){
+
     this.http.get('/site/detail',{"code":code}).then( res => {
       console.log(res);
     }).catch(() => {
 
     });
+
   }
 
   /*经纬度 查站点详情*/
   getDetailByPosition(longitude,latitude){
+
     let obj = {
       "longitude":longitude,
       "latitude" :latitude
     }
-    this.http.get('/position',obj).then( res => {
 
-    }).catch(() => {
+  return this.http.get('/site/position',obj).then( res => {
 
+     console.log('通过经纬度获得站点');
+     console.log(res);
+     this.currentCity = res["data"];
+
+     return res;
     });
+
   }
 
   getCurrentCityByIp(){
+
     let obj = {
      "ak" : this.baiduMapAK,
-      "coor":"bd09ll"
+     "coor":"bd09ll"
     };
 
-    this.http.get(null,obj,this.baidu).then(res => {
-      console.log(res);
+   return this.http.get(null,obj,this.baidu).then(res => {
+
+      return res.content.point;
+
+    }).then(point => {
+
+
+      return this.getDetailByPosition(point.x,point.y);
+
+    }).then(res => {
+      /**/
+
+      return this.getNavigateByCode(res['data']["code"]);
+
     });
 
   }
+
+  /*code 查询导航详情*/
+  getNavigateByCode(siteCode){
+
+    let obj = {
+      "siteCode":siteCode
+    };
+
+    /*1 菜单tabbar 2 banner 3 模块func3  4 引流func8*/
+   return this.http.get('/view/list',obj).then(res => {
+
+
+
+      let headline =  {
+        "banner": [],
+        "func3": [],
+        "func8": [],
+        "tabs": []
+      };
+      let data = res["data"];
+      if(data instanceof Array){
+
+        /*分类*/
+        data.forEach((value,index,array) => {
+
+          if(value.type == "2"){
+            headline["banner"].push(value);
+          } else if(value.type == "3") {
+            headline["func3"].push(value);
+          } else if(value.type == "4"){
+            headline["func8"].push(value);
+          } else if(value.type == "1"){
+            headline["tabs"].push(value);
+          }
+
+        });
+
+        /*排序*/
+        for ( let key in headline){
+          headline[key] = headline[key].sort((a,b) => {
+            return a.orderNo - b.orderNo;
+          });
+        }
+
+        this.headlineData = headline;
+      }
+
+
+       // return 'success';
+    });
+
+  }
+
   pySegSort(args) {
     if (!String.prototype.localeCompare)
       return null;
