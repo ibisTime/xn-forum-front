@@ -40,22 +40,16 @@
       <ion-input #rePwd type="password"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label floating>图片验证码</ion-label>
-      <ion-input #imgCaptcha type="text"></ion-input>
-      <img item-right (click)="refreshImg($event)" [src]="src">
-    </ion-item>
-
   </ion-list>
 
 
 
   <div text-center class="register-div">
-    <button type="button" class="register-btn" (click)="register(account.value,chptcha.value,pwd.value,rePwd.value,imgCaptcha.value)" >注册</button>
+    <button type="button" class="register-btn" (click)="register(account.value,chptcha.value,pwd.value,rePwd.value)" >注册</button>
   </div>
   <!--服务条款-->
   <div class="protocol"><input type="checkbox" checked="true">  我已经阅读并同意《forum服务协议》</div>
 
-  <div class="back-login">如果已有账户可在此<button (click)="backLogin()" style="height: 20px" navbar-color>登陆</button></div>
+  <div class="back-login">如果已有账户可在此<button (click)="backLogin()" style="height: 20px" navbar-color>登录</button></div>
 
 </ion-content>

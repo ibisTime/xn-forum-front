@@ -36,9 +36,8 @@ export class RegisterPage implements OnInit {
   //验证码控件
   captchaClick(e){
 
-    if (this.userNameValue.length < 5){
-
-      this.warnCtrl.toast('请输入正确的手机号吗');
+    if (!this.userNameValue || this.userNameValue.length != 11 || !/^1[3,4,5,7,8]\d{9}$/.test(this.userNameValue) ) {
+      this.warnCtrl.toast("请输入正确的手机号码");
       return;
     }
 
@@ -72,13 +71,9 @@ export class RegisterPage implements OnInit {
 
   }
 
-  refreshImg($event){
-    $event.target.src = this.src;
-  }
+  register(userName, captcha, pwd, rePwd) {
 
-  register(userName, captcha, pwd, rePwd, imgCaptcha) {
-
-    if (!userName || userName.length != 11 ) {
+    if (!userName || userName.length != 11 || !/^1[3,4,5,7,8]\d{9}$/.test(userName) ) {
       this.warnCtrl.toast("请输入正确的手机号码");
       return;
     }
@@ -93,24 +88,17 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    if(!imgCaptcha || imgCaptcha.length <= 3){
-      this.warnCtrl.toast('请输入正确的验证码');
-      return;
-    }
-
     let params = {
-      loginName : userName,
+      mobile : userName,
       loginPwd: pwd,
-      captcha: imgCaptcha,
-      smsCaptcha: captcha,
-      userReferee: "tianlei"
+      smsCaptcha: captcha
     }
 
 
 
     let loading = this.warnCtrl.loading('');
     /*注册*/
-    this.http.post("/user/regist",params).then( res => {
+    this.http.post("/user/reg",params).then( res => {
       console.log(res);
 
       this.warnCtrl.toast('注册成功');

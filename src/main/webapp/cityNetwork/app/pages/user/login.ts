@@ -32,9 +32,8 @@ export class LoginPage implements OnInit {
   }
 
   login(userName,pwd) {
-
-    if (!(userName.length > 5 && pwd.length >3)) {
-      this.warnCtrl.toast('请输入正确的账户和密码');
+    if (!userName || userName.length != 11 || !/^1[3,4,5,7,8]\d{9}$/.test(userName) ) {
+      this.warnCtrl.toast("请输入正确的手机号码");
       return;
     }
 

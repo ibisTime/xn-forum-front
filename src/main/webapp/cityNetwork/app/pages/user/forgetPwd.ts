@@ -95,10 +95,8 @@ export class ForgetPwdPage implements AfterViewInit {
   }
 
   register(userName, captcha, pwd, rePwd) {
-
-    if (!userName || !(userName.length > 5 && pwd.length > 5 && pwd.length < 16)) {
-
-      this.warnCtrl.toast("请输入6~13位的账户和密码");
+    if (!userName || userName.length != 11 || !/^1[3,4,5,7,8]\d{9}$/.test(userName) ) {
+      this.warnCtrl.toast("请输入正确的手机号码");
       return;
     }
 

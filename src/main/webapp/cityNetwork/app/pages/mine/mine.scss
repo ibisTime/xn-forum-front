@@ -23,13 +23,14 @@
       position: relative;
       align-items: center;
       .avatar{
-        background: url("http://p2.gexing.com/G1/M00/A5/EB/rBACFFNFIQbwxbX0AAAVnwBD6OA092_200x200_3.jpg?recache=20131108") center;
-        border-radius: 50%;
         margin: 0 20px 0 25px;
         height: 80px;
         width: 80px;
-        background-size: cover;
-        background-color: orange;
+        img{
+          max-height: 100%;
+          max-width: 100%;
+          border-radius: 50%;
+        }
       }
       .title-outer{
         .name{

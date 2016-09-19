@@ -1,9 +1,11 @@
 import {Component,AfterViewInit} from '@angular/core';
 import {NavController, Platform, App} from 'ionic-angular';
 import {UserService} from "../../services/user.service";
+import {WarnService} from "../../services/warn.service";
 import {ImPage} from "./im/im";
 import {IMService} from "../../services/im.service";
 import {LoginPage} from "../user/login";
+import {HttpService} from "../../services/http.service";
 
 
 @Component({
@@ -27,13 +29,16 @@ export class MinePage {
     {"name":'设置',"src":'&#xe603;'},
     {"name":'退出登录',"src":'&#xe617;'},
   ];
+  src:string = 'images/marty-avatar.png';
 
   constructor(private navCtrl: NavController,
               private platform: Platform,
               private userService: UserService,
               private imService: IMService,
+              private warnCtrl: WarnService,
+              private http: HttpService,
               private app :App) {
-
+    this.getUserInfo();
   }
 
   loginOut(){
@@ -43,7 +48,14 @@ export class MinePage {
     this.app.getRootNav().setRoot(LoginPage);
 
   }
-
+  getUserInfo(){
+    this.http.get('/user').then((res) => {
+      let userExt = res.data.userExt;
+      this.src = userExt && userExt.src || "images/marty-avatar.png";
+    }).catch((error) => {
+      this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
+    });
+  }
   goChat(){
     this.navCtrl.push(ImPage);
 
