@@ -61,7 +61,7 @@ export class KefuPage implements AfterViewInit {
   }
 
   sendMsg(value) {
-    this.msgPut.setFocus();
+    //this.msgPut.setFocus();
     this.imServe.handleToMsg(value);
     this.imServe.sendTextMsg(value, (id, serverMsgId) => {
     }, "");

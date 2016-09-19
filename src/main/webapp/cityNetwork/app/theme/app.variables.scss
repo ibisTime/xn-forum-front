@@ -60,6 +60,10 @@ $tabs-md-tab-color-active: $navbar-color;
 .swiper-pagination-bullet{
   background: $navbar-color;
 }
+/**body**/
+body{
+  position: absolute !important;
+}
 
 
 //display: -webkit-box;
@@ -67,4 +71,3 @@ $tabs-md-tab-color-active: $navbar-color;
 //display: -ms-flexbox;
 //display: -webkit-flex;
 //display: flex;
-
