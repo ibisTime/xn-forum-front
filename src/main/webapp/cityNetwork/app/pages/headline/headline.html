@@ -8,7 +8,7 @@
     <ion-title>
       <ion-buttons >
         <button style="font-size: 20px" (click)="chooseCity()">
-          {{cityName}}
+          {{cityS.currentCity.name}}
           <ion-icon name="arrow-down" style=" padding-left: 3px; padding-top: 3px;">
         </ion-icon>
         </button>
@@ -25,33 +25,28 @@
 <ion-content class="headline">
 
   <ion-slides [style.height]="bannerHeight" [options]="mySlideOptions">
-    <ion-slide>
+    <ion-slide *ngFor="let banner of cityS.headlineData.banner" (tap)="goOther(banner.url)">
       <!--<div class="banner-content"></div>-->
-      <img src="http://a.hiphotos.baidu.com/image/h%3D200/sign=af9259bf03082838770ddb148898a964/6159252dd42a2834bc76c4ab5fb5c9ea14cebfba.jpg">
-      <div class="banner-title">征文比赛启示</div>
-    </ion-slide>
-    <ion-slide>
-      <div class="banner-content"></div>
-      <div class="banner-title">？？比赛启示</div>
-    </ion-slide>
-    <ion-slide>
-      <div class="banner-content"></div>
-      <div class="banner-title">？？比赛启示</div>
+      <img src={{banner.pic}}>
+      <div class="banner-title">{{banner.title}}</div>
     </ion-slide>
   </ion-slides>
 
-  <div class="content">
 
-    <!--[style.line-height]="h3h" -->
+  <div class="content">
     <div class="three-func">
-      <div class="func" *ngFor="let src of func3"><img src={{src}} [style.width]="h3w"></div>
+      <div class="outer" [style.width]="h3w" [style.height]="h3h" *ngFor="let func of cityS.headlineData.func3" >
+        <img class="func" src={{func.pic}} [style.width]="h3w" [style.height]="h3h" (tap)="goOther(func.url)">
+        <div class="func3-title">{{func.title}}</div>
+      </div>
     </div>
 
     <div class="eight-func">
-      <div *ngFor="let item of func8" class="func" [style.height]="h8" [style.width]="h8">
-        <div>
-          <img src={{item.src}}>
-          <div class="func8-title">{{item.name}}</div>
+      <div class="eight-inner-div" *ngFor="let func of cityS.headlineData.func8">
+        <div class="func"  [style.height]="h8" [style.width]="h8"
+             (tap)="goOther(func.url)">
+          <img src={{func.pic}}>
+          <div class="func8-title">{{func.title}}</div>
         </div>
       </div>
     </div>
@@ -68,10 +63,7 @@
       <div class="article-row">
       </div>
     </div>
-
   </div>
-<img src="../../images/headline/headline-qz.png">
-
 
 
 </ion-content>

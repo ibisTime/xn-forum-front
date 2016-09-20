@@ -22,9 +22,7 @@ export class HttpService {
     constructor(private http: Http,
                 private alertCtrl: AlertController ) {
 
-      this.headers = new Headers();
-      this.headers.append('Content-Type','application/json');
-      this.headers.append('Accept','application/json');
+
     }
 
     get(url: string,parameters?: Object,optionURL?: string): Promise<any>{
@@ -41,7 +39,10 @@ export class HttpService {
 
       return new Promise((resolve,reject) => {
 
-        this.http.get(url1).subscribe(
+        let headers = new Headers({ 'Content-Type':'application/x-www-form-urlencoded'});
+        headers.append('Accept','application/json');
+        let reqOptions = new RequestOptions({ headers: headers });
+        this.http.get(url1,reqOptions).subscribe(
           (res) => {
             this.handleRes(res,resolve,reject, url1);
           },
@@ -66,6 +67,7 @@ export class HttpService {
             flag = 0;
         }
       }
+
       let headers = new Headers({ 'Content-Type':'application/x-www-form-urlencoded'});
       headers.append('Accept','application/json');
       let reqOptions = new RequestOptions({ headers: headers });

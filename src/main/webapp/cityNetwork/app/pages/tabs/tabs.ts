@@ -22,13 +22,13 @@ export class TabsPage {
   private tab4Root: any;
   private tab5Root: any;
 
-
   constructor(private userServe: UserService,
               private kefuService: KefuService,
               private nav: NavController,
               private imServe: IMService) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
+
     this.tab1Root = HeadlinePage;
     this.tab2Root = ForumPage;
     this.tab3Root = KefuPage;
