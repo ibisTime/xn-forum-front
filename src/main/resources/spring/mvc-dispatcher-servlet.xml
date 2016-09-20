@@ -54,12 +54,13 @@
 	<!-- 对静态资源文件的访问  end-->
 
 	<!-- 配置 文件上传的支持 -->
-	<bean
+	<bean  id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!--  指定所上传文件的总大小不能超过1M -->
-		<property name="maxUploadSize" value="1000" />
+		<property name="maxUploadSize" value="10485760" />
 		<property name="resolveLazily" value="true" />
-		<property name="maxInMemorySize" value="4096" />
+		<property name="maxInMemorySize" value="1048" />
+		<property name="uploadTempDir" value = "/upload/temp"></property>
 	</bean>
 	<!-- 视图配置 -->
 	<bean id="viewResolver"

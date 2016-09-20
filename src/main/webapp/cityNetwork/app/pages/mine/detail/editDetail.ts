@@ -23,11 +23,12 @@ export class EditDetailPage implements AfterViewInit {
       "introduce": ""
   }
   nickname:string;
+  orignalNickname:string;
   flag: boolean = false;
   constructor(private navCtrl: NavController,
               private warnCtrl: WarnService,
               private http: HttpService) {
-    this.url = http.addr + "/upload/file";
+    this.url = http.addr + "/upload/editAvatar";
   }
   ngAfterViewInit() {
       this.getUserInfo();
@@ -35,6 +36,9 @@ export class EditDetailPage implements AfterViewInit {
   ionViewWillLeave(){
       if( !this.isEqual(this.orignalParam, this.param) ){
           this.changeExt();
+      }
+      if( this.orignalNickname !== this.nickname ){
+          this.changeNickname();
       }
   }
   isEqual(obj1: Object, obj2: Object){
@@ -50,7 +54,8 @@ export class EditDetailPage implements AfterViewInit {
             this.flag = true;
             let data = res.data;
             let userExt = data.userExt;
-            this.nickname = data.nickname;
+            this.nickname = data.nickname || data.mobile;
+            this.orignalNickname = this.nickname;
             if(userExt.photo){
                 this.src = userExt.photo;
             }
@@ -72,6 +77,8 @@ export class EditDetailPage implements AfterViewInit {
             this.http.post('/user/nickname', {"nickname": this.nickname}).then((res)=>{
                 if(!res.success){
                     this.warnCtrl.toast('用户昵称修改失败，请稍后重试!');
+                }else{
+                    this.orignalNickname = this.nickname;
                 }
             }).catch((err)=>{
                 this.warnCtrl.toast('用户昵称修改失败，请稍后重试!');
@@ -83,6 +90,15 @@ export class EditDetailPage implements AfterViewInit {
         let reader = new FileReader(); 
         (function(me){
             reader.onload = function (ee) {
+                me.http.post('/user/avatar', {"photo": this.result}).then((res)=>{
+                    if(res.success){
+                        me.warnCtrl.toast('头像修改成功!');
+                    }else{
+                        me.warnCtrl.toast('头像修改失败!');
+                    }
+                }).catch((err)=>{
+                    me.warnCtrl.toast('err!');
+                });
                 me.src = this.result;
             }    
             reader.readAsDataURL(file);//获取base64编码 

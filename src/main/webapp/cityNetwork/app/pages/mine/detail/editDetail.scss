@@ -16,13 +16,16 @@
             opacity: 0;
             width: 80px;
         }
-        input[type=submit] {
+        [type=submit] {
             position: absolute;
             right: 110px;
             width: 3em;
             line-height: 24px;
             top: 50%;
             margin-top: -12px;
+            height: 24px;
+            top: 50%;
+            font-size: 1.2rem;
         }
         img{
             width: 80px;

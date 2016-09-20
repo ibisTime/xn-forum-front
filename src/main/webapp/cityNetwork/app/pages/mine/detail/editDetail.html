@@ -9,9 +9,9 @@
 
   <ion-list>
     <ion-item>
-        <form [action]="url" enctype="multipart/form-data" method="post" class="file clearfix">
-            <input type="submit" value="提交"/>头像<input type="file" name="file" accept="image/*" (change)="uploadImg($event)"/><img [src]="src"/>
-        </form>
+        <a class="file clearfix">
+            头像<input type="file" name="file" accept="image/*" (change)="uploadImg($event)"/><img [src]="src"/>
+        </a>
     </ion-item>
     <ion-item>
         <ion-label floating>昵称</ion-label>

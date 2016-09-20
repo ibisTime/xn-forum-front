@@ -40,7 +40,8 @@ export class DetailPage {
     this.http.get('/user').then((res) => {
       let userExt = res.data.userExt;
       this.src = userExt && userExt.src || "images/marty-avatar.png";
-      document.getElementById("nickname").innerText = res.data.nickname || res.data.mobile;
+      document.getElementById("nickName").innerText = res.data.nickname || res.data.mobile;
+      document.getElementById("introduce").innerText = userExt.introduce || "还没有个人介绍哦";
     }).catch((error) => {
       this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
     });
