@@ -6,6 +6,7 @@ import {ImPage} from "./im/im";
 import {IMService} from "../../services/im.service";
 import {LoginPage} from "../user/login";
 import {HttpService} from "../../services/http.service";
+import {DetailPage} from "./detail/detail";
 
 
 @Component({
@@ -52,12 +53,17 @@ export class MinePage {
     this.http.get('/user').then((res) => {
       let userExt = res.data.userExt;
       this.src = userExt && userExt.src || "images/marty-avatar.png";
+      document.getElementById("nickname").innerText = res.data.nickname || res.data.mobile;
     }).catch((error) => {
       this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
     });
   }
   goChat(){
     this.navCtrl.push(ImPage);
+
+  }
+  goDetail(){
+    this.navCtrl.push(DetailPage);
 
   }
 
