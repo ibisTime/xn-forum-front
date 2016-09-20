@@ -146,6 +146,38 @@ public class MemberController extends BaseController {
         return userAO.setAvatar(getSessionUserId(userId), photo);
     }
 
+    // 签到
+    @RequestMapping(value = "/signIn", method = RequestMethod.POST)
+    @ResponseBody
+    public Object signIn(
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "location") String location) {
+        return userAO.signIn(getSessionUserId(userId), location);
+    }
+
+    // 分页查询签到记录
+    @RequestMapping(value = "/signIn/page", method = RequestMethod.POST)
+    @ResponseBody
+    public Object signInPage(
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "dateStart") String dateStart,
+            @RequestParam(value = "dateEnd") String dateEnd,
+            @RequestParam(value = "start") String start,
+            @RequestParam(value = "limit") String limit) {
+        return userAO.signInPage(getSessionUserId(userId), dateStart, dateEnd,
+            start, limit);
+    }
+
+    // 分页查询签到记录
+    @RequestMapping(value = "/signIn/list", method = RequestMethod.POST)
+    @ResponseBody
+    public Object signInList(
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "dateStart") String dateStart,
+            @RequestParam(value = "dateEnd") String dateEnd) {
+        return userAO.signInList(getSessionUserId(userId), dateStart, dateEnd);
+    }
+
     // 新增用户地址（收货）
     @RequestMapping(value = "/add/address", method = RequestMethod.POST)
     @ResponseBody

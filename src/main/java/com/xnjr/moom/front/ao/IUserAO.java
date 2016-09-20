@@ -253,10 +253,72 @@ public interface IUserAO {
     public Object doReg(String mobile, String loginPwd, String smsCaptcha,
             String userReferee);
 
+    /**
+     * 修改头像
+     * @param userId
+     * @param photo
+     * @return 
+     * @create: 2016年9月20日 下午8:16:24 wulq
+     * @history:
+     */
     public Object setAvatar(String userId, String photo);
 
+    /**
+     * 用户扩展信息修改
+     * @param userId
+     * @param gender
+     * @param birthday
+     * @param region
+     * @param introduce
+     * @return 
+     * @create: 2016年9月20日 下午8:16:42 wulq
+     * @history:
+     */
     public Object setProfile(String userId, String gender, String birthday,
             String region, String introduce);
 
+    /**
+     * 设置昵称
+     * @param userId
+     * @param nickname
+     * @return 
+     * @create: 2016年9月20日 下午8:17:14 wulq
+     * @history:
+     */
     public Object setNickName(String userId, String nickname);
+
+    /**
+     * 签到
+     * @param userId
+     * @param location
+     * @return 
+     * @create: 2016年9月20日 下午8:17:48 wulq
+     * @history:
+     */
+    public Object signIn(String userId, String location);
+
+    /**
+     * 分页查询签到记录
+     * @param userId
+     * @param dateStart
+     * @param dateEnd
+     * @param start
+     * @param limit
+     * @return 
+     * @create: 2016年9月20日 下午8:25:20 wulq
+     * @history:
+     */
+    public Object signInPage(String userId, String dateStart, String dateEnd,
+            String start, String limit);
+
+    /**
+     * 列表查询签到记录
+     * @param userId
+     * @param dateStart
+     * @param dateEnd
+     * @return 
+     * @create: 2016年9月20日 下午8:32:57 wulq
+     * @history:
+     */
+    public Object signInList(String userId, String dateStart, String dateEnd);
 }

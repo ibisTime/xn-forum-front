@@ -27,6 +27,9 @@ import com.xnjr.moom.front.req.XN805057Req;
 import com.xnjr.moom.front.req.XN805073Req;
 import com.xnjr.moom.front.req.XN805074Req;
 import com.xnjr.moom.front.req.XN805075Req;
+import com.xnjr.moom.front.req.XN805100Req;
+import com.xnjr.moom.front.req.XN805101Req;
+import com.xnjr.moom.front.req.XN805102Req;
 import com.xnjr.moom.front.req.XNfd0003Req;
 import com.xnjr.moom.front.req.XNfd0004Req;
 import com.xnjr.moom.front.res.XN602601Res;
@@ -458,6 +461,56 @@ public class UserAOImpl implements IUserAO {
         req.setUserId(userId);
         req.setNickname(nickname);
         return BizConnecter.getBizData("805075", JsonUtils.object2Json(req),
+            Object.class);
+    }
+
+    @Override
+    public Object signIn(String userId, String location) {
+        if (StringUtils.isBlank(userId)) {
+            throw new BizException("A010001", "用户编号不能为空");
+        }
+        if (StringUtils.isBlank(location)) {
+            throw new BizException("A010001", "地区不能为空");
+        }
+        XN805100Req req = new XN805100Req();
+        req.setUserId(userId);
+        req.setLocation(location);
+        return BizConnecter.getBizData("805100", JsonUtils.object2Json(req),
+            Object.class);
+    }
+
+    @Override
+    public Object signInPage(String userId, String dateStart, String dateEnd,
+            String start, String limit) {
+        if (StringUtils.isBlank(userId)) {
+            throw new BizException("A010001", "用户编号不能为空");
+        }
+        if (StringUtils.isBlank(start)) {
+            throw new BizException("A010001", "开始页不能为空");
+        }
+        if (StringUtils.isBlank(limit)) {
+            throw new BizException("A010001", "页面个数不能为空");
+        }
+        XN805101Req req = new XN805101Req();
+        req.setDateEnd(dateEnd);
+        req.setDateStart(dateStart);
+        req.setLimit(limit);
+        req.setStart(start);
+        req.setUserId(userId);
+        return BizConnecter.getBizData("805101", JsonUtils.object2Json(req),
+            Object.class);
+    }
+
+    @Override
+    public Object signInList(String userId, String dateStart, String dateEnd) {
+        if (StringUtils.isBlank(userId)) {
+            throw new BizException("A010001", "用户编号不能为空");
+        }
+        XN805102Req req = new XN805102Req();
+        req.setDateEnd(dateEnd);
+        req.setDateStart(dateStart);
+        req.setUserId(userId);
+        return BizConnecter.getBizData("805102", JsonUtils.object2Json(req),
             Object.class);
     }
 }
