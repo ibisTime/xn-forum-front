@@ -45,14 +45,6 @@ export class CityChoosePage implements OnInit,AfterViewInit {
     this.searching = value.length > 0;
     this.cityS.searchCity(value);
 
-    // console.log(value);
-    // /*匹配首字母*/
-    // let reg = new RegExp('[A-Za-z]');
-    // if(reg.test(value)){
-    //   // alert("输入了字母");
-    // };
-    // /*匹配汉字*/
-    // let reg1 = new RegExp(`[${value}]+`)
 
   }
 }

@@ -25,6 +25,9 @@
     border-bottom: 1px solid $line-color;
   }
   button{
+    &:active{
+      background-color: gainsboro;
+    }
     text-align: center;
     box-sizing: border-box;
     background-color: white;
@@ -33,7 +36,7 @@
     border-radius: 4px;
     display: inline-block;
     //line-height: 35px;
-    width: 50px;
+    width: 15%;
     max-height: 35px;
     flex: 0 0 55px;
     //max-height: 80%;

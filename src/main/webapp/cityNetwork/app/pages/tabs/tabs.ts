@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {HeadlinePage} from "../headline/headline";
 import {ForumPage} from "../forum/forum";
 import {MinePage} from "../mine/mine";
@@ -6,9 +6,10 @@ import {KefuPage} from "../kefu/kefu";
 import {VideoPage} from "../video/video";
 import {UserService} from "../../services/user.service";
 import {KefuService} from "../../services/kefu.serve";
-import {NavController} from 'ionic-angular';
+import {NavController,Tabs} from 'ionic-angular';
 import {LoginPage} from '../user/login';
 import {IMService} from "../../services/im.service";
+import {CityService} from "../../services/city.service";
 
 
 @Component({
@@ -22,10 +23,14 @@ export class TabsPage {
   private tab4Root: any;
   private tab5Root: any;
 
+
+
+  @ViewChild(Tabs) tabs: Tabs;
   constructor(private userServe: UserService,
               private kefuService: KefuService,
               private nav: NavController,
-              private imServe: IMService) {
+              private imServe: IMService,
+              private cityS: CityService) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
 
@@ -47,6 +52,16 @@ export class TabsPage {
     //   }
     //
     // });
+
+  }
+  goOther(index){
+    this.tabs.select(index);
+
+    new FormData()
+  }
+
+  goKefu(){
+    this.tabs.select(2);
 
   }
 }

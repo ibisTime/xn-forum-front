@@ -74,18 +74,21 @@ export class HeadlinePage implements AfterViewInit {
       }).catch( error => {
         /*定位失败*/
         load.dismiss();
-        this.warn.alert('定位失败');
+        // this.warn.alert('定位失败');
+        alert("ip定位失败");
       });
-
+/*
       navigator.geolocation.getCurrentPosition( (position:any) => {
 
-        /*同意定位加载*/
+        /!*同意定位加载*!/
         console.log(position);
         this.cityS.getSiteByPosition(position.x,position.y);
+        alert(position);
 
       }, error => {
 
-        /*不同意获取默认站点*/
+        // alert("不同意");
+        /!*不同意获取默认站点*!/
         this.cityS.getSiteByPosition(0,0).then(res => {
 
           return this.cityS.getNavigateBySiteCode(res["data"]["sit"]);
@@ -94,7 +97,7 @@ export class HeadlinePage implements AfterViewInit {
 
         });
 
-      });
+      });*/
 
     },500);
 
