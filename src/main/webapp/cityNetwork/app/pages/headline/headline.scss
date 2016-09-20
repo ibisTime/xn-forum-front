@@ -45,9 +45,32 @@ $banner-text-height: 40px;
     .three-func {
       @include func-common;
       justify-content: space-between;
+
+      .outer{
+        text-align: center;
+        position: relative;
+        background-color: cyan;
+      }
+
       .func {
         flex: 0 0 31.9%;
         margin-bottom: 4px;
+      }
+      .func3-title{
+        position: absolute;
+        //max-height: 60%;
+        //top: 20%;
+        //bottom: 20%;
+        //vertical-align: middle;
+
+        bottom: 20%;
+        width: 100%;
+        height: 60%;
+        line-height: 20px;
+        //background-color: red;
+        font-size: 17px;
+        //font-weight: bold;
+        color: white;
       }
     }
     /*八个功能*/

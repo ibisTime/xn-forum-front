@@ -36,8 +36,8 @@ export class HeadlinePage implements AfterViewInit {
 
   mySlideOptions = {
     loop: true,
-    pager: true
-    // autoplay: 2000
+    pager: true,
+    autoplay: 2000
 
   };
 
@@ -66,14 +66,34 @@ export class HeadlinePage implements AfterViewInit {
     this.h3h = `${(w - 36)/9}px`;
 
     setTimeout(() => {
-      // let load = this.warn.loading('定位中');
+      let load = this.warn.loading('定位中');
       this.cityS.getCurrentCityByIp().then( msg => {
 
-        // load.dismiss();
+        load.dismiss();
+
       }).catch( error => {
         /*定位失败*/
-        // load.dismiss();
-        // this.warn.alert('定位失败');
+        load.dismiss();
+        this.warn.alert('定位失败');
+      });
+
+      navigator.geolocation.getCurrentPosition( (position:any) => {
+
+        /*同意定位加载*/
+        console.log(position);
+        this.cityS.getSiteByPosition(position.x,position.y);
+
+      }, error => {
+
+        /*不同意获取默认站点*/
+        this.cityS.getSiteByPosition(0,0).then(res => {
+
+          return this.cityS.getNavigateBySiteCode(res["data"]["sit"]);
+
+        }).catch(error => {
+
+        });
+
       });
 
     },500);
@@ -83,17 +103,18 @@ export class HeadlinePage implements AfterViewInit {
   /*所有跳转事件个功能点击事件*/
   goOther(url){
     console.log('点击功能');
-    if(this.platform.is('ios') || this.platform.is('android')){
+    // if(this.platform.is('ios') || this.platform.is('android')){
 
-    } else {
+    // } else {
       window.open(url);
-    }
+    // }
 
  }
 
   chooseCity(){
 
-    let load = this.warn.loading("");
+    let load = this.warn.loading("加载站点中..");
+
     this.cityS.getCity().then(() => {
 
       load.dismiss();
@@ -102,9 +123,6 @@ export class HeadlinePage implements AfterViewInit {
       let model = this.mCtrl.create(CityChoosePage);
       model.present();
       model.onDidDismiss((city) => {this.chooseCallBack(city)});
-      // setTimeout(() => {
-      //
-      // },500);
 
     }).catch( error => {
       load.dismiss();
@@ -121,7 +139,7 @@ export class HeadlinePage implements AfterViewInit {
       let load = this.warn.loading('');
       // this.cityService.getDetail(city.code);
       this.cityS.currentCity = city;
-      this.cityS.getNavigateByCode(city.code).then(msg => {
+      this.cityS.getNavigateBySiteCode(city.code).then(msg => {
         load.dismiss();
       }).catch(error => {
         load.dismiss();
@@ -131,11 +149,9 @@ export class HeadlinePage implements AfterViewInit {
 
   }
 
+
   writeArticle(){
 
-    navigator.geolocation.getCurrentPosition( position => {
-     console.log(position);
-    });
 
     // if(this.platform.is('ios') || this.platform.is('android')){
     //   /*通过经纬度获取站点*/
@@ -143,9 +159,7 @@ export class HeadlinePage implements AfterViewInit {
     //   /*通过ip获取地址*/
     //   this.cityS.getCurrentCityByIp();
     // }
-
   }
-
 
 }
 

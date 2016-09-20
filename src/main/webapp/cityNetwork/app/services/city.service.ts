@@ -40,6 +40,7 @@ export interface City{
 export class CityService {
 
   citys = [];
+  searchCitys = [];
   baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
   baidu = 'http://api.map.baidu.com/location/ip';
   // baidu = "http://localhost:8080/baidu-map/";
@@ -55,6 +56,7 @@ export class CityService {
   constructor( private  http: HttpService) {
   }
 
+
   getCity(){
    return this.http.get('/site/list').then( res => {
 
@@ -64,7 +66,6 @@ export class CityService {
       }
 
     });
-
   }
 
   getDetail(code){
@@ -78,7 +79,7 @@ export class CityService {
   }
 
   /*经纬度 查站点详情*/
-  getDetailByPosition(longitude,latitude){
+  getSiteByPosition(longitude,latitude){
 
     let obj = {
       "longitude":longitude,
@@ -92,6 +93,17 @@ export class CityService {
      this.currentCity = res["data"];
 
      return res;
+    });
+
+  }
+
+  /*通过坐标获取详情*/
+  getNavigateByPosition(x,y){
+
+    return this.getSiteByPosition(x,y).then((res) => {
+
+      return this.getNavigateBySiteCode(res['data']["code"]);
+
     });
 
   }
@@ -110,19 +122,20 @@ export class CityService {
     }).then(point => {
 
 
-      return this.getDetailByPosition(point.x,point.y);
+      return this.getSiteByPosition(point.x,point.y);
 
     }).then(res => {
       /**/
 
-      return this.getNavigateByCode(res['data']["code"]);
+      return this.getNavigateBySiteCode(res['data']["code"]);
 
     });
 
   }
 
+
   /*code 查询导航详情*/
-  getNavigateByCode(siteCode){
+  getNavigateBySiteCode(siteCode){
 
     let obj = {
       "siteCode":siteCode
@@ -173,6 +186,43 @@ export class CityService {
 
   }
 
+  searchCity(value){
+
+    value = value.replace(/\s/g,"");
+    /*匹配首字母*/
+    this.searchCitys = [];
+    let reg = new RegExp('[A-Za-z]');
+    if(value.length == 1 && reg.test(value)){
+
+      this.citys.find((value1,po,array) => {
+
+        let searchCom = value1.letter == value.toUpperCase();
+        if(searchCom){
+          this.searchCitys = value1["data"];
+        }
+        return searchCom;
+      })
+      return;
+    };
+
+    /*匹配汉字*/
+    if(value.length <= 0) return;
+    reg = new RegExp(`${value}+`);
+
+    this.citys.forEach((value1, index, array) => {
+
+      value1.data.forEach((city: City, index1, array1) => {
+        if (reg.test(city.name)) {
+          this.searchCitys.push(city);
+        }
+      });
+
+    })
+
+
+
+
+  }
   pySegSort(args) {
     if (!String.prototype.localeCompare)
       return null;

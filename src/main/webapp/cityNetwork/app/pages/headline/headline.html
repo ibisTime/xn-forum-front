@@ -35,7 +35,10 @@
 
   <div class="content">
     <div class="three-func">
-      <img  class="func" *ngFor="let func of cityS.headlineData.func3" src={{func.pic}} [style.width]="h3w" [style.height]="h3h" (tap)="goOther(func.url)">
+      <div class="outer" [style.width]="h3w" [style.height]="h3h" *ngFor="let func of cityS.headlineData.func3" >
+        <img class="func" src={{func.pic}} [style.width]="h3w" [style.height]="h3h" (tap)="goOther(func.url)">
+        <div class="func3-title">{{func.title}}</div>
+      </div>
     </div>
 
     <div class="eight-func">
