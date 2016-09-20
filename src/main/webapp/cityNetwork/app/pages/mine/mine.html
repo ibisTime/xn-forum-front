@@ -7,10 +7,10 @@
 <ion-content class="mine">
   <!--顶部-->
   <div class="panel-top">
-    <div class="avatar-detail">
+    <div class="avatar-detail" (click)="goDetail()">
       <div class="avatar"><img [src]="src"/></div>
       <div class="title-outer">
-        <div class="name">爆料达人</div>
+        <div class="name" id="nickname"></div>
         <div class="title">论坛元老</div>
       </div>
       <button ><ion-icon name="arrow-forward" text-color ></ion-icon></button>
@@ -51,6 +51,9 @@
     </button>
     <button ion-item  (click)="loginOut()">
       <i class="iconfont">&#xe617;</i><span>退出登录</span>
+    </button>
+    <button ion-item  (click)="getLocation()">
+      <i class="iconfont">&#xe617;</i><span>位置</span>
     </button>
   </ion-list>
 

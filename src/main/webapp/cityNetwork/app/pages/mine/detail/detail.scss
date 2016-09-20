@@ -1,0 +1,217 @@
+.detail{
+    .p20{
+        padding: 20px;
+    }
+    .w100{
+        width: 100%;
+    }
+    .fl{
+        float: left;
+    }
+    .fr{
+        float: right;
+    }
+    .wp50{
+        width: 50%;
+    }
+    .wp49{
+        width: 49%;
+    }
+    .w_line{
+        height: 1em;
+        width: 1px;
+        border-left: 1px solid #fff;
+        margin-top: .5em;
+    }
+    .br50{
+        border-radius: 50%;
+    }
+    .clearfix:after {
+        content: "";
+        display: block;
+        visibility: hidden;
+        height: 0;
+        clear: both;
+    }
+
+    .clearfix {
+        zoom: 1;
+    }
+    .c_white{
+        color: #fff;
+    }
+    .c_a3{
+        color: #A3A3A3;
+    }
+    .inblock{
+        display: inline-block;
+    }
+    .b_l{
+        border-left: 1px solid #fff;
+    }
+    .pl10{
+        padding-left: 10px;
+    }
+    .pl8{
+        padding-left: 8px;
+    }
+    .bg_43a8e8{
+        background-color: #43A8E8;
+    }
+    .bg_f0{
+        background-color: #F0F0F0;
+    }
+    .bg_ad_d6{
+        background-color: #ADADAD;
+        background-image: -webkit-linear-gradient(#D6D6D6, #ADADAD);
+        background-image: linear-gradient(#D6D6D6, #ADADAD);
+    }
+    .bg_e66c61{
+        background-color: #E66C61;
+    }
+    .xb{
+        width: 1.4em;
+        display: inline-block;
+        line-height: 1.4em;
+    }
+    .dj{
+        line-height: 1.4em;
+        width: 1.6em;
+        border-radius: 4px;
+    }
+    .t-3dot {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .lh2em{
+        line-height: 2em;
+    }
+    .item{
+        padding-left: 0;
+        background-color: #fff;
+        .iconfont{
+            font-size: 1.6rem;
+        }
+        .item-inner{
+            padding-right: 0;
+            border-bottom: none;
+            ion-label{
+                margin-left: 8px;
+                .time{
+                    color: #B4B4B4;
+                }
+                ion-card{
+                    font-family: Microsoft YaHei,'宋体',Tahoma,Arial,sans-serif;
+                    margin: 0;
+                    width: 100%;
+                    .item{
+                        border-bottom: 1px solid #DCDCDC;
+                    }
+                    ion-card-content{
+                        width: 100%;
+                        white-space: normal;
+                        padding: 0;
+                        p {
+                            font-size: 1.4rem;
+                        }
+                        .imgs{
+                            height: 100%;
+                            display: inline-block;
+                        }
+                        .img-cont{
+                            margin-top: 8px;
+                        }
+                    }
+                    .com-btn button.activated{
+                        opacity: 0.4;
+                    }
+                    .com-btn button{
+                        border-color: transparent;
+                        background-color: transparent;
+                        font-size: 1.2rem;
+                        height: 2rem;
+                    }
+                    ion-avatar{
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        padding-top: 8px;
+                        margin: 0;
+                        img{
+                            max-height: none;
+                            max-width: none;
+                            width: 45px;
+                            height: 45px;
+                        }
+                    }
+                    button{
+                        padding: 0.6em .6em;
+                        height: 1.4em;
+                        color: #464646;
+                        background: #fff;
+                        border: 1px solid #B4B4B4;
+                    }
+                    .comment{
+                        padding: 8px;
+                        background: #EEEEEE;
+                        border-radius: 4px;
+                        .com-top{
+                            border-bottom: 1px solid #fff;
+                            color:#7E0100;
+                            .t-3dot{
+                                font-size: 1.2rem;
+                                padding-left: 8px;
+                            }
+                            button{
+                                background-color: transparent;
+                                border: none;
+                                padding: 0;
+                                margin-top: 2px;
+                                font-size: 1.2rem;
+                            }
+                        }
+                        .com-bottom{
+                            font-size: 1.2rem;
+                            padding: 6px 0px;
+                            .u-name{
+                                color: #7D0000;
+                            }
+                            .item{
+                                background-color: transparent;
+                                border-top: none !important;
+                                min-height: 1.2em;
+                                line-height: 1.2em;
+                                border-bottom: none !important;
+                                .item-inner{
+                                    margin-left: 0;
+                                    border-bottom: none !important;
+                                    ion-label{
+                                        font-size: 1.2rem;
+                                        margin: 0;
+                                        white-space: normal;
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }
+                    .item-inner{
+                        margin-left: 50px;
+                        .origin{
+                            position:absolute;
+                            right:0;
+                            top:0;
+                            span{
+                                color:#D23E3C;
+                            }
+                        }
+                    }
+                    h2{
+                        color: #7E0001;
+                    }
+                }
+            }
+        }
+    }
+}
