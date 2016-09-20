@@ -54,6 +54,29 @@ public class FileUploadUtil {
         out.flush();
     }
 
+    public String EditAvatar(MultipartFile file, HttpServletRequest request)
+            throws IOException {
+        String fileUrl = null;
+        if (file.isEmpty()) {
+            return "-1";
+        }
+        // 文件保存路径
+        String filePath = request.getSession().getServletContext()
+            .getRealPath("/")
+                + "upload/"
+                + String.valueOf((Math.random() + 1) * 1000000).substring(1, 7)
+                + file.getOriginalFilename();
+        // 转存文件
+        try {
+            file.transferTo(new File(filePath));
+            fileUrl = UploadUtil.uploadFile(filePath);
+            deleteFile(filePath);
+        } catch (IOException e) {
+            return "-2";
+        }
+        return fileUrl;
+    }
+
     /**
      * 删除单个文件
      * @param   path 被删除文件的文件名
