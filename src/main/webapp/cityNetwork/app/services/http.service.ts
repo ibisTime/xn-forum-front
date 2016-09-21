@@ -9,8 +9,8 @@ import 'rxjs/add/observable/throw';
 import {AlertController} from "ionic-angular";
 
 const RELEASE_ADDR = "S";
-const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
-// const DEBUG_ADDR = "http://121.43.101.148:8080/xn-forum-front";
+// const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
+const DEBUG_ADDR = "http://121.43.101.148:8080/xn-forum-front";
 const TEST_ADDR = "S";
 
 @Injectable()
@@ -29,7 +29,7 @@ export class HttpService {
 
       let url1 = optionURL || (this.addr + url );
 
-      if (typeof(parameters) == "object"){
+      if (parameters != null && typeof(parameters) == "object" ){
         let flag = 1;
         for( let key in parameters){
           url1 += (flag == 1 ? '?':'&') + key + '=' + parameters[key];
@@ -60,7 +60,7 @@ export class HttpService {
       let url1 = optionURL ||( this.addr + url);
 
       let body = "";
-      if (typeof(parameters) == "object"){
+      if (parameters != null && typeof(parameters) == "object"){
         let flag = 1;
         for( let key in parameters){
             body += (flag == 1 ? "" : "&") + key + '=' + parameters[key];
@@ -91,7 +91,7 @@ export class HttpService {
       try{
         let resObj = res.json();
         if(resObj.eType == 2){
-          this.alert(resObj.msg);
+          alert(resObj.msg);
           reject('发生异常');
         } else {
           resolve(resObj);

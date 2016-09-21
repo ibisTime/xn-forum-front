@@ -79,14 +79,18 @@ export class CityService {
   }
 
   /*经纬度 查站点详情*/
-  getSiteByPosition(longitude,latitude){
+  getSiteByPosition(longitude?,latitude?){
 
-    let obj = {
-      "longitude":longitude,
-      "latitude" :latitude
+    let obj;
+    if((longitude instanceof String) &&(latitude instanceof String)){
+      obj = {
+        "longitude":longitude,
+        "latitude" :latitude
+      }
     }
 
-  return this.http.get('/site/position',obj).then( res => {
+
+    return this.http.get('/site/position',obj).then( res => {
 
      console.log('通过经纬度获得站点');
      console.log(res);
@@ -98,7 +102,7 @@ export class CityService {
   }
 
   /*通过坐标获取详情*/
-  getNavigateByPosition(x,y){
+  getNavigateByPosition(x?,y?){
 
     return this.getSiteByPosition(x,y).then((res) => {
 
