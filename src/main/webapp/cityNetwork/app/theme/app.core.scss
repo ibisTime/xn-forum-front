@@ -10,13 +10,16 @@
 //头条
 @import "../pages/headline/headline";
 @import "../pages/headline/city-choose";
+@import "../pages/headline/search-user-article";
 
-@import "../pages/forum/forum";
 @import "../pages/mine/mine";
 @import "../pages/kefu/kefu";
 
 @import "../components/cd-component.core";
 
+//论坛
+@import "../pages/forum/forum";
+@import "../pages/headline/send-article";
 
 
 //注册 登录
@@ -24,11 +27,10 @@
 @import "../pages/user/register";
 @import "../pages/user/forgetPwd";
 
-//
+//我的
 @import "../pages/mine/im/chat-room";
 @import "../pages/mine/im/im";
 
-//
 @import "../pages/mine/friend/addFriend";
 @import "../pages/mine/friend/friend";
 

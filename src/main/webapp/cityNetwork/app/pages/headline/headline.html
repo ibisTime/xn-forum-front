@@ -1,7 +1,7 @@
 <ion-header class="headline-header">
   <ion-navbar navbar-color>
     <ion-buttons>
-      <button>
+      <button (click)="search()">
           <i class="icon iconfont">&#xe601;</i>
       </button>
     </ion-buttons>
@@ -36,7 +36,7 @@
   <div class="content">
     <div class="three-func">
       <div class="outer" [style.width]="h3w" [style.height]="h3h" *ngFor="let func of cityS.headlineData.func3" >
-        <img class="func" src={{func.pic}} [style.width]="h3w" [style.height]="h3h" (tap)="goOther(func.url)">
+        <img class="func" src={{func.pic}} [style.width]="h3w" [style.height]="h3h" (tap)="goOther(func.url,func.title)">
         <div class="func3-title">{{func.title}}</div>
       </div>
     </div>
@@ -44,7 +44,7 @@
     <div class="eight-func">
       <div class="eight-inner-div" *ngFor="let func of cityS.headlineData.func8">
         <div class="func"  [style.height]="h8" [style.width]="h8"
-             (tap)="goOther(func.url)">
+             (tap)="goOther(func.url,func.title)">
           <img src={{func.pic}}>
           <div class="func8-title">{{func.title}}</div>
         </div>

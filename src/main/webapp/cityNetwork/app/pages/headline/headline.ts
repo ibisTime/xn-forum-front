@@ -6,6 +6,11 @@ import {CityChoosePage} from "./city-choose";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
 import {CityService} from "../../services/city.service";
+import {OpenWebPage} from "./openWeb";
+import {SearchUserAndArticlePage} from "./search-user-article";
+import {SendArticlePage} from "./send-article";
+
+const wei_xin = true;
 
 @Component({
   templateUrl: 'build/pages/headline/headline.html',
@@ -66,51 +71,58 @@ export class HeadlinePage implements AfterViewInit {
     this.h3h = `${(w - 36)/9}px`;
 
     setTimeout(() => {
-      let load = this.warn.loading('定位中');
-      this.cityS.getCurrentCityByIp().then( msg => {
+      // let load = this.warn.loading('定位中');
+      // this.cityS.getCurrentCityByIp().then( msg => {
+      //
+      //   load.dismiss();
+      //
+      // }).catch( error => {
+      //   /*定位失败*/
+      //   load.dismiss();
+      //   // this.warn.alert('定位失败');
+      //   alert("ip定位失败");
+      // });
 
-        load.dismiss();
-
-      }).catch( error => {
-        /*定位失败*/
-        load.dismiss();
-        // this.warn.alert('定位失败');
-        alert("ip定位失败");
-      });
-/*
-      navigator.geolocation.getCurrentPosition( (position:any) => {
-
-        /!*同意定位加载*!/
-        console.log(position);
-        this.cityS.getSiteByPosition(position.x,position.y);
-        alert(position);
-
-      }, error => {
-
-        // alert("不同意");
-        /!*不同意获取默认站点*!/
-        this.cityS.getSiteByPosition(0,0).then(res => {
-
-          return this.cityS.getNavigateBySiteCode(res["data"]["sit"]);
-
-        }).catch(error => {
-
-        });
-
-      });*/
-
+    //   let loadNav = this.warn.loading('加载中');
+    //   navigator.geolocation.getCurrentPosition( (position:any) => {
+    //
+    //     /*同意定位加载*/
+    //     console.log(position);
+    //     alert(position);
+    //
+    //     /*同意加载站点*/
+    //     this.cityS.getNavigateByPosition(position.x,position.y).then(res => {
+    //       loadNav.dismiss();
+    //     }).catch(error => {
+    //       loadNav.dismiss();
+    //     });
+    //
+    //   }, error => {
+    //
+    //     /*不同意获取默认站点*/
+    //     this.cityS.getNavigateByPosition().then(res => {
+    //       loadNav.dismiss();
+    //     }).catch(error => {
+    //       loadNav.dismiss();
+    //     });
+    //
+    //   },{timeout: 3000});
+    //
     },500);
 
   }
 
   /*所有跳转事件个功能点击事件*/
-  goOther(url){
-    console.log('点击功能');
-    // if(this.platform.is('ios') || this.platform.is('android')){
+  goOther(url,title){
 
-    // } else {
+    console.log('点击功能');
+    if(wei_xin){
+
       window.open(url);
-    // }
+
+    } else {
+      this.navCtrl.push(OpenWebPage,{"url":url,"title":title});
+    }
 
  }
 
@@ -123,13 +135,15 @@ export class HeadlinePage implements AfterViewInit {
       load.dismiss();
     }).then(() => {
 
-      let model = this.mCtrl.create(CityChoosePage);
+      let model = this.mCtrl.create(CityChoosePage,null,{showBackdrop: false});
       model.present();
       model.onDidDismiss((city) => {this.chooseCallBack(city)});
 
     }).catch( error => {
-      load.dismiss();
-      this.warn.alert('获取站点失败');
+      load.dismiss().then(() => {
+        this.warn.alert('获取站点失败');
+      });
+
       console.log('外部失败');
     });
 
@@ -154,14 +168,14 @@ export class HeadlinePage implements AfterViewInit {
 
 
   writeArticle(){
+    let modelCtrl = this.mCtrl.create(SendArticlePage);
+    modelCtrl.present();
+  }
 
+  /*搜索用户或者帖子*/
+  search(){
+   this.navCtrl.push(SearchUserAndArticlePage);
 
-    // if(this.platform.is('ios') || this.platform.is('android')){
-    //   /*通过经纬度获取站点*/
-    // } else {
-    //   /*通过ip获取地址*/
-    //   this.cityS.getCurrentCityByIp();
-    // }
   }
 
 }

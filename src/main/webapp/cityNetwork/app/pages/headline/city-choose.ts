@@ -46,5 +46,6 @@ export class CityChoosePage implements OnInit,AfterViewInit {
     this.cityS.searchCity(value);
 
 
+
   }
 }

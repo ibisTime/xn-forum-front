@@ -1,0 +1,57 @@
+<ion-header class="send-article-header">
+  <ion-navbar no-border-bottom background-theme>
+    <ion-buttons>
+      <button (click)="cancle()" style="color: black;">
+        取消
+      </button>
+    </ion-buttons>
+
+    <ion-title>
+      <ion-buttons>
+        <button style="font-size: 20px" (click)="chooseTopic()">
+          选择板块
+          <ion-icon *ngIf="!showTopicDashboard" name="arrow-down" style=" padding-left: 3px; padding-top: 3px;">
+          </ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-title>
+
+    <ion-buttons end>
+      <button (click)="send()">
+        发布
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="send-article-content">
+  <div class="choose-topic-outer" *ngIf="showTopicDashboard">
+    <div class="choose-topic">
+      <div class="topic-item" (click)="clickTopic()" *ngFor="let item of topicItems">
+        <img src={{item.src}}>
+        <div>{{item.title}}</div>
+      </div>
+    </div>
+    <div class="choose-topic-outer-bottom" (click)="hidden()">
+      <ion-icon  name="arrow-down">
+      </ion-icon>
+    </div>
+  </div>
+
+  <!--发送界面-->
+  <input class="article-title" placeholder="标题 (选填)">
+  <div class="article-content"   contenteditable="true"></div>
+  <div class="img-list">
+    <div class="img-outer" [style.height]="height" [style.width]="height">
+      <img #img src={{src}}>
+    </div>
+    <div class="img-outer" [style.height]="height" [style.width]="height">
+      <img  src={{src}}>
+    </div>
+    <div class="img-outer" [style.height]="height" [style.width]="height">
+      <img  src={{src}}>
+    </div>
+    <div [style.height]="height" [style.width]="height" style="font-size: 40px; background-color: orange;">继续添加</div>
+  </div>
+  <!--<canvas id="myCanvas"></canvas>-->
+</ion-content>
+<!--http://g.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=45f883c34f4a20a4314b34c3a562b414/a50f4bfbfbedab6405a19611f736afc378311e0b.jpg-->
