@@ -127,11 +127,11 @@ export class KefuService {
     return this.listOfChatRoomData.from;
   }
   //获取企业欢迎语
-  getCompanyWelcome(){
+  getCompanyWelcome(msdData?){
     this.ajax.get(null, null,
       this.baseurl + '/v1/webimplugin/welcome?tenantId='+this.tenantId)
       .then((msg)=>{
-        this.getRobertWelcome();
+        this.getRobertWelcome(msdData);
         let msgItem;
         msgItem = {
           type: "txt",
@@ -149,7 +149,7 @@ export class KefuService {
   }
 
   //获取机器人欢迎语
-  getRobertWelcome(){
+  getRobertWelcome(msdData?){
     this.ajax.get(null, null,
       location.origin + location.pathname + 'rvisitor/'+this.tenantId+'/robots/visitor/greetings?tenantId='+this.tenantId)
       .then((rGreeting)=>{
@@ -198,6 +198,7 @@ export class KefuService {
                   break;
               default: break;
           }
+          this.listOfChatRoomData.from.push(msdData);
       });
   }
 

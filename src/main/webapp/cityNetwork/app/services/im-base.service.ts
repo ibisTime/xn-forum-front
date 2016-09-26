@@ -17,7 +17,8 @@ export interface MsgObj {
   data?: string,
   delay?: string,
   ext?: any,
-  date?: any
+  date?: any,
+  cityData: any
 }
 
 @Injectable()

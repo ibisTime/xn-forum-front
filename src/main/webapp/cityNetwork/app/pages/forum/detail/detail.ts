@@ -1,18 +1,16 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, Platform, Content} from 'ionic-angular';
-import {DetailPage} from "./detail/detail";
 
 
 @Component({
-  templateUrl: 'build/pages/forum/forum.html'
+  templateUrl: 'build/pages/forum/detail/detail.html'
 })
-export class ForumPage {
+export class DetailPage {
 
-  segment: string = "yliao";
+  segment: string = "all";
   isAndroid: boolean = false;
   imgHeight: string;
   pHeight: string;
-  imgUrl: string;
 
   @ViewChild(Content) content: Content;
 
@@ -33,8 +31,5 @@ export class ForumPage {
   closeImg(){
       let sDiv = document.getElementById("ylImg");
       sDiv.className = sDiv.className + " hidden";
-  }
-  showDetail(e){
-       this.navCtrl.push(DetailPage);
   }
 }

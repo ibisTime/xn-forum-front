@@ -10,6 +10,7 @@ import {KefuService} from "../../services/kefu.serve";
 import {Satisfaction} from "./satisfaction";
 import {UserService} from "../../services/user.service";
 import {HttpService} from "../../services/http.service";
+import {CityService} from "../../services/city.service";
 import {ChatViewComponent} from "../../components/chat-view/chat.component";
 import {LoginPage} from '../user/login';
 
@@ -36,7 +37,8 @@ export class KefuPage implements AfterViewInit {
   constructor(private  nav: NavController,
               private imServe: KefuService,
               private uServe: UserService,
-              private ajax: HttpService) {
+              private ajax: HttpService,
+              private cityServe: CityService) {
     this.listOfChatData = this.imServe.getDataByFromName();
     this.satisfaction = new Satisfaction(this.imServe);
     this.imServe.scroll_bottom = ()=>{
@@ -45,13 +47,18 @@ export class KefuPage implements AfterViewInit {
     this.imServe.scroll_top = ()=>{
       this.scrollTop();
     }
+    //kefuData
   }
 
   ngAfterViewInit() {
     this.chatView.me = this.imServe.me;
     this.chatView.listOfChatData = this.listOfChatData;
-    this.imServe.getHistory();
-
+    let data = {
+      from: this.imServe.me + "1",  //不等于me就可以了
+      cityData: this.cityServe.kefuData,
+      type: "yliu"
+    }
+    this.imServe.getCompanyWelcome(data);
   }
 
   doFocus(e){

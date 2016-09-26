@@ -1,0 +1,34 @@
+.forum-detail{
+    .item .item-inner ion-label ion-card .item{
+        border-bottom: 0px;
+    }
+    .item .item-inner ion-label ion-card button{
+        border: none;
+    }
+    .ptb10{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .dt-list{
+        ion-item{
+            padding-left: 10px;
+            padding-right: 10px;
+            border-bottom: 1px solid #e6e6e6;
+            button{
+                width: 30px;
+                background: #f64444;
+                color: #fff;
+                font-size: 1rem;
+            }
+        }
+    }
+    ion-list > .item:first-child{
+        border-top: 0;
+    }
+    .pr20{
+        padding-right: 20px;
+    }
+    .inblock{
+        display: inline-block;
+    }
+}
