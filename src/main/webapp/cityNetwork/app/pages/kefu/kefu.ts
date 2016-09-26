@@ -59,7 +59,7 @@ export class KefuPage implements AfterViewInit {
       cityData: this.cityServe.kefuData,
       type: "yliu"
     }
-    this.imServe.getCompanyWelcome(data);
+    this.imServe.getCompanyWelcome(data) ;
   }
 
   doFocus(e){
