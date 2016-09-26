@@ -27,6 +27,8 @@ export class ChatViewComponent implements OnInit {
 
    @Output() doPingjia: EventEmitter<any> = new EventEmitter();
    @Output() doCaidan: EventEmitter<any> = new EventEmitter();
+   @Output() goIframe: EventEmitter<any> = new EventEmitter();
+
 
 
   doCaidanCopy(id,name){
@@ -48,6 +50,10 @@ export class ChatViewComponent implements OnInit {
     this.doPingjia.emit(item);
 
   }
+  /*所有跳转事件个功能点击事件*/
+  goIframeCopy(url,title){
+    this.goIframe.emit({"url":url,"title":title});
+ }
 
   ngOnInit() { }
 

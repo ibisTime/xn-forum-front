@@ -22,6 +22,10 @@
             }
         }
     }
+    .dt-div{
+        font-size: 1rem;
+        color: #666;
+    }
     ion-list > .item:first-child{
         border-top: 0;
     }
@@ -30,5 +34,8 @@
     }
     .inblock{
         display: inline-block;
+    }
+    .tc{
+        text-align: center;
     }
 }

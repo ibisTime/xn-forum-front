@@ -13,6 +13,7 @@ import {HttpService} from "../../services/http.service";
 import {CityService} from "../../services/city.service";
 import {ChatViewComponent} from "../../components/chat-view/chat.component";
 import {LoginPage} from '../user/login';
+import {IFramePage} from "../headline/iframe";
 
 @Component({
     templateUrl: 'build/pages/kefu/kefu.html',
@@ -125,5 +126,9 @@ export class KefuPage implements AfterViewInit {
     this.satisfaction.initArgs();
     this.satisfaction.doPingjia(item.inviteId, item.serviceSessionId);
 
+  }
+
+  goIframe(item){
+    this.nav.push(IFramePage,item);
   }
 }//类的结尾
