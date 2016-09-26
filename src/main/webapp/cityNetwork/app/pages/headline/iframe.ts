@@ -4,6 +4,7 @@
 import {Component, AfterViewInit} from '@angular/core';
 import {NavParams} from "ionic-angular";
 
+
 @Component({
 
   template:`
@@ -17,7 +18,7 @@ import {NavParams} from "ionic-angular";
    <script>
    alert("112");
 </script>
-   <iframe src={{url}} id="testIframe" style="height: 100%; width: 100%;border:0; background-color: white;">
+   <iframe id="testIframe" style="height: 100%; width: 100%;border:0; background-color: white;">
      <p>loading...</p>
    </iframe>
 
@@ -25,21 +26,21 @@ import {NavParams} from "ionic-angular";
 
 `
 })
-
-export class OpenWebPage implements AfterViewInit{
-  url = "http://www.youku.com/";
-  title;
+export class IFramePage implements AfterViewInit{
+  url = "";
+  title = "";
   constructor( private navPara: NavParams) {
     // this.url = navPara.data.url;
     this.title = navPara.data.title;
+    this.url = navPara.data.url;
 
   }
 
   ngAfterViewInit(){
     setTimeout(() => {
       let ele :any =  document.getElementById("testIframe");
-      ele.src = "https://www.baidu.com/";
-    },2000);
+      ele.src = this.url;
+    },500);
 
 
 

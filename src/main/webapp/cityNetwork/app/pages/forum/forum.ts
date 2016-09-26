@@ -1,7 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, Platform, Content} from 'ionic-angular';
 
-
 @Component({
   templateUrl: 'build/pages/forum/forum.html'
 })
@@ -33,4 +32,6 @@ export class ForumPage {
       let sDiv = document.getElementById("ylImg");
       sDiv.className = sDiv.className + " hidden";
   }
+
+
 }
