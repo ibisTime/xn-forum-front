@@ -6,7 +6,7 @@ import {KefuPage} from "../kefu/kefu";
 import {VideoPage} from "../video/video";
 import {UserService} from "../../services/user.service";
 import {KefuService} from "../../services/kefu.serve";
-import {NavController,Tabs} from 'ionic-angular';
+import {NavController,Tabs,Tab} from 'ionic-angular';
 import {LoginPage} from '../user/login';
 import {IMService} from "../../services/im.service";
 import {CityService} from "../../services/city.service";
@@ -55,15 +55,31 @@ export class TabsPage {
 
   }
   goOther(index){
-    this.tabs.select(index);
+    if(index == 3){
 
-    new FormData()
+      let url = this.cityS.headlineData.tabs[3].url;
+      window.open(url);
+
+    } else  {
+      this.tabs.select(index);
+    }
+
   }
 
   goKefu(){
     this.tabs.select(2);
+  }
+
+  goVideo(){
+    let url = this.cityS.headlineData.tabs[3].url;
+    window.open(url);
+    setTimeout(() => {
+      let tab = this.tabs.previousTab();
+      this.tabs.select(tab);
+    },50);
 
   }
+
 }
 
 
