@@ -293,6 +293,45 @@
   .imContent>.clearfix:last-child{
     margin-bottom: 15px;
   }
+  .yl-cont {
+    margin: 0 0 20px 66px;
+    float: left;
+    border-radius: 6px;
+    background: #fff;
+    padding: 8px 20px 8px 10px;
+    .yl-top {
+      font-size: 15px;
+      color: #666;
+      padding-bottom: 8px;
+      padding-left: 40px;
+      padding-right: 26px;
+      border-bottom: 2px solid #e6e6e6;
+    }
+    .yl-li {
+      padding-right: 40px;
+      padding-top: 8px;
+      border-bottom: 1px solid #e6e6e6;
+      padding-bottom: 8px;
+      .li-a {
+        display: block;
+        color: inherit;
+        .a-div {
+          display: inline-block;
+          width: 40px;
+          text-align: center;
+          vertical-align: middle;
+        }
+        .a-span {
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  .mw30p{
+    max-width: 30px;
+  }
+
 
 //结尾
 }

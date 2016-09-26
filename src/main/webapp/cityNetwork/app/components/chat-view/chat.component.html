@@ -7,7 +7,7 @@
       <div *ngIf="msgItem.from !== _me" class="emim-clear emim-mt20 emim-tl emim-msg-wrapper emim-fl">
         <!--普通文本消息-->
         <div class="easemobWidget-left"
-             *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'">
+             *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation' && msgItem.type!='yliu'">
           <div class="easemobWidget-msg-wrapper">
             <img src="images/tab-bar-xiaomi.png"/>
             <i class="easemobWidget-corner"></i>
@@ -86,6 +86,22 @@
                 <span>{{msgItem.filename}}</span>
               </a>
             </div>
+          </div>
+        </div>
+        <!--引流-->
+        <div *ngIf="msgItem.type == 'yliu'">
+          <div class="yl-cont">
+            <div class="yl-top">你可能想要了解的内容</div>
+            <ul>
+              <li class="yl-li" *ngFor="let item of msgItem.data">
+                <a class="li-a" href="{{item.url}}">
+                  <div class="a-div">
+                    <img class="mw30p" src="images/marty-avatar.png">
+                  </div>
+                  <span class="a-span">{{item.title}}</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
