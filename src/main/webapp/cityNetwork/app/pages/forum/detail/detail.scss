@@ -10,6 +10,8 @@
         padding-bottom: 10px;
     }
     .dt-list{
+        margin-bottom: 0;
+        border-top: 1px solid #e6e6e6;
         ion-item{
             padding-left: 10px;
             padding-right: 10px;
@@ -19,6 +21,7 @@
                 background: #f64444;
                 color: #fff;
                 font-size: 1rem;
+                vertical-align: middle;
             }
         }
     }
