@@ -2,7 +2,7 @@
 
 
 
-  <div class="custom-tabbar" *ngIf="cityS.headlineData.tabs.length > 5">
+  <div class="custom-tabbar" *ngIf="cityS.headlineData.tabs.length > 4">
     <a (tap)="goOther(0)">
       <div>
       <img class="default-img" src={{cityS.headlineData.tabs[0].pic}}>
@@ -40,6 +40,6 @@
   <ion-tab [root]="tab1Root" tabTitle="头条" tabIcon="home"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="有料" tabIcon="apps"></ion-tab>
   <ion-tab [root]="tab3Root" tabIcon="default-user"></ion-tab>
-  <ion-tab [root]="tab4Root" tabTitle="视频" tabIcon="logo-youtube" (ionSelect)="goVideo()"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="视频" tabIcon="logo-youtube" (tap)="goVideo()"></ion-tab>
   <ion-tab [root]="tab5Root" tabTitle="我的" tabIcon="contact"></ion-tab>
 </ion-tabs>

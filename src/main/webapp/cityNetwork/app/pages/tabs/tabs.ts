@@ -55,12 +55,10 @@ export class TabsPage {
 
   }
   goOther(index){
-    if(index == 3){
 
-      let url = this.cityS.headlineData.tabs[3].url;
-      window.open(url);
-
-    } else  {
+    if(index != 3){
+      this.tabs.select(index);
+    } else {
       this.tabs.select(index);
     }
 
@@ -71,6 +69,7 @@ export class TabsPage {
   }
 
   goVideo(){
+
     let url = this.cityS.headlineData.tabs[3].url;
     window.open(url);
     setTimeout(() => {

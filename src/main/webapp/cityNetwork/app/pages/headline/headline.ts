@@ -5,10 +5,10 @@ import {UserService} from "../../services/user.service";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
 import {CityService} from "../../services/city.service";
-import {OpenWebPage} from "./openWeb";
 import {SearchUserAndArticlePage} from "./search-user-article";
 import {SendArticlePage} from "./send-article";
 import {CityChoosePage} from "./city-choose";
+import {IFramePage} from "./iframe";
 
 const wei_xin = true;
 
@@ -113,13 +113,7 @@ export class HeadlinePage implements AfterViewInit {
   goOther(url,title){
 
     console.log('点击功能');
-    if(wei_xin){
-
-      window.open(url);
-
-    } else {
-      this.navCtrl.push(OpenWebPage,{"url":url,"title":title});
-    }
+    this.navCtrl.push(IFramePage,{"url":url,"title":title});
 
  }
 
