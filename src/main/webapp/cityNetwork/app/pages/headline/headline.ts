@@ -2,13 +2,13 @@ import {Component,AfterViewInit} from '@angular/core';
 import {NavController, Platform, ModalController} from 'ionic-angular';
 import {LoginPage} from "../user/login";
 import {UserService} from "../../services/user.service";
-import {CityChoosePage} from "./city-choose";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
 import {CityService} from "../../services/city.service";
 import {OpenWebPage} from "./openWeb";
 import {SearchUserAndArticlePage} from "./search-user-article";
 import {SendArticlePage} from "./send-article";
+import {CityChoosePage} from "./city-choose";
 
 const wei_xin = true;
 
@@ -43,7 +43,6 @@ export class HeadlinePage implements AfterViewInit {
     loop: true,
     pager: true,
     autoplay: 2000
-
   };
 
   constructor(private navCtrl: NavController,
@@ -79,35 +78,33 @@ export class HeadlinePage implements AfterViewInit {
       // }).catch( error => {
       //   /*定位失败*/
       //   load.dismiss();
-      //   // this.warn.alert('定位失败');
       //   alert("ip定位失败");
       // });
 
-    //   let loadNav = this.warn.loading('加载中');
-    //   navigator.geolocation.getCurrentPosition( (position:any) => {
-    //
-    //     /*同意定位加载*/
-    //     console.log(position);
-    //     alert(position);
-    //
-    //     /*同意加载站点*/
-    //     this.cityS.getNavigateByPosition(position.x,position.y).then(res => {
-    //       loadNav.dismiss();
-    //     }).catch(error => {
-    //       loadNav.dismiss();
-    //     });
-    //
-    //   }, error => {
-    //
-    //     /*不同意获取默认站点*/
-    //     this.cityS.getNavigateByPosition().then(res => {
-    //       loadNav.dismiss();
-    //     }).catch(error => {
-    //       loadNav.dismiss();
-    //     });
-    //
-    //   },{timeout: 3000});
-    //
+      let loadNav = this.warn.loading('加载中');
+      navigator.geolocation.getCurrentPosition( (position:any) => {
+
+        /*同意定位加载*/
+        console.log(position);
+
+        /*同意加载站点*/
+        this.cityS.getNavigateByPosition(position.x,position.y).then(res => {
+          loadNav.dismiss();
+        }).catch(error => {
+          loadNav.dismiss();
+        });
+
+      }, error => {
+
+        /*不同意获取默认站点*/
+        this.cityS.getNavigateByPosition(0,0).then(res => {
+          loadNav.dismiss();
+        }).catch(error => {
+          loadNav.dismiss();
+        });
+
+      },{timeout: 3000});
+
     },500);
 
   }
@@ -130,22 +127,34 @@ export class HeadlinePage implements AfterViewInit {
 
     let load = this.warn.loading("加载站点中..");
 
+    let obj = {"da":"da"};
+    let opt = {
+      showBackdrop: false,
+      enableBackdropDismiss : false
+    };
+
     this.cityS.getCity().then(() => {
 
-      load.dismiss();
-    }).then(() => {
+      load.dismiss().then(res => {
 
-      let model = this.mCtrl.create(CityChoosePage,null,{showBackdrop: false});
-      model.present();
-      model.onDidDismiss((city) => {this.chooseCallBack(city)});
+        let model = this.mCtrl.create(CityChoosePage);
+        model.onDidDismiss((city) => {this.chooseCallBack(city)});
+        model.present();
 
-    }).catch( error => {
-      load.dismiss().then(() => {
-        this.warn.alert('获取站点失败');
       });
 
-      console.log('外部失败');
+    }).then((res) => {
+
     });
+
+    //   .catch( error => {
+    //
+    //   load.dismiss().then(() => {
+    //     this.warn.alert('获取站点失败');
+    //   });
+    //
+    //   console.log('外部失败');
+    // });
 
   }
 

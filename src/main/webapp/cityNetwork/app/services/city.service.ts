@@ -36,6 +36,20 @@ export interface City{
   telephone?;
   userId?;
 }
+
+interface navObj{
+  code?;
+  isGlobal?;
+  orderNo?;
+  parentCode?;
+  pic?;
+  siteCode?;
+  status?;
+  title?;
+  type?;
+  url?;
+}
+
 @Injectable()
 export class CityService {
 
@@ -44,12 +58,20 @@ export class CityService {
   baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
   baidu = 'http://api.map.baidu.com/location/ip';
   // baidu = "http://localhost:8080/baidu-map/";
+  kefuData = [];
   public headlineData = {
   "banner": [],
   "func3": [],
   "func8": [],
   "tabs": []
   };
+
+  public tabsData = {
+    "one": [],
+    "two" : [],
+    "three" : [],
+    "four": []
+  }
 
   currentCity: City = {"name":"未知地点"}; //根据经纬度获得
 
@@ -92,7 +114,7 @@ export class CityService {
 
     return this.http.get('/site/position',obj).then( res => {
 
-     console.log('通过经纬度获得站点');
+     console.log('通过经纬度获得站点baidu api success');
      console.log(res);
      this.currentCity = res["data"];
 
@@ -148,29 +170,52 @@ export class CityService {
     /*1 菜单tabbar 2 banner 3 模块func3  4 引流func8*/
    return this.http.get('/view/list',obj).then(res => {
 
+     let data = res["data"];
+     let tempArray = [];
+
+     if(data instanceof Array){
+        //是否全局
+       data.forEach((value:navObj,index,array) => {
+         if(value.parentCode == "0"){
+           tempArray.push(value);
+         }
+
+       });
+
+       /*排序*/
+       tempArray = tempArray.sort((a,b) => {
+         return a.orderNo - b.orderNo;
+       });
+
+     }
 
 
       let headline =  {
         "banner": [],
         "func3": [],
         "func8": [],
-        "tabs": []
+        "tabs": tempArray
       };
-      let data = res["data"];
+      let kefuData = [];
+
       if(data instanceof Array){
 
-        /*分类*/
         data.forEach((value,index,array) => {
+          /*首页及tab数据*/
+         if(value.parentCode == tempArray[0].code){
 
-          if(value.type == "2"){
-            headline["banner"].push(value);
-          } else if(value.type == "3") {
-            headline["func3"].push(value);
-          } else if(value.type == "4"){
-            headline["func8"].push(value);
-          } else if(value.type == "1"){
-            headline["tabs"].push(value);
-          }
+           if(value.type == "2"){
+             headline["banner"].push(value);
+           } else if(value.type == "3") {
+             headline["func3"].push(value);
+           } else if(value.type == "4"){
+             headline["func8"].push(value);
+           }
+
+         } else if(value.parentCode == tempArray[2].code) {
+           /*客服引流的数据*/
+           kefuData.push(value);
+         }
 
         });
 
@@ -180,12 +225,17 @@ export class CityService {
             return a.orderNo - b.orderNo;
           });
         }
-
         this.headlineData = headline;
+
+        /*客服数据排序*/
+        kefuData = kefuData.sort((a,b) => {
+          return a.orderNo - b.orderNo;
+        });
+        this.kefuData = kefuData;
+        console.log(this.kefuData);
+
       }
 
-
-       // return 'success';
     });
 
   }

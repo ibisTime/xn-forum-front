@@ -91,7 +91,6 @@ export class HttpService {
       try{
         let resObj = res.json();
         if(resObj.eType == 2){
-          alert(resObj.msg);
           reject('发生异常');
         } else {
           resolve(resObj);

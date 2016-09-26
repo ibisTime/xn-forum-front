@@ -3,6 +3,7 @@
  */
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {ViewController, Platform} from "ionic-angular";
+import {Symbol} from "rxjs";
 
 // const wei_xin = true;
 @Component({
@@ -21,31 +22,39 @@ export class SendArticlePage implements OnInit, AfterViewInit {
     {'title': '吃货', 'src': 'images/forum/forum-ch.png'}
   ];
   showTopicDashboard = false;
+  isEditing = false;
   height;
-  src ;
+  images:Array<any> = [];
+
   constructor(private viewCtrl: ViewController,
               private platform: Platform) {
-    this.height = `${this.platform.width()/3.0}px`;
+    this.height = `${(this.platform.width() - 10)/3.0}px`;
   }
 
   ngOnInit() {
 
   }
   ngAfterViewInit(){
+
     setTimeout(() => {
-      this.handleImg();
+      this.handleImg("images/test.jpg");
 
     },1000);
+
   }
-  handleImg(){
+
+  handleImg(src){
+
+    let thisCopy = this;
     let img = <HTMLImageElement>document.createElement('img');
-    img.src = "images/test.jpg";
+    /*图片加载*/
+    img.src = src;
+
+    /*加载成功*/
     img.onload = (ev) => {
 
-
-      // setTimeout(() => {
-
       let trueLong = (this.platform.width() - 10 - 3 * 6) / 3.0;
+
       let imgW = img.naturalWidth;
       let imgH = img.naturalHeight;
       let react = {
@@ -69,27 +78,39 @@ export class SendArticlePage implements OnInit, AfterViewInit {
       let cxt = <HTMLCanvasElement>document.createElement("canvas");
       cxt.width = trueLong;
       cxt.height = trueLong;
+
+      // cxt.style.width = `${0.5*trueLong}px`;
+      // cxt.style.width  =  `${0.5*trueLong}px`;
+
       let cxtRenderer = cxt.getContext("2d");
 
       cxtRenderer.drawImage(img, react.offsetX, react.offsetY,
         react.height, react.width, 0, 0, cxt.width, cxt.height);
 
-      img.src = cxt.toDataURL("image/jpeg");
-      this.src = img.src;
+      let src = cxt.toDataURL("image/jpeg");
 
-      // },1000);
+      let date = new Date();
+      date.getMilliseconds()
+      let imgItem = {
+        "src":src,
+        "id": date.getMilliseconds()
+      }
+
+      thisCopy.images.push(imgItem);
+
     }
+
+
   }
 
   cancle(){
     this.viewCtrl.dismiss();
-
   }
+
 
   send(){
-
-
   }
+
 
   /**/
   chooseTopic(){
@@ -103,5 +124,46 @@ export class SendArticlePage implements OnInit, AfterViewInit {
   clickTopic(){
     this.showTopicDashboard = false;
   }
+
+
+  choosedImg($event){
+
+    console.log($event);
+    let fileReader = new FileReader();
+    fileReader.onload = (event: any)=> {
+
+      this.handleImg(event.target.result);
+
+    };
+    fileReader.readAsDataURL($event.target.files[0]);
+    // $event.target.files[0] = null;
+
+  }
+
+  imgTrack(index,item){
+    return item.id;
+  }
+
+  /*删除图片*/
+  deleteImg(img){
+
+    let index = this.images.indexOf(img);
+    this.images.splice(index,1);
+    // this.images = this.images.splice(index,1);
+
+  }
+
+  editing($event){
+    // console.log($event.target.style);
+    let ele = document.getElementById("article-content");
+    console.log(ele.style);
+
+    if($event.target.value.length > 0){
+      this.isEditing = true;
+    } else {
+      this.isEditing = false;
+    }
+  }
+
 
 }

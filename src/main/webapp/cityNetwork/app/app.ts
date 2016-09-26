@@ -50,8 +50,8 @@ ionicBootstrap(MyApp, MY_SERVE,
 
     tabsHideOnSubPages: true,
     backButtonText:"",
-    mode: 'ios',
-    iconMode: 'ios'
+    iconMode: 'ios',
+    mode: 'ios'
 
   }).catch((error) => {
 

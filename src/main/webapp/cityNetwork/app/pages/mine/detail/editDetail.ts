@@ -67,7 +67,7 @@ export class EditDetailPage implements AfterViewInit {
         }else{
             this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
         }
-      
+
     }).catch((error) => {
         this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
     });
@@ -87,7 +87,8 @@ export class EditDetailPage implements AfterViewInit {
   }
   uploadImg(e){
         let file = e.target.files[0];
-        let reader = new FileReader(); 
+        let reader = new FileReader();
+
         (function(me){
             reader.onload = function (ee) {
                 me.http.post('/user/avatar', {"photo": this.result}).then((res)=>{
@@ -100,9 +101,10 @@ export class EditDetailPage implements AfterViewInit {
                     me.warnCtrl.toast('err!');
                 });
                 me.src = this.result;
-            }    
-            reader.readAsDataURL(file);//获取base64编码 
+            }
+            reader.readAsDataURL(file);//获取base64编码
         })(this);
+
   }
   changeExt(){
       if(this.flag){
