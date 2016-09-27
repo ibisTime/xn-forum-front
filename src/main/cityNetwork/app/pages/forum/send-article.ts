@@ -13,21 +13,23 @@ import {CityService} from "../../services/city.service";
 })
 export class SendArticlePage implements OnInit, AfterViewInit {
 
-  topicItems = [
-    {'title': '招聘', 'src': 'images/forum/forum-zp.png'},
-    {'title': '二手', 'src': 'images/forum/forum-es.png'},
-    {'title': '出租', 'src': 'images/forum/forum-cz.png'},
-    {'title': '求助', 'src': 'images/forum/forum-qz.png'},
-    {'title': '便民', 'src': 'images/forum/forum-bm.png'},
-    {'title': '车友', 'src': 'images/forum/forum-cy.png'},
-    {'title': '情感', 'src': 'images/forum/forum-qg.png'},
-    {'title': '吃货', 'src': 'images/forum/forum-ch.png'}
-  ];
+  // topicItems = [
+  //   {'title': '招聘', 'src': 'images/forum/forum-zp.png'},
+  //   {'title': '二手', 'src': 'images/forum/forum-es.png'},
+  //   {'title': '出租', 'src': 'images/forum/forum-cz.png'},
+  //   {'title': '求助', 'src': 'images/forum/forum-qz.png'},
+  //   {'title': '便民', 'src': 'images/forum/forum-bm.png'},
+  //   {'title': '车友', 'src': 'images/forum/forum-cy.png'},
+  //   {'title': '情感', 'src': 'images/forum/forum-qg.png'},
+  //   {'title': '吃货', 'src': 'images/forum/forum-ch.png'}
+  // ];
   showTopicDashboard = false;
   isEditing = false;
   height;
   images:Array<any> = [];
   uploadImages = [];
+  topicItems = [];
+  topicCode = "";
 
   constructor(private viewCtrl: ViewController,
               private platform: Platform,
@@ -115,8 +117,14 @@ export class SendArticlePage implements OnInit, AfterViewInit {
       this.warn.alert('帖子内容不能为空');
       return;
     }
+
     if(titleIput.value.length <= 0){
       titleIput.value = "";
+    }
+
+    if(this.topicCode.length <= 0){
+      this.warn.alert('请选择板块块');
+      return;
     }
 
     /*1. 上传全部图片，并拼接全部URL*/
@@ -143,9 +151,10 @@ export class SendArticlePage implements OnInit, AfterViewInit {
               if(len == imgCount){
                 /*拼接图片URL字符串*/
                 let picStr = "";
-                pics.forEach((value,index,array) => {
-                  picStr += index == 0? value : ("||" + value);
-                });
+                // pics.forEach((value,index,array) => {
+                //   picStr += index == 0? value : ("||" + value);
+                // });
+
                 resolve(picStr);
               }
 
@@ -174,7 +183,7 @@ export class SendArticlePage implements OnInit, AfterViewInit {
         let articleObj = {
           "title": titleIput.value,
           "content": contentTextarea.value,
-          "plateCode": "",
+          "plateCode": this.topicCode,
           "pic": picStr,
           "publisher": this.user.userId
         };
@@ -183,7 +192,7 @@ export class SendArticlePage implements OnInit, AfterViewInit {
 
       }).then(res => {
 
-
+        this.warn.toast('发帖成功');
       }).catch(error => {
 
         this.warn.toast('发帖失败');
@@ -196,7 +205,7 @@ export class SendArticlePage implements OnInit, AfterViewInit {
       let articleObj = {
         "title": titleIput.value,
         "content": contentTextarea.value,
-        "plateCode": "",
+        "plateCode": this.topicCode,
         "publisher": this.user.userId
       };
 
@@ -212,25 +221,42 @@ export class SendArticlePage implements OnInit, AfterViewInit {
 
   /*选择话题*/
   chooseTopic(){
+
+    if(this.topicItems.length > 0){
+
+      this.showTopicDashboard = !this.showTopicDashboard;
+      return;
+    }
     /*查询话题*/
+    let load = this.warn.loading("加载中");
     let obj = {
       "siteCode": this.cityS.currentCity.code
     };
-    this.http.post("/plate/list",obj).then(res => {
+    this.http.get("/plate/list",obj).then(res => {
 
       console.log(res);
+      this.topicItems = res.data;
+      load.dismiss().then(res => {
+        this.showTopicDashboard = !this.showTopicDashboard;
+      });
 
     }).catch(error => {
 
+      load.dismiss().then(res => {
+        this.warn.toast("获取模块失败");
+      });
+
     });
-    this.showTopicDashboard = !this.showTopicDashboard;
+
   }
+
   hidden(){
     this.showTopicDashboard = !this.showTopicDashboard;
   }
 
   /*点击话题，选择*/
-  clickTopic(){
+  clickTopic(siteCode){
+    this.topicCode = siteCode;
     this.showTopicDashboard = false;
   }
 

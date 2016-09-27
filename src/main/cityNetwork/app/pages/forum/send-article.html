@@ -24,11 +24,12 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="send-article-content">
+
   <div class="choose-topic-outer" *ngIf="showTopicDashboard">
     <div class="choose-topic">
-      <div class="topic-item" (click)="clickTopic()" *ngFor="let item of topicItems">
-        <img src={{item.src}}>
-        <div>{{item.title}}</div>
+      <div class="topic-item" (click)="clickTopic(item.code)" *ngFor="let item of topicItems">
+        <img src={{item.pic}}>
+        <div>{{item.name}}</div>
       </div>
     </div>
     <div class="choose-topic-outer-bottom" (click)="hidden()">

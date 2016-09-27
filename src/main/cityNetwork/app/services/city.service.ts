@@ -133,42 +133,20 @@ export class CityService {
 
   }
 
-  getCurrentCityByIp(){
-
-    let obj = {
-     "ak" : this.baiduMapAK,
-     "coor":"bd09ll"
-    };
-
-   return this.http.get(null,obj,this.baidu).then(res => {
-
-      return res.content.point;
-
-    }).then(point => {
-
-
-      return this.getSiteByPosition(point.x,point.y);
-
-    }).then(res => {
-      /**/
-
-      return this.getNavigateBySiteCode(res['data']["code"]);
-
-    });
-
-  }
 
 
   /*code 查询导航详情*/
   getNavigateBySiteCode(siteCode){
 
     let obj = {
+      "isDqNavigate":"1",
       "siteCode":siteCode
     };
 
     /*1 菜单tabbar 2 banner 3 模块func3  4 引流func8*/
    return this.http.get('/view/list',obj).then(res => {
 
+     
      let data = res["data"];
      let tempArray = [];
 

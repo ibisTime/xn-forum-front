@@ -74,7 +74,7 @@ export class HeadlinePage implements AfterViewInit {
     setTimeout(() => {
 
 
-      let loadNav = this.warn.loading('加载中');
+      let loadNav = this.warn.loading('定位中...');
       navigator.geolocation.getCurrentPosition( (position:any) => {
 
         /*同意定位加载*/
@@ -96,7 +96,7 @@ export class HeadlinePage implements AfterViewInit {
           loadNav.dismiss();
         });
 
-      },{timeout: 3000});
+      },{timeout: 5000});
 
     },500);
 
