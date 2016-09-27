@@ -147,7 +147,7 @@ public class MemberController extends BaseController {
     }
 
     // 上传图片
-    @RequestMapping(value = "/upload/image", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload/img", method = RequestMethod.POST)
     @ResponseBody
     public Object uploadImg(@RequestParam(value = "photo") String photo) {
         return userAO.uploadImg(photo);
