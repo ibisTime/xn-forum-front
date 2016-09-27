@@ -9,6 +9,7 @@
 package com.xnjr.moom.front.ao.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 
 import com.xnjr.moom.front.ao.IPostAO;
 import com.xnjr.moom.front.exception.BizException;
@@ -22,6 +23,7 @@ import com.xnjr.moom.front.req.XN610070Req;
  * @since: 2016年9月27日 下午3:55:37 
  * @history:
  */
+@Service
 public class PostAOImpl implements IPostAO {
 
     /** 
