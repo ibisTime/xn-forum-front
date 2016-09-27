@@ -420,20 +420,22 @@ var SendArticlePage = (function () {
         this.user = user;
         this.warn = warn;
         this.cityS = cityS;
-        this.topicItems = [
-            { 'title': '招聘', 'src': 'images/forum/forum-zp.png' },
-            { 'title': '二手', 'src': 'images/forum/forum-es.png' },
-            { 'title': '出租', 'src': 'images/forum/forum-cz.png' },
-            { 'title': '求助', 'src': 'images/forum/forum-qz.png' },
-            { 'title': '便民', 'src': 'images/forum/forum-bm.png' },
-            { 'title': '车友', 'src': 'images/forum/forum-cy.png' },
-            { 'title': '情感', 'src': 'images/forum/forum-qg.png' },
-            { 'title': '吃货', 'src': 'images/forum/forum-ch.png' }
-        ];
+        // topicItems = [
+        //   {'title': '招聘', 'src': 'images/forum/forum-zp.png'},
+        //   {'title': '二手', 'src': 'images/forum/forum-es.png'},
+        //   {'title': '出租', 'src': 'images/forum/forum-cz.png'},
+        //   {'title': '求助', 'src': 'images/forum/forum-qz.png'},
+        //   {'title': '便民', 'src': 'images/forum/forum-bm.png'},
+        //   {'title': '车友', 'src': 'images/forum/forum-cy.png'},
+        //   {'title': '情感', 'src': 'images/forum/forum-qg.png'},
+        //   {'title': '吃货', 'src': 'images/forum/forum-ch.png'}
+        // ];
         this.showTopicDashboard = false;
         this.isEditing = false;
         this.images = [];
         this.uploadImages = [];
+        this.topicItems = [];
+        this.topicCode = "";
         this.height = (this.platform.width() - 10) / 3.0 + "px";
     }
     SendArticlePage.prototype.ngOnInit = function () {
@@ -497,6 +499,10 @@ var SendArticlePage = (function () {
         if (titleIput.value.length <= 0) {
             titleIput.value = "";
         }
+        if (this.topicCode.length <= 0) {
+            this.warn.alert('请选择板块块');
+            return;
+        }
         /*1. 上传全部图片，并拼接全部URL*/
         if (this.uploadImages.length > 0) {
             var pics_1 = [];
@@ -514,11 +520,11 @@ var SendArticlePage = (function () {
                             len_1++;
                             if (len_1 == imgCount_1) {
                                 /*拼接图片URL字符串*/
-                                var picStr_1 = "";
-                                pics_1.forEach(function (value, index, array) {
-                                    picStr_1 += index == 0 ? value : ("||" + value);
-                                });
-                                resolve(picStr_1);
+                                var picStr = "";
+                                // pics.forEach((value,index,array) => {
+                                //   picStr += index == 0? value : ("||" + value);
+                                // });
+                                resolve(picStr);
                             }
                         }
                         else {
@@ -534,12 +540,13 @@ var SendArticlePage = (function () {
                 var articleObj = {
                     "title": titleIput.value,
                     "content": contentTextarea.value,
-                    "plateCode": "",
+                    "plateCode": _this.topicCode,
                     "pic": picStr,
                     "publisher": _this.user.userId
                 };
                 return _this.http.post("/post/publish", articleObj);
             }).then(function (res) {
+                _this.warn.toast('发帖成功');
             }).catch(function (error) {
                 _this.warn.toast('发帖失败');
             });
@@ -549,7 +556,7 @@ var SendArticlePage = (function () {
             var articleObj = {
                 "title": titleIput.value,
                 "content": contentTextarea.value,
-                "plateCode": "",
+                "plateCode": this.topicCode,
                 "publisher": this.user.userId
             };
             return this.http.post("/post/publish", articleObj);
@@ -557,21 +564,34 @@ var SendArticlePage = (function () {
     };
     /*选择话题*/
     SendArticlePage.prototype.chooseTopic = function () {
+        var _this = this;
+        if (this.topicItems.length > 0) {
+            this.showTopicDashboard = !this.showTopicDashboard;
+            return;
+        }
         /*查询话题*/
+        var load = this.warn.loading("加载中");
         var obj = {
             "siteCode": this.cityS.currentCity.code
         };
-        this.http.post("/plate/list", obj).then(function (res) {
+        this.http.get("/plate/list", obj).then(function (res) {
             console.log(res);
+            _this.topicItems = res.data;
+            load.dismiss().then(function (res) {
+                _this.showTopicDashboard = !_this.showTopicDashboard;
+            });
         }).catch(function (error) {
+            load.dismiss().then(function (res) {
+                _this.warn.toast("获取模块失败");
+            });
         });
-        this.showTopicDashboard = !this.showTopicDashboard;
     };
     SendArticlePage.prototype.hidden = function () {
         this.showTopicDashboard = !this.showTopicDashboard;
     };
     /*点击话题，选择*/
-    SendArticlePage.prototype.clickTopic = function () {
+    SendArticlePage.prototype.clickTopic = function (siteCode) {
+        this.topicCode = siteCode;
         this.showTopicDashboard = false;
     };
     SendArticlePage.prototype.choosedImg = function ($event) {
@@ -754,7 +774,7 @@ var HeadlinePage = (function () {
         this.h3w = (w - 36) / 3 + "px";
         this.h3h = (w - 36) / 9 + "px";
         setTimeout(function () {
-            var loadNav = _this.warn.loading('加载中');
+            var loadNav = _this.warn.loading('定位中...');
             navigator.geolocation.getCurrentPosition(function (position) {
                 /*同意定位加载*/
                 console.log(position);
@@ -771,7 +791,7 @@ var HeadlinePage = (function () {
                 }).catch(function (error) {
                     loadNav.dismiss();
                 });
-            }, { timeout: 3000 });
+            }, { timeout: 5000 });
         }, 500);
     };
     /*所有跳转事件个功能点击事件*/
@@ -2405,25 +2425,11 @@ var CityService = (function () {
             return _this.getNavigateBySiteCode(res['data']["code"]);
         });
     };
-    CityService.prototype.getCurrentCityByIp = function () {
-        var _this = this;
-        var obj = {
-            "ak": this.baiduMapAK,
-            "coor": "bd09ll"
-        };
-        return this.http.get(null, obj, this.baidu).then(function (res) {
-            return res.content.point;
-        }).then(function (point) {
-            return _this.getSiteByPosition(point.x, point.y);
-        }).then(function (res) {
-            /**/
-            return _this.getNavigateBySiteCode(res['data']["code"]);
-        });
-    };
     /*code 查询导航详情*/
     CityService.prototype.getNavigateBySiteCode = function (siteCode) {
         var _this = this;
         var obj = {
+            "isDqNavigate": "1",
             "siteCode": siteCode
         };
         /*1 菜单tabbar 2 banner 3 模块func3  4 引流func8*/
@@ -2575,8 +2581,8 @@ require('rxjs/add/operator/map');
 require('rxjs/add/observable/throw');
 var ionic_angular_1 = require("ionic-angular");
 var RELEASE_ADDR = "S";
-// const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
-var DEBUG_ADDR = "http://121.43.101.148:8080/xn-forum-front";
+var DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
+// const DEBUG_ADDR = "http://121.43.101.148:8080/xn-forum-front";
 var TEST_ADDR = "S";
 var HttpService = (function () {
     function HttpService(http, alertCtrl) {
