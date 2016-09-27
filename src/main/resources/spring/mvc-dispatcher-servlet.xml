@@ -148,6 +148,7 @@
 			<mvc:mapping path="/business/**" />
 			<mvc:mapping path="/operators/**" />
 			<mvc:mapping path="/operator/**" />
+			<mvc:mapping path="/post/**" />
 			
 			<mvc:exclude-mapping path="/operator/buy.htm"/>
 			<mvc:exclude-mapping path="/operators/integral/recharge"/>
@@ -170,6 +171,8 @@
 		 	<mvc:exclude-mapping path="/user/login.htm"/>
 		 	<mvc:exclude-mapping path="/user/findPwd.htm"/>
 		 <!-- 	找回登录密码相关 end  -->
+		 
+		  	<mvc:exclude-mapping path="/post/page"/>
 			<ref bean="sessionInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
