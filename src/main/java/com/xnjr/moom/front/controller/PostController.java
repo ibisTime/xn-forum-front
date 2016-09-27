@@ -61,11 +61,20 @@ public class PostController extends BaseController {
             isEssence, plateCode, start, limit, orderColumn, orderDir);
     }
 
-    // 获取企业降本标的列表
+    // 获取帖子详情
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public Object getPostDetail(
             @RequestParam(value = "postCode", required = true) String postCode) {
         return postAO.getPost(postCode);
+    }
+
+    // 点赞或收藏
+    @RequestMapping(value = "/praise", method = RequestMethod.POST)
+    @ResponseBody
+    public Object praise(@RequestParam("type") String type,
+            @RequestParam("postCode") String postCode,
+            @RequestParam("talker") String talker) {
+        return postAO.praise(type, postCode, talker);
     }
 }

@@ -58,4 +58,15 @@ public interface IPostAO {
      * @history:
      */
     public Object getPost(String postCode);
+
+    /**
+     * 点赞
+     * @param type
+     * @param postCode
+     * @param talker
+     * @return 
+     * @create: 2016年9月27日 下午9:19:32 wulq
+     * @history:
+     */
+    public Object praise(String type, String postCode, String talker);
 }

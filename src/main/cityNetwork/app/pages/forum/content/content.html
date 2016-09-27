@@ -9,29 +9,23 @@
 <ion-content class="forum forum-detail">
     <div>
         <ion-list>
-            <ion-item (click)="showImg($event)">
+            <ion-item>
                 <ion-card>
                     <ion-item>
                         <ion-avatar item-left>
-                            <img src="images/marty-avatar.png">
+                            <img src="{{item.photo}}">
                         </ion-avatar>
                         <div>
                             <div style="position: relative;">
-                                <h2>爆料达人</h2>
-                                <p class="time">1小时前</p>
-                                <button outline small class="origin content-btn">+关注</button>
+                                <h2>{{item.nickname}}</h2>
+                                <p class="time">{{item.publishDatetime}}</p>
+                                <button outline small class="origin content-btn" (click)="follow()">+关注</button>
                             </div>
                             <ion-card-content>
-                                <p>开学了转给热爱学习的你，我爱学习，学习让我快乐</p>
-                                <div [style.height]="imgHeight" class="img-cont">
-                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                                </div>
-                                <div [style.height]="imgHeight" class="img-cont">
-                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <h2 style="margin: 6px 0;">{{item.title}}</h2>
+                                <p>{{item.content}}</p>
+                                <div [style.height]="imgHeight" class="img-cont" (click)="showImg($event)">
+                                    <img class="imgs" [style.width]="imgHeight" src="{{p}}" *ngFor="let p of item.pic"/>
                                 </div>
                             </ion-card-content>
 
@@ -44,9 +38,9 @@
                                         <ion-icon name="trash"></ion-icon>
                                     </button>
                                     <button class="fr">
-                                        <i class="icon iconfont">&#xe610;</i>
+                                        <i class="icon iconfont">&#xe610;</i><span>{{item.totalCommNum}}</span>
                                     </button>
-                                    <button class="fr">
+                                    <button class="fr" (click)="praise(item.publisher, item.code, index)">
                                         <i class="icon iconfont">&#xe624;</i>
                                     </button>
                                 </ion-buttons>
@@ -55,27 +49,16 @@
                                 <div class="com-top clearfix">
                                     <button class="fl">
                                         <i class="icon iconfont">&#xe624;</i>
-                                        <span>50</span>
+                                        <span>{{item.totalDzNum}}</span>
                                     </button>
                                     <div class="t-3dot">
-                                        <span>aaa</span>
-                                        <span>，啊啊啊</span>
-                                        <span>，史蒂夫</span>
-                                        <span>，我空间</span>
-                                        <span>，译意风</span>
-                                        <span>，开始佛</span>
+                                        <span *ngFor="let g of item.goodList">{{g.nickname}}</span>
                                     </div>
                                 </div>
                                 <div class="com-bottom">
                                     <ion-list>
-                                        <ion-item>
-                                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
-                                        </ion-item>
-                                        <ion-item>
-                                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
-                                        </ion-item>
-                                        <ion-item>
-                                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
+                                        <ion-item *ngFor="let c of item.commentList">
+                                            <span class="u-name"><span>{{c.nickname}}</span>：</span><span class="u-msg">c.content</span>
                                         </ion-item>
                                     </ion-list>
                                 </div>

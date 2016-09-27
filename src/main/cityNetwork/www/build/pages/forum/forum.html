@@ -27,25 +27,34 @@
 
 <ion-content class="forum forum-detail">
     <div [ngSwitch]="segment">
-        <ion-list *ngSwitchCase="'yliao'">
-            <ion-item (click)="showImg($event)" *ngFor="let item of items">
+        <div *ngSwitchCase="'yliao'">
+        <ion-list>
+            <ion-refresher (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉加载"
+                refreshingSpinner="circles"
+                refreshingText="加载中...">
+                </ion-refresher-content>
+            </ion-refresher>
+            <ion-item *ngFor="let item of items">
                 <ion-card>
                     <ion-item>
                         <ion-avatar item-left>
-                            <img src="images/marty-avatar.png">
+                            <img src="{{item.photo}}">
                         </ion-avatar>
                         <div>
                             <div style="position: relative;">
-                                <h2>爆料达人</h2>
+                                <h2>{{item.nickname}}</h2>
                                 <!--<p style="" class="origin">来自 <span>散讲</span></p>-->
                             </div>
-                            <p class="time">1小时前</p>
+                            <p class="time">{{item.publishDatetime}}</p>
                             <ion-card-content>
-                                <div>
-                                    <h2>{{item.title}}</h2>
+                                <div (click)="openPage(item.code)">
+                                    <h2 style="margin: 6px 0;">{{item.title}}</h2>
                                     <p>{{item.content}}</p>
                                 </div>
-                                <div [style.height]="imgHeight" class="img-cont">
+                                <div [style.height]="imgHeight" class="img-cont" (click)="showImg($event)">
                                     <img class="imgs" [style.width]="imgHeight" src="{{p}}" *ngFor="let p of item.pic"/>
                                 </div>
                             </ion-card-content>
@@ -55,11 +64,11 @@
                                     <button class="fl">
                                         <i class="icon iconfont">&#xe60a;</i>
                                     </button>
-                                    <button class="fr">
-                                        <i class="icon iconfont">&#xe610;</i>11
+                                    <button class="fr" (click)="openPage(item.code)">
+                                        <i class="icon iconfont">&#xe610;</i><span>{{item.totalCommNum}}</span>
                                     </button>
-                                    <button class="fr">
-                                        <i class="icon iconfont">&#xe624;</i>22
+                                    <button class="fr" (click)="praise(item.publisher, item.code, index)">
+                                        <i class="icon iconfont">&#xe624;</i><span class="praise-total">{{item.totalDzNum}}</span>
                                     </button>
                                 </ion-buttons>
                             </div>
@@ -67,7 +76,11 @@
                     </ion-item>
                 </ion-card>
             </ion-item>
+            <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
+                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
         </ion-list>
+        </div>
 
         <ion-list *ngSwitchCase="'ltan'" class="ltan">
             <div class="clearfix">
@@ -80,7 +93,7 @@
                 <div class="lt-right fl wp70 bg_fff">
                     <div class="part1 plr10">
                         <ul>
-                            <li class="clearfix" (click)="showDetail($event)">
+                            <li class="clearfix" (click)="showDetail('')">
                                 <div class="fl wp30"><img src="images/file_download.png"/></div>
                                 <div class="pl10 wp70 fl">
                                     <div>板块名称</div>

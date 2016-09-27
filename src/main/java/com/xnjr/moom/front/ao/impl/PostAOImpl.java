@@ -16,6 +16,7 @@ import com.xnjr.moom.front.exception.BizException;
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.req.XN610050Req;
+import com.xnjr.moom.front.req.XN610056Req;
 import com.xnjr.moom.front.req.XN610070Req;
 
 /** 
@@ -85,6 +86,15 @@ public class PostAOImpl implements IPostAO {
     public Object getPost(String postCode) {
         return BizConnecter.getBizData("610072",
             JsonUtils.string2Json("code", postCode), Object.class);
+    }
+
+    public Object praise(String type, String postCode, String talker) {
+        XN610056Req req = new XN610056Req();
+        req.setPostCode(postCode);
+        req.setTalker(talker);
+        req.setType(type);
+        return BizConnecter.getBizData("610056", JsonUtils.object2Json(req),
+            Object.class);
     }
 
 }

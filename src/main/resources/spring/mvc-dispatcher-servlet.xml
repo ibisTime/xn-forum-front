@@ -150,6 +150,8 @@
 			<mvc:mapping path="/operator/**" />
 			<mvc:mapping path="/post/**" />
 			
+			<mvc:exclude-mapping path="/post/get"/>
+			
 			<mvc:exclude-mapping path="/operator/buy.htm"/>
 			<mvc:exclude-mapping path="/operators/integral/recharge"/>
 			
