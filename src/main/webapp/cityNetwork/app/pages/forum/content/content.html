@@ -86,16 +86,16 @@
             </ion-item>
         </ion-list>
     </div>
-    <div id="ylImg2" class="mask hidden" (click)="closeImg();">
-        <div>
-            <div class="wrapper">
-                <div class="scroller" [style.line-height]="pHeight">
-                    <img id="yl-img2"/>
-                </div>
+</ion-content>
+<div id="ylImg2" class="mask hidden" (click)="closeImg();">
+    <div>
+        <div class="wrapper">
+            <div class="scroller" [style.line-height]="pHeight">
+                <img id="yl-img2"/>
             </div>
         </div>
     </div>
-</ion-content>
+</div>
 <ion-footer class="nextpage-foot">
     <div class="bootomInput">
       <ion-input #msgInput [(ngModel)]="inputValue" (focus)="doFocus($event)" placeholder="请输入信息"></ion-input>
