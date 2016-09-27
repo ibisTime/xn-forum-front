@@ -104,7 +104,7 @@ public class MemberController extends BaseController {
           * tokenDO.setTokenId(tokenId); tokenDO.setUserId(userId); // return
           * tokenDO给app客户端 return tokenDO; }
           */
-        return true;
+        return res.getUserId();
     }
 
     // 获取用户信息
