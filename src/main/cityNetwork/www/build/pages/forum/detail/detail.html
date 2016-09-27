@@ -1,0 +1,273 @@
+<ion-header class="forum-head">
+  <ion-navbar navbar-color>
+    <ion-toolbar [attr.primary]="isAndroid ? '' : null" no-border-top>
+        <ion-title>板块名称</ion-title>
+        <ion-buttons end>
+            <button>
+                <!--<ion-icon name="search"></ion-icon>-->
+                <i class="icon iconfont">&#xe601;</i>
+            </button>
+        </ion-buttons>
+        <ion-buttons end>
+            <button>
+                <!--<ion-icon name="create"></ion-icon>-->
+                <i class="icon iconfont">&#xe616;</i>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="forum forum-detail">
+    <div id="ylImg1" class="mask hidden" (click)="closeImg();">
+        <div>
+            <div class="wrapper">
+                <div class="scroller" [style.line-height]="pHeight">
+                    <img id="yl-img1"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="clearfix bg_fff">
+        <div class="plr10 ptb10 fl wp30"><img src="images/file_download.png"/></div>
+        <div class="pl10 ptb10 fl wp70">
+            <div>板块名称</div>
+            <div class="dt-div">主题：<span class="pr20">120</span>今日：<span>10</span></div>
+        </div>
+    </div>
+    <div>
+        <ion-list class="dt-list">
+            <ion-item>
+                <button>置顶</button>
+                <div class="ml30 inblock">永嘉城市网介绍</div>
+            </ion-item>
+            <ion-item>
+                <button>置顶</button>
+                <div class="ml30 inblock">永嘉城市网介绍</div>
+            </ion-item>
+            <ion-item>
+                <button>置顶</button>
+                <div class="ml30 inblock">永嘉城市网介绍</div>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div class="ptb10 tc bg_fff">更多</div>
+    <div class="bg_fff mt20">
+        <ion-segment [(ngModel)]="segment">
+            <ion-segment-button value="all">
+                全部
+            </ion-segment-button>
+            <ion-segment-button value="new">
+                最新
+            </ion-segment-button>
+            <ion-segment-button value="essence">
+                精华
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+    <div [ngSwitch]="segment">
+        <ion-list *ngSwitchCase="'all'">
+            <ion-item (click)="showImg($event)">
+                <ion-card>
+                <ion-item>
+                    <ion-avatar item-left>
+                        <img src="images/marty-avatar.png">
+                    </ion-avatar>
+                    <div>
+                        <div style="position: relative;">
+                            <h2>爆料达人</h2>
+                            <p style="" class="origin">来自 <span>散讲</span></p>
+                        </div>
+                        <p class="time">1小时前</p>
+                        <ion-card-content>
+                            <p (click)="openContent()">开学了转给热爱学习的你，我爱学习，学习让我快乐</p>
+                            <div [style.height]="imgHeight" class="img-cont">
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                            </div>
+                            <div [style.height]="imgHeight" class="img-cont">
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                            </div>
+                        </ion-card-content>
+
+                        <div class="com-btn">
+                            <ion-buttons class="clearfix">
+                                <button class="fr">
+                                    <i class="icon iconfont">&#xe610;</i>
+                                    <span>22</span>
+                                </button>
+                                <button class="fr">
+                                    <i class="icon iconfont">&#xe624;</i>
+                                    <span>12</span>
+                                </button>
+                            </ion-buttons>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-card>
+            </ion-item>
+        </ion-list>
+        <ion-list *ngSwitchCase="'new'" class="">
+            <ion-item (click)="showImg($event)">
+                <ion-card>
+                    <ion-item>
+                        <ion-avatar item-left>
+                            <img src="images/marty-avatar.png">
+                        </ion-avatar>
+                        <div>
+                            <div style="position: relative;">
+                                <h2>爆料达人</h2>
+                                <p style="" class="origin">来自 <span>散讲</span></p>
+                            </div>
+                            <p class="time">1小时前</p>
+                            <ion-card-content>
+                                <p>开学了转给热爱学习的你，我爱学习，学习让我快乐</p>
+                                <div [style.height]="imgHeight" class="img-cont">
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                </div>
+                                <div [style.height]="imgHeight" class="img-cont">
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                </div>
+                            </ion-card-content>
+
+                            <div class="com-btn">
+                                <ion-buttons class="clearfix">
+                                    <button class="fl">
+                                        <i class="icon iconfont">&#xe60a;</i>
+                                    </button>
+                                    <button class="fr">
+                                        <i class="icon iconfont">&#xe610;</i>
+                                    </button>
+                                    <button class="fr">
+                                        <i class="icon iconfont">&#xe624;</i>
+                                    </button>
+                                </ion-buttons>
+                            </div>
+                            <div class="comment">
+                                <div class="com-top clearfix">
+                                    <button class="fl">
+                                        <i class="icon iconfont">&#xe624;</i>
+                                        <span>50</span>
+                                    </button>
+                                    <div class="t-3dot">
+                                        <span>aaa</span>
+                                        <span>，啊啊啊</span>
+                                        <span>，史蒂夫</span>
+                                        <span>，我空间</span>
+                                        <span>，译意风</span>
+                                        <span>，开始佛</span>
+                                    </div>
+                                </div>
+                                <div class="com-bottom">
+                                    <ion-list>
+                                        <ion-item>
+                                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
+                                        </ion-item>
+                                        <ion-item>
+                                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
+                                        </ion-item>
+                                        <ion-item>
+                                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
+                                        </ion-item>
+                                    </ion-list>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-card>
+            </ion-item>
+        </ion-list>
+        <ion-list *ngSwitchCase="'essence'" class="">
+            <ion-item (click)="showImg($event)">
+                <ion-card>
+                    <ion-item>
+                        <ion-avatar item-left>
+                            <img src="images/marty-avatar.png">
+                        </ion-avatar>
+                        <div>
+                            <div style="position: relative;">
+                                <h2>爆料达人</h2>
+                                <p style="" class="origin">来自 <span>散讲</span></p>
+                            </div>
+                            <p class="time">1小时前</p>
+                            <ion-card-content>
+                                <p>开学了转给热爱学习的你，我爱学习，学习让我快乐</p>
+                                <div [style.height]="imgHeight" class="img-cont">
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                </div>
+                                <div [style.height]="imgHeight" class="img-cont">
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                </div>
+                            </ion-card-content>
+
+                            <div class="com-btn">
+                                <ion-buttons class="clearfix">
+                                    <button class="fl">
+                                        <i class="icon iconfont">&#xe60a;</i>
+                                    </button>
+                                    <button class="fr">
+                                        <i class="icon iconfont">&#xe610;</i>
+                                    </button>
+                                    <button class="fr">
+                                        <i class="icon iconfont">&#xe624;</i>
+                                    </button>
+                                </ion-buttons>
+                            </div>
+                            <div class="comment">
+                                <div class="com-top clearfix">
+                                    <button class="fl">
+                                        <i class="icon iconfont">&#xe624;</i>
+                                        <span>50</span>
+                                    </button>
+                                    <div class="t-3dot">
+                                        <span>aaa</span>
+                                        <span>，啊啊啊</span>
+                                        <span>，史蒂夫</span>
+                                        <span>，我空间</span>
+                                        <span>，译意风</span>
+                                        <span>，开始佛</span>
+                                    </div>
+                                </div>
+                                <div class="com-bottom">
+                                    <ion-list>
+                                        <ion-item>
+                                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
+                                        </ion-item>
+                                        <ion-item>
+                                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
+                                        </ion-item>
+                                        <ion-item>
+                                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
+                                        </ion-item>
+                                    </ion-list>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-card>
+            </ion-item>
+        </ion-list>
+    </div>
+
+</ion-content>
+<div id="ylImg" class="mask hidden" (click)="closeImg();">
+    <div>
+        <div class="wrapper">
+            <div class="scroller" [style.line-height]="pHeight">
+                <img id="yl-img"/>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+<ion-header>
+  <ion-navbar navbar-color>
+    <ion-title>个人主页</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="detail">
+  <!--顶部-->
+  <div text-center class="p20 c_white bg_ad_d6">
+      <div>
+          <img class="br50" src="images/marty-avatar.png"/>
+      </div>
+      <div class="lh2em" (click)="goChat();">
+          <span id="nickName">CT-454543534</span>
+          <span class="br50 bg_e66c61 xb"><ion-icon name="female"></ion-icon></span>
+          <!--<ion-icon name="male"></ion-icon>-->
+          <span class="inblock bg_43a8e8 dj">V2</span>
+      </div>
+      <div class="wp100 clearfix lh2em">
+          <div class="fl wp50">关注<span class="pl10">580</span></div>
+          <div class="fl w_line"></div>
+          <div class="fl wp49">粉丝<span class="pl10">345</span></div>
+      </div>
+      <div id="introduce">
+          个人简介
+      </div>
+  </div>
+  <div class="bg_f0 c_a3 pl8 lh2em">2个帖子</div>
+  
+   <ion-list>
+        <ion-item (click)="showImg($event)">
+            <ion-card>
+                <ion-item>
+                    <ion-avatar item-left>
+                        <img src="images/marty-avatar.png">
+                    </ion-avatar>
+                    <div>
+                        <div style="position: relative;">
+                            <h2>爆料达人</h2>
+                            <p style="" class="origin">来自 <span>散讲</span></p>
+                        </div>
+                        <p class="time">1小时前</p>
+                        <ion-card-content>
+                            <p>开学了转给热爱学习的你，我爱学习，学习让我快乐</p>
+                            <div [style.height]="imgHeight" class="img-cont">
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                            </div>
+                            <div [style.height]="imgHeight" class="img-cont">
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                            </div>
+                        </ion-card-content>
+
+                        <div class="com-btn">
+                            <ion-buttons class="clearfix">
+                                <button class="fr">
+                                    <i class="icon iconfont">&#xe610;</i>
+                                    <span>22</span>
+                                </button>
+                                <button class="fr">
+                                    <i class="icon iconfont">&#xe624;</i>
+                                    <span>12</span>
+                                </button>
+                            </ion-buttons>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-card>
+        </ion-item>
+        <ion-item (click)="showImg($event)">
+            <ion-card>
+                <ion-item>
+                    <ion-avatar item-left>
+                        <img src="images/marty-avatar.png">
+                    </ion-avatar>
+                    <div>
+                        <div style="position: relative;">
+                            <h2>爆料达人</h2>
+                            <p style="" class="origin">来自 <span>散讲</span></p>
+                        </div>
+                        <p class="time">1小时前</p>
+                        <ion-card-content>
+                            <p>开学了转给热爱学习的你，我爱学习，学习让我快乐</p>
+                            <div [style.height]="imgHeight" class="img-cont">
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                            </div>
+                            <div [style.height]="imgHeight" class="img-cont">
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                            </div>
+                        </ion-card-content>
+
+                        <div class="com-btn">
+                            <ion-buttons class="clearfix">
+                                <button class="fl">
+                                    <i class="icon iconfont">&#xe60a;</i>
+                                </button>
+                                <button class="fr">
+                                    <i class="icon iconfont">&#xe610;</i>
+                                </button>
+                                <button class="fr">
+                                    <i class="icon iconfont">&#xe624;</i>
+                                </button>
+                            </ion-buttons>
+                        </div>
+                        <div class="comment">
+                            <div class="com-top clearfix">
+                                <button class="fl">
+                                    <i class="icon iconfont">&#xe624;</i>
+                                    <span>50</span>
+                                </button>
+                                <div class="t-3dot">
+                                    <span>aaa</span>
+                                    <span>，啊啊啊</span>
+                                    <span>，史蒂夫</span>
+                                    <span>，我空间</span>
+                                    <span>，译意风</span>
+                                    <span>，开始佛</span>
+                                </div>
+                            </div>
+                            <div class="com-bottom">
+                                <ion-list>
+                                    <ion-item>
+                                        <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
+                                    </ion-item>
+                                    <ion-item>
+                                        <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
+                                    </ion-item>
+                                    <ion-item>
+                                        <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
+                                    </ion-item>
+                                </ion-list>
+                            </div>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-card>
+        </ion-item>
+    </ion-list>
+
+</ion-content>
+<ion-footer class="mine-detail-foot">
+    <div class="b_fff lh2em ptb6 bd_t_e6">
+        <div class="tc">
+            <i class="icon iconfont c_d23e3e">&#xe616;</i>
+            <span class="c_80">编辑资料</span>
+        </div>
+    </div>
+    <div class="tc b_fff clearfix lh2em ptb6 bd_t_e6">
+        <div class="fl tc wp49">
+            <ion-icon name="add" class="c_d23e3e"></ion-icon>
+            <span class="c_80">关注</span>
+        </div>
+        <div class="c_line"></div>
+        <div class="fl tc wp49">
+            <ion-icon name="mail" class="c_d23e3e"></ion-icon>
+            <span class="c_80">私信</span>
+        </div>
+    </div>
+</ion-footer>
