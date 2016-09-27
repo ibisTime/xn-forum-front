@@ -79,17 +79,16 @@ export class ForumPage {
             event && event.complete();
         });
   }
-  praise(publisher, code, index){
+  praise(code, index){
       let loading = this.warnCtrl.loading('点赞中');
       this.http.post('/post/praise',{
           "type": "1",
-          "postCode": code,
-          "talker": publisher
+          "postCode": code
         })
         .then((res) => {
             loading.dismiss();
             if(res.success){
-                this.items[index]
+                this.items[index].totalDzNum = +this.items[index].totalDzNum + 1;
             }else{
                 this.warnCtrl.toast("点赞失败，请稍后重试!");
             }

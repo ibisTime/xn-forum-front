@@ -74,7 +74,7 @@ public class PostController extends BaseController {
     @ResponseBody
     public Object praise(@RequestParam("type") String type,
             @RequestParam("postCode") String postCode,
-            @RequestParam("talker") String talker) {
-        return postAO.praise(type, postCode, talker);
+            @RequestParam(value = "talker", required = false) String talker) {
+        return postAO.praise(type, postCode, getSessionUserId(talker));
     }
 }

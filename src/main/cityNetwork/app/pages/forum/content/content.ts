@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, Platform, Content, NavParams} from 'ionic-angular';
 import {HttpService} from "../../../services/http.service";
+import {WarnService} from "../../../services/warn.service";
 
 
 @Component({
@@ -13,13 +14,14 @@ export class ContentPage {
   imgHeight: string;
   pHeight: string;
   code: string;
-  item = [];
+  item = {totalDzNum: ""};
 
   @ViewChild(Content) content: Content;
 
   constructor(private navPara: NavParams,
               private navCtrl: NavController,
               private platform: Platform,
+              private warnCtrl : WarnService,
               private http: HttpService) {
       this.isAndroid = platform.is('android');
       this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
@@ -49,6 +51,23 @@ export class ContentPage {
   }
   follow(){
 
+  }
+  praise(code, index){
+      let loading = this.warnCtrl.loading('点赞中');
+      this.http.post('/post/praise',{
+          "type": "1",
+          "postCode": code
+        })
+        .then((res) => {
+            loading.dismiss();
+            if(res.success){
+                this.item.totalDzNum = (+this.item.totalDzNum + 1) + "";
+            }else{
+                this.warnCtrl.toast("点赞失败，请稍后重试!");
+            }
+        }).catch(error => {
+            loading.dismiss();
+        });
   }
   sendMsg(){}
   getPostDetail(){

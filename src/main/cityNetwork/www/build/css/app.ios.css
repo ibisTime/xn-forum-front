@@ -10572,6 +10572,8 @@ body, pre {
     margin-bottom: 10px; }
   .forum .ml10 {
     margin-left: 10px !important; }
+  .forum .hidden {
+    display: none; }
 
 .forum-head {
   font-family: Microsoft YaHei,'宋体',Tahoma,Arial,sans-serif; }

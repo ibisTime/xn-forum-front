@@ -40,7 +40,7 @@
                                     <button class="fr">
                                         <i class="icon iconfont">&#xe610;</i><span>{{item.totalCommNum}}</span>
                                     </button>
-                                    <button class="fr" (click)="praise(item.publisher, item.code, index)">
+                                    <button class="fr" (click)="praise(item.code, index)">
                                         <i class="icon iconfont">&#xe624;</i>
                                     </button>
                                 </ion-buttons>
@@ -52,13 +52,13 @@
                                         <span>{{item.totalDzNum}}</span>
                                     </button>
                                     <div class="t-3dot">
-                                        <span *ngFor="let g of item.goodList">"ifdfi"</span>
+                                        <span *ngFor="let g of item.goodList">{{g.nickname}}</span>
                                     </div>
                                 </div>
                                 <div class="com-bottom">
                                     <ion-list>
                                         <ion-item *ngFor="let c of item.commentList">
-                                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">c.content</span>
+                                            <span class="u-name"><span>{{c.nickname}}</span>：</span><span class="u-msg">c.content</span>
                                         </ion-item>
                                     </ion-list>
                                 </div>

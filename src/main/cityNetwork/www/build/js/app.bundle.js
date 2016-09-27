@@ -58,7 +58,6 @@ ionic_angular_1.ionicBootstrap(MyApp, services_1.MY_SERVE, {
     console.log('app-出现错误');
     console.log(error);
 });
-
 },{"./pages/tabs/tabs":22,"./pages/user/login":24,"./services/kefu.serve":31,"./services/services":32,"./services/user.service":33,"@angular/core":182,"ionic-angular":496,"ionic-native":523}],2:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -115,7 +114,6 @@ var CaptchaComponent = (function () {
     return CaptchaComponent;
 }());
 exports.CaptchaComponent = CaptchaComponent;
-
 },{"@angular/core":182}],3:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -206,7 +204,6 @@ var ChatViewComponent = (function () {
     return ChatViewComponent;
 }());
 exports.ChatViewComponent = ChatViewComponent;
-
 },{"@angular/core":182}],4:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -220,16 +217,84 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
+var http_service_1 = require("../../../services/http.service");
+var warn_service_1 = require("../../../services/warn.service");
 var ContentPage = (function () {
-    function ContentPage(navCtrl, platform) {
+    function ContentPage(navPara, navCtrl, platform, warnCtrl, http) {
+        this.navPara = navPara;
         this.navCtrl = navCtrl;
         this.platform = platform;
+        this.warnCtrl = warnCtrl;
+        this.http = http;
         this.segment = "all";
         this.isAndroid = false;
+        this.item = { totalDzNum: "" };
         this.isAndroid = platform.is('android');
         this.imgHeight = ((this.platform.width() - 16 - 50 - 16 - 16) / 3 - 1) + "px";
         this.pHeight = this.platform.height() + "px";
+        this.code = navPara.data.code;
+        this.getPostDetail();
     }
+    ContentPage.prototype.jsDateDiff = function (publishTime) {
+        var d_minutes, d_hours, d_days;
+        var timeNow = new Date().getTime() / 1000;
+        var d;
+        d = timeNow - publishTime;
+        d_days = d / 86400;
+        d_hours = d / 3600;
+        d_minutes = d / 60;
+        if (d_days > 0 && d_days < 4) {
+            return d_days + "天前";
+        }
+        else if (d_days <= 0 && d_hours > 0) {
+            return d_hours + "小时前";
+        }
+        else if (d_hours <= 0 && d_minutes > 0) {
+            return d_minutes + "分钟前";
+        }
+        else {
+            var s = new Date(publishTime * 1000);
+            // s.getFullYear()+"年";
+            return (s.getMonth() + 1) + "月" + s.getDate() + "日";
+        }
+    };
+    ContentPage.prototype.follow = function () {
+    };
+    ContentPage.prototype.praise = function (code, index) {
+        var _this = this;
+        var loading = this.warnCtrl.loading('点赞中');
+        this.http.post('/post/praise', {
+            "type": "1",
+            "postCode": code
+        })
+            .then(function (res) {
+            loading.dismiss();
+            if (res.success) {
+                _this.item.totalDzNum = (+_this.item.totalDzNum + 1) + "";
+            }
+            else {
+                _this.warnCtrl.toast("点赞失败，请稍后重试!");
+            }
+        }).catch(function (error) {
+            loading.dismiss();
+        });
+    };
+    ContentPage.prototype.sendMsg = function () { };
+    ContentPage.prototype.getPostDetail = function () {
+        var _this = this;
+        this.http.get('/post/get', {
+            "postCode": this.code
+        })
+            .then(function (res) {
+            if (res.success) {
+                var data = res.data;
+                data.pic = data.pic.split(/\|\|/);
+                data.publishDatetime = _this.jsDateDiff(new Date(data.publishDatetime).getTime());
+                _this.item = data;
+            }
+        }).catch(function (error) {
+        });
+    };
     ContentPage.prototype.showImg = function (ev) {
         if (ev.target.nodeName.match(/^img$/i)) {
             var img = ev.target;
@@ -255,13 +320,12 @@ var ContentPage = (function () {
         core_1.Component({
             templateUrl: 'build/pages/forum/content/content.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.Platform])
+        __metadata('design:paramtypes', [ionic_angular_1.NavParams, ionic_angular_1.NavController, ionic_angular_1.Platform, warn_service_1.WarnService, http_service_1.HttpService])
     ], ContentPage);
     return ContentPage;
 }());
 exports.ContentPage = ContentPage;
-
-},{"@angular/core":182,"ionic-angular":496}],5:[function(require,module,exports){
+},{"../../../services/http.service":28,"../../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -313,7 +377,6 @@ var DetailPage = (function () {
     return DetailPage;
 }());
 exports.DetailPage = DetailPage;
-
 },{"../content/content":4,"@angular/core":182,"ionic-angular":496}],6:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -329,10 +392,13 @@ var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
 var detail_1 = require("./detail/detail");
 var http_service_1 = require("../../services/http.service");
+var warn_service_1 = require("../../services/warn.service");
+var content_1 = require("./content/content");
 var ForumPage = (function () {
-    function ForumPage(navCtrl, platform, http) {
+    function ForumPage(navCtrl, platform, warnCtrl, http) {
         this.navCtrl = navCtrl;
         this.platform = platform;
+        this.warnCtrl = warnCtrl;
         this.http = http;
         this.segment = "yliao";
         this.isAndroid = false;
@@ -344,24 +410,81 @@ var ForumPage = (function () {
         this.limit = 10;
         this.queryPostPage();
     }
-    ForumPage.prototype.queryPostPage = function () {
+    ForumPage.prototype.jsDateDiff = function (publishTime) {
+        var d_minutes, d_hours, d_days;
+        var timeNow = new Date().getTime() / 1000;
+        var d;
+        d = timeNow - publishTime;
+        d_days = d / 86400;
+        d_hours = d / 3600;
+        d_minutes = d / 60;
+        if (d_days > 0 && d_days < 4) {
+            return d_days + "天前";
+        }
+        else if (d_days <= 0 && d_hours > 0) {
+            return d_hours + "小时前";
+        }
+        else if (d_hours <= 0 && d_minutes > 0) {
+            return d_minutes + "分钟前";
+        }
+        else {
+            var s = new Date(publishTime * 1000);
+            // s.getFullYear()+"年";
+            return (s.getMonth() + 1) + "月" + s.getDate() + "日";
+        }
+    };
+    ForumPage.prototype.queryPostPage = function (event, refresh) {
         var _this = this;
-        this.http.post('/post/page', {
+        this.http.get('/post/page', {
             "start": this.start,
             "limit": this.limit
         })
             .then(function (res) {
             if (res.success) {
                 var list = res.data.list;
-                for (var i = 0; i < list.length; i++) {
-                    list.pic = list.pic.split(/\|\|/);
+                var i = 0;
+                if (refresh) {
+                    _this.items = [];
                 }
-                _this.items.push(list);
+                for (i = 0; i < list.length; i++) {
+                    list[i].pic = list[i].pic.split(/\|\|/);
+                    list[i].publishDatetime = _this.jsDateDiff(new Date(list[i].publishDatetime).getTime());
+                    _this.items.push(list[i]);
+                }
+                event && event.complete();
+                if (i > 0) {
+                    _this.start++;
+                }
             }
-            //loading.dismiss();
         }).catch(function (error) {
-            //loading.dismiss();
+            event && event.complete();
         });
+    };
+    ForumPage.prototype.praise = function (code, index) {
+        var _this = this;
+        var loading = this.warnCtrl.loading('点赞中');
+        this.http.post('/post/praise', {
+            "type": "1",
+            "postCode": code
+        })
+            .then(function (res) {
+            loading.dismiss();
+            if (res.success) {
+                _this.items[index].totalDzNum = +_this.items[index].totalDzNum + 1;
+            }
+            else {
+                _this.warnCtrl.toast("点赞失败，请稍后重试!");
+            }
+        }).catch(function (error) {
+            loading.dismiss();
+        });
+    };
+    ForumPage.prototype.doRefresh = function (event) {
+        this.start = 1;
+        this.queryPostPage(event, true);
+    };
+    ForumPage.prototype.doAppendData = function (event) {
+        this.queryPostPage(event);
     };
     ForumPage.prototype.showImg = function (ev) {
         if (ev.target.nodeName.match(/^img$/i)) {
@@ -375,8 +498,12 @@ var ForumPage = (function () {
         var sDiv = document.getElementById("ylImg");
         sDiv.className = sDiv.className + " hidden";
     };
-    ForumPage.prototype.showDetail = function (e) {
+    ForumPage.prototype.showDetail = function (code) {
         this.navCtrl.push(detail_1.DetailPage);
+    };
+    //打开帖子详情页
+    ForumPage.prototype.openPage = function (code) {
+        this.navCtrl.push(content_1.ContentPage, { code: code });
     };
     __decorate([
         core_1.ViewChild(ionic_angular_1.Content), 
@@ -386,13 +513,12 @@ var ForumPage = (function () {
         core_1.Component({
             templateUrl: 'build/pages/forum/forum.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.Platform, http_service_1.HttpService])
+        __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.Platform, warn_service_1.WarnService, http_service_1.HttpService])
     ], ForumPage);
     return ForumPage;
 }());
 exports.ForumPage = ForumPage;
-
-},{"../../services/http.service":28,"./detail/detail":5,"@angular/core":182,"ionic-angular":496}],7:[function(require,module,exports){
+},{"../../services/http.service":28,"../../services/warn.service":34,"./content/content":4,"./detail/detail":5,"@angular/core":182,"ionic-angular":496}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -649,7 +775,6 @@ var SendArticlePage = (function () {
     return SendArticlePage;
 }());
 exports.SendArticlePage = SendArticlePage;
-
 },{"../../services/city.service":27,"../../services/http.service":28,"../../services/user.service":33,"../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -705,7 +830,6 @@ var CityChoosePage = (function () {
     return CityChoosePage;
 }());
 exports.CityChoosePage = CityChoosePage;
-
 },{"../../services/city.service":27,"../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],9:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -886,7 +1010,6 @@ var HeadlinePage = (function () {
     return HeadlinePage;
 }());
 exports.HeadlinePage = HeadlinePage;
-
 },{"../../services/city.service":27,"../../services/http.service":28,"../../services/user.service":33,"../../services/warn.service":34,"../forum/send-article":7,"../release":21,"./city-choose":8,"./iframe":10,"./search-user-article":11,"@angular/core":182,"ionic-angular":496}],10:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -934,7 +1057,6 @@ var IFramePage = (function () {
     return IFramePage;
 }());
 exports.IFramePage = IFramePage;
-
 },{"../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],11:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -984,7 +1106,6 @@ var SearchUserAndArticlePage = (function () {
     return SearchUserAndArticlePage;
 }());
 exports.SearchUserAndArticlePage = SearchUserAndArticlePage;
-
 },{"@angular/core":182,"ionic-angular":496}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1124,7 +1245,6 @@ var KefuPage = (function () {
     return KefuPage;
 }());
 exports.KefuPage = KefuPage; //类的结尾
-
 },{"../../components/chat-view/chat.component":3,"../../services/city.service":27,"../../services/http.service":28,"../../services/kefu.serve":31,"../../services/user.service":33,"../headline/iframe":10,"./satisfaction":13,"@angular/core":182,"ionic-angular":496}],13:[function(require,module,exports){
 "use strict";
 var Satisfaction = (function () {
@@ -1208,7 +1328,6 @@ var Satisfaction = (function () {
     return Satisfaction;
 }());
 exports.Satisfaction = Satisfaction;
-
 },{}],14:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1271,7 +1390,6 @@ var DetailPage = (function () {
     return DetailPage;
 }());
 exports.DetailPage = DetailPage;
-
 },{"../../../services/http.service":28,"../../../services/im.service":30,"../../../services/user.service":33,"../../../services/warn.service":34,"../../user/login":24,"./editDetail":15,"@angular/core":182,"ionic-angular":496}],15:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1406,7 +1524,6 @@ var EditDetailPage = (function () {
     return EditDetailPage;
 }());
 exports.EditDetailPage = EditDetailPage;
-
 },{"../../../services/http.service":28,"../../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],16:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1521,7 +1638,6 @@ var AddFriendPage = (function () {
     return AddFriendPage;
 }());
 exports.AddFriendPage = AddFriendPage;
-
 },{"../../../services/im.service":30,"../../../services/warn.service":34,"../im/chat-room":18,"@angular/core":182,"ionic-angular":496}],17:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1587,7 +1703,6 @@ var FriendPage = (function () {
     return FriendPage;
 }());
 exports.FriendPage = FriendPage;
-
 },{"../../../services/im.service":30,"../../../services/warn.service":34,"../im/chat-room":18,"./addFriend":16,"@angular/core":182,"ionic-angular":496}],18:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1713,7 +1828,6 @@ var ChatRoomPage = (function () {
     return ChatRoomPage;
 }());
 exports.ChatRoomPage = ChatRoomPage; //类的结尾
-
 },{"../../../components/chat-view/chat.component":3,"../../../services/im.service":30,"@angular/core":182,"ionic-angular":496,"ionic-native":523}],19:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1778,7 +1892,6 @@ var ImPage = (function () {
     return ImPage;
 }());
 exports.ImPage = ImPage;
-
 },{"../../../services/im.service":30,"../../../services/user.service":33,"../../../services/warn.service":34,"../friend/friend":17,"./chat-room":18,"@angular/core":182,"ionic-angular":496}],20:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1857,14 +1970,12 @@ var MinePage = (function () {
     return MinePage;
 }());
 exports.MinePage = MinePage;
-
 },{"../../services/http.service":28,"../../services/im.service":30,"../../services/user.service":33,"../../services/warn.service":34,"../user/login":24,"./detail/detail":14,"./im/im":19,"@angular/core":182,"ionic-angular":496}],21:[function(require,module,exports){
 /**
  * Created by tianlei on 16/9/26.
  */
 "use strict";
 exports.weChat = true;
-
 },{}],22:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1952,7 +2063,6 @@ var TabsPage = (function () {
     return TabsPage;
 }());
 exports.TabsPage = TabsPage;
-
 },{"../../services/city.service":27,"../../services/im.service":30,"../../services/kefu.serve":31,"../../services/user.service":33,"../forum/forum":6,"../headline/headline":9,"../kefu/kefu":12,"../mine/mine":20,"../release":21,"../video/video":26,"@angular/core":182,"ionic-angular":496}],23:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2099,7 +2209,6 @@ var ForgetPwdPage = (function () {
     return ForgetPwdPage;
 }());
 exports.ForgetPwdPage = ForgetPwdPage;
-
 },{"../../components/captcha-view/captcha.component":2,"../../services/http.service":28,"../../services/im.service":30,"../../services/user.service":33,"../../services/warn.service":34,"../tabs/tabs":22,"@angular/core":182,"ionic-angular":496}],24:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2176,7 +2285,6 @@ var LoginPage = (function () {
     return LoginPage;
 }());
 exports.LoginPage = LoginPage;
-
 },{"../../services/http.service":28,"../../services/user.service":33,"../../services/warn.service":34,"../tabs/tabs":22,"./forgetPwd":23,"./register":25,"@angular/core":182,"ionic-angular":496}],25:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2305,7 +2413,6 @@ var RegisterPage = (function () {
     return RegisterPage;
 }());
 exports.RegisterPage = RegisterPage;
-
 },{"../../components/captcha-view/captcha.component":2,"../../services/http.service":28,"../../services/im.service":30,"../../services/kefu.serve":31,"../../services/user.service":33,"../../services/warn.service":34,"../tabs/tabs":22,"@angular/core":182,"ionic-angular":496}],26:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2348,7 +2455,6 @@ var VideoPage = (function () {
     return VideoPage;
 }());
 exports.VideoPage = VideoPage;
-
 },{"../../services/city.service":27,"../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],27:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2559,7 +2665,6 @@ var CityService = (function () {
     return CityService;
 }());
 exports.CityService = CityService;
-
 },{"./http.service":28,"@angular/core":182}],28:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2684,7 +2789,6 @@ exports.HttpService = HttpService;
 // ht.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 // ht.send(body);
 // let body = "loginName" + "=" + "23423" + "&" + "captcha" + "=" + "33dd";
-
 },{"@angular/core":182,"@angular/http":309,"ionic-angular":496,"rxjs/add/observable/throw":634,"rxjs/add/operator/map":635,"rxjs/add/operator/toPromise":636}],29:[function(require,module,exports){
 /**
  * Created by tianlei on 16/9/6.
@@ -2774,7 +2878,6 @@ var IMBaseService = (function () {
     return IMBaseService;
 }());
 exports.IMBaseService = IMBaseService;
-
 },{"@angular/core":182}],30:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3118,7 +3221,6 @@ exports.IMService = IMService;
 // status
 //   :
 //   "[resp:true]"
-
 },{"./im-base.service":29,"@angular/core":182,"ionic-angular":496}],31:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3516,7 +3618,6 @@ var KefuService = (function () {
     return KefuService;
 }());
 exports.KefuService = KefuService;
-
 },{"./http.service":28,"./im-base.service":29,"@angular/core":182}],32:[function(require,module,exports){
 "use strict";
 var im_service_1 = require("./im.service");
@@ -3538,7 +3639,6 @@ exports.MY_SERVE = [
     http_service_1.HttpService,
     city_service_1.CityService
 ];
-
 },{"./city.service":27,"./http.service":28,"./im-base.service":29,"./im.service":30,"./kefu.serve":31,"./user.service":33,"./warn.service":34}],33:[function(require,module,exports){
 /**
  * Created by tianlei on 16/8/29.
@@ -3639,7 +3739,6 @@ var UserService = (function () {
     return UserService;
 }());
 exports.UserService = UserService;
-
 },{"@angular/core":182,"ionic-angular":496}],34:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3717,7 +3816,6 @@ var WarnService = (function () {
     return WarnService;
 }());
 exports.WarnService = WarnService;
-
 },{"@angular/core":182,"ionic-angular":496}],35:[function(require,module,exports){
 /**
  * @license
