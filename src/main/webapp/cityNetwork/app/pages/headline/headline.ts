@@ -1,5 +1,5 @@
 import {Component,AfterViewInit} from '@angular/core';
-import {NavController, Platform, ModalController} from 'ionic-angular';
+import {NavController, Platform, ModalController,Slides} from 'ionic-angular';
 import {LoginPage} from "../user/login";
 import {UserService} from "../../services/user.service";
 import {HttpService} from "../../services/http.service";
@@ -9,6 +9,7 @@ import {SearchUserAndArticlePage} from "./search-user-article";
 import {SendArticlePage} from "./send-article";
 import {CityChoosePage} from "./city-choose";
 import {IFramePage} from "./iframe";
+import {weChat} from "../release";
 
 const wei_xin = true;
 
@@ -33,6 +34,7 @@ export class HeadlinePage implements AfterViewInit {
     {'name': '情感', 'src': 'images/headline/headline-qg.png'},
     {'name': '吃货', 'src': 'images/headline/headline-ch.png'}
   ];
+  pageHelper
 
   public headlineData = {};
   h8: string;
@@ -112,8 +114,13 @@ export class HeadlinePage implements AfterViewInit {
   /*所有跳转事件个功能点击事件*/
   goOther(url,title){
 
-    console.log('点击功能');
-    this.navCtrl.push(IFramePage,{"url":url,"title":title});
+    if(weChat){
+      console.log('点击功能');
+      this.navCtrl.push(IFramePage,{"url":url,"title":title});
+    } else {
+
+    }
+
 
  }
 
@@ -137,7 +144,10 @@ export class HeadlinePage implements AfterViewInit {
 
       });
 
+      return "success";
+
     }).then((res) => {
+
 
     });
 
@@ -171,6 +181,7 @@ export class HeadlinePage implements AfterViewInit {
 
 
   writeArticle(){
+
     let modelCtrl = this.mCtrl.create(SendArticlePage);
     modelCtrl.present();
   }
@@ -178,8 +189,42 @@ export class HeadlinePage implements AfterViewInit {
   /*搜索用户或者帖子*/
   search(){
    this.navCtrl.push(SearchUserAndArticlePage);
-
   }
+
+  /*获取帖子数据*/
+  getArticle(){
+    let reqObj = {
+       "start":"0",
+       "limit":"10"
+    };
+    this.http.post('',reqObj).then(res => {
+
+    }).catch(error => {
+
+    });
+  }
+
+
+  doRefresh(refresher){
+
+    /*导航相关信息*/
+
+    /*刷新帖子数据*/
+    console.log('Begin async operation', refresher);
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
+
+  doLoadMore(loadMore){
+    setTimeout(() => {
+
+      loadMore.complete();
+
+    },2000);
+  }
+
 
 }
 

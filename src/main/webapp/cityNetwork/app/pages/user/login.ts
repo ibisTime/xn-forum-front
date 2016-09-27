@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
     let params = {
       loginName: userName,
       loginPwd: pwd,
-      terminalType: 1
+      terminalType: "2"
     }
 
     let loading = this.warnCtrl.loading('登录中');

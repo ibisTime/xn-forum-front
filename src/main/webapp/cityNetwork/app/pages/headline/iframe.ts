@@ -3,6 +3,7 @@
  */
 import {Component, AfterViewInit} from '@angular/core';
 import {NavParams} from "ionic-angular";
+import {WarnService} from "../../services/warn.service";
 
 
 @Component({
@@ -15,34 +16,38 @@ import {NavParams} from "ionic-angular";
   </ion-navbar>
 </ion-header>
 <ion-content>
-   <script>
-   alert("112");
-</script>
    <iframe id="testIframe" style="height: 100%; width: 100%;border:0; background-color: white;">
      <p>loading...</p>
    </iframe>
 
 </ion-content>
-
 `
 })
 export class IFramePage implements AfterViewInit{
   url = "";
   title = "";
-  constructor( private navPara: NavParams) {
+
+
+  constructor( private navPara: NavParams,
+               private warnService: WarnService) {
     // this.url = navPara.data.url;
     this.title = navPara.data.title;
     this.url = navPara.data.url;
-
   }
 
+
   ngAfterViewInit(){
+
     setTimeout(() => {
+      let load = this.warnService.loading('');
       let ele :any =  document.getElementById("testIframe");
+
+      ele.onload = () => {
+        load.dismiss();
+      };
+
       ele.src = this.url;
     },500);
-
-
 
   }
 
