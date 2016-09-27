@@ -24,6 +24,15 @@
 
 <ion-content class="headline">
 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="下拉刷新"
+      refreshingSpinner="circles"
+      refreshingText="正在加载">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-slides [style.height]="bannerHeight" [options]="mySlideOptions">
     <ion-slide *ngFor="let banner of cityS.headlineData.banner" (tap)="goOther(banner.url)">
       <!--<div class="banner-content"></div>-->
@@ -31,7 +40,6 @@
       <div class="banner-title">{{banner.title}}</div>
     </ion-slide>
   </ion-slides>
-
 
   <div class="content">
     <div class="three-func">
@@ -65,5 +73,11 @@
     </div>
   </div>
 
+  <ion-infinite-scroll (ionInfinite)="doLoadMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="加载中...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

@@ -10,6 +10,7 @@ import {NavController,Tabs,Tab} from 'ionic-angular';
 import {LoginPage} from '../user/login';
 import {IMService} from "../../services/im.service";
 import {CityService} from "../../services/city.service";
+import {weChat} from "../release";
 
 
 @Component({
@@ -68,14 +69,21 @@ export class TabsPage {
     this.tabs.select(2);
   }
 
-  goVideo(){
+  goVideo($event){
 
-    let url = this.cityS.headlineData.tabs[3].url;
-    window.open(url);
-    setTimeout(() => {
-      let tab = this.tabs.previousTab();
-      this.tabs.select(tab);
-    },50);
+    if(weChat){
+
+    } else {
+      /*app*/
+      let url = this.cityS.headlineData.tabs[3].url;
+      window.open(url);
+      setTimeout(() => {
+        let tab = this.tabs.previousTab();
+        this.tabs.select(tab);
+      },50);
+
+    }
+
 
   }
 

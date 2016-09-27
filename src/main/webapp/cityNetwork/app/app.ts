@@ -20,6 +20,8 @@ export class MyApp {
               private userServe:UserService,
               private kefu: KefuService) {
 
+
+
     this.userServe.whetherLogin().then((msg) => {
 
       if(msg != null){
@@ -41,7 +43,12 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       // Keyboard.disableScroll(true);
+
+
     });
+
+
+
   }
 }
 

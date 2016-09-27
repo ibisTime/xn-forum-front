@@ -3,9 +3,8 @@
  */
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {ViewController, Platform} from "ionic-angular";
-import {Symbol} from "rxjs";
+import {HttpService} from "../../services/http.service";
 
-// const wei_xin = true;
 @Component({
   templateUrl: 'build/pages/headline/send-article.html'
 })
@@ -27,13 +26,15 @@ export class SendArticlePage implements OnInit, AfterViewInit {
   images:Array<any> = [];
 
   constructor(private viewCtrl: ViewController,
-              private platform: Platform) {
+              private platform: Platform,
+              private http: HttpService) {
     this.height = `${(this.platform.width() - 10)/3.0}px`;
   }
 
   ngOnInit() {
 
   }
+
   ngAfterViewInit(){
 
     setTimeout(() => {
@@ -107,8 +108,19 @@ export class SendArticlePage implements OnInit, AfterViewInit {
     this.viewCtrl.dismiss();
   }
 
-
   send(){
+    let articleObj = {
+      "title": "",
+      "content": "",
+      "plateCode": "",
+      "publisher": ""
+    };
+    this.http.post("",articleObj).then(res => {
+
+    }).catch((error) => {
+
+    });
+
   }
 
 
@@ -156,7 +168,6 @@ export class SendArticlePage implements OnInit, AfterViewInit {
   editing($event){
     // console.log($event.target.style);
     let ele = document.getElementById("article-content");
-    console.log(ele.style);
 
     if($event.target.value.length > 0){
       this.isEditing = true;
