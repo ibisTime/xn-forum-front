@@ -1,12 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, Platform, Content} from 'ionic-angular';
-import {ContentPage} from '../content/content';
 
 
 @Component({
-  templateUrl: 'build/pages/forum/detail/detail.html'
+  templateUrl: 'build/pages/forum/content/content.html'
 })
-export class DetailPage {
+export class ContentPage {
 
   segment: string = "all";
   isAndroid: boolean = false;
@@ -24,16 +23,18 @@ export class DetailPage {
   showImg(ev){
       if( ev.target.nodeName.match(/^img$/i) ){
           let img = ev.target;
-          let sDiv = document.getElementById("ylImg1");
+          let sDiv = document.getElementById("ylImg2");
           sDiv.className = sDiv.className.replace(/\s*hidden\s*/, "");
-          document.getElementById("yl-img1").setAttribute("src", img.src);
+          document.getElementById("yl-img2").setAttribute("src", img.src);
       }
   }
   closeImg(){
-      let sDiv = document.getElementById("ylImg1");
+      let sDiv = document.getElementById("ylImg2");
       sDiv.className = sDiv.className + " hidden";
   }
-  openContent(){
-      this.navCtrl.push(ContentPage);
+  doFocus(e){
+      setTimeout(()=>{
+          window.scrollTo(0, 1000);
+      }, 1);
   }
 }

@@ -19,7 +19,17 @@
 </ion-header>
 
 <ion-content class="forum forum-detail">
-    <div class="clearfix">
+    <div id="ylImg1" class="mask hidden" (click)="closeImg();">
+        <div>
+            <div class="wrapper">
+                <div class="scroller" [style.line-height]="pHeight">
+                    <img id="yl-img1"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="clearfix bg_fff">
         <div class="plr10 ptb10 fl wp30"><img src="images/file_download.png"/></div>
         <div class="pl10 ptb10 fl wp70">
             <div>板块名称</div>
@@ -42,8 +52,8 @@
             </ion-item>
         </ion-list>
     </div>
-    <div class="ptb10 tc">更多</div>
-    <div>
+    <div class="ptb10 tc bg_fff">更多</div>
+    <div class="bg_fff mt20">
         <ion-segment [(ngModel)]="segment">
             <ion-segment-button value="all">
                 全部
@@ -71,7 +81,7 @@
                         </div>
                         <p class="time">1小时前</p>
                         <ion-card-content>
-                            <p>开学了转给热爱学习的你，我爱学习，学习让我快乐</p>
+                            <p (click)="openContent()">开学了转给热爱学习的你，我爱学习，学习让我快乐</p>
                             <div [style.height]="imgHeight" class="img-cont">
                                 <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
                                 <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>

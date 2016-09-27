@@ -5,9 +5,29 @@
     .item .item-inner ion-label ion-card button{
         border: none;
     }
+    .item .item-inner ion-label ion-card .content-btn{
+        border: 1px solid #e6e6e6;
+        padding: 1em;
+    }
+    ion-list{
+        margin: 0;
+    }
     .ptb10{
         padding-top: 10px;
         padding-bottom: 10px;
+    }
+    .com-btn{
+        button {
+            min-width: 0;
+        }
+        .button-icon-only ion-icon{
+            padding: 0;
+            font-size: 2rem;
+            line-height: 1;
+        }
+    }
+    scroll-content{
+        background: #f0f0f0;
     }
     .dt-list{
         margin-bottom: 0;
@@ -40,5 +60,8 @@
     }
     .tc{
         text-align: center;
+    }
+    .mt20{
+        margin-top: 20px;
     }
 }
