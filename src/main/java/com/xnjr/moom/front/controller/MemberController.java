@@ -146,6 +146,13 @@ public class MemberController extends BaseController {
         return userAO.setAvatar(getSessionUserId(userId), photo);
     }
 
+    // 上传图片
+    @RequestMapping(value = "/upload/image", method = RequestMethod.POST)
+    @ResponseBody
+    public Object uploadImg(@RequestParam(value = "photo") String photo) {
+        return userAO.uploadImg(photo);
+    }
+
     // 签到
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
     @ResponseBody

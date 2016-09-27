@@ -442,6 +442,10 @@ public class UserAOImpl implements IUserAO {
             Object.class);
     }
 
+    public Object uploadImg(String photo) {
+        return UploadUtil.uploadPicture(photo);
+    }
+
     @Override
     public Object setProfile(String userId, String gender, String birthday,
             String region, String introduce) {

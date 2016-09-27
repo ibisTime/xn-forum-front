@@ -264,6 +264,15 @@ public interface IUserAO {
     public Object setAvatar(String userId, String photo);
 
     /**
+     * 上传图片
+     * @param photo
+     * @return 
+     * @create: 2016年9月20日 下午8:16:24 wulq
+     * @history:
+     */
+    public Object uploadImg(String photo);
+
+    /**
      * 用户扩展信息修改
      * @param userId
      * @param gender
