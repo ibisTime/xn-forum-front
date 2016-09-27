@@ -21,6 +21,7 @@ public class ViewController extends BaseController {
     @ResponseBody
     public Object siteList(
             @RequestParam(value = "code", required = false) String code,
+            @RequestParam(value = "isDqNavigate", required = false) String isDqNavigate,
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "status", required = false) String status,
             @RequestParam(value = "type", required = false) String type,
@@ -29,6 +30,7 @@ public class ViewController extends BaseController {
             @RequestParam(value = "siteCode", required = false) String siteCode) {
     	XN610031Req req = new XN610031Req();
     	req.setCode(code);
+    	req.setIsDqNavigate(isDqNavigate);
     	req.setTitle(title);
     	req.setStatus(status);
     	req.setType(type);

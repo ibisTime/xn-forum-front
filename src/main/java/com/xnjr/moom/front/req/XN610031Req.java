@@ -2,6 +2,8 @@ package com.xnjr.moom.front.req;
 
 public class XN610031Req {
     private String code;
+    
+    private String isDqNavigate;
 
     private String title;
 
@@ -69,6 +71,14 @@ public class XN610031Req {
 
 	public void setSiteCode(String siteCode) {
 		this.siteCode = siteCode;
+	}
+
+	public String getIsDqNavigate() {
+		return isDqNavigate;
+	}
+
+	public void setIsDqNavigate(String isDqNavigate) {
+		this.isDqNavigate = isDqNavigate;
 	}
 
 	
