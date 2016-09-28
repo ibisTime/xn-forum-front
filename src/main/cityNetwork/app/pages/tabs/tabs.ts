@@ -45,18 +45,6 @@ export class TabsPage {
     this.imServe.login(this.userServe.userId);
 
 
-    // "".split(/\|\|/)
-
-    // this.userServe.whetherLogin().then((msg) => {
-    //
-    //   if(msg != null){
-    //     this.userServe.userName = msg;
-    //     this.kefuService.me = msg;
-    //     this.imServe.login(msg);
-    //   }
-    //
-    // });
-
   }
   goOther(index){
 

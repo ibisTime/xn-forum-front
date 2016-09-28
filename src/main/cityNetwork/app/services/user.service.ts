@@ -41,33 +41,22 @@ export class UserService {
     localStorage.set("userName", userName);
     localStorage.set("userId", userId);
 
-    // NativeStorage.setItem(USER, {
-    //   userName: `${userName}`,
-    //   userId: `${userId}`
-    // });
-
   }
 
   whetherLogin(){
-    // if((this.userName != null)&& (this.userName.length > 0)){
-    //   return true;
-    // }
 
     let value;
 
     /*webStorage only use web*/
     let localStorage = new LocalStorage(LocalStorage);
 
-    return localStorage.get("userName");
+    return localStorage.get("userId").then((res) => {
+      if(res != null){
+        this.userId = res;
+      }
+      return res;
+    });
 
-    // .then((value) => {
-    //   /**/
-    //   this.userName = value;
-    //
-    // });
-    //
-    // // let userName: any = localStorage.get("userName");
-    // return typeof(value) != "undefined";
 
   }
 
@@ -81,12 +70,7 @@ export class UserService {
       this.userId = value;
     });
     return localStorage.get("userName");
-    // return false;
-    // return NativeStorage.getItem(USER).then( () => {
-    //
-    // }).catch( () => {
-    //
-    // });
+
   }
 
   loginOut() {
