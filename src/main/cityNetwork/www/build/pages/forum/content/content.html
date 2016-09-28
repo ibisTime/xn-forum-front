@@ -38,22 +38,21 @@
                                     <button class="fl hidden">
                                         <ion-icon name="trash"></ion-icon>
                                     </button>
-                                    <button class="fl {{item.isSC == '0'?'':'hidden'}}" (click)="collect(item.code);">
+                                    <button class="sp-btn fl {{item.isSC == '0'?'':'hidden'}}" (click)="collect(item.code);">
                                         <ion-icon name="star-outline"></ion-icon>
                                     </button>
-                                    <button class="fl {{item.isSC == '0'?'hidden':''}}" (click)="collect(item.code, true);">
+                                    <button class="sp-btn fl {{item.isSC == '0'?'hidden':''}}" (click)="collect(item.code, true);">
                                         <ion-icon name="star" style="color:#f64444"></ion-icon>
                                     </button>
                                     <button class="fr">
-                                        <i class="icon iconfont">&#xe610;</i><span>{{item.totalCommNum}}</span>
+                                        <i class="icon iconfont">&#xe610;</i>
                                     </button>
-                                    <button class="fr {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code)">
-                                        <!--<i class="icon iconfont">&#xe624;</i>-->
-                                        <ion-icon name="thumbs-up"></ion-icon><span class="praise-total">{{item.totalDzNum}}</span>
+                                    <button class="sp-btn fr {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code)">
+                                        <i class="icon iconfont">&#xe624;</i>
                                     </button>
-                                    <button class="fr {{item.isDZ == '0'?'hidden':''}}" (click)="praise(item.code, true)">
-                                        <!--<i class="icon iconfont">&#xe624;</i>-->
-                                        <ion-icon name="thumbs-up" style="color:#f64444"></ion-icon><span class="praise-total">{{item.totalDzNum}}</span>
+                                    <button class="sp-btn fr {{item.isDZ == '0'?'hidden':''}}" (click)="praise(item.code, true)">
+                                        <!--<i class="icon iconfont">&#xe624;</i><span class="praise-total">{{item.totalDzNum}}</span>-->
+                                        <ion-icon name="thumbs-up" style="color:#f64444"></ion-icon>
                                     </button>
                                 </ion-buttons>
                             </div>
@@ -83,10 +82,10 @@
     </div>
     <ion-segment [(ngModel)]="segment">
       <ion-segment-button value="pjia">
-        评价
+        评价{{item.totalCommNum}}
       </ion-segment-button>
       <ion-segment-button value="dzan">
-        点赞
+        点赞{{item.totalDzNum}}
       </ion-segment-button>
     </ion-segment>
     <div [ngSwitch]="segment" class="com-btn1">
@@ -101,13 +100,11 @@
         </div>
         <div *ngSwitchCase="'dzan'">
             <div class="com-top clearfix">
-                <button class="fl">
-                    <i class="icon iconfont">&#xe624;</i>
-                    <span>{{item.totalDzNum}}</span>
-                </button>
-                <div class="t-3dot">
-                    <span *ngFor="let g of item.postTalkList">{{g.nickname}}</span>
-                </div>
+                <ion-list>
+                    <ion-item *ngFor="let g of item.postTalkList">
+                        <span class="t-3dot">{{g.nickname}}</span>
+                    </ion-item>
+                </ion-list>
             </div>
         </div>
     </div>

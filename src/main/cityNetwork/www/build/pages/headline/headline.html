@@ -60,24 +60,23 @@
     </div>
 
     <div class="article">
-      <div class="article-row">
-        <div class="left-img"></div>
+      <div class="article-row" *ngFor="let article of articles" (tap)="browserArticle(article.code)">
+        <img class="left-img" src={{article.pic[0]}}>
         <div>
-          <div class="article-title">网曝某学校中学生竟吃路边摊,孩子的健康谁来管？</div>
-          <div class="article-date">2016-05-12</div>
-          <div class="focuse-count">1200</div>
+          <div class="article-title">{{article.content}}</div>
+          <div class="article-date">{{article.publishDatetime}}</div>
+          <div class="focuse-count">{{article.totalCommNum}}</div>
         </div>
       </div>
-      <div class="article-row">
-      </div>
     </div>
+
   </div>
 
-  <ion-infinite-scroll (ionInfinite)="doLoadMore($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="加载中...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  <!--<ion-infinite-scroll (ionInfinite)="doLoadMore($event)">-->
+    <!--<ion-infinite-scroll-content-->
+      <!--loadingSpinner="bubbles"-->
+      <!--loadingText="加载中...">-->
+    <!--</ion-infinite-scroll-content>-->
+  <!--</ion-infinite-scroll>-->
 
 </ion-content>

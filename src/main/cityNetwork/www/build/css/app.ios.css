@@ -9474,14 +9474,15 @@ body {
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex; }
+        .headline .content .article .article-row:active {
+          opacity: .5; }
         .headline .content .article .article-row .left-img {
           margin-right: 10px;
           height: 100%;
           -webkit-box-flex: 0;
           -webkit-flex: 0 0 110px;
           -ms-flex: 0 0 110px;
-          flex: 0 0 110px;
-          background: url("https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D200/sign=16fda4b766d0f703f9b292dc38fb5148/b3119313b07eca80f9d6cb47952397dda04483bb.jpg") center; }
+          flex: 0 0 110px; }
         .headline .content .article .article-row div {
           position: relative;
           padding: 3px 0 5px 0;
@@ -10444,10 +10445,28 @@ body, pre {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap; }
+  .forum .com-btn1 button {
+    border-color: transparent;
+    background-color: transparent;
+    font-size: 1.2rem;
+    height: 2rem;
+    color: #464646;
+    background: #fff;
+    margin: 10px 0 0;
+    padding: 0; }
+  .forum .com-btn1 .u-msg {
+    white-space: normal; }
+  .forum .com-btn1 ion-item {
+    font-size: 1.4rem;
+    border-bottom: 1px solid #e6e6e6; }
   .forum .item {
     padding-left: 0;
     background-color: #fff; }
     .forum .item .iconfont {
+      font-size: 1.6rem; }
+    .forum .item .sp-btn {
+      margin: 0.4rem 0.2rem;
+      border-radius: 4px;
       font-size: 1.6rem; }
     .forum .item .item-inner {
       padding-right: 0;
@@ -10473,6 +10492,8 @@ body, pre {
               display: inline-block; }
             .forum .item .item-inner ion-label ion-card ion-card-content .img-cont {
               margin-top: 8px; }
+          .forum .item .item-inner ion-label ion-card .com-btn {
+            margin-top: 20px; }
           .forum .item .item-inner ion-label ion-card .com-btn button.activated {
             opacity: 0.4; }
           .forum .item .item-inner ion-label ion-card ion-avatar {
@@ -10497,7 +10518,6 @@ body, pre {
             background: #EEEEEE;
             border-radius: 4px; }
             .forum .item .item-inner ion-label ion-card .comment .com-top {
-              border-bottom: 1px solid #fff;
               color: #7E0100; }
               .forum .item .item-inner ion-label ion-card .comment .com-top .t-3dot {
                 font-size: 1.2rem;
@@ -10510,7 +10530,8 @@ body, pre {
                 font-size: 1.2rem; }
             .forum .item .item-inner ion-label ion-card .comment .com-bottom {
               font-size: 1.2rem;
-              padding: 6px 0px; }
+              padding: 6px 0px;
+              border-top: 1px solid #fff; }
               .forum .item .item-inner ion-label ion-card .comment .com-bottom .u-name {
                 color: #7D0000; }
               .forum .item .item-inner ion-label ion-card .comment .com-bottom .item {
@@ -10799,9 +10820,6 @@ ul, li {
 .forum-detail .item .item-inner ion-label ion-card .item {
   border-bottom: 0px; }
 
-.forum-detail .item .item-inner ion-label ion-card button {
-  border: none; }
-
 .forum-detail .item .item-inner ion-label ion-card .content-btn {
   border: 1px solid #e6e6e6;
   padding: 1em; }
@@ -10813,8 +10831,12 @@ ul, li {
   padding-top: 10px;
   padding-bottom: 10px; }
 
+.forum-detail .com-btn ion-buttons {
+  margin: 0; }
+
 .forum-detail .com-btn button {
-  min-width: 0; }
+  min-width: 0;
+  margin-left: 0; }
 
 .forum-detail .com-btn .button-icon-only ion-icon {
   padding: 0;

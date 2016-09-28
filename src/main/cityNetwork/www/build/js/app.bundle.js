@@ -25,14 +25,14 @@ var MyApp = (function () {
         this.kefu = kefu;
         this.userServe.whetherLogin().then(function (msg) {
             if (msg != null) {
-                _this.userServe.userName = msg;
+                // this.userServe.userName = msg;
                 _this.rootPage = tabs_1.TabsPage;
             }
             else {
                 _this.rootPage = login_1.LoginPage;
             }
         });
-        this.rootPage = tabs_1.TabsPage;
+        // this.rootPage = TabsPage;
         platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
@@ -58,6 +58,7 @@ ionic_angular_1.ionicBootstrap(MyApp, services_1.MY_SERVE, {
     console.log('app-出现错误');
     console.log(error);
 });
+
 },{"./pages/tabs/tabs":22,"./pages/user/login":24,"./services/kefu.serve":31,"./services/services":32,"./services/user.service":33,"@angular/core":182,"ionic-angular":496,"ionic-native":523}],2:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -114,6 +115,7 @@ var CaptchaComponent = (function () {
     return CaptchaComponent;
 }());
 exports.CaptchaComponent = CaptchaComponent;
+
 },{"@angular/core":182}],3:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -204,6 +206,7 @@ var ChatViewComponent = (function () {
     return ChatViewComponent;
 }());
 exports.ChatViewComponent = ChatViewComponent;
+
 },{"@angular/core":182}],4:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -219,21 +222,42 @@ var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
 var http_service_1 = require("../../../services/http.service");
 var warn_service_1 = require("../../../services/warn.service");
+var user_service_1 = require("../../../services/user.service");
 var ContentPage = (function () {
-    function ContentPage(navPara, navCtrl, platform, warnCtrl, http) {
+    function ContentPage(navPara, navCtrl, platform, warnCtrl, uService, http) {
+        var _this = this;
         this.navPara = navPara;
         this.navCtrl = navCtrl;
         this.platform = platform;
         this.warnCtrl = warnCtrl;
+        this.uService = uService;
         this.http = http;
-        this.segment = "all";
         this.isAndroid = false;
-        this.item = { totalDzNum: "" };
+        this.item = { totalDzNum: "", code: "", commentList: [], publisher: "", isSC: "", isDZ: "" };
+        this.followFlag = false;
+        this.segment = "pjia";
+        this.followCount = 0;
+        this.collectCount = 0; //点击收藏次数
+        this.praiseCount = 0; //点击点赞次数
         this.isAndroid = platform.is('android');
         this.imgHeight = ((this.platform.width() - 16 - 50 - 16 - 16) / 3 - 1) + "px";
         this.pHeight = this.platform.height() + "px";
         this.code = navPara.data.code;
         this.getPostDetail();
+        if (!uService.followUsers.length) {
+            uService.queryFollowUsers().then(function () {
+                if (_this.item.publisher) {
+                    var fUs = _this.uService.followUsers;
+                    for (var _i = 0, fUs_1 = fUs; _i < fUs_1.length; _i++) {
+                        var f = fUs_1[_i];
+                        if (_this.item.publisher == f.userId) {
+                            _this.followFlag = true;
+                            break;
+                        }
+                    }
+                }
+            });
+        }
     }
     ContentPage.prototype.jsDateDiff = function (publishTime) {
         var d_minutes, d_hours, d_days;
@@ -258,28 +282,157 @@ var ContentPage = (function () {
             return (s.getMonth() + 1) + "月" + s.getDate() + "日";
         }
     };
-    ContentPage.prototype.follow = function () {
-    };
-    ContentPage.prototype.praise = function (code, index) {
+    //关注
+    ContentPage.prototype.follow = function (publisher) {
         var _this = this;
-        var loading = this.warnCtrl.loading('点赞中');
-        this.http.post('/post/praise', {
-            "type": "1",
-            "postCode": code
-        })
+        if (!this.followCount) {
+            this.followCount = 1;
+            this.http.post('/rs/follow', {
+                "toUser": publisher
+            })
+                .then(function (res) {
+                _this.followCount = 0;
+                if (res.success) {
+                    _this.followFlag = true;
+                }
+                else if (res.timeout) {
+                    _this.warnCtrl.toast("登录超时，请重新登录!");
+                    _this.followFlag = false;
+                }
+                else {
+                    _this.warnCtrl.toast("关注失败，请稍后重试!");
+                    _this.followFlag = false;
+                }
+            }).catch(function (error) {
+                _this.followCount = 0;
+                _this.warnCtrl.toast("关注失败，请稍后重试!");
+                _this.followFlag = false;
+            });
+        }
+    };
+    //取消关注
+    ContentPage.prototype.unfollow = function (publisher) {
+        var _this = this;
+        if (!this.followCount) {
+            this.followCount = 1;
+            this.http.post('/rs/unfollow', {
+                "toUser": publisher
+            })
+                .then(function (res) {
+                _this.followCount = 0;
+                if (res.success) {
+                    _this.followFlag = true;
+                }
+                else if (res.timeout) {
+                    _this.warnCtrl.toast("登录超时，请重新登录!");
+                    _this.followFlag = false;
+                }
+                else {
+                    _this.warnCtrl.toast("取消关注失败，请稍后重试!");
+                    _this.followFlag = false;
+                }
+            }).catch(function (error) {
+                _this.followCount = 0;
+                _this.warnCtrl.toast("取消关注失败，请稍后重试!");
+                _this.followFlag = false;
+            });
+        }
+    };
+    //收藏
+    ContentPage.prototype.collect = function (code, flag) {
+        var _this = this;
+        if (!this.collectCount) {
+            this.collectCount = 1;
+            this.http.post('/post/praise', {
+                "type": "2",
+                "postCode": code
+            })
+                .then(function (res) {
+                _this.collectCount = 0;
+                if (res.success) {
+                    //this.item.totalDzNum = (+this.item.totalDzNum + 1) + "";
+                    _this.item.isSC = "1";
+                }
+                else if (res.timeout) {
+                    _this.warnCtrl.toast("登录超时，请重新登录!");
+                }
+                else {
+                    if (!flag) {
+                        _this.warnCtrl.toast("收藏失败，请稍后重试!");
+                    }
+                    else {
+                        _this.warnCtrl.toast("取消收藏失败，请稍后重试!");
+                    }
+                }
+            }).catch(function (error) {
+                _this.collectCount = 0;
+                if (!flag) {
+                    _this.warnCtrl.toast("收藏失败，请稍后重试!");
+                }
+                else {
+                    _this.warnCtrl.toast("取消收藏失败，请稍后重试!");
+                }
+            });
+        }
+    };
+    //点赞
+    ContentPage.prototype.praise = function (code, flag) {
+        var _this = this;
+        if (!this.praiseCount) {
+            this.praiseCount = 1;
+            this.http.post('/post/praise', {
+                "type": "1",
+                "postCode": code
+            })
+                .then(function (res) {
+                _this.praiseCount = 0;
+                if (res.success) {
+                    _this.item.totalDzNum = (+_this.item.totalDzNum + 1) + "";
+                    _this.item.isDZ = "1";
+                }
+                else if (res.timeout) {
+                    _this.warnCtrl.toast("登录超时，请重新登录!");
+                }
+                else {
+                    if (flag) {
+                        _this.warnCtrl.toast("取消点赞失败，请稍后重试!");
+                    }
+                    else {
+                        _this.warnCtrl.toast("点赞失败，请稍后重试!");
+                    }
+                }
+            }).catch(function (error) {
+                _this.praiseCount = 0;
+                if (flag) {
+                    _this.warnCtrl.toast("取消点赞失败，请稍后重试!");
+                }
+                else {
+                    _this.warnCtrl.toast("点赞失败，请稍后重试!");
+                }
+            });
+        }
+    };
+    ContentPage.prototype.sendMsg1 = function (msg) {
+        var _this = this;
+        var mObj = {
+            parentCode: this.item.code,
+            content: msg
+        };
+        this.http.post('/post/comment', mObj)
             .then(function (res) {
-            loading.dismiss();
             if (res.success) {
-                _this.item.totalDzNum = (+_this.item.totalDzNum + 1) + "";
+                _this.item.commentList.push({
+                    nickname: "自己",
+                    content: msg
+                });
             }
             else {
-                _this.warnCtrl.toast("点赞失败，请稍后重试!");
+                _this.warnCtrl.toast("评论失败，请稍后重试!");
             }
         }).catch(function (error) {
-            loading.dismiss();
+            _this.warnCtrl.toast("评论失败，请稍后重试!");
         });
     };
-    ContentPage.prototype.sendMsg = function () { };
     ContentPage.prototype.getPostDetail = function () {
         var _this = this;
         this.http.get('/post/get', {
@@ -291,6 +444,19 @@ var ContentPage = (function () {
                 data.pic = data.pic.split(/\|\|/);
                 data.publishDatetime = _this.jsDateDiff(new Date(data.publishDatetime).getTime());
                 _this.item = data;
+                if (_this.uService.followUsers) {
+                    var fUs = _this.uService.followUsers;
+                    for (var _i = 0, fUs_2 = fUs; _i < fUs_2.length; _i++) {
+                        var f = fUs_2[_i];
+                        if (_this.item.publisher == f.userId) {
+                            _this.followFlag = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            else {
+                _this.warnCtrl.toast("帖子详情获取失败，请稍后重试!");
             }
         }).catch(function (error) {
         });
@@ -307,12 +473,13 @@ var ContentPage = (function () {
         var sDiv = document.getElementById("ylImg2");
         sDiv.className = sDiv.className + " hidden";
     };
-    ContentPage.prototype.doFocus = function (e) {
+    ContentPage.prototype.doFocus1 = function (e) {
         setTimeout(function () {
             window.scrollTo(0, 1000);
         }, 1);
     };
     __decorate([
+        //点击点赞次数
         core_1.ViewChild(ionic_angular_1.Content), 
         __metadata('design:type', ionic_angular_1.Content)
     ], ContentPage.prototype, "content", void 0);
@@ -320,12 +487,13 @@ var ContentPage = (function () {
         core_1.Component({
             templateUrl: 'build/pages/forum/content/content.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavParams, ionic_angular_1.NavController, ionic_angular_1.Platform, warn_service_1.WarnService, http_service_1.HttpService])
+        __metadata('design:paramtypes', [ionic_angular_1.NavParams, ionic_angular_1.NavController, ionic_angular_1.Platform, warn_service_1.WarnService, user_service_1.UserService, http_service_1.HttpService])
     ], ContentPage);
     return ContentPage;
 }());
 exports.ContentPage = ContentPage;
-},{"../../../services/http.service":28,"../../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],5:[function(require,module,exports){
+
+},{"../../../services/http.service":28,"../../../services/user.service":33,"../../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -377,6 +545,7 @@ var DetailPage = (function () {
     return DetailPage;
 }());
 exports.DetailPage = DetailPage;
+
 },{"../content/content":4,"@angular/core":182,"ionic-angular":496}],6:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -393,12 +562,16 @@ var ionic_angular_1 = require('ionic-angular');
 var detail_1 = require("./detail/detail");
 var http_service_1 = require("../../services/http.service");
 var warn_service_1 = require("../../services/warn.service");
+var user_service_1 = require("../../services/user.service");
 var content_1 = require("./content/content");
+var login_1 = require("../user/login");
 var ForumPage = (function () {
-    function ForumPage(navCtrl, platform, warnCtrl, http) {
+    function ForumPage(navCtrl, platform, warnCtrl, uService, mCtrl, http) {
         this.navCtrl = navCtrl;
         this.platform = platform;
         this.warnCtrl = warnCtrl;
+        this.uService = uService;
+        this.mCtrl = mCtrl;
         this.http = http;
         this.segment = "yliao";
         this.isAndroid = false;
@@ -410,6 +583,10 @@ var ForumPage = (function () {
         this.limit = 10;
         this.queryPostPage();
     }
+    ForumPage.prototype.showLogin = function () {
+        var modelCtrl = this.mCtrl.create(login_1.LoginPage);
+        modelCtrl.present();
+    };
     ForumPage.prototype.jsDateDiff = function (publishTime) {
         var d_minutes, d_hours, d_days;
         var timeNow = new Date().getTime() / 1000;
@@ -447,8 +624,12 @@ var ForumPage = (function () {
                     _this.items = [];
                 }
                 for (i = 0; i < list.length; i++) {
-                    list[i].pic = list[i].pic.split(/\|\|/);
+                    if (list[i].pic) {
+                        list[i].pic = list[i].pic.split(/\|\|/);
+                    }
                     list[i].publishDatetime = _this.jsDateDiff(new Date(list[i].publishDatetime).getTime());
+                    list[i].collectCount = 0; //点击收藏次数
+                    list[i].praiseCount = 0; //点击点赞次数
                     _this.items.push(list[i]);
                 }
                 event && event.complete();
@@ -460,24 +641,83 @@ var ForumPage = (function () {
             event && event.complete();
         });
     };
-    ForumPage.prototype.praise = function (code, index) {
+    //收藏
+    ForumPage.prototype.collect = function (code, index, flag) {
         var _this = this;
-        var loading = this.warnCtrl.loading('点赞中');
-        this.http.post('/post/praise', {
-            "type": "1",
-            "postCode": code
-        })
-            .then(function (res) {
-            loading.dismiss();
-            if (res.success) {
-                _this.items[index].totalDzNum = +_this.items[index].totalDzNum + 1;
-            }
-            else {
-                _this.warnCtrl.toast("点赞失败，请稍后重试!");
-            }
-        }).catch(function (error) {
-            loading.dismiss();
-        });
+        if (!this.items[index].collectCount) {
+            this.items[index].collectCount = 1;
+            this.http.post('/post/praise', {
+                "type": "2",
+                "postCode": code
+            }).then(function (res) {
+                _this.items[index].collectCount = 0;
+                if (res.success) {
+                    _this.items[index].isSC = "1";
+                }
+                else if (res.timeout) {
+                    _this.warnCtrl.toast("登录超时，请重新登录!");
+                }
+                else {
+                    if (!flag) {
+                        _this.warnCtrl.toast("收藏失败，请稍后重试!");
+                    }
+                    else {
+                        _this.warnCtrl.toast("取消收藏失败，请稍后重试!");
+                    }
+                }
+            }).catch(function (error) {
+                _this.items[index].collectCount = 0;
+                if (!flag) {
+                    _this.warnCtrl.toast("收藏失败，请稍后重试!");
+                }
+                else {
+                    _this.warnCtrl.toast("取消收藏失败，请稍后重试!");
+                }
+            });
+        }
+        else {
+            this.warnCtrl.toast("请勿重复点击!");
+        }
+    };
+    //点赞
+    ForumPage.prototype.praise = function (code, index, flag) {
+        var _this = this;
+        if (!this.items[index].praiseCount) {
+            this.items[index].praiseCount = 1;
+            this.http.post('/post/praise', {
+                "type": "1",
+                "postCode": code
+            })
+                .then(function (res) {
+                _this.items[index].praiseCount = 0;
+                if (res.success) {
+                    _this.items[index].totalDzNum = +_this.items[index].totalDzNum + 1;
+                    _this.items[index].isDZ = "1";
+                }
+                else if (res.timeout) {
+                    _this.warnCtrl.toast("登录超时，请重新登录!");
+                }
+                else {
+                    if (flag) {
+                        _this.warnCtrl.toast("取消点赞失败，请稍后重试!");
+                    }
+                    else {
+                        _this.warnCtrl.toast("点赞失败，请稍后重试!");
+                    }
+                }
+            }).catch(function (error) {
+                _this.items[index].praiseCount = 0;
+                if (flag) {
+                    _this.warnCtrl.toast("取消点赞失败，请稍后重试!");
+                }
+                else {
+                    _this.warnCtrl.toast("点赞失败，请稍后重试!");
+                }
+            });
+        }
+        else {
+            this.warnCtrl.toast("请勿重复点击!");
+        }
     };
     ForumPage.prototype.doRefresh = function (event) {
         this.start = 1;
@@ -513,12 +753,13 @@ var ForumPage = (function () {
         core_1.Component({
             templateUrl: 'build/pages/forum/forum.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.Platform, warn_service_1.WarnService, http_service_1.HttpService])
+        __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.Platform, warn_service_1.WarnService, user_service_1.UserService, ionic_angular_1.ModalController, http_service_1.HttpService])
     ], ForumPage);
     return ForumPage;
 }());
 exports.ForumPage = ForumPage;
-},{"../../services/http.service":28,"../../services/warn.service":34,"./content/content":4,"./detail/detail":5,"@angular/core":182,"ionic-angular":496}],7:[function(require,module,exports){
+
+},{"../../services/http.service":28,"../../services/user.service":33,"../../services/warn.service":34,"../user/login":24,"./content/content":4,"./detail/detail":5,"@angular/core":182,"ionic-angular":496}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -646,11 +887,11 @@ var SendArticlePage = (function () {
                             len_1++;
                             if (len_1 == imgCount_1) {
                                 /*拼接图片URL字符串*/
-                                var picStr = "";
-                                // pics.forEach((value,index,array) => {
-                                //   picStr += index == 0? value : ("||" + value);
-                                // });
-                                resolve(picStr);
+                                var picStr_1 = "";
+                                pics_1.forEach(function (value, index, array) {
+                                    picStr_1 += index == 0 ? value : ("||" + value);
+                                });
+                                resolve(picStr_1);
                             }
                         }
                         else {
@@ -685,7 +926,12 @@ var SendArticlePage = (function () {
                 "plateCode": this.topicCode,
                 "publisher": this.user.userId
             };
-            return this.http.post("/post/publish", articleObj);
+            this.http.post("/post/publish", articleObj).then(function (res) {
+                _this.warn.toast('发帖成功');
+                _this.viewCtrl.dismiss();
+            }).catch(function (error) {
+                _this.warn.toast('发帖失败');
+            });
         }
     };
     /*选择话题*/
@@ -754,7 +1000,7 @@ var SendArticlePage = (function () {
             }
             return value.id == img.id;
         });
-        this.uploadImages.slice(upLoadIndex);
+        this.uploadImages.slice(upLoadIndex, 1);
     };
     SendArticlePage.prototype.editing = function ($event) {
         // console.log($event.target.style);
@@ -775,6 +1021,7 @@ var SendArticlePage = (function () {
     return SendArticlePage;
 }());
 exports.SendArticlePage = SendArticlePage;
+
 },{"../../services/city.service":27,"../../services/http.service":28,"../../services/user.service":33,"../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -830,6 +1077,7 @@ var CityChoosePage = (function () {
     return CityChoosePage;
 }());
 exports.CityChoosePage = CityChoosePage;
+
 },{"../../services/city.service":27,"../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],9:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -852,6 +1100,7 @@ var send_article_1 = require("../forum/send-article");
 var city_choose_1 = require("./city-choose");
 var iframe_1 = require("./iframe");
 var release_1 = require("../release");
+var content_1 = require("../forum/content/content");
 var wei_xin = true;
 var HeadlinePage = (function () {
     function HeadlinePage(navCtrl, platform, userService, mCtrl, http, warn, cityS) {
@@ -864,6 +1113,7 @@ var HeadlinePage = (function () {
         this.warn = warn;
         this.cityS = cityS;
         this.cityName = "未知地点";
+        this.articles = [];
         this.func3 = ['images/headline/headline-mall.png',
             'images/headline/headline-sign.png',
             'images/headline/headline-activity.png'];
@@ -904,16 +1154,24 @@ var HeadlinePage = (function () {
                 console.log(position);
                 /*同意加载站点*/
                 _this.cityS.getNavigateByPosition(position.x, position.y).then(function (res) {
-                    loadNav.dismiss();
+                    loadNav.dismiss().then(function () {
+                        _this.getArticle();
+                    });
                 }).catch(function (error) {
-                    loadNav.dismiss();
+                    loadNav.dismiss().then(function (res) {
+                        _this.warn.toast('加载站点失败');
+                    });
                 });
             }, function (error) {
                 /*不同意获取默认站点*/
                 _this.cityS.getNavigateByPosition(0, 0).then(function (res) {
-                    loadNav.dismiss();
+                    loadNav.dismiss().then(function () {
+                        _this.getArticle();
+                    });
                 }).catch(function (error) {
-                    loadNav.dismiss();
+                    loadNav.dismiss().then(function (res) {
+                        _this.warn.toast('加载站点失败');
+                    });
                 });
             }, { timeout: 5000 });
         }, 500);
@@ -978,28 +1236,33 @@ var HeadlinePage = (function () {
     };
     /*获取帖子数据*/
     HeadlinePage.prototype.getArticle = function () {
+        var _this = this;
         var reqObj = {
             "start": "0",
-            "limit": "10",
-            "isHeadline": "1"
+            "limit": "10"
         };
-        this.http.post('', reqObj).then(function (res) {
-        }).catch(function (error) {
+        return this.http.get('/post/page', reqObj).then(function (res) {
+            var list = res.data.list;
+            for (var i = 0; i < list.length; i++) {
+                list[i].pic = list[i].pic.split(/\|\|/);
+            }
+            _this.articles = list;
         });
     };
     HeadlinePage.prototype.doRefresh = function (refresher) {
         /*导航相关信息*/
-        /*刷新帖子数据*/
-        console.log('Begin async operation', refresher);
-        setTimeout(function () {
-            console.log('Async operation has ended');
+        this.getArticle().then(function (res) {
             refresher.complete();
-        }, 2000);
+        }).catch(function (error) {
+        });
     };
     HeadlinePage.prototype.doLoadMore = function (loadMore) {
         setTimeout(function () {
             loadMore.complete();
         }, 2000);
+    };
+    HeadlinePage.prototype.browserArticle = function (code) {
+        this.navCtrl.push(content_1.ContentPage, { "code": code });
     };
     HeadlinePage = __decorate([
         core_1.Component({
@@ -1010,7 +1273,8 @@ var HeadlinePage = (function () {
     return HeadlinePage;
 }());
 exports.HeadlinePage = HeadlinePage;
-},{"../../services/city.service":27,"../../services/http.service":28,"../../services/user.service":33,"../../services/warn.service":34,"../forum/send-article":7,"../release":21,"./city-choose":8,"./iframe":10,"./search-user-article":11,"@angular/core":182,"ionic-angular":496}],10:[function(require,module,exports){
+
+},{"../../services/city.service":27,"../../services/http.service":28,"../../services/user.service":33,"../../services/warn.service":34,"../forum/content/content":4,"../forum/send-article":7,"../release":21,"./city-choose":8,"./iframe":10,"./search-user-article":11,"@angular/core":182,"ionic-angular":496}],10:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1057,6 +1321,7 @@ var IFramePage = (function () {
     return IFramePage;
 }());
 exports.IFramePage = IFramePage;
+
 },{"../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],11:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1106,6 +1371,7 @@ var SearchUserAndArticlePage = (function () {
     return SearchUserAndArticlePage;
 }());
 exports.SearchUserAndArticlePage = SearchUserAndArticlePage;
+
 },{"@angular/core":182,"ionic-angular":496}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1245,6 +1511,7 @@ var KefuPage = (function () {
     return KefuPage;
 }());
 exports.KefuPage = KefuPage; //类的结尾
+
 },{"../../components/chat-view/chat.component":3,"../../services/city.service":27,"../../services/http.service":28,"../../services/kefu.serve":31,"../../services/user.service":33,"../headline/iframe":10,"./satisfaction":13,"@angular/core":182,"ionic-angular":496}],13:[function(require,module,exports){
 "use strict";
 var Satisfaction = (function () {
@@ -1328,6 +1595,7 @@ var Satisfaction = (function () {
     return Satisfaction;
 }());
 exports.Satisfaction = Satisfaction;
+
 },{}],14:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1390,6 +1658,7 @@ var DetailPage = (function () {
     return DetailPage;
 }());
 exports.DetailPage = DetailPage;
+
 },{"../../../services/http.service":28,"../../../services/im.service":30,"../../../services/user.service":33,"../../../services/warn.service":34,"../../user/login":24,"./editDetail":15,"@angular/core":182,"ionic-angular":496}],15:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1524,6 +1793,7 @@ var EditDetailPage = (function () {
     return EditDetailPage;
 }());
 exports.EditDetailPage = EditDetailPage;
+
 },{"../../../services/http.service":28,"../../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],16:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1638,6 +1908,7 @@ var AddFriendPage = (function () {
     return AddFriendPage;
 }());
 exports.AddFriendPage = AddFriendPage;
+
 },{"../../../services/im.service":30,"../../../services/warn.service":34,"../im/chat-room":18,"@angular/core":182,"ionic-angular":496}],17:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1703,6 +1974,7 @@ var FriendPage = (function () {
     return FriendPage;
 }());
 exports.FriendPage = FriendPage;
+
 },{"../../../services/im.service":30,"../../../services/warn.service":34,"../im/chat-room":18,"./addFriend":16,"@angular/core":182,"ionic-angular":496}],18:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1828,6 +2100,7 @@ var ChatRoomPage = (function () {
     return ChatRoomPage;
 }());
 exports.ChatRoomPage = ChatRoomPage; //类的结尾
+
 },{"../../../components/chat-view/chat.component":3,"../../../services/im.service":30,"@angular/core":182,"ionic-angular":496,"ionic-native":523}],19:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1892,6 +2165,7 @@ var ImPage = (function () {
     return ImPage;
 }());
 exports.ImPage = ImPage;
+
 },{"../../../services/im.service":30,"../../../services/user.service":33,"../../../services/warn.service":34,"../friend/friend":17,"./chat-room":18,"@angular/core":182,"ionic-angular":496}],20:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1970,12 +2244,14 @@ var MinePage = (function () {
     return MinePage;
 }());
 exports.MinePage = MinePage;
+
 },{"../../services/http.service":28,"../../services/im.service":30,"../../services/user.service":33,"../../services/warn.service":34,"../user/login":24,"./detail/detail":14,"./im/im":19,"@angular/core":182,"ionic-angular":496}],21:[function(require,module,exports){
 /**
  * Created by tianlei on 16/9/26.
  */
 "use strict";
 exports.weChat = true;
+
 },{}],22:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2013,8 +2289,9 @@ var TabsPage = (function () {
         this.tab3Root = kefu_1.KefuPage;
         this.tab4Root = video_1.VideoPage;
         this.tab5Root = mine_1.MinePage;
-        this.kefuService.me = this.userServe.userName;
-        this.imServe.login(this.userServe.userName);
+        this.kefuService.me = this.userServe.userId;
+        this.imServe.login(this.userServe.userId);
+        // "".split(/\|\|/)
         // this.userServe.whetherLogin().then((msg) => {
         //
         //   if(msg != null){
@@ -2063,6 +2340,7 @@ var TabsPage = (function () {
     return TabsPage;
 }());
 exports.TabsPage = TabsPage;
+
 },{"../../services/city.service":27,"../../services/im.service":30,"../../services/kefu.serve":31,"../../services/user.service":33,"../forum/forum":6,"../headline/headline":9,"../kefu/kefu":12,"../mine/mine":20,"../release":21,"../video/video":26,"@angular/core":182,"ionic-angular":496}],23:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2209,6 +2487,7 @@ var ForgetPwdPage = (function () {
     return ForgetPwdPage;
 }());
 exports.ForgetPwdPage = ForgetPwdPage;
+
 },{"../../components/captcha-view/captcha.component":2,"../../services/http.service":28,"../../services/im.service":30,"../../services/user.service":33,"../../services/warn.service":34,"../tabs/tabs":22,"@angular/core":182,"ionic-angular":496}],24:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2285,6 +2564,7 @@ var LoginPage = (function () {
     return LoginPage;
 }());
 exports.LoginPage = LoginPage;
+
 },{"../../services/http.service":28,"../../services/user.service":33,"../../services/warn.service":34,"../tabs/tabs":22,"./forgetPwd":23,"./register":25,"@angular/core":182,"ionic-angular":496}],25:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2373,20 +2653,16 @@ var RegisterPage = (function () {
         var loading = this.warnCtrl.loading('');
         /*注册*/
         this.http.post("/user/reg", params).then(function (res) {
-            console.log(res);
             _this.warnCtrl.toast('注册成功');
-            //帮助用户注册环信
-            _this.imServe.register(userName, "").then(function () {
+            var userId = res.data.userId;
+            // let tokenId = res.data
+            /*通过userId注册环信*/
+            _this.imServe.register(userId, "").then(function () {
                 loading.dismiss();
                 _this.warnCtrl.toast('注册IM成功');
                 //保存用户信息
-                _this.user.saveUserInfo(userName, userName);
+                _this.user.saveUserInfo(userName, userId);
                 _this.navCtrl.push(tabs_1.TabsPage);
-                // //登录环信
-                // this.imServe.login(userName);
-                // //客服,赋值
-                // this.kefu.me = userName;
-                // this.navCtrl.parent.parent.push(TabsPage);
             }).catch(function (error) {
                 _this.warnCtrl.toast('注册IM失败');
                 loading.dismiss();
@@ -2413,6 +2689,7 @@ var RegisterPage = (function () {
     return RegisterPage;
 }());
 exports.RegisterPage = RegisterPage;
+
 },{"../../components/captcha-view/captcha.component":2,"../../services/http.service":28,"../../services/im.service":30,"../../services/kefu.serve":31,"../../services/user.service":33,"../../services/warn.service":34,"../tabs/tabs":22,"@angular/core":182,"ionic-angular":496}],26:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2455,6 +2732,7 @@ var VideoPage = (function () {
     return VideoPage;
 }());
 exports.VideoPage = VideoPage;
+
 },{"../../services/city.service":27,"../../services/warn.service":34,"@angular/core":182,"ionic-angular":496}],27:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2475,6 +2753,7 @@ var CityService = (function () {
     function CityService(http) {
         this.http = http;
         this.citys = [];
+        this.recommendSite = [];
         this.searchCitys = [];
         this.baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
         this.baidu = 'http://api.map.baidu.com/location/ip';
@@ -2498,6 +2777,13 @@ var CityService = (function () {
         var _this = this;
         return this.http.get('/site/list').then(function (res) {
             if (res["data"] instanceof Array) {
+                /*清空原来的数据*/
+                _this.recommendSite = [];
+                res["data"].forEach(function (value, index, array) {
+                    if (value.priority == "2") {
+                        _this.recommendSite.push(value);
+                    }
+                });
                 _this.citys = _this.pySegSort(res["data"]);
             }
         });
@@ -2665,6 +2951,7 @@ var CityService = (function () {
     return CityService;
 }());
 exports.CityService = CityService;
+
 },{"./http.service":28,"@angular/core":182}],28:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2743,7 +3030,9 @@ var HttpService = (function () {
     HttpService.prototype.handleRes = function (res, resolve, reject, url1) {
         try {
             var resObj = res.json();
+            console.log(resObj);
             if (resObj.eType == 2) {
+                alert(resObj.msg);
                 reject('发生异常');
             }
             else {
@@ -2789,6 +3078,7 @@ exports.HttpService = HttpService;
 // ht.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 // ht.send(body);
 // let body = "loginName" + "=" + "23423" + "&" + "captcha" + "=" + "33dd";
+
 },{"@angular/core":182,"@angular/http":309,"ionic-angular":496,"rxjs/add/observable/throw":634,"rxjs/add/operator/map":635,"rxjs/add/operator/toPromise":636}],29:[function(require,module,exports){
 /**
  * Created by tianlei on 16/9/6.
@@ -2878,6 +3168,7 @@ var IMBaseService = (function () {
     return IMBaseService;
 }());
 exports.IMBaseService = IMBaseService;
+
 },{"@angular/core":182}],30:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3221,6 +3512,7 @@ exports.IMService = IMService;
 // status
 //   :
 //   "[resp:true]"
+
 },{"./im-base.service":29,"@angular/core":182,"ionic-angular":496}],31:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3618,6 +3910,7 @@ var KefuService = (function () {
     return KefuService;
 }());
 exports.KefuService = KefuService;
+
 },{"./http.service":28,"./im-base.service":29,"@angular/core":182}],32:[function(require,module,exports){
 "use strict";
 var im_service_1 = require("./im.service");
@@ -3639,6 +3932,7 @@ exports.MY_SERVE = [
     http_service_1.HttpService,
     city_service_1.CityService
 ];
+
 },{"./city.service":27,"./http.service":28,"./im-base.service":29,"./im.service":30,"./kefu.serve":31,"./user.service":33,"./warn.service":34}],33:[function(require,module,exports){
 /**
  * Created by tianlei on 16/8/29.
@@ -3656,17 +3950,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 // import {LoginPage} from "../pages/user/login";
 var ionic_angular_1 = require("ionic-angular");
+var http_service_1 = require("./http.service");
 // import {LoginPage} from "../pages/user/login";
 exports.USER = 'user';
 var UserService = (function () {
-    function UserService(app, platform) {
+    function UserService(app, platform, http) {
         this.app = app;
         this.platform = platform;
+        this.http = http;
         this.isLogined = true;
         //userID 进行保存
         this.userName = "";
         this.password = "";
         this.userId = "";
+        this.followUsers = []; //关注的所有人
     }
     UserService.prototype.saveUserInfo = function (userName, userId) {
         this.userName = userName;
@@ -3732,14 +4029,28 @@ var UserService = (function () {
             // });
         });
     };
+    //查询所有关注的人
+    UserService.prototype.queryFollowUsers = function () {
+        var _this = this;
+        return this.http.get('/rs/follows/list', {
+            "userId": this.userId
+        })
+            .then(function (res) {
+            if (res.success) {
+                _this.followUsers = res.data;
+            }
+        }).catch(function (error) {
+        });
+    };
     UserService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [ionic_angular_1.App, ionic_angular_1.Platform])
+        __metadata('design:paramtypes', [ionic_angular_1.App, ionic_angular_1.Platform, http_service_1.HttpService])
     ], UserService);
     return UserService;
 }());
 exports.UserService = UserService;
-},{"@angular/core":182,"ionic-angular":496}],34:[function(require,module,exports){
+
+},{"./http.service":28,"@angular/core":182,"ionic-angular":496}],34:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3816,6 +4127,7 @@ var WarnService = (function () {
     return WarnService;
 }());
 exports.WarnService = WarnService;
+
 },{"@angular/core":182,"ionic-angular":496}],35:[function(require,module,exports){
 /**
  * @license
