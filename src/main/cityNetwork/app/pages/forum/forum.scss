@@ -43,20 +43,34 @@
         overflow: hidden;
         white-space: nowrap;
     }
-    .com-btn1 button{
-        border-color: transparent;
-        background-color: transparent;
-        font-size: 1.2rem;
-        height: 2rem;
-        color: #464646;
-        background: #fff;
-        margin: 10px 0 0;
-        padding: 0;
+    .com-btn1{
+        button{
+            border-color: transparent;
+            background-color: transparent;
+            font-size: 1.2rem;
+            height: 2rem;
+            color: #464646;
+            background: #fff;
+            margin: 10px 0 0;
+            padding: 0;
+        }
+        .u-msg{
+            white-space: normal;
+        }
+        ion-item{
+            font-size: 1.4rem;
+            border-bottom: 1px solid #e6e6e6;
+        }
     }
     .item{
         padding-left: 0;
         background-color: #fff;
         .iconfont{
+            font-size: 1.6rem;
+        }
+        .sp-btn{
+            margin: 0.4rem 0.2rem;
+            border-radius: 4px;
             font-size: 1.6rem;
         }
         .item-inner{
