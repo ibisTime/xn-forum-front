@@ -5,7 +5,7 @@
 import {Injectable} from '@angular/core';
 // import {LoginPage} from "../pages/user/login";
 import {App, Platform, LocalStorage} from "ionic-angular";
-// import {LoginPage} from "../pages/user/login";
+import {weChat} from "../pages/release";
 
 export const USER = 'user';
 
@@ -34,15 +34,17 @@ export class UserService {
     this.userName = userName;
     this.userId = userId;
 
-    /*存储在浏览器中*/
-    let localStorage = new LocalStorage(LocalStorage);
-    localStorage.set("userName", userName);
-    localStorage.set("userId", userId);
+    if(weChat){
 
-    // NativeStorage.setItem(USER, {
-    //   userName: `${userName}`,
-    //   userId: `${userId}`
-    // });
+      /*存储在浏览器中*/
+      let localStorage = new LocalStorage(LocalStorage);
+      localStorage.set("userName", userName);
+      localStorage.set("userId", userId);
+
+    } else {
+      /*app*/
+
+    }
 
   }
 
@@ -58,14 +60,6 @@ export class UserService {
 
     return localStorage.get("userName");
 
-    // .then((value) => {
-    //   /**/
-    //   this.userName = value;
-    //
-    // });
-    //
-    // // let userName: any = localStorage.get("userName");
-    // return typeof(value) != "undefined";
 
   }
 

@@ -22,11 +22,13 @@ export class CityChoosePage implements OnInit,AfterViewInit {
 
   ngOnInit() {
 
+
   }
 
   ionViewWillEnter(){
     this.viewCtrl.showBackButton(false);
   }
+
 
   ngAfterViewInit(){
 

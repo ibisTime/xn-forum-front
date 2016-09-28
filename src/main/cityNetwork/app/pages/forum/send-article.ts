@@ -151,9 +151,9 @@ export class SendArticlePage implements OnInit, AfterViewInit {
               if(len == imgCount){
                 /*拼接图片URL字符串*/
                 let picStr = "";
-                // pics.forEach((value,index,array) => {
-                //   picStr += index == 0? value : ("||" + value);
-                // });
+                pics.forEach((value,index,array) => {
+                  picStr += index == 0? value : ("||" + value);
+                });
 
                 resolve(picStr);
               }

@@ -11,6 +11,7 @@ import {CityChoosePage} from "./city-choose";
 import {IFramePage} from "./iframe";
 import {weChat} from "../release";
 import {throwError} from "rxjs/util/throwError";
+import {ContentPage} from "../forum/content/content";
 
 const wei_xin = true;
 
@@ -21,6 +22,7 @@ export class HeadlinePage implements AfterViewInit {
 
   cityName = "未知地点";
   bannerHeight: string;
+  articles = [];
   func3 = ['images/headline/headline-mall.png',
            'images/headline/headline-sign.png',
            'images/headline/headline-activity.png'];
@@ -82,18 +84,28 @@ export class HeadlinePage implements AfterViewInit {
 
         /*同意加载站点*/
         this.cityS.getNavigateByPosition(position.x,position.y).then(res => {
-          loadNav.dismiss();
+          loadNav.dismiss().then(() => {
+            this.getArticle();
+          });
+
+
         }).catch(error => {
-          loadNav.dismiss();
+          loadNav.dismiss().then(res => {
+            this.warn.toast('加载站点失败');
+          });
         });
 
       }, error => {
 
         /*不同意获取默认站点*/
         this.cityS.getNavigateByPosition(0,0).then(res => {
-          loadNav.dismiss();
+          loadNav.dismiss().then(() => {
+            this.getArticle();
+          });;
         }).catch(error => {
-          loadNav.dismiss();
+          loadNav.dismiss().then(res => {
+            this.warn.toast('加载站点失败');
+          });
         });
 
       },{timeout: 5000});
@@ -188,12 +200,14 @@ export class HeadlinePage implements AfterViewInit {
   getArticle(){
     let reqObj = {
       "start": "0",
-      "limit": "10",
-      "isHeadline": "1"
+      "limit": "10"
     };
-    this.http.post('',reqObj).then(res => {
-
-    }).catch(error => {
+    return this.http.get('/post/page',reqObj).then(res => {
+      let list = res.data.list;
+        for(let i = 0; i < list.length; i++){
+          list[i].pic = list[i].pic.split(/\|\|/);
+        }
+        this.articles = list;
 
     });
   }
@@ -202,13 +216,11 @@ export class HeadlinePage implements AfterViewInit {
   doRefresh(refresher){
 
     /*导航相关信息*/
+   this.getArticle().then(res => {
+     refresher.complete();
+   }).catch(error => {
 
-    /*刷新帖子数据*/
-    console.log('Begin async operation', refresher);
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      refresher.complete();
-    }, 2000);
+   });
 
   }
 
@@ -218,6 +230,10 @@ export class HeadlinePage implements AfterViewInit {
       loadMore.complete();
 
     },2000);
+  }
+
+  browserArticle(code){
+    this.navCtrl.push(ContentPage,{"code": code});
   }
 
 
