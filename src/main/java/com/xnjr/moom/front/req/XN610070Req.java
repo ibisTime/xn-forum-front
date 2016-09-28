@@ -43,6 +43,16 @@ public class XN610070Req {
     // 排序方向 asc=升序；desc=降序
     private String orderDir;
 
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public String getTitle() {
         return title;
     }

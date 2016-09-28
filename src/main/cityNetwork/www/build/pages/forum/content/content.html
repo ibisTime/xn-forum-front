@@ -13,13 +13,14 @@
                 <ion-card>
                     <ion-item>
                         <ion-avatar item-left>
-                            <img src="{{item.photo}}">
+                            <img src="{{item.photo || 'images/marty-avatar.png'}}">
                         </ion-avatar>
                         <div>
                             <div style="position: relative;">
                                 <h2>{{item.nickname}}</h2>
                                 <p class="time">{{item.publishDatetime}}</p>
-                                <button outline small class="origin content-btn" (click)="follow()">+关注</button>
+                                <button outline small class="origin content-btn {{followFlag?'hidden':''}}" (click)="follow(item.publisher)">+关注</button>
+                                <button outline small class="origin content-btn {{followFlag?'':'hidden'}}" (click)="unFollow(item.publisher)">取消关注</button>
                             </div>
                             <ion-card-content>
                                 <h2 style="margin: 6px 0;">{{item.title}}</h2>
@@ -34,40 +35,81 @@
                                     <button class="fl">
                                         <i class="icon iconfont">&#xe60a;</i>
                                     </button>
-                                    <button class="fl">
+                                    <button class="fl hidden">
                                         <ion-icon name="trash"></ion-icon>
+                                    </button>
+                                    <button class="fl {{item.isSC == '0'?'':'hidden'}}" (click)="collect(item.code);">
+                                        <ion-icon name="star-outline"></ion-icon>
+                                    </button>
+                                    <button class="fl {{item.isSC == '0'?'hidden':''}}" (click)="collect(item.code, true);">
+                                        <ion-icon name="star" style="color:#f64444"></ion-icon>
                                     </button>
                                     <button class="fr">
                                         <i class="icon iconfont">&#xe610;</i><span>{{item.totalCommNum}}</span>
                                     </button>
-                                    <button class="fr" (click)="praise(item.code, index)">
-                                        <i class="icon iconfont">&#xe624;</i>
+                                    <button class="fr {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code)">
+                                        <!--<i class="icon iconfont">&#xe624;</i>-->
+                                        <ion-icon name="thumbs-up"></ion-icon><span class="praise-total">{{item.totalDzNum}}</span>
+                                    </button>
+                                    <button class="fr {{item.isDZ == '0'?'hidden':''}}" (click)="praise(item.code, true)">
+                                        <!--<i class="icon iconfont">&#xe624;</i>-->
+                                        <ion-icon name="thumbs-up" style="color:#f64444"></ion-icon><span class="praise-total">{{item.totalDzNum}}</span>
                                     </button>
                                 </ion-buttons>
                             </div>
-                            <div class="comment">
+                            <!--<div class="comment">
                                 <div class="com-top clearfix">
                                     <button class="fl">
                                         <i class="icon iconfont">&#xe624;</i>
                                         <span>{{item.totalDzNum}}</span>
                                     </button>
                                     <div class="t-3dot">
-                                        <span *ngFor="let g of item.goodList">{{g.nickname}}</span>
+                                        <span *ngFor="let g of item.postTalkList">{{g.nickname}}</span>
                                     </div>
                                 </div>
                                 <div class="com-bottom">
                                     <ion-list>
                                         <ion-item *ngFor="let c of item.commentList">
-                                            <span class="u-name"><span>{{c.nickname}}</span>：</span><span class="u-msg">c.content</span>
+                                            <span class="u-name"><span>{{c.nickname}}</span>：</span><span class="u-msg">{{c.content}}</span>
                                         </ion-item>
                                     </ion-list>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </ion-item>
                 </ion-card>
             </ion-item>
         </ion-list>
+    </div>
+    <ion-segment [(ngModel)]="segment">
+      <ion-segment-button value="pjia">
+        评价
+      </ion-segment-button>
+      <ion-segment-button value="dzan">
+        点赞
+      </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="segment" class="com-btn1">
+        <div *ngSwitchCase="'pjia'">
+            <div class="com-bottom">
+                <ion-list>
+                    <ion-item *ngFor="let c of item.commentList">
+                        <span class="u-name"><span>{{c.nickname}}</span>：</span><span class="u-msg">{{c.content}}</span>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+        <div *ngSwitchCase="'dzan'">
+            <div class="com-top clearfix">
+                <button class="fl">
+                    <i class="icon iconfont">&#xe624;</i>
+                    <span>{{item.totalDzNum}}</span>
+                </button>
+                <div class="t-3dot">
+                    <span *ngFor="let g of item.postTalkList">{{g.nickname}}</span>
+                </div>
+            </div>
+        </div>
     </div>
 </ion-content>
 <div id="ylImg2" class="mask hidden" (click)="closeImg();">
@@ -81,7 +123,7 @@
 </div>
 <ion-footer class="nextpage-foot">
     <div class="bootomInput">
-      <ion-input #msgInput [(ngModel)]="inputValue" (focus)="doFocus($event)" placeholder="请输入信息"></ion-input>
-      <a (click)="sendMsg(msgInput.value)">发送</a>
+      <ion-input #msgInput1 [(ngModel)]="inputValue" (focus)="doFocus1($event)" placeholder="请输入信息"></ion-input>
+      <a (click)="sendMsg1(msgInput1.value)">发送</a>
     </div>
 </ion-footer>

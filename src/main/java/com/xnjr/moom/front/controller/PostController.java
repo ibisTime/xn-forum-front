@@ -35,7 +35,7 @@ public class PostController extends BaseController {
     public Object publishPost(
             @RequestParam(value = "title", required = true) String title,
             @RequestParam(value = "content", required = true) String content,
-            @RequestParam(value = "pic", required = true) String pic,
+            @RequestParam(value = "pic", required = false) String pic,
             @RequestParam(value = "plateCode", required = true) String plateCode) {
         return postAO.publishPost(title, content, pic, plateCode, this
             .getSessionUser().getUserId());
@@ -56,9 +56,11 @@ public class PostController extends BaseController {
             @RequestParam("start") String start,
             @RequestParam("limit") String limit,
             @RequestParam(value = "orderColumn", required = false) String orderColumn,
-            @RequestParam(value = "orderDir", required = false) String orderDir) {
+            @RequestParam(value = "orderDir", required = false) String orderDir,
+            @RequestParam(value = "userId", required = false) String userId) {
         return postAO.queryPagePost(title, status, isReport, isHeadline, isTop,
-            isEssence, plateCode, start, limit, orderColumn, orderDir);
+            isEssence, plateCode, start, limit, orderColumn, orderDir,
+            getSessionUserId(userId));
     }
 
     // 获取帖子详情
@@ -76,5 +78,14 @@ public class PostController extends BaseController {
             @RequestParam("postCode") String postCode,
             @RequestParam(value = "talker", required = false) String talker) {
         return postAO.praise(type, postCode, getSessionUserId(talker));
+    }
+
+    // 评论
+    @RequestMapping(value = "/comment", method = RequestMethod.POST)
+    @ResponseBody
+    public Object comment(@RequestParam("content") String content,
+            @RequestParam("parentCode") String parentCode,
+            @RequestParam(value = "commer", required = false) String commer) {
+        return postAO.comment(content, parentCode, getSessionUserId(commer));
     }
 }
