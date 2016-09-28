@@ -100,11 +100,15 @@ export class HeadlinePage implements AfterViewInit {
         /*不同意获取默认站点*/
         this.cityS.getNavigateByPosition(0,0).then(res => {
           loadNav.dismiss().then(() => {
+
             this.getArticle();
-          });;
+          });
+
         }).catch(error => {
           loadNav.dismiss().then(res => {
+
             this.warn.toast('加载站点失败');
+
           });
         });
 

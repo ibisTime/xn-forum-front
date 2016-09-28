@@ -90,7 +90,7 @@ export class HttpService {
     handleRes(res,resolve,reject,url1){
       try{
         let resObj = res.json();
-        console.log(res);
+        console.log(resObj);
         if(resObj.eType == 2){
           alert(resObj.msg);
           reject('发生异常');

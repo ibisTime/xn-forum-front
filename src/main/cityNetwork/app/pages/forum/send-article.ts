@@ -209,7 +209,15 @@ export class SendArticlePage implements OnInit, AfterViewInit {
         "publisher": this.user.userId
       };
 
-      return this.http.post("/post/publish",articleObj);
+       this.http.post("/post/publish",articleObj).then(res => {
+
+         this.warn.toast('发帖成功');
+         this.viewCtrl.dismiss();
+
+       }).catch(error => {
+         this.warn.toast('发帖失败');
+       });
+
 
     }
 
@@ -303,7 +311,7 @@ export class SendArticlePage implements OnInit, AfterViewInit {
       }
       return value.id == img.id;
     });
-    this.uploadImages.slice(upLoadIndex);
+    this.uploadImages.slice(upLoadIndex,1);
 
   }
 

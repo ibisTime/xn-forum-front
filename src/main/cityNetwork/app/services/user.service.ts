@@ -58,7 +58,12 @@ export class UserService {
     /*webStorage only use web*/
     let localStorage = new LocalStorage(LocalStorage);
 
-    return localStorage.get("userName");
+    return localStorage.get("userId").then(res => {
+      if(res != null){
+        this.userId = res;
+      }
+      return res;
+    });
 
 
   }
