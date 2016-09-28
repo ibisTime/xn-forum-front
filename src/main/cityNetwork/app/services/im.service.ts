@@ -2,7 +2,6 @@
  * Created by tianlei on 16/8/26.
  */
 import {Injectable, OnInit, Inject} from '@angular/core';
-import { LocalNotifications } from 'ionic-native';
 import { MsgObj, IMBaseService} from './im-base.service'
 import {Events} from "ionic-angular";
 declare var WebIM: any;
@@ -83,7 +82,7 @@ export class IMService {
 
   imOpened(msg){
     console.log("imService success");
-    this.getFriendList();
+    // this.getFriendList();
   }
 
 
@@ -305,55 +304,55 @@ export class IMService {
     });
   }
 
-  /*获取好友列表*/
-  getFriendList(){
-    console.log("登陆成功后 获取好友列表");
-    this.conn.getRoster({
-      success : (roster) => {
-        let trueFriend = [];
-        roster.forEach((obj, index, array) => {
-          if(obj.subscription == "both"){
-            trueFriend.push(obj);
-          }
-        });
-        /*subscription:both 才为真正的好友*/
-        this.listOfFriend = trueFriend;
-      }
-    })
-  }
-
-  /*删除好友*/
-  deleteFriend(friendName){
-    return new Promise((resolve,rejet) => {
-
-      this.conn.removeRoster({
-        to: friendName,
-        success:  () => {//删除成功
-          /*删除成功回调*/
-          resolve();
-
-          /*删除内存中*/
-          let indexAddr;
-
-          this.listOfFriend.find((value,index,obj) => {
-            indexAddr = index;
-            return value.name == friendName;
-          });
-
-          this.listOfFriend.splice(indexAddr);
-          /*取消订阅*/
-          this.conn.unsubscribed({
-            to: friendName
-          });
-        },
-        error : function () {
-          rejet("failure");
-        }//删除失败
-      });
-
-    });
-
-  }
+  // /*获取好友列表*/
+  // getFriendList(){
+  //   console.log("登陆成功后 获取好友列表");
+  //   this.conn.getRoster({
+  //     success : (roster) => {
+  //       let trueFriend = [];
+  //       roster.forEach((obj, index, array) => {
+  //         if(obj.subscription == "both"){
+  //           trueFriend.push(obj);
+  //         }
+  //       });
+  //       /*subscription:both 才为真正的好友*/
+  //       this.listOfFriend = trueFriend;
+  //     }
+  //   })
+  // }
+  //
+  // /*删除好友*/
+  // deleteFriend(friendName){
+  //   return new Promise((resolve,rejet) => {
+  //
+  //     this.conn.removeRoster({
+  //       to: friendName,
+  //       success:  () => {//删除成功
+  //         /*删除成功回调*/
+  //         resolve();
+  //
+  //         /*删除内存中*/
+  //         let indexAddr;
+  //
+  //         this.listOfFriend.find((value,index,obj) => {
+  //           indexAddr = index;
+  //           return value.name == friendName;
+  //         });
+  //
+  //         this.listOfFriend.splice(indexAddr);
+  //         /*取消订阅*/
+  //         this.conn.unsubscribed({
+  //           to: friendName
+  //         });
+  //       },
+  //       error : function () {
+  //         rejet("failure");
+  //       }//删除失败
+  //     });
+  //
+  //   });
+  //
+  // }
 
   /*登陆*/
   login(userName){

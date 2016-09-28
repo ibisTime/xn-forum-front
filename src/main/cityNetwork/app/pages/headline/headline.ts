@@ -209,7 +209,10 @@ export class HeadlinePage implements AfterViewInit {
     return this.http.get('/post/page',reqObj).then(res => {
       let list = res.data.list;
         for(let i = 0; i < list.length; i++){
-          list[i].pic = list[i].pic.split(/\|\|/);
+          if( list[i].pic  != null){
+            list[i].pic = list[i].pic.split(/\|\|/);
+          }
+
         }
         this.articles = list;
 

@@ -61,7 +61,7 @@
 
     <div class="article">
       <div class="article-row" *ngFor="let article of articles" (tap)="browserArticle(article.code)">
-        <img class="left-img" src={{article.pic[0]}}>
+        <img class="left-img" src={{article.pic[0]}} *ngIf="article.pic != null">
         <div>
           <div class="article-title">{{article.content}}</div>
           <div class="article-date">{{article.publishDatetime}}</div>

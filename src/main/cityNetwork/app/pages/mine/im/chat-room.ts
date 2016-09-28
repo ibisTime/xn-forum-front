@@ -5,7 +5,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgFor } from '@angular/common';
 
 import {NavController,Toolbar, Content, NavParams, TextInput, Platform, ViewController, Refresher} from 'ionic-angular'
-import { Keyboard } from 'ionic-native';
 import {IMService} from "../../../services/im.service";
 import {AfterViewInit} from "@angular/core";
 import { Observable }  from 'rxjs/Observable'
@@ -52,43 +51,6 @@ export class ChatRoomPage implements AfterViewInit {
 
       this.platform.ready().then(() => {
 
-        Keyboard.onKeyboardShow().subscribe((msg) => {
-          this.heightValue = "block";
-
-          setTimeout(() => {
-            console.log(msg);
-            this.content.scrollToBottom();
-
-            if(this.platform.is('ios')){
-              // let h = this.platform.height();
-              // let elem:any = document.getElementsByClassName('show-page')[0];
-              // if(elem.style.height == "100%"){
-              //   console.log(msg.keyboardHeight);
-              //   let ro = 1 -  msg.keyboardHeight/h;
-              //   elem.style.height = `${ro*100}%`;
-              //   console.log('键盘上来了');
-              // }
-              // this.bottom = '250px';
-              // document.getElementById('tianleiInput').style.bottom = "226px";
-            }
-
-          },100)
-        });
-
-        Keyboard.onKeyboardHide().subscribe(() => {
-          this.placeholderView = false;
-          this.heightValue = "none";
-          setTimeout(() => {
-            this.content.scrollToBottom();
-
-            // if(this.platform.is('ios')){
-            //   let elem:any = document.getElementsByClassName('show-page')[0];
-            //   elem.style.height = "100%";
-            // }
-            // this.bottom = '250px';
-            console.log('键盘下去了');
-          },100)
-        });
 
       });
 

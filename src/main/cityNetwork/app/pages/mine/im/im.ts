@@ -51,7 +51,7 @@ export class ImPage implements AfterViewInit{
   }
 
   getFriendList(){
-    this.imServe.getFriendList();
+    // this.imServe.getFriendList();
   }
 
   addFriend(){
