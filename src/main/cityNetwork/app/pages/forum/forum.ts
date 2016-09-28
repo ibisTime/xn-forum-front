@@ -12,7 +12,7 @@ import {ContentPage} from "./content/content";
 export class ForumPage {
 
   segment: string = "yliao";
-  isAndroid: boolean = false;
+  isAndroid: boolean= false;
   imgHeight: string;
   pHeight: string;
   imgUrl: string;
