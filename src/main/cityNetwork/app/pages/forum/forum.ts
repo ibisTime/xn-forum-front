@@ -7,6 +7,7 @@ import {UserService} from "../../services/user.service";
 import {ContentPage} from "./content/content";
 import {MinePage} from "../mine/mine";
 import {LoginPage} from "../user/login";
+import {ChatRoomPage} from "../mine/im/chat-room";
 
 
 @Component({
@@ -184,4 +185,8 @@ export class ForumPage {
   openPage(code){
       this.navCtrl.push(ContentPage,{code: code});
   }
+  /*聊天*/
+    goChat(userId){
+        this.navCtrl.push(ChatRoomPage,userId);
+    }
 }

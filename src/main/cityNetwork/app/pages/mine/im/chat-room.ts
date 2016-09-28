@@ -37,8 +37,9 @@ export class ChatRoomPage implements AfterViewInit {
               ) {
 
     /*通过聊天人获取数据*/
-    this.listOfChatData = this.imServe.getDataByFromName( params.data);
+    this.listOfChatData = this.imServe.getDataByFromName(params.data);
 
+    console.log(params.data);
     //1.哪到导航数据就去获取信息
     this.imServe.imTextMessageInner = msg => {
       setTimeout(() => {

@@ -47,17 +47,17 @@ export class FriendPage implements AfterViewInit {
 
   }
 
-  addFriend() {
-    this.navCtrl.push(AddFriendPage, "search");
-  }
-
-  deleteFriend(friend) {
-
-    this.imServe.deleteFriend(friend).then(() => {
-      this.warnServe.toast("删除成功");
-    }).catch((error) => {
-      this.warnServe.toast("删除失败");
-    });
-  }
+  // addFriend() {
+  //   this.navCtrl.push(AddFriendPage, "search");
+  // }
+  //
+  // deleteFriend(friend) {
+  //
+  //   this.imServe.deleteFriend(friend).then(() => {
+  //     this.warnServe.toast("删除成功");
+  //   }).catch((error) => {
+  //     this.warnServe.toast("删除失败");
+  //   });
+  // }
 
 }
