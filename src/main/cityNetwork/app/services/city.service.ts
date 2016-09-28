@@ -5,21 +5,6 @@ import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 
 export interface City{
-
-  // address?code: "ZD201609131930049587"
-  // description: "简介"
-  // domain: "http://dasd.cn"
-  // email: "23123@163.com"
-  // isDefault: "0"
-  // latitude: "123.323-124.222"
-  // logo: "logo url"
-  // longitude: "13.234-13.323"
-  // name: "啊州城市网1"
-  // priority: "1"
-  // qrCode: "url"
-  // remark: "备注"
-  // telephone: "13434344343"
-  // userId: "U12321423"
   address?;
   code?;
   description?;
@@ -54,6 +39,7 @@ interface navObj{
 export class CityService {
 
   citys = [];
+  recommendSite = [];
   searchCitys = [];
   baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
   baidu = 'http://api.map.baidu.com/location/ip';
@@ -83,6 +69,14 @@ export class CityService {
    return this.http.get('/site/list').then( res => {
 
       if(res["data"] instanceof Array ){
+        /*清空原来的数据*/
+        this.recommendSite = [];
+
+        res["data"].forEach((value,index,array) => {
+          if(value.priority == "2"){
+            this.recommendSite.push(value);
+          }
+        });
 
         this.citys = this.pySegSort(res["data"]);
       }

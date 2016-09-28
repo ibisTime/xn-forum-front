@@ -25,18 +25,14 @@ export class MyApp {
     this.userServe.whetherLogin().then((msg) => {
 
       if(msg != null){
-
-        this.userServe.userName = msg;
+        // this.userServe.userName = msg;
         this.rootPage = TabsPage;
-
       } else {
-
         this.rootPage = LoginPage;
-
       }
 
     });
-    this.rootPage = TabsPage;
+    // this.rootPage = TabsPage;
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

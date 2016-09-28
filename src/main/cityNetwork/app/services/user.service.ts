@@ -6,7 +6,6 @@ import {Injectable} from '@angular/core';
 // import {LoginPage} from "../pages/user/login";
 import {App, Platform, LocalStorage} from "ionic-angular";
 // import {LoginPage} from "../pages/user/login";
-import {HttpService} from "./http.service";
 
 export const USER = 'user';
 
@@ -24,11 +23,9 @@ export class UserService {
   userName: string = "";
   password: string = "";
   userId: string = "";
-  followUsers = [];  //关注的所有人
 
   constructor(private app: App,
-              private platform: Platform,
-              private http: HttpService) {
+              private platform: Platform) {
 
   }
 
@@ -113,17 +110,5 @@ export class UserService {
       // });
 
     })
-  }
-  //查询所有关注的人
-  queryFollowUsers(){
-    return this.http.get('/rs/follows/list',{
-              "userId": this.userId
-            })
-            .then((res) => {
-                if(res.success){
-                    this.followUsers = res.data;
-                }
-            }).catch(error => {
-            });
   }
 }

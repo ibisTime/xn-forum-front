@@ -13,10 +13,10 @@
 
     <!--推荐站点-->
     <ion-item-group>
-      <ion-item-divider sticky>
+      <ion-item-divider sticky *ngIf="cityS.recommendSite.length > 0">
         推荐站点
       </ion-item-divider>
-      <div class="city-cell" (tap)="confirmCity(city)"></div>
+      <div class="city-cell" (tap)="confirmCity(city)" *ngFor="let city of cityS.recommendSite">{{city.name}}</div>
     </ion-item-group>
 
     <!--当前城市-->

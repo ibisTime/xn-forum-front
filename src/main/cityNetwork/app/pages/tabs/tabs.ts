@@ -41,8 +41,11 @@ export class TabsPage {
     this.tab4Root = VideoPage;
     this.tab5Root = MinePage;
 
-    this.kefuService.me = this.userServe.userName;
-    this.imServe.login(this.userServe.userName);
+    this.kefuService.me = this.userServe.userId;
+    this.imServe.login(this.userServe.userId);
+
+
+    // "".split(/\|\|/)
 
     // this.userServe.whetherLogin().then((msg) => {
     //

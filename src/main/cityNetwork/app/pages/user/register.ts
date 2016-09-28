@@ -65,6 +65,7 @@ export class RegisterPage implements OnInit {
     };
     this.http.post('/gene/register/send',mobile).then((res) => {
       //this.captchaView.beginTime();
+
     }).catch((error) => {
       this.warnCtrl.toast('验证码发送失败，请稍后重试!');
     });
@@ -99,23 +100,18 @@ export class RegisterPage implements OnInit {
     let loading = this.warnCtrl.loading('');
     /*注册*/
     this.http.post("/user/reg",params).then( res => {
-      console.log(res);
 
       this.warnCtrl.toast('注册成功');
+      let userId = res.data.userId;
+      // let tokenId = res.data
 
-      //帮助用户注册环信
-      this.imServe.register(userName,"").then(() => {
+      /*通过userId注册环信*/
+      this.imServe.register(userId,"").then(() => {
         loading.dismiss();
         this.warnCtrl.toast('注册IM成功');
         //保存用户信息
-        this.user.saveUserInfo(userName, userName);
+        this.user.saveUserInfo(userName, userId);
         this.navCtrl.push(TabsPage);
-
-        // //登录环信
-        // this.imServe.login(userName);
-        // //客服,赋值
-        // this.kefu.me = userName;
-        // this.navCtrl.parent.parent.push(TabsPage);
 
       }).catch((error) => {
         this.warnCtrl.toast('注册IM失败');
