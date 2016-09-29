@@ -10,25 +10,6 @@ const IM_PASSWORD = "123456";
 export const FUTURE_FRIEND_COUNT = "friend:futureCount"
 export const MSG_TOTAL_COUNT = "msg:totalCount"
 
-// class ListItem{
-//   from: string = '';
-//   to: string = '';
-//   lastMsg: string = '';
-//   /*存入我国东八区时间*/
-//   time: string;
-//   showBadage = false;
-//   badgeCount = 0;
-//
-//   constructor(from,to,lastMsg,time,showBadage,badgeCount){
-//     this.from = from;
-//     this.lastMsg = lastMsg;
-//     this.time = time;
-//     this.to = to;
-//     this.showBadage = showBadage;
-//     this.badgeCount =
-//   }
-// }
-
 interface ListItem{
 
   from: string;
@@ -70,6 +51,10 @@ export class IMService {
 
     this.conn = this.imBase.conn;
     this.imBase.imMessage = msg => {
+
+      msg.from = msg.from.toUpperCase();
+      msg.to = msg.to.toUpperCase();
+
       this.handleFromMsg(msg);
       (typeof(this.imTextMessageInner) == "function")&&(this.imTextMessageInner())
     };
@@ -118,7 +103,8 @@ export class IMService {
     //1.文本信息
     //2.图片信息
     //3.文件信息
-    let from = msg.from;
+    /*转大写 环信会把小写转为大写*/
+    // let from = msg.from.toUpperCase();
     /*内部聊天数据*/
     this.handleMsgData(msg,false);
     /*外部列表数据*/
@@ -209,43 +195,7 @@ export class IMService {
     }
   }
 
-  /*5.处理好友请求*/
-  handleSubscriptionData(msg){
-    // let ob = {
-    //   chatroom: false,
-    //   code: null,
-    //   from: "tianlei111",
-    //   fromJid: "easemob-demo#chatdemoui_tianlei111@easemob.com",
-    //   status: "tianlei111：test",
-    //   to: "tianlei005",
-    //   toJid: "easemob-demo#chatdemoui_tianlei005@easemob.com",
-    //   type: "subscribe"
-    // };
 
-    if (msg.type == "subscribe"){//别人要添加你为好友
-
-      if(msg.status == "[resp:true]"){
-        this.accept(msg.from);
-        return;
-      }
-
-      /*加入 待添加好友*/
-      this.listOfFutureFriend.push(msg);
-      /*发送有好友的通知*/
-      this.events.publish(FUTURE_FRIEND_COUNT,this.listOfFutureFriend.length);
-
-    } else if( msg.type === 'subscribed' ) {//别人同意你的好友申请
-
-      let friend = {name: msg.from}
-      this.listOfFriend.push(friend);
-
-    } else if( msg.type === 'unsubscribed'){//别人删除了好友关系
-
-    } else {
-
-    }
-
-  }
 
   /*发文本消息*/
   sendTextMsg(message,to,successCallBack: (id, serverMsgId) => void ) {
@@ -282,6 +232,25 @@ export class IMService {
 
     });
   }
+
+
+  /*登陆*/
+  login(userName){
+    this.me = userName;//保存用户信息
+    let loginOptions = {
+      apiUrl: this.imBase.apiUrl,
+      user: userName,
+      pwd: IM_PASSWORD,
+      appKey: this.imBase.appKey
+    };
+
+    this.conn.open(loginOptions);
+  }
+
+
+
+
+
 
   /*接受一个朋友的请求*/
   accept(friendName: string){
@@ -354,18 +323,45 @@ export class IMService {
   //
   // }
 
-  /*登陆*/
-  login(userName){
-    this.me = userName;//保存用户信息
-    let loginOptions = {
-      apiUrl: this.imBase.apiUrl,
-      user: userName,
-      pwd: IM_PASSWORD,
-      appKey: this.imBase.appKey
-    };
+  /*5.处理好友请求*/
+  handleSubscriptionData(msg){
+    // let ob = {
+    //   chatroom: false,
+    //   code: null,
+    //   from: "tianlei111",
+    //   fromJid: "easemob-demo#chatdemoui_tianlei111@easemob.com",
+    //   status: "tianlei111：test",
+    //   to: "tianlei005",
+    //   toJid: "easemob-demo#chatdemoui_tianlei005@easemob.com",
+    //   type: "subscribe"
+    // };
 
-    this.conn.open(loginOptions);
+    if (msg.type == "subscribe"){//别人要添加你为好友
+
+      if(msg.status == "[resp:true]"){
+        this.accept(msg.from);
+        return;
+      }
+
+      /*加入 待添加好友*/
+      this.listOfFutureFriend.push(msg);
+      /*发送有好友的通知*/
+      this.events.publish(FUTURE_FRIEND_COUNT,this.listOfFutureFriend.length);
+
+    } else if( msg.type === 'subscribed' ) {//别人同意你的好友申请
+
+      let friend = {name: msg.from}
+      this.listOfFriend.push(friend);
+
+    } else if( msg.type === 'unsubscribed'){//别人删除了好友关系
+
+    } else {
+
+    }
+
   }
+
+
 
   clearCurrentData(){
     this.listOfChatRoomData = {};
