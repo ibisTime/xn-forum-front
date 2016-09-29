@@ -82,15 +82,12 @@ export class ContentPage {
                     this.followFlag = true;
                 }else if(res.timeout){
                     this.warnCtrl.toast("登录超时，请重新登录!");
-                    this.followFlag = false;
                 }else{
                     this.warnCtrl.toast("关注失败，请稍后重试!");
-                    this.followFlag = false;
                 }
             }).catch(error => {
                 this.followCount = 0;
                 this.warnCtrl.toast("关注失败，请稍后重试!");
-                this.followFlag = false;
             });
       }
   }
@@ -104,18 +101,15 @@ export class ContentPage {
                 .then((res) => {
                     this.followCount = 0;
                     if(res.success){
-                        this.followFlag = true;
+                        this.followFlag = false;
                     }else if(res.timeout){
                         this.warnCtrl.toast("登录超时，请重新登录!");
-                        this.followFlag = false;
                     }else{
                         this.warnCtrl.toast("取消关注失败，请稍后重试!");
-                        this.followFlag = false;
                     }
                 }).catch(error => {
                     this.followCount = 0;
                     this.warnCtrl.toast("取消关注失败，请稍后重试!");
-                    this.followFlag = false;
                 });
       }
   }
