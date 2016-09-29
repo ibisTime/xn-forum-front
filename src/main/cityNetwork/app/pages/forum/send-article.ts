@@ -30,6 +30,7 @@ export class SendArticlePage implements OnInit, AfterViewInit {
   uploadImages = [];
   topicItems = [];
   topicCode = "";
+  plateName = "选择板块";
 
   constructor(private viewCtrl: ViewController,
               private platform: Platform,
@@ -263,8 +264,9 @@ export class SendArticlePage implements OnInit, AfterViewInit {
   }
 
   /*点击话题，选择*/
-  clickTopic(siteCode){
+  clickTopic(siteCode,name){
     this.topicCode = siteCode;
+    this.plateName = name;
     this.showTopicDashboard = false;
   }
 
@@ -287,6 +289,8 @@ export class SendArticlePage implements OnInit, AfterViewInit {
       this.uploadImages.push(img);
 
     };
+    let file = $event.target.files[0];
+    if(file == null) return;
     fileReader.readAsDataURL($event.target.files[0]);
     // $event.target.files[0] = null;
 
