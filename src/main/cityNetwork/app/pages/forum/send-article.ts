@@ -281,7 +281,7 @@ export class SendArticlePage implements OnInit, AfterViewInit {
 
       /*处理真是上传的图片*/
       let img = {
-        "src": event.target.result,
+        "src": encodeURIComponent(event.target.result),
         "id" : imgId
       }
       this.uploadImages.push(img);

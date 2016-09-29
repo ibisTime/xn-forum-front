@@ -23,6 +23,7 @@ export class ForumPage {
   start: number;
   limit: number;
   items = [];
+  appendCount = 0;
 
   @ViewChild(Content) content: Content;
 
@@ -64,7 +65,7 @@ export class ForumPage {
         }       
   }  
   queryPostPage(event?, refresh?){
-      this.http.get('/post/page',{
+      return this.http.get('/post/page',{
           "start": this.start,
           "limit": this.limit
         })
@@ -103,7 +104,11 @@ export class ForumPage {
             }).then((res) => {
                     this.items[index].collectCount = 0;
                     if(res.success){
-                        this.items[index].isSC = "1";
+                        if(!flag){
+                            this.items[index].isSC = "1";
+                        }else{
+                            this.items[index].isSC = "0";
+                        }
                     }else if(res.timeout){
                         this.warnCtrl.toast("登录超时，请重新登录!");
                     }else{
@@ -136,8 +141,13 @@ export class ForumPage {
                 .then((res) => {
                     this.items[index].praiseCount = 0;
                     if(res.success){
-                        this.items[index].totalDzNum = +this.items[index].totalDzNum + 1;
-                        this.items[index].isDZ = "1";
+                        if(!flag){
+                            this.items[index].totalDzNum = +this.items[index].totalDzNum + 1;
+                            this.items[index].isDZ = "1";
+                        }else{
+                            this.items[index].totalDzNum = +this.items[index].totalDzNum - 1;
+                            this.items[index].isDZ = "0";
+                        }
                     }else if(res.timeout){
                         this.warnCtrl.toast("登录超时，请重新登录!");
                     }else{
@@ -164,7 +174,13 @@ export class ForumPage {
         this.queryPostPage(event, true);
   }
   doAppendData(event){
-        this.queryPostPage(event);
+        if(!this.appendCount){
+            this.appendCount = 1;
+            this.queryPostPage(event).then(()=>{
+                this.appendCount = 0;
+            });
+        }
+        
   }
   showImg(ev){
       if( ev.target.nodeName.match(/^img$/i) ){

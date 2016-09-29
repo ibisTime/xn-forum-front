@@ -91,7 +91,8 @@ export class EditDetailPage implements AfterViewInit {
 
         (function(me){
             reader.onload = function (ee) {
-                me.http.post('/user/avatar', {"photo": this.result}).then((res)=>{
+                me.http.post('/user/avatar', {"photo":encodeURIComponent(this.result)})
+                .then((res)=>{
                     if(res.success){
                         me.warnCtrl.toast('头像修改成功!');
                     }else{

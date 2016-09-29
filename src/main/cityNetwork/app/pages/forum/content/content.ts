@@ -14,7 +14,7 @@ export class ContentPage {
   imgHeight: string;
   pHeight: string;
   code: string;
-  item = {totalDzNum: "", code: "", commentList:[], publisher: "",isSC:"",isDZ:""};
+  item = {totalDzNum: "", code: "", commentList:[], publisher: "",isSC:"",isDZ:"", postTalkList:[]};
   followFlag:boolean = false;
   segment:string = "pjia";
   followCount: number = 0;
@@ -93,7 +93,6 @@ export class ContentPage {
                 this.followFlag = false;
             });
       }
-      
   }
   //取消关注
   unfollow(publisher){
@@ -132,7 +131,12 @@ export class ContentPage {
                 this.collectCount = 0;
                 if(res.success){
                     //this.item.totalDzNum = (+this.item.totalDzNum + 1) + "";
-                    this.item.isSC = "1";
+                    if(!flag){
+                        this.item.isSC = "1";
+                    }else{
+                        this.item.isSC = "0";
+                    }
+                    
                 }else if(res.timeout){
                     this.warnCtrl.toast("登录超时，请重新登录!");
                 }else{
@@ -164,8 +168,20 @@ export class ContentPage {
             .then((res) => {
                 this.praiseCount = 0;
                 if(res.success){
-                    this.item.totalDzNum = (+this.item.totalDzNum + 1) + "";
-                    this.item.isDZ = "1";
+                    
+                    if(!flag){
+                        this.item.totalDzNum = (+this.item.totalDzNum + 1) + "";
+                        this.item.isDZ = "1";
+                        this.item.postTalkList.push({
+                            talker:this.uService.userId,
+                            nickname: "昵称",
+                            postCode: code
+                        });
+                    }else{
+                        this.item.totalDzNum = (+this.item.totalDzNum - 1) + "";
+                        this.item.isDZ = "0";
+                        this.item.postTalkList.pop();
+                    }
                 }else if(res.timeout){
                     this.warnCtrl.toast("登录超时，请重新登录!");
                 }else{
@@ -212,7 +228,9 @@ export class ContentPage {
         .then((res) => {
             if(res.success){
                 var data = res.data;
-                data.pic = data.pic.split(/\|\|/);
+                if(data.pic){
+                    data.pic = data.pic.split(/\|\|/);
+                }
                 data.publishDatetime = this.jsDateDiff( new Date(data.publishDatetime).getTime() );
                 this.item = data;
                 if(this.uService.followUsers){

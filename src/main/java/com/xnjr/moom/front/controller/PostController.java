@@ -67,8 +67,9 @@ public class PostController extends BaseController {
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public Object getPostDetail(
-            @RequestParam(value = "postCode", required = true) String postCode) {
-        return postAO.getPost(postCode);
+            @RequestParam(value = "postCode", required = true) String postCode,
+            @RequestParam(value = "userId", required = false) String userId) {
+        return postAO.getPost(postCode, getSessionUserId(userId));
     }
 
     // 点赞或收藏
