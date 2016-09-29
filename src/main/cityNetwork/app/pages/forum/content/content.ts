@@ -231,7 +231,7 @@ export class ContentPage {
                 if(data.pic){
                     data.pic = data.pic.split(/\|\|/);
                 }
-                data.publishDatetime = this.jsDateDiff( new Date(data.publishDatetime).getTime() );
+                data.publishDatetime = this.jsDateDiff( new Date(data.publishDatetime).getTime() /1000);
                 this.item = data;
                 if(this.uService.followUsers){
                     let fUs = this.uService.followUsers;

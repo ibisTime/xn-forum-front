@@ -80,7 +80,7 @@ export class ForumPage {
                     if(list[i].pic){
                         list[i].pic = list[i].pic.split(/\|\|/);
                     }
-                    list[i].publishDatetime = this.jsDateDiff( new Date(list[i].publishDatetime).getTime() );
+                    list[i].publishDatetime = this.jsDateDiff( new Date(list[i].publishDatetime).getTime()/1000 );
                     list[i].collectCount = 0;   //点击收藏次数
                     list[i].praiseCount = 0;    //点击点赞次数
                     this.items.push(list[i]);

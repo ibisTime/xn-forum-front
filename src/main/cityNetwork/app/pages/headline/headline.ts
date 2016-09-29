@@ -213,7 +213,7 @@ export class HeadlinePage implements AfterViewInit {
       let list = res.data.list;
         for(let i = 0; i < list.length; i++){
           if( list[i].pic  != null){
-            list[i].publishDatetime = this.jsDateDiff( new Date(list[i].publishDatetime).getTime());
+            list[i].publishDatetime = this.jsDateDiff( new Date(list[i].publishDatetime).getTime()/1000);
             list[i].pic = list[i].pic.split(/\|\|/);
           }
 
