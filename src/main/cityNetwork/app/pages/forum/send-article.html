@@ -9,7 +9,7 @@
     <ion-title>
       <ion-buttons>
         <button style="font-size: 20px" (click)="chooseTopic()">
-          选择板块
+          <span>{{plateName}}</span>
           <ion-icon *ngIf="!showTopicDashboard" name="arrow-down" style=" padding-left: 3px; padding-top: 3px;">
           </ion-icon>
         </button>
@@ -27,7 +27,7 @@
 
   <div class="choose-topic-outer" *ngIf="showTopicDashboard">
     <div class="choose-topic">
-      <div class="topic-item" (click)="clickTopic(item.code)" *ngFor="let item of topicItems">
+      <div class="topic-item" (click)="clickTopic(item.code,item.name)" *ngFor="let item of topicItems">
         <img src={{item.pic}}>
         <div>{{item.name}}</div>
       </div>
@@ -55,9 +55,8 @@
       <div class="img-delete" (tap)="deleteImg(img)">删 除</div>
     </div>
 
-    <div class="choose-file" *ngIf="images.length < 9" [style.height]="height" [style.width]="height"
-         style="background-color: cyan;">
-      <div>继续添加</div>
+    <div class="choose-file" *ngIf="images.length < 9" [style.height]="height" [style.width]="height">
+      <div></div>
       <input type="file" accept="image/*" (change)="choosedImg($event)">
     </div>
 
