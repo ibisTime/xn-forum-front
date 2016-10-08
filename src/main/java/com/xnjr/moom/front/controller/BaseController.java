@@ -8,6 +8,8 @@
  */
 package com.xnjr.moom.front.controller;
 
+import java.util.Random;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,6 +77,19 @@ public class BaseController {
             ip = ControllerContext.getRequest().getRemoteAddr();
         }
         return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
+    }
+    
+    public static String unPwdUserId(String tokenId) {
+        String userId = null;
+        if (StringUtils.isNotBlank(tokenId)) {
+            userId = tokenId.substring(1, tokenId.indexOf("|"));
+        }
+        return userId;
+    }
+
+    public static String pwdUserId(String userId) {
+        int random = Math.abs(new Random().nextInt()) % 50 + 50;
+        return "U" + userId + "|" + random;
     }
 
 }

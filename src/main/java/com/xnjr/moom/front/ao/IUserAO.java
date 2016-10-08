@@ -8,6 +8,8 @@
  */
 package com.xnjr.moom.front.ao;
 
+import java.util.Map;
+
 import com.xnjr.moom.front.res.XN602601Res;
 import com.xnjr.moom.front.res.XN805043Res;
 
@@ -76,7 +78,7 @@ public interface IUserAO {
      * @create: 2014-12-10 下午7:37:18 miyb
      * @history:
      */
-    public Object doGetUser(String userId);
+    public Map doGetUser(String userId);
 
     /**
      * 找回登录密码

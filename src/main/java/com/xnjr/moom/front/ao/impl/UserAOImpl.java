@@ -1,5 +1,7 @@
 package com.xnjr.moom.front.ao.impl;
 
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -126,12 +128,12 @@ public class UserAOImpl implements IUserAO {
 
     @Override
     // Object
-    public Object doGetUser(String userId) {
+    public Map doGetUser(String userId) {
         if (StringUtils.isBlank(userId)) {
             throw new BizException("A010001", "用户编号不能为空");
         }
         return BizConnecter.getBizData("805056",
-            JsonUtils.string2Json("userId", userId), Object.class);
+            JsonUtils.string2Json("userId", userId), Map.class);
     }
 
     @Override
