@@ -17,9 +17,14 @@ import {CityChoosePage} from "../pages/headline/city-choose";
 import {ContentPage} from "./forum/content/content";
 import {ImPage} from "./mine/im/im";
 import {SendArticlePage} from "./forum/send-article";
-import {DetailPage} from "./mine/detail/detail";
 import {SearchUserAndArticlePage} from "./headline/search-user-article";
 import {TutorialPage} from "./tutorial/tutorial";
+import {DetailPage} from "./forum/detail/detail";
+import {MineDetailPage} from "./mine/detail/detail";
+import {ChatRoomPage} from "./mine/im/chat-room";
+import {AddFriendPage} from "./mine/friend/addFriend";
+import {FriendPage} from "./mine/friend/friend";
+import {EditDetailPage} from "./mine/detail/editDetail";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -37,8 +42,14 @@ export const pages = [ TabsPage,
   ImPage,
   SendArticlePage,
   DetailPage,
+  MineDetailPage,
   SearchUserAndArticlePage,
-  TutorialPage
+  TutorialPage,
+  ChatRoomPage,
+  AddFriendPage,
+  FriendPage,
+  EditDetailPage
+
 ];
 
 export const components = [

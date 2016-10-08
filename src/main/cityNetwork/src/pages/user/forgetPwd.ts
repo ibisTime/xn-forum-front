@@ -28,12 +28,12 @@ export class ForgetPwdPage implements AfterViewInit {
   userNameValue = "";
   captchaValue = "";
   phone='';
-  constructor(   private navCtrl: NavController,
-                 private warnCtrl: WarnService,
-                 private user: UserService,
-                 private para: NavParams,
-                 private http: HttpService,
-                 private imServe: IMService
+  constructor(   public navCtrl: NavController,
+                 public warnCtrl: WarnService,
+                 public user: UserService,
+                 public para: NavParams,
+                 public http: HttpService,
+                 public imServe: IMService
                  ) {
   }
 

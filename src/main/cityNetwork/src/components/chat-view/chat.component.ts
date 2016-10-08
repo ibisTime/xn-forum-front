@@ -10,8 +10,8 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 export class ChatViewComponent implements OnInit {
     constructor() { }
 
-  private _me;
-  private _listOfChatData;
+  public _me;
+  public _listOfChatData;
 
     @Input() set listOfChatData(listOfChatData){
       this._listOfChatData = listOfChatData;

@@ -7,7 +7,7 @@ import {Pipe, PipeTransform} from '@angular/core';
   name: 'forumDate'
 })
 export class ForumDatePipe implements PipeTransform {
-  transform(value: any, args: any[]): any {
+  transform(value: any): any {
 
     return this.jsDateDiff(new Date(value).getTime()/1000);
   }

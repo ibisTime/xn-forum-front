@@ -25,9 +25,9 @@ export class EditDetailPage implements AfterViewInit {
   nickname:string;
   orignalNickname:string;
   flag: boolean = false;
-  constructor(private navCtrl: NavController,
-              private warnCtrl: WarnService,
-              private http: HttpService) {
+  constructor(public navCtrl: NavController,
+              public warnCtrl: WarnService,
+              public http: HttpService) {
     this.url = http.addr + "/upload/editAvatar";
   }
   ngAfterViewInit() {

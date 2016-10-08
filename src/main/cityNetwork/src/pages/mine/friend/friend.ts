@@ -11,9 +11,9 @@ import {Observable}  from 'rxjs/Observable'
 })
 export class FriendPage implements AfterViewInit {
 
-  constructor(private navCtrl: NavController,
-              private imServe: IMService,
-              private warnServe: WarnService) {
+  constructor(public navCtrl: NavController,
+              public imServe: IMService,
+              public warnServe: WarnService) {
 
   }
 

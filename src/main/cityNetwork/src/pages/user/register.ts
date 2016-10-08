@@ -14,14 +14,15 @@ import {HttpService} from "../../services/http.service";
 })
 export class RegisterPage implements OnInit {
 
+  captchaValue;
   src;
   userNameValue;
   @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
-  constructor(   private navCtrl: NavController,
-                 private warnCtrl: WarnService,
-                 private user: UserService,
-                 private imServe: IMService,
-                 private http: HttpService
+  constructor(   public navCtrl: NavController,
+                 public warnCtrl: WarnService,
+                 public user: UserService,
+                 public imServe: IMService,
+                 public http: HttpService
                  ) {
     this.src = this.http.src;
     }

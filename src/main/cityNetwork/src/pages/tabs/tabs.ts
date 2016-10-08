@@ -17,20 +17,19 @@ import {weChat} from "../release";
 })
 export class TabsPage {
 
-  private tab1Root: any;
-  private tab2Root: any;
-  private tab3Root: any;
-  private tab4Root: any;
-  private tab5Root: any;
+   tab1Root: any;
+   tab2Root: any;
+   tab3Root: any;
+   tab4Root: any;
+   tab5Root: any;
 
 
 
   @ViewChild(Tabs) tabs: Tabs;
-  constructor(private userServe: UserService,
-              private kefuService: KefuService,
-              private nav: NavController,
-              private imServe: IMService,
-              private cityS: CityService) {
+  constructor(public userServe: UserService,
+              public kefuService: KefuService,
+              public imServe: IMService,
+              public cityS: CityService) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
 

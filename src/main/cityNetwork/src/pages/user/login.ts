@@ -17,11 +17,11 @@ import {UserService} from "../../services/user.service";
 export class LoginPage implements OnInit {
 
   constructor(
-              private uService: UserService,
-              private navCtrl: NavController,
-              private platform: Platform,
-              private warnCtrl : WarnService,
-              private http: HttpService
+              public uService: UserService,
+              public navCtrl: NavController,
+              public platform: Platform,
+              public warnCtrl : WarnService,
+              public http: HttpService
 
              ) {
 

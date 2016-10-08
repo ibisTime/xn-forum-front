@@ -17,19 +17,19 @@ export class KefuPage implements AfterViewInit {
   inputValue;
   isMine = true;
   listOfChatData;
-  private satisfaction;
-  private timer_top;
-  private timer_bottom;
-  private isActive = false;
+  public satisfaction;
+  public timer_top;
+  public timer_bottom;
+  public isActive = false;
 
 
   @ViewChild(Content) content: Content;
   @ViewChild(ChatViewComponent) chatView: ChatViewComponent;
   @ViewChild(TextInput) msgPut: any;
 
-  constructor(private  nav: NavController,
-              private imServe: KefuService,
-              private cityServe: CityService) {
+  constructor(public  nav: NavController,
+              public imServe: KefuService,
+              public cityServe: CityService) {
     this.listOfChatData = this.imServe.getDataByFromName();
     this.satisfaction = new Satisfaction(this.imServe);
     this.imServe.scroll_bottom = ()=>{

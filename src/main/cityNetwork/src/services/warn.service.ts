@@ -2,14 +2,14 @@
  * Created by tianlei on 16/8/30.
  */
 import {Injectable} from '@angular/core';
-import {LoadingController, ToastController, AlertController} from "ionic-angular";
+import {LoadingController, ToastController, AlertController,Loading} from "ionic-angular";
 
 @Injectable()
 export class WarnService {
 
   constructor(public loadingCtrl: LoadingController,
-              private toastCtrl: ToastController,
-              private alertCtrl: AlertController) {
+              public toastCtrl: ToastController,
+              public alertCtrl: AlertController) {
   }
 
   alert(msg: string,confirmAction?: () => void){
@@ -46,7 +46,7 @@ export class WarnService {
   }
 
   loading(msg?: string){
-    let loading1 = this.loadingCtrl.create({
+    let loading1: Loading = this.loadingCtrl.create({
       spinner: 'ios',
       content: msg? msg :'加载中'
     });

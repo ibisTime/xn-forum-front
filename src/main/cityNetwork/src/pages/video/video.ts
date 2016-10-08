@@ -12,10 +12,10 @@ import {IFramePage} from "../headline/iframe";
 export class VideoPage implements AfterViewInit{
 
   imgHeight = "";
-  constructor(private navCtrl: NavController,
-              private platform: Platform,
-              private cityS: CityService,
-              private warnService: WarnService) {
+  constructor(public navCtrl: NavController,
+              public platform: Platform,
+              public cityS: CityService
+              ) {
 
   }
 

@@ -18,10 +18,10 @@ export class ImPage implements AfterViewInit{
     {"name":"系统消息","src":"../../images/mine/mine-msg-system-msg.png"},
   ];
 
-  constructor(private navCtrl: NavController,
+  constructor(public navCtrl: NavController,
               public  imServe: IMService,
-              private warn: WarnService,
-              private userServe: UserService) {
+              public warn: WarnService,
+              public userServe: UserService) {
 
     console.log("im被创建了");
 

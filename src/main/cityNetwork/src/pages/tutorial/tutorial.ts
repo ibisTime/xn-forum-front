@@ -14,10 +14,10 @@ import {WarnService} from "../../services/warn.service";
   templateUrl: 'tutorial.html'
 })
 export class TutorialPage implements AfterViewInit {
-  constructor( private nav: NavController,
-               private userServe: UserService,
-               private cityService: CityService,
-               private warn: WarnService
+  constructor( public nav: NavController,
+               public userServe: UserService,
+               public cityService: CityService,
+               public warn: WarnService
              ) {
 
   }

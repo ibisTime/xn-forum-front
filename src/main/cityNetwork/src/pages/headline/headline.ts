@@ -50,13 +50,13 @@ export class HeadlinePage implements AfterViewInit {
     autoplay: 2000
   };
 
-  constructor(private navCtrl: NavController,
-              private platform: Platform,
-              private userService: UserService,
-              private mCtrl: ModalController,
-              private http: HttpService,
-              private warn: WarnService,
-              private cityS: CityService) {
+  constructor(public navCtrl: NavController,
+              public platform: Platform,
+              public userService: UserService,
+              public mCtrl: ModalController,
+              public http: HttpService,
+              public warn: WarnService,
+              public cityS: CityService) {
 
 
      // this.headlineData = this.cityS.headlineData;

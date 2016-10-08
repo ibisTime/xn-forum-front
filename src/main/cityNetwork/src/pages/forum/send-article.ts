@@ -32,12 +32,12 @@ export class SendArticlePage implements OnInit, AfterViewInit {
   topicCode = "";
   plateName = "选择板块";
 
-  constructor(private viewCtrl: ViewController,
-              private platform: Platform,
-              private http: HttpService,
-              private user: UserService,
-              private warn: WarnService,
-              private cityS: CityService) {
+  constructor(public viewCtrl: ViewController,
+              public platform: Platform,
+              public http: HttpService,
+              public user: UserService,
+              public warn: WarnService,
+              public cityS: CityService) {
     this.height = `${(this.platform.width() - 10)/3.0}px`;
   }
 
@@ -133,7 +133,7 @@ export class SendArticlePage implements OnInit, AfterViewInit {
 
       let pics = [];
       let len = 0;
-      let tag = 0;
+      // let tag = 0;
       let imgCount = this.uploadImages.length;
 
      let imgPromise = new Promise((resolve, reject) =>{
@@ -321,7 +321,7 @@ export class SendArticlePage implements OnInit, AfterViewInit {
 
   editing($event){
     // console.log($event.target.style);
-    let ele = document.getElementById("article-content");
+    // let ele = document.getElementById("article-content");
 
     if($event.target.value.length > 0){
       this.isEditing = true;

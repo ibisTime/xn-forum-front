@@ -28,8 +28,8 @@ export class IFramePage implements AfterViewInit{
   title = "";
 
 
-  constructor( private navPara: NavParams,
-               private warnService: WarnService) {
+  constructor( public navPara: NavParams,
+               public warnService: WarnService) {
     // this.url = navPara.data.url;
     this.title = navPara.data.title;
     this.url = navPara.data.url;

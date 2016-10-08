@@ -9,8 +9,8 @@ import {ChatViewComponent} from "../../../components/chat-view/chat.component";
 
 
 @Component({
-  templateUrl: 'chat-room.html',
-  directives: [ChatViewComponent]
+  templateUrl: 'chat-room.html'
+  // directives: [ChatViewComponent]
 })
 export class ChatRoomPage implements AfterViewInit {
 
@@ -27,10 +27,10 @@ export class ChatRoomPage implements AfterViewInit {
   @ViewChild(TextInput) msgPut: any;
   @ViewChild(ChatViewComponent) chatView: ChatViewComponent;
 
-  constructor(private  nav: NavController,
-              private imServe: IMService,
-              private params: NavParams,
-              private platform: Platform
+  constructor(public  nav: NavController,
+              public imServe: IMService,
+              public params: NavParams,
+              public platform: Platform
               ) {
 
     /*通过聊天人获取数据*/

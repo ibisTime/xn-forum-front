@@ -13,9 +13,9 @@ export class CityChoosePage implements OnInit,AfterViewInit {
 
    headlineData;
   searching = false;
-  constructor(private viewCtrl: ViewController,
-              private cityS: CityService,
-              private warn: WarnService
+  constructor(public viewCtrl: ViewController,
+              public cityS: CityService,
+              public warn: WarnService
             ) {
 
   }

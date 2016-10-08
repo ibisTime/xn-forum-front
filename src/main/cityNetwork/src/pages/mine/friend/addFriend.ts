@@ -17,12 +17,12 @@ export class AddFriendPage {
   compareTitle = "新的朋友";
   title = "添加好友";
 
-  constructor(private navCtrl: NavController,
-              private imServe: IMService,
-              private alertCtrl: AlertController,
-              private warn: WarnService,
-              private vc: ViewController,
-              private navParas: NavParams) {
+  constructor(public navCtrl: NavController,
+              public imServe: IMService,
+              public alertCtrl: AlertController,
+              public warn: WarnService,
+              public vc: ViewController,
+              public navParas: NavParams) {
 
     if (this.navParas.data == "search") {
 

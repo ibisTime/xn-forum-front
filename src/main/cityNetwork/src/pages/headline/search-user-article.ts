@@ -18,8 +18,8 @@ export class SearchUserAndArticlePage implements OnInit, AfterViewInit {
   @ViewChild('left') left: ElementRef;
 
   show = true;
-  constructor(private  navCtrl: NavController,
-              private render:Renderer) {
+  constructor(public  navCtrl: NavController
+         ) {
   }
 
   ngOnInit() {

@@ -14,21 +14,24 @@ export class ContentPage {
   imgHeight: string;
   pHeight: string;
   code: string;
-  item = {totalDzNum: "", code: "", commentList:[], publisher: "",isSC:"",isDZ:"", postTalkList:[]};
+  // item = {totalDzNum: "", code: "", commentList:[], publisher: "",isSC:"",isDZ:"", postTalkList:[]};
+  /*解决错误*/
+  item;
   followFlag:boolean = false;
   segment:string = "pjia";
   followCount: number = 0;
   collectCount = 0;   //点击收藏次数
   praiseCount = 0;    //点击点赞次数
+  inputValue;
 
   @ViewChild(Content) content: Content;
 
-  constructor(private navPara: NavParams,
-              private navCtrl: NavController,
-              private platform: Platform,
-              private warnCtrl : WarnService,
-              private uService : UserService,
-              private http: HttpService) {
+  constructor(public navPara: NavParams,
+              public navCtrl: NavController,
+              public platform: Platform,
+              public warnCtrl : WarnService,
+              public uService : UserService,
+              public http: HttpService) {
       this.isAndroid = platform.is('android');
       this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
       this.pHeight = `${this.platform.height()}px`;

@@ -5,7 +5,6 @@ import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.service";
 import {ContentPage} from "./content/content";
-import {MinePage} from "../mine/mine";
 import {LoginPage} from "../user/login";
 import {ChatRoomPage} from "../mine/im/chat-room";
 
@@ -27,12 +26,12 @@ export class ForumPage {
 
   @ViewChild(Content) content: Content;
 
-  constructor(private navCtrl: NavController,
-              private platform: Platform,
-              private warnCtrl : WarnService,
-              private uService : UserService,
-              private mCtrl: ModalController,
-              private http: HttpService) {
+  constructor(public navCtrl: NavController,
+              public platform: Platform,
+              public warnCtrl : WarnService,
+              public uService : UserService,
+              public mCtrl: ModalController,
+              public http: HttpService) {
       this.isAndroid = platform.is('android');
       this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
       this.pHeight = `${this.platform.height()}px`;

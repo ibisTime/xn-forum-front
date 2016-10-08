@@ -14,6 +14,7 @@ import {ForumDatePipe} from "../pipe/forum-date.pipe";
     ForumDatePipe,
     ...pages,
     components
+
   ],
   imports: [
     IonicModule.forRoot(MyApp,{

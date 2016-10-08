@@ -11,10 +11,10 @@ import {TutorialPage} from "../pages/tutorial/tutorial";
 })
 export class MyApp {
 
-  private rootPage: any;
+  public rootPage: any;
 
-  constructor(private platform: Platform,
-              private userServe:UserService,
+  constructor(public platform: Platform,
+              public userServe:UserService,
               ) {
 
     this.rootPage = TutorialPage;

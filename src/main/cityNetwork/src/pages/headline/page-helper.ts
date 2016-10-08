@@ -19,7 +19,7 @@ export class PageHelper  {
   start = 0;
   limit = 15;
 
-  constructor(private http: HttpService) {
+  constructor(public http: HttpService) {
   }
   /*刷新*/
   refresh(url){

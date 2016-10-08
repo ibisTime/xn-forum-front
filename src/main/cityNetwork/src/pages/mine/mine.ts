@@ -6,7 +6,7 @@ import {ImPage} from "./im/im";
 import {IMService} from "../../services/im.service";
 import {LoginPage} from "../user/login";
 import {HttpService} from "../../services/http.service";
-import {DetailPage} from "./detail/detail";
+import {MineDetailPage} from "./detail/detail";
 
 
 @Component({
@@ -32,13 +32,13 @@ export class MinePage {
   ];
   src:string = 'images/marty-avatar.png';
 
-  constructor(private navCtrl: NavController,
-              private platform: Platform,
-              private userService: UserService,
-              private imService: IMService,
-              private warnCtrl: WarnService,
-              private http: HttpService,
-              private app :App) {
+  constructor(public navCtrl: NavController,
+              public platform: Platform,
+              public userService: UserService,
+              public imService: IMService,
+              public warnCtrl: WarnService,
+              public http: HttpService,
+              public app :App) {
     this.getUserInfo();
   }
 
@@ -63,7 +63,7 @@ export class MinePage {
 
   }
   goDetail(){
-    this.navCtrl.push(DetailPage);
+    this.navCtrl.push(MineDetailPage);
 
   }
 
