@@ -1,0 +1,13 @@
+<ion-header no-shadow style="display:none;">
+  <ion-navbar >
+    <ion-buttons end *ngIf="showSkip">
+      <button ion-button (click)="startApp()" color="primary">Skip</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <div *ngIf="cityService.ads[0]">
+    <img [src]="cityService.ads[0]?.pic" (load)="loadEnd($event)">
+  </div>
+</ion-content>

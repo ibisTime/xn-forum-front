@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar navbar-color>
+    <ion-title>{{params.data}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  class="chatroom">
+
+  <chat-view></chat-view>
+
+
+</ion-content>
+
+<!--<ion-toolbar  position="bottom">-->
+  <!--<div class="bootomInput">-->
+    <!--<ion-input class="imInput" type="text" #msgInput  placeholder="请输入信息" ></ion-input>-->
+    <!--<button  (click)="sendMsg(msgInput)" navbar-color [disabled]="msgInput.value.length <= 0">发送</button>-->
+  <!--</div>-->
+<!--</ion-toolbar>-->
+
+<ion-footer>
+  <div class="bootomInput">
+    <ion-input class="imInput" type="text" #msgInput  placeholder="请输入信息" ></ion-input>
+    <button  (click)="sendMsg(msgInput)" navbar-color [disabled]="msgInput.value.length <= 0">发送</button>
+  </div>
+</ion-footer>
+
+
+
+<!--聊天信息-->
+<!--<div class="imContent">-->
+<!--<div *ngFor="let msgItem of listOfChatData; trackBy:trackById;">-->
+<!--&lt;!&ndash;我发送的&ndash;&gt;-->
+<!--<div *ngIf="msgItem.from != imServe.me"  class="mine" >-->
+<!--<img src="images/u1.jpg">-->
+<!--<div>{{msgItem.data}}</div>-->
+<!--</div>-->
+<!--&lt;!&ndash;对方发送的&ndash;&gt;-->
+<!--<div class="other" *ngIf="msgItem.from == imServe.me">-->
+<!--<div>{{msgItem.data}}</div>-->
+<!--<img src="images/u2.jpg">-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

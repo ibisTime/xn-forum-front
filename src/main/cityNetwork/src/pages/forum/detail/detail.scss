@@ -1,0 +1,68 @@
+.forum-detail{
+    .item .item-inner ion-label ion-card .item{
+        border-bottom: 0px;
+    }
+    .item .item-inner ion-label ion-card .content-btn{
+        border: 1px solid #e6e6e6;
+        padding: 1em;
+    }
+    ion-list{
+        margin: 0;
+    }
+    .ptb10{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .com-btn{
+        ion-buttons{
+            margin: 0;
+        }
+        button {
+            min-width: 0;
+            margin-left: 0;
+        }
+        .button-icon-only ion-icon{
+            padding: 0;
+            font-size: 2rem;
+            line-height: 1;
+        }
+    }
+    scroll-content{
+        background: #f0f0f0;
+    }
+    .dt-list{
+        margin-bottom: 0;
+        border-top: 1px solid #e6e6e6;
+        ion-item{
+            padding-left: 10px;
+            padding-right: 10px;
+            border-bottom: 1px solid #e6e6e6;
+            button{
+                width: 30px;
+                background: #f64444;
+                color: #fff;
+                font-size: 1rem;
+                vertical-align: middle;
+            }
+        }
+    }
+    .dt-div{
+        font-size: 1rem;
+        color: #666;
+    }
+    ion-list > .item:first-child{
+        border-top: 0;
+    }
+    .pr20{
+        padding-right: 20px;
+    }
+    .inblock{
+        display: inline-block;
+    }
+    .tc{
+        text-align: center;
+    }
+    .mt20{
+        margin-top: 20px;
+    }
+}

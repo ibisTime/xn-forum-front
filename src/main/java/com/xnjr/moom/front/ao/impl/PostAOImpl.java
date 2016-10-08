@@ -16,7 +16,10 @@ import com.xnjr.moom.front.exception.BizException;
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.req.XN610050Req;
+import com.xnjr.moom.front.req.XN610056Req;
+import com.xnjr.moom.front.req.XN610057Req;
 import com.xnjr.moom.front.req.XN610070Req;
+import com.xnjr.moom.front.req.XN610072Req;
 
 /** 
  * @author: xieyj 
@@ -61,7 +64,7 @@ public class PostAOImpl implements IPostAO {
     public Object queryPagePost(String title, String status, String isReport,
             String isHeadline, String isTop, String isEssence,
             String plateCode, String start, String limit, String orderColumn,
-            String orderDir) {
+            String orderDir, String userId) {
         XN610070Req req = new XN610070Req();
         req.setTitle(title);
         req.setStatus(status);
@@ -74,6 +77,7 @@ public class PostAOImpl implements IPostAO {
         req.setLimit(limit);
         req.setOrderColumn(orderColumn);
         req.setOrderDir(orderDir);
+        req.setUserId(userId);
         return BizConnecter.getBizData("610070", JsonUtils.object2Json(req),
             Object.class);
     }
@@ -82,9 +86,29 @@ public class PostAOImpl implements IPostAO {
      * @see com.xnjr.moom.front.ao.IPostAO#getPost(java.lang.String)
      */
     @Override
-    public Object getPost(String postCode) {
-        return BizConnecter.getBizData("610072",
-            JsonUtils.string2Json("code", postCode), Object.class);
+    public Object getPost(String postCode, String userId) {
+        XN610072Req req = new XN610072Req();
+        req.setCode(postCode);
+        req.setUserId(userId);
+        return BizConnecter.getBizData("610072", JsonUtils.object2Json(req),
+            Object.class);
     }
 
+    public Object praise(String type, String postCode, String talker) {
+        XN610056Req req = new XN610056Req();
+        req.setPostCode(postCode);
+        req.setTalker(talker);
+        req.setType(type);
+        return BizConnecter.getBizData("610056", JsonUtils.object2Json(req),
+            Object.class);
+    }
+
+    public Object comment(String content, String parentCode, String commer) {
+        XN610057Req req = new XN610057Req();
+        req.setCommer(commer);
+        req.setContent(content);
+        req.setParentCode(parentCode);
+        return BizConnecter.getBizData("610057", JsonUtils.object2Json(req),
+            Object.class);
+    }
 }
