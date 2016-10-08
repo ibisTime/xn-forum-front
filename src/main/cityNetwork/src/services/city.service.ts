@@ -39,12 +39,19 @@ interface navObj{
 export class CityService {
 
   citys = [];
+  /*启动广告*/
+  ads = [];
+  /*推荐站点*/
   recommendSite = [];
   searchCitys = [];
   baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
   baidu = 'http://api.map.baidu.com/location/ip';
   // baidu = "http://localhost:8080/baidu-map/";
+  /*客服引流数据*/
   kefuData = [];
+  /*视频引流数据*/
+  videoData = [];
+
   public headlineData = {
   "banner": [],
   "func3": [],
@@ -137,10 +144,10 @@ export class CityService {
       "siteCode":siteCode
     };
 
-    /*1 菜单tabbar 2 banner 3 模块func3  4 引流func8*/
+    /*1 菜单tabbar 2 banner 3 模块func3  4 引流func8  5.启动广告图*/
    return this.http.get('/view/list',obj).then(res => {
 
-     
+
      let data = res["data"];
      let tempArray = [];
 
@@ -148,8 +155,14 @@ export class CityService {
         //是否全局
        data.forEach((value:navObj,index,array) => {
 
-         if(value.parentCode == "0"){
+         if(value.parentCode == "0" && value.type != "5"){
+
            tempArray.push(value);
+
+         }
+
+         if(value.type == "5"){
+            this.ads.push(value);
          }
 
        });
@@ -187,6 +200,8 @@ export class CityService {
          } else if(value.parentCode == tempArray[2].code) {
            /*客服引流的数据*/
            kefuData.push(value);
+         } else if(value.parentCode == tempArray[3].code){
+           this.videoData.push(value);
          }
 
         });

@@ -19,6 +19,7 @@ import {ImPage} from "./mine/im/im";
 import {SendArticlePage} from "./forum/send-article";
 import {DetailPage} from "./mine/detail/detail";
 import {SearchUserAndArticlePage} from "./headline/search-user-article";
+import {TutorialPage} from "./tutorial/tutorial";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -37,7 +38,7 @@ export const pages = [ TabsPage,
   SendArticlePage,
   DetailPage,
   SearchUserAndArticlePage,
-
+  TutorialPage
 ];
 
 export const components = [

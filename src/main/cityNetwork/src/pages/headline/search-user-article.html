@@ -1,14 +1,15 @@
 <ion-header class="search-user-article" >
-  <ion-navbar no-border-bottom navbar-color>
+
+  <ion-navbar no-border-bottom color="navbar-color">
     <!--<ion-title>搜索</ion-title>-->
     <ion-title>
-      <button #left [ngClass]="{'current-btn': show}" class="left" (click)="leftClick()">用户</button>
+      <button #left [class.current-btn] = "show" class="left" (click)="leftClick()">用户</button>
       <button #right [ngClass]="{'current-btn': !show}" class="right" (click)="rightClick()">帖子</button>
     </ion-title>
-
   </ion-navbar>
 
 </ion-header>
+
 
 <ion-content  class="search-user-article">
 

@@ -5,11 +5,13 @@ import { Storage } from '@ionic/storage';
 
 import {MY_SERVE} from "../services/services";
 import {pages,components} from "../pages/page-component"
+import {ForumDatePipe} from "../pipe/forum-date.pipe";
 
 
 @NgModule({
   declarations: [
     MyApp,
+    ForumDatePipe,
     ...pages,
     components
   ],

@@ -1,13 +1,16 @@
 <ion-header>
-  <ion-navbar navbar-color>
+  <ion-navbar color="navbar-color">
     <ion-title>{{cityS.headlineData.tabs[3].title}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="video">
+  <div class="video-item-outer">
+    <div class="video-item" (click)="goOther(videoItem.url,videoItem.title)" *ngFor="let videoItem of cityS.videoData">
+      <img [src]="videoItem.pic" [style.height]="imgHeight">
+      <div>{{videoItem.title}}</div>
+    </div>
+  </div>
 
-  <iframe id="city-video" style="height: 100%; width: 100%; border:0;">
-
-  </iframe>
 
 </ion-content>

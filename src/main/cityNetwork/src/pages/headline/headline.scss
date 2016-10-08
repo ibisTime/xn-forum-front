@@ -1,6 +1,16 @@
 
 $banner-text-height: 40px;
 
+.headline-header{
+  .iconfont{
+    margin: 0;
+    color: white;
+  }
+  button{
+    background: $navbar-color;
+  }
+}
+
 .headline {
   *{
     margin: 0px;
@@ -154,8 +164,6 @@ $banner-text-height: 40px;
             height: 50px;
 
             text-overflow: -o-ellipsis-lastline;
-            overflow: hidden;
-            text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -184,11 +192,8 @@ $banner-text-height: 40px;
   }
 
 }
-.headline-header{
-  .iconfont{
-    margin: 0;
-  }
-}
+
+
 /*banner pager*/
 .swiper-container-horizontal > .swiper-pagination {
   padding-right: 10px;
@@ -214,7 +219,7 @@ $banner-text-height: 40px;
 .ion-ios-default-user-outline,
 .ion-md-default-user{
 
-  content: url(assets/images/tab-bar-xiaomi.png);
+  content: url(../assets/images/tab-bar-xiaomi.png);
   height: 48px;
   width: 35px;
 }

@@ -75,47 +75,51 @@ export class HeadlinePage implements AfterViewInit {
     this.h3h = `${(w - 36)/9}px`;
 
     setTimeout(() => {
+      this.getArticle();
+    },500)
 
-
-      let loadNav = this.warn.loading('定位中...');
-      navigator.geolocation.getCurrentPosition( (position:any) => {
-
-        /*同意定位加载*/
-        console.log(position);
-
-        /*同意加载站点*/
-        this.cityS.getNavigateByPosition(position.x,position.y).then(res => {
-          loadNav.dismiss().then(() => {
-            this.getArticle();
-          });
-
-
-        }).catch(error => {
-          loadNav.dismiss().then(res => {
-            this.warn.toast('加载站点失败');
-          });
-        });
-
-      }, error => {
-
-        /*不同意获取默认站点*/
-        this.cityS.getNavigateByPosition(0,0).then(res => {
-          loadNav.dismiss().then(() => {
-
-            this.getArticle();
-          });
-
-        }).catch(error => {
-          loadNav.dismiss().then(res => {
-
-            this.warn.toast('加载站点失败');
-
-          });
-        });
-
-      },{timeout: 5000});
-
-    },500);
+    // setTimeout(() => {
+    //
+    //
+    //   let loadNav = this.warn.loading('定位中...');
+    //   navigator.geolocation.getCurrentPosition( (position:any) => {
+    //
+    //     /*同意定位加载*/
+    //     console.log(position);
+    //
+    //     /*同意加载站点*/
+    //     this.cityS.getNavigateByPosition(position.x,position.y).then(res => {
+    //       loadNav.dismiss().then(() => {
+    //         this.getArticle();
+    //       });
+    //
+    //
+    //     }).catch(error => {
+    //       loadNav.dismiss().then(res => {
+    //         this.warn.toast('加载站点失败');
+    //       });
+    //     });
+    //
+    //   }, error => {
+    //
+    //     /*不同意获取默认站点*/
+    //     this.cityS.getNavigateByPosition(0,0).then(res => {
+    //       loadNav.dismiss().then(() => {
+    //
+    //         this.getArticle();
+    //       });
+    //
+    //     }).catch(error => {
+    //       loadNav.dismiss().then(res => {
+    //
+    //         this.warn.toast('加载站点失败');
+    //
+    //       });
+    //     });
+    //
+    //   },{timeout: 5000});
+    //
+    // },500);
 
   }
 
@@ -211,7 +215,7 @@ export class HeadlinePage implements AfterViewInit {
       let list = res.data.list;
         for(let i = 0; i < list.length; i++){
           if( list[i].pic  != null){
-            list[i].publishDatetime = this.jsDateDiff( new Date(list[i].publishDatetime).getTime()/1000);
+            // list[i].publishDatetime = this.jsDateDiff( new Date(list[i].publishDatetime).getTime()/1000);
             list[i].pic = list[i].pic.split(/\|\|/);
           }
 
@@ -220,27 +224,6 @@ export class HeadlinePage implements AfterViewInit {
 
     });
   }
-  jsDateDiff(publishTime){
-    var d_minutes,d_hours,d_days;
-    var timeNow = new Date().getTime()/1000;
-    var d;
-    d = timeNow - publishTime;
-    d_days = d/86400;
-    d_hours = d/3600;
-    d_minutes = d/60;
-    if(d_days>1 && d_days<4){
-		return Math.ceil(d_days)+"天前";
-	}else if(d_days<1 && d_hours>0){
-		return Math.ceil(d_hours)+"小时前";
-	}else if(d_hours<1 && d_minutes>0){
-		return Math.ceil(d_minutes)+"分钟前";
-    }else{
-      var s = new Date(publishTime*1000);
-      // s.getFullYear()+"年";
-      return (s.getMonth()+1)+"月"+s.getDate()+"日";
-    }
-  }
-
 
   doRefresh(refresher){
 

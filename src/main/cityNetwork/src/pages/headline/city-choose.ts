@@ -20,8 +20,9 @@ export class CityChoosePage implements OnInit,AfterViewInit {
 
   }
 
-  ngOnInit() {
 
+
+  ngOnInit() {
 
   }
 

@@ -60,21 +60,19 @@ export class TabsPage {
   }
 
   goVideo($event){
-
-    if(weChat){
-
-    } else {
-      /*app*/
-      let url = this.cityS.headlineData.tabs[3].url;
-      window.open(url);
-      setTimeout(() => {
-        let tab = this.tabs.previousTab();
-        this.tabs.select(tab);
-      },50);
-
-    }
-
-
+    this.tabs.select(3);
+    // if(weChat){
+    //
+    // } else {
+    //   /*app*/
+    //   let url = this.cityS.headlineData.tabs[3].url;
+    //   window.open(url);
+    //   setTimeout(() => {
+    //     let tab = this.tabs.previousTab();
+    //     this.tabs.select(tab);
+    //   },50);
+    //
+    // }
   }
 
 }

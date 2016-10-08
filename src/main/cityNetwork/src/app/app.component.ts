@@ -4,6 +4,7 @@ import {TabsPage} from '../pages/tabs/tabs';
 import {UserService} from "../services/user.service";
 import {LoginPage} from "../pages/user/login";
 
+import {TutorialPage} from "../pages/tutorial/tutorial";
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
@@ -13,10 +14,25 @@ export class MyApp {
   private rootPage: any;
 
   constructor(private platform: Platform,
-              private userServe:UserService) {
+              private userServe:UserService,
+              ) {
+
+    this.rootPage = TutorialPage;
 
 
 
+
+
+
+    platform.ready().then(() => {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      // Keyboard.disableScroll(true);
+    });
+
+  }
+
+  howLoad(){
     this.userServe.whetherLogin().then((msg) => {
 
       if(msg != null){
@@ -26,12 +42,6 @@ export class MyApp {
       }
 
     });
-
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      // Keyboard.disableScroll(true);
-    });
-
   }
+
 }

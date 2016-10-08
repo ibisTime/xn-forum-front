@@ -1,0 +1,29 @@
+
+.video{
+
+  //background-color: red;
+  //align-items: center;
+
+  .video-item-outer{
+    padding: 10px 10px;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+  }
+  .video-item{
+    background-color: white;
+    flex: 0 0 49%;
+    margin-bottom: 10px;
+    img{
+      width: 100%;
+      display: block;
+    }
+    div{
+      overflow: hidden;
+      padding: 5px 5px;
+      fons-size: 20px;
+    }
+  }
+
+}

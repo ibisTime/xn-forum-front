@@ -1,5 +1,5 @@
 <ion-header class="headline-header">
-  <ion-navbar color="redColor">
+  <ion-navbar color="navbar-color">
     <ion-buttons>
       <button (click)="search()">
           <i class="icon iconfont">&#xe601;</i>
@@ -7,15 +7,15 @@
     </ion-buttons>
     <ion-title>
       <ion-buttons >
-        <button style="font-size: 20px" (click)="chooseCity()">
+        <button style="font-size: 20px; color: white;" (click)="chooseCity()">
           {{cityS.currentCity.name}}
-          <ion-icon name="arrow-down" style=" padding-left: 3px; padding-top: 3px;">
+          <ion-icon name="arrow-down" style=" padding-top: 3px;">
         </ion-icon>
         </button>
       </ion-buttons>
     </ion-title>
     <ion-buttons end>
-      <button (click)="writeArticle()">
+      <button (click)="writeArticle()" color="navbar-color">
           <i class="icon iconfont">&#xe616;</i>
       </button>
     </ion-buttons>
@@ -64,7 +64,7 @@
         <img class="left-img" src={{article.pic[0]}} *ngIf="article.pic != null">
         <div class="text-outer">
           <div class="article-title">{{article.content}}</div>
-          <div class="article-date">{{article.publishDatetime}}</div>
+          <div class="article-date">{{article.publishDatetime | forumDate}}</div>
           <div class="focuse-count">{{article.totalCommNum}}</div>
         </div>
       </div>

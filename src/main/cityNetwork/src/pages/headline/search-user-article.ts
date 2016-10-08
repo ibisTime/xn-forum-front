@@ -9,10 +9,9 @@ import {NavController} from "ionic-angular";
   templateUrl: 'search-user-article.html',
   styles:[`
   .current-btn{
-  background-color: white;
+  background-color:  white;
   color: rgb(206,63,66);
   }
-  
   `]
 })
 export class SearchUserAndArticlePage implements OnInit, AfterViewInit {

@@ -13,7 +13,6 @@ interface Page{
   pageSize?
   totalCount?,
   totalPage?
-
 }
 export class PageHelper  {
 

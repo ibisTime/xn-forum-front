@@ -11,7 +11,7 @@ import {WarnService} from "../../services/warn.service";
   template:`
 
 <ion-header>
-  <ion-navbar navbar-color>
+  <ion-navbar color="navbar-color">
     <ion-title>{{title}}</ion-title>
   </ion-navbar>
 </ion-header>
