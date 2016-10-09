@@ -1,0 +1,46 @@
+<ion-header >
+  <ion-navbar navbar-color>
+    <ion-title >
+      {{title}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content   class="forget-pwd" >
+
+  <!--<input #account [disabled]="inputDisable" [(ngModel)]="userNameValue" [value]="userNameValue" class="userNameInput" placeholder="请输入手机号">
+  <captcha-view class="captcha-view" (clickCaptchaBtn)="captchaClick()" ></captcha-view>
+  <input #pwd class="pwdInput" type="password" placeholder="请输入密码">
+  <input #rePwd class="rePwdInput" type="password" placeholder="请确认密码">-->
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>手机号</ion-label>
+      <ion-input #account [(ngModel)]="userNameValue" [value]="userNameValue" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item class="capt-item">
+      <ion-label floating>验证码</ion-label>
+      <ion-input #chptcha [(ngModel)]="captchaValue" [value]="captchaValue" type="text"></ion-input>
+      <button item-right (click)="captchaClick($event)">发送验证码</button>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>密码</ion-label>
+      <ion-input #pwd type="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>确认密码</ion-label>
+      <ion-input #rePwd type="password"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <div text-center class="save-div">
+    <button type="button" class="register-btn" (click)="register(account.value,chptcha.value,pwd.value,rePwd.value)" >保存</button>
+  </div>
+
+
+</ion-content>

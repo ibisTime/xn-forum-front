@@ -1,0 +1,70 @@
+
+$percentage: 85%;
+
+.login {
+
+  input {
+    display: block;
+    //border: 2px solid cyan;
+    width: $percentage;
+    height: 40px;
+    margin: 0 auto;
+  }
+
+  .userNameInput{
+    margin-top: 90px;
+    margin-bottom: 2px;
+  }
+  .pwdInput{
+
+  }
+  .login-div{
+    padding: 16px;
+  }
+  ion-list > .item{
+    padding-right: 16px;
+  }
+  ion-list > .item:first-child{
+    border-top: none;
+  }
+  ion-list > .item:last-child{
+    border-bottom: none;
+  }
+  ion-list > .item:last-child .item-inner{
+    border-bottom: 1px solid #c8c7cc;
+  }
+  .item-input ion-label{
+    color: #ce3f42;
+  }
+
+  .registerAndLogin{
+
+     margin: 0px auto;
+     text-align: right;
+     padding: 16px;
+     font-size: 10px;
+
+    .registerBtn, .findPwdBtn {
+      color: white;
+      height: 40px;
+      padding: 0 6px;
+      margin: 0;
+    }
+    .registerBtn{
+      float: left;
+    }
+
+  }
+
+  .loginBtn {
+    //background-color: $theme-color;
+    height: 50px;
+    //width: $percentage;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .button, .button.activated{
+    background: #ce3f42;
+  }
+
+}

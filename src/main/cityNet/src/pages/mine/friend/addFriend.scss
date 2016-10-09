@@ -1,0 +1,33 @@
+
+$search-height: 45px;
+.add-friend {
+
+  padding: 20px;
+  .friend-list-item{
+    border-top: 1px solid lightgray ;
+    display: flex;
+    background-color: white;
+    align-items: center;
+    margin-top: 2px;
+
+    .icon{
+      flex: 0 0 40px;
+      margin: 10px ;
+      width: 40px;
+      height: 40px;
+    }
+    p{
+      flex: 1;
+      color: black;
+      font-size: 16px;
+      //background-color: green;
+    }
+    button{
+      flex: 0 0 40px;
+      height: 25px;
+      width: 60px;
+    }
+  }
+
+
+}

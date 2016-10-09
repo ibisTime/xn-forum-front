@@ -1,0 +1,43 @@
+.friend {
+
+
+  padding: 20px;
+  .new-friend-badge{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    left: 48px;
+    top: 8px;
+    background-color: red;
+    position: absolute;
+
+  }
+
+  .n-button:active {
+    background-color: lightgray;
+  }
+  .friend-list-item{
+    //border-top: 1px solid lightgray ;
+    display: flex;
+    background-color: white;
+    align-items: center;
+
+    &:active{
+      background-color: lightgray;
+    }
+    .icon{
+      flex: 0 0 40px;
+      //margin: 10px ;
+      width: 40px;
+      height: 40px;
+    }
+    p{
+      margin-left: 10px;
+      flex: 1;
+      color: grey;
+      font-size: 16px;
+      //background-color: green;
+    }
+  }
+
+}
