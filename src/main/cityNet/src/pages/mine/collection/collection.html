@@ -44,7 +44,7 @@
                                     <button class="sp-btn fl" (click)="collect(item.code, idx, true);">
                                         <ion-icon name="star" style="color:#f64444"></ion-icon>
                                     </button>
-                                    <button class="fr" (click)="openPage(item.code)">
+                                    <button class="fr" (click)="openPage(item.code, item.publisher)">
                                         <i class="icon iconfont">&#xe610;</i><span>{{item.totalCommNum}}</span>
                                     </button>
                                     <button class="sp-btn fr {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code, idx)">
@@ -65,84 +65,13 @@
             </ion-infinite-scroll>
         </ion-list>
         </div>
-
-        <ion-list *ngSwitchCase="'ltan'" class="ltan">
-            <div class="clearfix">
-                <div class="lt-left fl wp30 bg_f0">
-                    <ul>
-                        <li class="on part1">论坛分类A</li>
-                        <li class="part2">论坛分类B</li>
-                    </ul>
-                </div>
-                <div class="lt-right fl wp70 bg_fff">
-                    <div class="part1 plr10">
-                        <ul>
-                            <li class="clearfix" (click)="showDetail('')">
-                                <div class="fl wp30"><img src="images/file_download.png"/></div>
-                                <div class="pl10 wp70 fl">
-                                    <div>板块名称</div>
-                                    <div class="com-btn">
-                                        <ion-buttons class="clearfix">
-                                            <button class="fl">
-                                                <i class="icon iconfont">&#xe624;</i>
-                                                <span>12</span>
-                                            </button>
-                                            <button class="fl ml10">
-                                                <i class="icon iconfont">&#xe610;</i>
-                                                <span>22</span>
-                                            </button>
-                                        </ion-buttons>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <div class="fl wp30"><img src="images/file_download.png"/></div>
-                                <div class="pl10 wp70 fl">
-                                    <div>板块名称</div>
-                                    <div class="com-btn">
-                                        <ion-buttons class="clearfix">
-                                            <button class="fl">
-                                                <i class="icon iconfont">&#xe624;</i>
-                                                <span>12</span>
-                                            </button>
-                                            <button class="fl ml10">
-                                                <i class="icon iconfont">&#xe610;</i>
-                                                <span>22</span>
-                                            </button>
-                                        </ion-buttons>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <div class="fl wp30"><img src="images/file_download.png"/></div>
-                                <div class="pl10 wp70 fl">
-                                    <div>板块名称</div>
-                                    <div class="com-btn">
-                                        <ion-buttons class="clearfix">
-                                            <button class="fl">
-                                                <i class="icon iconfont">&#xe624;</i>
-                                                <span>12</span>
-                                            </button>
-                                            <button class="fl ml10">
-                                                <i class="icon iconfont">&#xe610;</i>
-                                                <span>22</span>
-                                            </button>
-                                        </ion-buttons>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </ion-list>
     </div>
 </ion-content>
-<div id="ylImg" class="mask hidden" (click)="closeImg();">
+<div id="ylImg5" class="mask hidden" (click)="closeImg();">
     <div>
         <div class="wrapper">
             <div class="scroller" [style.line-height]="pHeight">
-                <img id="yl-img"/>
+                <img id="yl-img5"/>
             </div>
         </div>
     </div>

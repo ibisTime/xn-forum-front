@@ -68,7 +68,7 @@
                                     <button class="sp-btn fl {{item.isSC == '0'?'hidden':''}}" (click)="collect(item.code, idx, true);">
                                         <ion-icon name="star" style="color:#f64444"></ion-icon>
                                     </button>
-                                    <button class="fr" (click)="openPage(item.code)">
+                                    <button class="fr" (click)="openPage(item.code, item.publisher)">
                                         <i class="icon iconfont">&#xe610;</i><span>{{item.totalCommNum}}</span>
                                     </button>
                                     <button class="sp-btn fr {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code, idx)">
