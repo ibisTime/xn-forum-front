@@ -45,6 +45,12 @@ export class TabsPage {
     this.imServe.login(this.userServe.userId);
     this.http.post('/user/login-t',{"tokenId":this.userServe.tokenId}).then(res => {
       console.log('login-t登陆成功 ');
+      this.userServe.saveUserInfo(res.data.tokenId,this.userServe.userId);
+
+        this.http.get('/user').then((res) => {
+          this.userServe.user = res.data;
+        });
+
     });
 
   }

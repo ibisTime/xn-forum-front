@@ -3,7 +3,7 @@
  */
 import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions} from "@angular/http";
-import {AlertController} from "ionic-angular";
+import {AlertController, Events} from "ionic-angular";
 
 // const RELEASE_ADDR = "S";
 const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
@@ -18,7 +18,8 @@ export class HttpService {
   addr = DEBUG_ADDR;
   public headers;
   constructor(public http: Http,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public events: Events) {
 
   }
 
@@ -86,14 +87,24 @@ export class HttpService {
 
   handleRes(res, resolve, reject, url1) {
     try {
+      /*登陆超时，重新登陆*/
       let resObj = res.json();
+
       console.log(resObj);
+      console.log(resObj.timeout);
+      if(resObj.timeout){
+        this.events.publish('user:timeout',"timeout");
+        console.log(url1);
+      }
+
       if (resObj.eType == 2) {
         alert(resObj.msg);
         reject('发生异常');
       } else {
         resolve(resObj);
       }
+
+
     } catch (e) {
       if (url1.indexOf("webimplugin/welcome?") != -1) {
         resolve(res._body);

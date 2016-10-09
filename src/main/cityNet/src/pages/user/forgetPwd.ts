@@ -43,7 +43,7 @@ export class ForgetPwdPage implements AfterViewInit {
       this.title = this.para.data;
       let an =  this.userNameInput;
       this.inputDisable = "disabled";
-      this.userNameValue = this.user.userName;
+      // this.userNameValue = this.user.userName;
     }
     // this.inputDisable = false;
 

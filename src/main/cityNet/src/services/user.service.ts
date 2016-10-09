@@ -7,6 +7,20 @@ import {App, Platform} from "ionic-angular";
 import {HttpService} from "./http.service";
 import { Storage } from '@ionic/storage';
 
+export interface User{
+  kind?,
+  level?,
+  loginName?,
+  loginPwdStrength?,
+  mobile?,
+  nickname?,
+  remark?,
+  status?,
+  updateDatetime?,
+  updater?,
+  userExt?,
+  userId?
+}
 
 @Injectable()
 export class UserService {
@@ -14,8 +28,8 @@ export class UserService {
   isLogined: boolean = true;
   //userID 进行保存
   tokenId: string = "";
-  password: string = "";
   userId: string = "";
+  user:User;
   followUsers = [];  //关注的所有人
   constructor(private app: App,
               private platform: Platform,

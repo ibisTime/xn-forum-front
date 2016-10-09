@@ -2,12 +2,13 @@
  * Created by tianlei on 2016/10/8.
  */
 import {Component, OnInit,AfterViewInit} from '@angular/core';
-import {NavController} from "ionic-angular";
+import {NavController, Events} from "ionic-angular";
 import {UserService} from "../../services/user.service";
 import {TabsPage} from "../tabs/tabs";
 import {LoginPage} from "../user/login";
 import {CityService} from "../../services/city.service";
 import {WarnService} from "../../services/warn.service";
+import {IMService} from "../../services/im.service";
 
 @Component({
   selector: 'tutorial-page',
@@ -17,7 +18,9 @@ export class TutorialPage implements AfterViewInit {
   constructor( public nav: NavController,
                public userServe: UserService,
                public cityService: CityService,
-               public warn: WarnService
+               public warn: WarnService,
+               public events: Events,
+               public im: IMService
              ) {
 
   }
@@ -65,17 +68,25 @@ export class TutorialPage implements AfterViewInit {
 
     },100);
 
+    this.events.subscribe("user:timeout",()=> {
+      this.warn.toast('为了账户安全，请重新登陆');
+      this.userServe.loginOut();
+      this.im.close();
+      this.nav.push(LoginPage);
+
+    });
+
   }
+
+
 
   howLoad(){
     this.userServe.whetherLogin().then((msg) => {
 
       if(msg != null){
         this.nav.push(TabsPage);
-        // this.rootPage = TabsPage;
       } else {
         this.nav.push(LoginPage);
-        // this.rootPage = LoginPage;
       }
 
     });
