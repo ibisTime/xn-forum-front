@@ -58,11 +58,11 @@ export class HeadlinePage implements AfterViewInit {
               public warn: WarnService,
               public cityS: CityService) {
 
-
-     // this.headlineData = this.cityS.headlineData;
+    // this.headlineData = this.cityS.headlineData;
     setTimeout(() => {
-      this.headlineData = this.cityS.headlineData;
-      this.cityName = this.cityS.currentCity.name;
+
+
+
     },500);
 
   }

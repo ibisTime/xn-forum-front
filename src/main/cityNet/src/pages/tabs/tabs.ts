@@ -6,10 +6,10 @@ import {KefuPage} from "../kefu/kefu";
 import {VideoPage} from "../video/video";
 import {UserService} from "../../services/user.service";
 import {KefuService} from "../../services/kefu.serve";
-import {NavController,Tabs} from 'ionic-angular';
+import {Tabs} from 'ionic-angular';
 import {IMService} from "../../services/im.service";
 import {CityService} from "../../services/city.service";
-import {weChat} from "../release";
+import {HttpService} from "../../services/http.service";
 
 
 @Component({
@@ -29,7 +29,8 @@ export class TabsPage {
   constructor(public userServe: UserService,
               public kefuService: KefuService,
               public imServe: IMService,
-              public cityS: CityService) {
+              public cityS: CityService,
+              public http: HttpService) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
 
@@ -39,11 +40,21 @@ export class TabsPage {
     this.tab4Root = VideoPage;
     this.tab5Root = MinePage;
 
+    /**/
     this.kefuService.me = this.userServe.userId;
     this.imServe.login(this.userServe.userId);
+    this.http.post('/user/login-t',{"tokenId":this.userServe.tokenId}).then(res => {
+      console.log('login-t登陆成功 ');
+      this.userServe.saveUserInfo(res.data.tokenId,this.userServe.userId);
 
+        this.http.get('/user').then((res) => {
+          this.userServe.user = res.data;
+        });
+
+    });
 
   }
+
   goOther(index){
 
     if(index != 3){

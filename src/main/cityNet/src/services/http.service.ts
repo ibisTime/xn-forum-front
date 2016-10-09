@@ -3,14 +3,15 @@
  */
 import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions} from "@angular/http";
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/throw';
-import {AlertController} from "ionic-angular";
+import {AlertController, Events} from "ionic-angular";
 
 // const RELEASE_ADDR = "S";
 const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
 // const DEBUG_ADDR = "http://121.43.101.148:8080/xn-forum-front";
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/master
 // const TEST_ADDR = "S";
 
 @Injectable()
@@ -18,101 +19,111 @@ export class HttpService {
 
   src = DEBUG_ADDR + '/captcha';
   addr = DEBUG_ADDR;
-    public headers;
-    constructor(private http: Http,
-                private alertCtrl: AlertController ) {
+  public headers;
+  constructor(public http: Http,
+              public alertCtrl: AlertController,
+              public events: Events) {
 
+  }
 
+  get(url: string, parameters?: Object, optionURL?: string): Promise<any> {
+
+    let url1 = optionURL || (this.addr + url );
+
+    if (parameters != null && typeof(parameters) == "object") {
+      let flag = 1;
+      for (let key in parameters) {
+        url1 += (flag == 1 ? '?' : '&') + key + '=' + parameters[key];
+        flag = 0;
+      }
     }
 
-    get(url: string,parameters?: Object,optionURL?: string): Promise<any>{
+    return new Promise((resolve, reject) => {
 
-      let url1 = optionURL || (this.addr + url );
-
-      if (parameters != null && typeof(parameters) == "object" ){
-        let flag = 1;
-        for( let key in parameters){
-          url1 += (flag == 1 ? '?':'&') + key + '=' + parameters[key];
-          flag = 0;
-        }
-      }
-
-      return new Promise((resolve,reject) => {
-
-        let headers = new Headers({ 'Content-Type':'application/x-www-form-urlencoded'});
-        headers.append('Accept','application/json');
-        let reqOptions = new RequestOptions({ headers: headers });
-        this.http.get(url1,reqOptions).subscribe(
+      let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+      headers.append('Accept', 'application/json');
+      let reqOptions = new RequestOptions({headers: headers});
+      this.http.get(url1, reqOptions).subscribe(
           (res) => {
-            this.handleRes(res,resolve,reject, url1);
+            this.handleRes(res, resolve, reject, url1);
           },
           (error) => {
-            this.handelError(error,reject);
+            this.handelError(error, reject);
           }
-        );
+      );
 
-      });
+    });
 
+  }
+
+  post(url: string, parameters: Object, optionURL?: string): Promise<any> {
+
+    let url1 = optionURL || ( this.addr + url);
+
+    let body = "";
+    if (parameters != null && typeof(parameters) == "object") {
+      let flag = 1;
+      for (let key in parameters) {
+        body += (flag == 1 ? "" : "&") + key + '=' + parameters[key];
+        flag = 0;
+      }
     }
 
-    post(url: string,parameters: Object,optionURL?: string): Promise<any>{
+    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+    headers.append('Accept', 'application/json');
+    let reqOptions = new RequestOptions({headers: headers});
 
-      let url1 = optionURL ||( this.addr + url);
+    return new Promise((resolve, reject) => {
 
-      let body = "";
-      if (parameters != null && typeof(parameters) == "object"){
-        let flag = 1;
-        for( let key in parameters){
-            body += (flag == 1 ? "" : "&") + key + '=' + parameters[key];
-            flag = 0;
-        }
-      }
-
-      let headers = new Headers({ 'Content-Type':'application/x-www-form-urlencoded'});
-      headers.append('Accept','application/json');
-      let reqOptions = new RequestOptions({ headers: headers });
-
-      return new Promise((resolve,reject) => {
-
-        this.http.post(url1,body,reqOptions).subscribe(
+      this.http.post(url1, body, reqOptions).subscribe(
           (res) => {
-            this.handleRes(res,resolve,reject,url1);
+            this.handleRes(res, resolve, reject, url1);
           },
           (error) => {
-            this.handelError(error,reject);
+            this.handelError(error, reject);
           }
-        );
+      );
 
-      });
+    });
 
-    };
+  }
 
-    handleRes(res,resolve,reject,url1){
-      try{
-        let resObj = res.json();
-        console.log(resObj);
-        if(resObj.eType == 2){
-          alert(resObj.msg);
-          reject('发生异常');
-        } else {
-          resolve(resObj);
-        }
-      }catch(e){
-        if(url1.indexOf("webimplugin/welcome?") != -1){
-          resolve(res._body);
-        }else{
-          reject('发生异常');
-        }
+  handleRes(res, resolve, reject, url1) {
+    try {
+      /*登陆超时，重新登陆*/
+      let resObj = res.json();
+
+      console.log(resObj);
+      console.log(resObj.timeout);
+      if(resObj.timeout){
+        this.events.publish('user:timeout',"timeout");
+        console.log(url1);
+      }
+
+      if (resObj.eType == 2) {
+        alert(resObj.msg);
+        reject('发生异常');
+      } else {
+        resolve(resObj);
+      }
+
+
+    } catch (e) {
+      if (url1.indexOf("webimplugin/welcome?") != -1) {
+        resolve(res._body);
+      } else {
+        reject('发生异常');
       }
     }
+  }
 
-    handelError(error,reject){
+  handelError(error, reject) {
 
-      console.log('发生错误');
-      console.log(error);
-      reject(error);
+    console.log('发生错误');
+    console.log(error);
+    reject(error);
 
-    }
+  }
 
   alert(msg: string, confirmAction?: () => void) {
     let alert = this.alertCtrl.create({
@@ -128,9 +139,9 @@ export class HttpService {
     alert.present();
   }
 
+
 /*end*/
 }
-
 
 // let ht = new  XMLHttpRequest();
 // ht.open("POST","http://121.43.101.148:7303/xn-forum-front/user/regist");

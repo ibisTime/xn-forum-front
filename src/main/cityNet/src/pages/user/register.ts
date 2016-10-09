@@ -22,7 +22,7 @@ export class RegisterPage implements OnInit {
                  public warnCtrl: WarnService,
                  public user: UserService,
                  public imServe: IMService,
-                 public http: HttpService
+                 public http: HttpService,
                  ) {
     this.src = this.http.src;
     }
@@ -105,10 +105,28 @@ export class RegisterPage implements OnInit {
 
       /*通过userId注册环信*/
       this.imServe.register(userId,"").then(() => {
+
         loading.dismiss();
         this.warnCtrl.toast('注册IM成功');
-        //保存用户信息
-        this.user.saveUserInfo(userName, userId);
+        /*帮用户进行登陆*/
+        let loginParams = {
+          loginName: userName,
+          loginPwd: pwd,
+          terminalType: "1"
+        }
+
+        return this.http.post('/user/login',loginParams);
+
+      }).then(res => {
+        /*登陆成功 保存信息*/
+        let tokenId = res["data"]["tokenId"];
+        let userId = res["data"]["userId"];
+
+        console.log('在真机中使用');
+        //保存 uid  和  tokenid
+        this.user.saveUserInfo(tokenId,userId);
+
+        //切换控制
         this.navCtrl.push(TabsPage);
 
       }).catch((error) => {
