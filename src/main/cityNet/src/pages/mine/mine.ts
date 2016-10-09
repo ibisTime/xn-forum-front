@@ -31,6 +31,9 @@ export class MinePage {
     {"name":'退出登录',"src":'&#xe617;'},
   ];
   src:string = 'images/marty-avatar.png';
+  tzCount = '0';
+  gzCount = '0';
+  fsCount = '0';
 
   constructor(public navCtrl: NavController,
               public platform: Platform,
@@ -40,6 +43,9 @@ export class MinePage {
               public http: HttpService,
               public app :App) {
     this.getUserInfo();
+    this.queryTZCount();
+    this.queryGZCount();
+    this.queryFSCount();
   }
 
   loginOut(){
@@ -47,16 +53,53 @@ export class MinePage {
     this.imService.clearCurrentData();
     this.imService.close();
     this.app.getRootNav().setRoot(LoginPage);
-
   }
   getUserInfo(){
-    this.http.get('/user').then((res) => {
+    return this.http.get('/user').then((res) => {
       let userExt = res.data.userExt;
       this.src = userExt && userExt.src || "assets/images/marty-avatar.png";
       document.getElementById("nickname").innerText = res.data.nickname || res.data.mobile;
     }).catch((error) => {
       this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
     });
+  }
+  queryTZCount(event?){
+      return this.http.get('/post/page',{
+          "start": 0,
+          "limit": 1
+        })
+        .then((res) => {
+            if(res.success){
+                this.tzCount = res.data.totalCount;
+                event && event.complete();
+            }
+        }).catch(error => {
+            event && event.complete();
+        });
+  }
+  queryGZCount(){
+      return this.http.get('/rs/follows/page',{
+          "start": 0,
+          "limit": 1
+        })
+        .then((res) => {
+            if(res.success){
+                this.gzCount = res.data.totalCount;
+            }
+        }).catch(error => {
+        });
+  }
+  queryFSCount(){
+      return this.http.get('/rs/fans/page',{
+          "start": 0,
+          "limit": 1
+        })
+        .then((res) => {
+            if(res.success){
+                this.fsCount = res.data.totalCount;
+            }
+        }).catch(error => {
+        });
   }
   goDetail(){
     this.navCtrl.push(MineDetailPage);

@@ -5,7 +5,6 @@ import {WarnService} from "../../../services/warn.service";
 import {IMService} from "../../../services/im.service";
 import {LoginPage} from "../../user/login";
 import {HttpService} from "../../../services/http.service";
-import {EditDetailPage} from "./editDetail";
 import {ContentPage} from "../../forum/content/content";
 import {ChatRoomPage} from "../../mine/im/chat-room";
 
@@ -232,8 +231,5 @@ export class MineDetailPage {
   //打开帖子详情页
   openPage(code){
       this.navCtrl.push(ContentPage,{code: code});
-  }
-  doEdit(){
-      this.navCtrl.push(EditDetailPage);
   }
 }
