@@ -115,10 +115,13 @@ public class MemberController extends BaseController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		if (map == null) {
+		if (map != null) {
 			throw new BizException("10001", "用户不存在");
 		}
 		
+		
+//		XN805043Res res = userAO.doLogin((String)(map.get("loginName")), 
+//				(MD5Util.KL((String)map.get("loginPwd"))), "f1");
 		String userId = (String)(map.get("userId"));
 		SessionUser sessionUser = new SessionUser();
         sessionUser.setUserId(userId);
