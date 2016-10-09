@@ -47,22 +47,15 @@ export class LoginPage implements OnInit {
     this.http.post('/user/login',params).then((res) => {
 
       loading.dismiss();
-      this.platform.ready().then(() => {
 
-        console.log('在真机中使用');
-        //保存用户信息
-        this.uService.saveUserInfo(userName,res.data);
+      let tokenId = res["data"]["tokenId"];
+      let userId = res["data"]["userId"];
 
-        //切换控制
-        this.navCtrl.push(TabsPage);
+      //保存 uid  和  tokenid
+      this.uService.saveUserInfo(tokenId, userId);
+      //切换控制
+      this.navCtrl.push(TabsPage);
 
-        // this.navCtrl.pop();
-        // //登录环信
-        // this.imServe.login(userName);
-        // //客服,赋值
-        // this.kefu.me = userName;
-        // this.navCtrl.parent.parent.push(TabsPage);
-      });
 
     }).catch(error => {
       loading.dismiss();

@@ -13,7 +13,7 @@ export class UserService {
 
   isLogined: boolean = true;
   //userID 进行保存
-  userName: string = "";
+  tokenId: string = "";
   password: string = "";
   userId: string = "";
   followUsers = [];  //关注的所有人
@@ -24,13 +24,13 @@ export class UserService {
 
   }
 
-  saveUserInfo(userName: string,userId: string) {
+  saveUserInfo(tokenId: string,userId: string) {
 
-    this.userName = userName;
+    this.tokenId = tokenId;
     this.userId = userId;
 
     /*存储在浏览器中*/
-    this.storage.set("userName", userName);
+    this.storage.set("tokenId", tokenId);
     this.storage.set("userId", userId);
 
   }
@@ -38,6 +38,12 @@ export class UserService {
   whetherLogin(){
 
     /*webStorage only use web*/
+    this.storage.get("tokenId").then((res) => {
+      if(res != null){
+        this.tokenId = res;
+      }
+    });
+
     return this.storage.get("userId").then((res) => {
       if(res != null){
         this.userId = res;
@@ -45,43 +51,29 @@ export class UserService {
       return res;
     });
 
-
   }
 
-  loginState() {
-
-    /*webStorage only use web*/
-    this.storage.get("userId").then((value) => {
-      /**/
-      this.userId = value;
-    });
-    return this.storage.get("userName");
-
-  }
+  // loginState() {
+  //
+  //   /*webStorage only use web*/
+  //   this.storage.get("userId").then((value) => {
+  //     /**/
+  //     this.userId = value;
+  //   });
+  //   return this.storage.get("userName");
+  //
+  // }
 
   loginOut() {
 
     /**/
-    this.userName = "";
+    this.tokenId = "";
     this.userId = "";
-    this.storage.remove("userName");
+    this.storage.remove("tokenId");
     this.storage.remove("userId");
     /**/
-
-    this.platform.ready().then(() => {
-
-
-
-      // NativeStorage.remove(USER).then(() => {
-      //
-      //   this.app.getRootNav().setRoot(LoginPage);
-      //
-      // }).catch((error) => {
-      //
-      // });
-
-    })
   }
+
   //查询所有关注的人
   queryFollowUsers(){
     return this.http.get('/rs/follows/list',{
