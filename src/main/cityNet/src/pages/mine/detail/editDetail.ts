@@ -8,7 +8,7 @@ import {HttpService} from "../../../services/http.service";
   templateUrl: 'editDetail.html'
 })
 export class EditDetailPage implements AfterViewInit {
-  src:string = 'images/marty-avatar.png';
+  src:string = 'assets/images/marty-avatar.png';
   url:string;
   param = {
       "gender": "",

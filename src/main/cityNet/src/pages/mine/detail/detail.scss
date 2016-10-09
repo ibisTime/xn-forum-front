@@ -93,6 +93,9 @@
         .iconfont{
             font-size: 1.6rem;
         }
+        .va-tt{
+            vertical-align: text-top;
+        }
         .item-inner{
             padding-right: 0;
             border-bottom: none;
@@ -131,6 +134,9 @@
                         background-color: transparent;
                         font-size: 1.2rem;
                         height: 2rem;
+                    }
+                    .com-btn ion-buttons{
+                        margin-bottom: 0.8rem;
                     }
                     ion-avatar{
                         position: absolute;

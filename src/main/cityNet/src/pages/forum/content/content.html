@@ -18,7 +18,7 @@
                         <div>
                             <div style="position: relative;">
                                 <h2>{{item.nickname}}</h2>
-                                <p class="time">{{item.publishDatetime}}</p>
+                                <p class="time">{{item.publishDatetime | forumDate}}</p>
                                 <button outline small class="origin content-btn {{followFlag?'hidden':''}}" (click)="follow(item.publisher)">+关注</button>
                                 <button outline small class="origin content-btn {{followFlag?'':'hidden'}}" (click)="unfollow(item.publisher)">取消关注</button>
                             </div>

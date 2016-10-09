@@ -10,7 +10,7 @@
       <div>
           <img class="br50" [src]="src"/>
       </div>
-      <div class="lh2em" (click)="goChat();">
+      <div class="lh2em">
           <span id="nickName">CT-454543534</span>
           <span class="br50 bg_e66c61 xb"><ion-icon name="female"></ion-icon></span>
           <!--<ion-icon name="male"></ion-icon>-->
@@ -25,10 +25,18 @@
           个人简介
       </div>
   </div>
-  <div class="bg_f0 c_a3 pl8 lh2em">2个帖子</div>
+  <div class="bg_f0 c_a3 pl8 lh2em" id="totalTZ">{{totalCount}}个帖子</div>
   
    <ion-list>
-        <ion-item (click)="showImg($event)">
+        <ion-refresher (ionRefresh)="doRefresh($event)" class="no-abs">
+                <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉加载"
+                refreshingSpinner="circles"
+                refreshingText="加载中...">
+                </ion-refresher-content>
+        </ion-refresher>
+        <!--<ion-item (click)="showImg($event)">
             <ion-card>
                 <ion-item>
                     <ion-avatar item-left>
@@ -69,30 +77,26 @@
                     </div>
                 </ion-item>
             </ion-card>
-        </ion-item>
-        <ion-item (click)="showImg($event)">
+        </ion-item>-->
+        <ion-item *ngFor="let item of items;let idx=index;">
             <ion-card>
                 <ion-item>
-                    <ion-avatar item-left>
-                        <img src="images/marty-avatar.png">
+                    <ion-avatar item-left (tap)="goDetail(item.publisher)">
+                        <img src="{{item.photo || 'assets/images/marty-avatar.png'}}">
                     </ion-avatar>
                     <div>
                         <div style="position: relative;">
-                            <h2>爆料达人</h2>
+                            <h2>{{item.nickname}}</h2>
                             <p style="" class="origin">来自 <span>散讲</span></p>
                         </div>
-                        <p class="time">1小时前</p>
+                        <p class="time">{{item.publishDatetime | forumDate}}</p>
                         <ion-card-content>
-                            <p>开学了转给热爱学习的你，我爱学习，学习让我快乐</p>
-                            <div [style.height]="imgHeight" class="img-cont">
-                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                            <div (click)="openPage(item.code)">
+                                <h2 style="margin: 6px 0;">{{item.title}}</h2>
+                                <p>{{item.content}}</p>
                             </div>
-                            <div [style.height]="imgHeight" class="img-cont">
-                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                                <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+                            <div *ngIf="item.pic" [style.height]="imgHeight" class="img-cont" (click)="showImg($event)">
+                                <img class="imgs" [style.width]="imgHeight" src="{{p}}" *ngFor="let p of item.pic"/>
                             </div>
                         </ion-card-content>
 
@@ -101,11 +105,21 @@
                                 <button class="fl">
                                     <i class="icon iconfont">&#xe60a;</i>
                                 </button>
-                                <button class="fr">
+                                <!--<button class="fr">
                                     <i class="icon iconfont">&#xe610;</i>
                                 </button>
                                 <button class="fr">
                                     <i class="icon iconfont">&#xe624;</i>
+                                </button>-->
+                                <button class="fr" (click)="openPage(item.code)">
+                                    <i class="icon iconfont">&#xe610;</i><span class="va-tt">{{item.totalCommNum}}</span>
+                                </button>
+                                <button class="sp-btn fr {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code, idx)">
+                                    <i class="icon iconfont">&#xe624;</i><span class="praise-total">{{item.totalDzNum}}</span>
+                                </button>
+                                <button class="sp-btn fr {{item.isDZ == '0'?'hidden':''}}" (click)="praise(item.code, idx, true)">
+                                    <!--<i class="icon iconfont">&#xe624;</i>-->
+                                    <ion-icon name="thumbs-up" style="color:#f64444"></ion-icon><span class="praise-total">{{item.totalDzNum}}</span>
                                 </button>
                             </ion-buttons>
                         </div>
@@ -113,7 +127,7 @@
                             <div class="com-top clearfix">
                                 <button class="fl">
                                     <i class="icon iconfont">&#xe624;</i>
-                                    <span>50</span>
+                                    <span class="va-tt">50</span>
                                 </button>
                                 <div class="t-3dot">
                                     <span>aaa</span>
@@ -142,17 +156,30 @@
                 </ion-item>
             </ion-card>
         </ion-item>
+        <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </ion-list>
 
 </ion-content>
+<div id="ylImg4" class="mask hidden" (click)="closeImg();">
+    <div>
+        <div class="wrapper">
+            <div class="scroller" [style.line-height]="pHeight">
+                <img id="yl-img4"/>
+            </div>
+        </div>
+    </div>
+
+</div>
 <ion-footer class="mine-detail-foot">
-    <div class="b_fff lh2em ptb6 bd_t_e6">
+    <div class="b_fff lh2em ptb6 bd_t_e6" *ngIf="isMe" (click)="doEdit()">
         <div class="tc">
             <i class="icon iconfont c_d23e3e">&#xe616;</i>
             <span class="c_80">编辑资料</span>
         </div>
     </div>
-    <div class="tc b_fff clearfix lh2em ptb6 bd_t_e6">
+    <div class="tc b_fff clearfix lh2em ptb6 bd_t_e6" *ngIf="!isMe">
         <div class="fl tc wp49">
             <ion-icon name="add" class="c_d23e3e"></ion-icon>
             <span class="c_80">关注</span>
@@ -160,7 +187,7 @@
         <div class="c_line"></div>
         <div class="fl tc wp49">
             <ion-icon name="mail" class="c_d23e3e"></ion-icon>
-            <span class="c_80">私信</span>
+            <span class="c_80" (click)="goChat()">私信</span>
         </div>
     </div>
 </ion-footer>
