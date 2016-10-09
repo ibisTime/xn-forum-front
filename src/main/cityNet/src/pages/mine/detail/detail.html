@@ -81,7 +81,7 @@
         <ion-item *ngFor="let item of items;let idx=index;">
             <ion-card>
                 <ion-item>
-                    <ion-avatar item-left (tap)="goDetail(item.publisher)">
+                    <ion-avatar item-left (tap)="showImg($event)">
                         <img src="{{item.photo || 'assets/images/marty-avatar.png'}}">
                     </ion-avatar>
                     <div>
@@ -180,9 +180,13 @@
         </div>
     </div>
     <div class="tc b_fff clearfix lh2em ptb6 bd_t_e6" *ngIf="!isMe">
-        <div class="fl tc wp49">
+        <div class="fl tc wp49 {{followFlag?'hidden':''}}" (click)="follow()">
             <ion-icon name="add" class="c_d23e3e"></ion-icon>
             <span class="c_80">关注</span>
+        </div>
+        <div class="fl tc wp49 {{followFlag?'':'hidden'}}" (click)="unfollow()">
+            <ion-icon name="close"></ion-icon>
+            <span class="c_80">取消关注</span>
         </div>
         <div class="c_line"></div>
         <div class="fl tc wp49">

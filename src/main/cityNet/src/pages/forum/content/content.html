@@ -19,13 +19,15 @@
                             <div style="position: relative;">
                                 <h2>{{item.nickname}}</h2>
                                 <p class="time">{{item.publishDatetime | forumDate}}</p>
-                                <button outline small class="origin content-btn {{followFlag?'hidden':''}}" (click)="follow(item.publisher)">+关注</button>
-                                <button outline small class="origin content-btn {{followFlag?'':'hidden'}}" (click)="unfollow(item.publisher)">取消关注</button>
+                                <div class="inblock" *ngIf="!isMe">
+                                    <button outline small class="origin content-btn {{followFlag?'hidden':''}}" (click)="follow(item.publisher)">+关注</button>
+                                    <button outline small class="origin content-btn {{followFlag?'':'hidden'}}" (click)="unfollow(item.publisher)">取消关注</button>
+                                </div>
                             </div>
                             <ion-card-content>
                                 <h2 style="margin: 6px 0;">{{item.title}}</h2>
                                 <p>{{item.content}}</p>
-                                <div [style.height]="imgHeight" *ngIf="item.pic" class="img-cont" (click)="showImg($event)">
+                                <div [style.height]="imgHeight" *ngIf="item.pic != null" class="img-cont" (click)="showImg($event)">
                                     <img class="imgs" [style.width]="imgHeight" src="{{p}}" *ngFor="let p of item.pic"/>
                                 </div>
                             </ion-card-content>
@@ -35,15 +37,17 @@
                                     <button class="fl">
                                         <i class="icon iconfont">&#xe60a;</i>
                                     </button>
-                                    <button class="fl hidden">
+                                    <button class="fl {{isMe?'':'hidden'}}" (click)="deleteTz(item.code)">
                                         <ion-icon name="trash"></ion-icon>
                                     </button>
-                                    <button class="sp-btn fl {{item.isSC == '0'?'':'hidden'}}" (click)="collect(item.code);">
-                                        <ion-icon name="star-outline"></ion-icon>
-                                    </button>
-                                    <button class="sp-btn fl {{item.isSC == '0'?'hidden':''}}" (click)="collect(item.code, true);">
-                                        <ion-icon name="star" style="color:#f64444"></ion-icon>
-                                    </button>
+                                    <div class="inblock {{isMe?'hidden': ''}}">
+                                        <button class="sp-btn fl {{item.isSC == '0'?'':'hidden'}}" (click)="collect(item.code);">
+                                            <ion-icon name="star-outline"></ion-icon>
+                                        </button>
+                                        <button class="sp-btn fl {{item.isSC == '0'?'hidden':''}}" (click)="collect(item.code, true);">
+                                            <ion-icon name="star" style="color:#f64444"></ion-icon>
+                                        </button>
+                                    </div>
                                     <button class="fr">
                                         <i class="icon iconfont">&#xe610;</i>
                                     </button>

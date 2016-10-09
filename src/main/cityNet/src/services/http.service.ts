@@ -8,10 +8,6 @@ import {AlertController, Events} from "ionic-angular";
 // const RELEASE_ADDR = "S";
 const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
 // const DEBUG_ADDR = "http://121.43.101.148:8080/xn-forum-front";
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/master
 // const TEST_ADDR = "S";
 
 @Injectable()

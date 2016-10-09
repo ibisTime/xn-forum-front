@@ -82,4 +82,12 @@ public interface IPostAO {
      * @history:
      */
     public Object comment(String content, String parentCode, String commer);
+    
+    /**
+     * 将自己已发布的帖子删除
+     * @param code
+     * @param userId
+     * @return
+     */
+    public Object deletePost(String code, String userId);
 }

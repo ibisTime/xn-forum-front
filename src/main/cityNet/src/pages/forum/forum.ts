@@ -6,8 +6,8 @@ import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.service";
 import {ContentPage} from "./content/content";
 import {LoginPage} from "../user/login";
-import {ChatRoomPage} from "../mine/im/chat-room";
-
+import {ChatRoomPage} from "../mine/im/chat-room";MineDetailPage
+import {MineDetailPage} from "../mine/detail/detail";
 
 @Component({
   templateUrl: 'forum.html'
@@ -182,7 +182,10 @@ export class ForumPage {
       this.navCtrl.push(ContentPage,{code: code});
   }
   /*聊天*/
-    goChat(userId){
-        this.navCtrl.push(ChatRoomPage,userId);
-    }
+  goChat(userId){
+    this.navCtrl.push(ChatRoomPage,userId);
+  }
+  goDetail(toId){
+    this.navCtrl.push(MineDetailPage, {toUserId: toId});
+  }
 }

@@ -38,7 +38,7 @@
             <ion-item *ngFor="let item of items;let idx=index;">
                 <ion-card>
                     <ion-item>
-                        <ion-avatar item-left (tap)="goChat(item.publisher)">
+                        <ion-avatar item-left (tap)="goDetail(item.publisher)">
                             <img src="{{item.photo || 'assets/images/marty-avatar.png'}}">
                         </ion-avatar>
                         <div>

@@ -244,8 +244,8 @@ export class HeadlinePage implements AfterViewInit {
     },2000);
   }
 
-  browserArticle(code){
-    this.navCtrl.push(ContentPage,{"code": code});
+  browserArticle(code, user){
+    this.navCtrl.push(ContentPage,{"code": code, "user": user});
   }
 
 

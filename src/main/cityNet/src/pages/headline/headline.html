@@ -60,7 +60,7 @@
     </div>
 
     <div class="article">
-      <div class="article-row" *ngFor="let article of articles" (tap)="browserArticle(article.code)">
+      <div class="article-row" *ngFor="let article of articles" (tap)="browserArticle(article.code, article.publisher)">
         <img class="left-img" src={{article.pic[0]}} *ngIf="article.pic != null">
         <div class="text-outer">
           <div class="article-title">{{article.content}}</div>

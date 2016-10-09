@@ -16,6 +16,7 @@ import com.xnjr.moom.front.exception.BizException;
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.req.XN610050Req;
+import com.xnjr.moom.front.req.XN610051Req;
 import com.xnjr.moom.front.req.XN610056Req;
 import com.xnjr.moom.front.req.XN610057Req;
 import com.xnjr.moom.front.req.XN610070Req;
@@ -110,5 +111,14 @@ public class PostAOImpl implements IPostAO {
         req.setParentCode(parentCode);
         return BizConnecter.getBizData("610057", JsonUtils.object2Json(req),
             Object.class);
+    }
+    
+    public Object deletePost(String code, String userId){
+    	XN610051Req req = new XN610051Req();
+    	req.setCode(code);
+    	req.setUserId(userId);
+    	return BizConnecter.getBizData("610051", JsonUtils.object2Json(req),
+                Object.class);
+    	
     }
 }

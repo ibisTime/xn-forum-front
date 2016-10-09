@@ -16,12 +16,23 @@ export class ContentPage {
   code: string;
   // item = {totalDzNum: "", code: "", commentList:[], publisher: "",isSC:"",isDZ:"", postTalkList:[]};
   /*解决错误*/
-  item = {pic:""};
+  item = {
+      isSC: "0",
+      totalDzNum: "0",
+      isDZ: "0",
+      publisher: "",
+      postTalkList: [],
+      code: "",
+      commentList: []
+  };
   followFlag:boolean = false;
   segment:string = "pjia";
   followCount: number = 0;
   collectCount = 0;   //点击收藏次数
   praiseCount = 0;    //点击点赞次数
+  deleteCount = 0;    //点击删除次数
+  toUser = "";
+  isMe = false;
   inputValue;
 
   @ViewChild(Content) content: Content;
@@ -32,25 +43,25 @@ export class ContentPage {
               public warnCtrl : WarnService,
               public uService : UserService,
               public http: HttpService) {
-      this.isAndroid = platform.is('android');
-      this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
-      this.pHeight = `${this.platform.height()}px`;
-      this.code = navPara.data.code;
-      this.getPostDetail();
-      if(!uService.followUsers.length){
-          uService.queryFollowUsers().then(()=>{
-              if(this.item.publisher){
-                  let fUs = this.uService.followUsers;
-                  for(let f of fUs){
-                      if(this.item.publisher == f.userId){
-                            this.followFlag = true;
-                            break;
-                      }
-                  }
-              }
+        this.isAndroid = platform.is('android');
+        this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
+        this.pHeight = `${this.platform.height()}px`;
+        this.code = navPara.data.code;
+        this.toUser = navPara.data.user || "";
+        this.isMe = this.toUser == uService.userId ? true: false;
+        this.getPostDetail();
+        uService.queryFollowUsers().then(()=>{
+            if(this.item.publisher){
+                let fUs = this.uService.followUsers;
+                for(let f of fUs){
+                    if(this.item.publisher == f.userId){
+                        this.followFlag = true;
+                        break;
+                    }
+                }
+            }
 
-          });
-      }
+        });
   }
   //关注
   follow(publisher){
@@ -94,6 +105,27 @@ export class ContentPage {
                     this.followCount = 0;
                     this.warnCtrl.toast("取消关注失败，请稍后重试!");
                 });
+      }
+  }
+  deleteTz(code){
+      if(!this.deleteCount){
+          this.deleteCount = 1;
+          this.http.post('/post/delete',{
+            "code": code
+          })
+            .then((res) => {
+                this.deleteCount = 0;
+                if(res.success){
+                    this.navCtrl.pop();
+                }else if(res.timeout){
+                    this.warnCtrl.toast("登录超时，请重新登录!");
+                }else{
+                    this.warnCtrl.toast("删除帖子失败，请稍后重试!");
+                }
+            }).catch(error => {
+                this.deleteCount = 0;
+                this.warnCtrl.toast("删除帖子失败，请稍后重试!");
+            });
       }
   }
   //收藏
@@ -205,7 +237,7 @@ export class ContentPage {
         .then((res) => {
             if(res.success){
                 var data = res.data;
-                if(data.pic){
+                if(data.pic != null){
                     data.pic = data.pic.split(/\|\|/);
                 }
                 //data.publishDatetime = this.jsDateDiff( new Date(data.publishDatetime).getTime() /1000);
