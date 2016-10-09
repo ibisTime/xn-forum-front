@@ -1,0 +1,175 @@
+<ion-header class="forum-head">
+    <ion-navbar navbar-color>
+    <ion-buttons start>
+        <button>
+        <!--<ion-icon name="search"></ion-icon>-->
+        <i class="icon iconfont">&#xe601;</i>
+        </button>
+    </ion-buttons>
+    <ion-segment [(ngModel)]="segment">
+        <ion-segment-button value="yliao">
+        有料
+        </ion-segment-button>
+        <ion-segment-button value="ltan">
+        论坛
+        </ion-segment-button>
+    </ion-segment>
+    <ion-buttons end>
+        <button>
+        <!--<ion-icon name="create"></ion-icon>-->
+        <i class="icon iconfont">&#xe616;</i>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="forum forum-detail">
+    <div [ngSwitch]="segment">
+        <div *ngSwitchCase="'yliao'">
+        <ion-list>
+            <ion-refresher (ionRefresh)="doRefresh($event)" class="no-abs">
+                <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉加载"
+                refreshingSpinner="circles"
+                refreshingText="加载中...">
+                </ion-refresher-content>
+            </ion-refresher>
+            <ion-item *ngFor="let item of items;let idx=index;">
+                <ion-card>
+                    <ion-item>
+                        <ion-avatar item-left (tap)="goDetail(item.publisher)">
+                            <img src="{{item.photo || 'assets/images/marty-avatar.png'}}">
+                        </ion-avatar>
+                        <div>
+                            <div style="position: relative;">
+                                <h2>{{item.nickname}}</h2>
+                                <!--<p style="" class="origin">来自 <span>散讲</span></p>-->
+                            </div>
+                            <p class="time">{{item.publishDatetime | forumDate}}</p>
+                            <ion-card-content>
+                                <div (click)="openPage(item.code)">
+                                    <h2 style="margin: 6px 0;">{{item.title}}</h2>
+                                    <p>{{item.content}}</p>
+                                </div>
+                                <div *ngIf="item.pic" [style.height]="imgHeight" class="img-cont" (click)="showImg($event)">
+                                    <img class="imgs" [style.width]="imgHeight" src="{{p}}" *ngFor="let p of item.pic"/>
+                                </div>
+                            </ion-card-content>
+
+                            <div class="com-btn">
+                                <ion-buttons class="clearfix">
+                                    <button class="fl">
+                                        <i class="icon iconfont">&#xe60a;</i>
+                                    </button>
+                                    <button class="sp-btn fl {{item.isSC == '0'?'':'hidden'}}" (click)="collect(item.code, idx);">
+                                        <ion-icon name="star-outline"></ion-icon>
+                                    </button>
+                                    <button class="sp-btn fl {{item.isSC == '0'?'hidden':''}}" (click)="collect(item.code, idx, true);">
+                                        <ion-icon name="star" style="color:#f64444"></ion-icon>
+                                    </button>
+                                    <button class="fr" (click)="openPage(item.code)">
+                                        <i class="icon iconfont">&#xe610;</i><span>{{item.totalCommNum}}</span>
+                                    </button>
+                                    <button class="sp-btn fr {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code, idx)">
+                                        <i class="icon iconfont">&#xe624;</i><span class="praise-total">{{item.totalDzNum}}</span>
+                                    </button>
+                                    <button class="sp-btn fr {{item.isDZ == '0'?'hidden':''}}" (click)="praise(item.code, idx, true)">
+                                        <!--<i class="icon iconfont">&#xe624;</i>-->
+                                        <ion-icon name="thumbs-up" style="color:#f64444"></ion-icon><span class="praise-total">{{item.totalDzNum}}</span>
+                                    </button>
+                                </ion-buttons>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-card>
+            </ion-item>
+            <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
+                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </ion-list>
+        </div>
+
+        <ion-list *ngSwitchCase="'ltan'" class="ltan">
+            <div class="clearfix">
+                <div class="lt-left fl wp30 bg_f0">
+                    <ul>
+                        <li class="on part1">论坛分类A</li>
+                        <li class="part2">论坛分类B</li>
+                    </ul>
+                </div>
+                <div class="lt-right fl wp70 bg_fff">
+                    <div class="part1 plr10">
+                        <ul>
+                            <li class="clearfix" (click)="showDetail('')">
+                                <div class="fl wp30"><img src="images/file_download.png"/></div>
+                                <div class="pl10 wp70 fl">
+                                    <div>板块名称</div>
+                                    <div class="com-btn">
+                                        <ion-buttons class="clearfix">
+                                            <button class="fl">
+                                                <i class="icon iconfont">&#xe624;</i>
+                                                <span>12</span>
+                                            </button>
+                                            <button class="fl ml10">
+                                                <i class="icon iconfont">&#xe610;</i>
+                                                <span>22</span>
+                                            </button>
+                                        </ion-buttons>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="fl wp30"><img src="images/file_download.png"/></div>
+                                <div class="pl10 wp70 fl">
+                                    <div>板块名称</div>
+                                    <div class="com-btn">
+                                        <ion-buttons class="clearfix">
+                                            <button class="fl">
+                                                <i class="icon iconfont">&#xe624;</i>
+                                                <span>12</span>
+                                            </button>
+                                            <button class="fl ml10">
+                                                <i class="icon iconfont">&#xe610;</i>
+                                                <span>22</span>
+                                            </button>
+                                        </ion-buttons>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="fl wp30"><img src="images/file_download.png"/></div>
+                                <div class="pl10 wp70 fl">
+                                    <div>板块名称</div>
+                                    <div class="com-btn">
+                                        <ion-buttons class="clearfix">
+                                            <button class="fl">
+                                                <i class="icon iconfont">&#xe624;</i>
+                                                <span>12</span>
+                                            </button>
+                                            <button class="fl ml10">
+                                                <i class="icon iconfont">&#xe610;</i>
+                                                <span>22</span>
+                                            </button>
+                                        </ion-buttons>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </ion-list>
+    </div>
+</ion-content>
+<div id="ylImg" class="mask hidden" (click)="closeImg();">
+    <div>
+        <div class="wrapper">
+            <div class="scroller" [style.line-height]="pHeight">
+                <img id="yl-img"/>
+            </div>
+        </div>
+    </div>
+
+</div>
+

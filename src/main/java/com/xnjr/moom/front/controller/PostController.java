@@ -89,4 +89,10 @@ public class PostController extends BaseController {
             @RequestParam(value = "commer", required = false) String commer) {
         return postAO.comment(content, parentCode, getSessionUserId(commer));
     }
+    // 将自己已发布的帖子删除
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Object deletePost(@RequestParam("code") String code) {
+        return postAO.deletePost(code, getSessionUserId(""));
+    }
 }
