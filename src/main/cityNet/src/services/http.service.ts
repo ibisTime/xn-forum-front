@@ -90,7 +90,7 @@ export class HttpService {
       let resObj = res.json();
       /*自己的请求*/
       console.log(resObj.success);
-      if(resObj.success != null){
+      if(typeof(resObj.success) != "undefined"){
 
         if(resObj.success){//无异常
           resolve(resObj);

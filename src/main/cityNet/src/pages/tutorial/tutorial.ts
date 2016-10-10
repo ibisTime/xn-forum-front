@@ -9,6 +9,7 @@ import {LoginPage} from "../user/login";
 import {CityService} from "../../services/city.service";
 import {WarnService} from "../../services/warn.service";
 import {IMService} from "../../services/im.service";
+import {HttpService} from "../../services/http.service";
 
 @Component({
   selector: 'tutorial-page',
@@ -20,49 +21,86 @@ export class TutorialPage implements AfterViewInit {
                public cityService: CityService,
                public warn: WarnService,
                public events: Events,
-               public im: IMService
+               public im: IMService,
+               public http: HttpService
              ) {
 
   }
 
   ngAfterViewInit() {
 
+
+
     setTimeout(() => {
       let loadNav = this.warn.loading('定位中...');
-      navigator.geolocation.getCurrentPosition( (position:any) => {
+
+      navigator.geolocation.getCurrentPosition( (geo:any) => {
 
         /*同意定位加载*/
-        console.log(position);
 
-        /*同意加载站点*/
-        this.cityService.getNavigateByPosition(position.x,position.y).then(res => {
+        this.cityService.getAddressByBaiduMap(geo.coords.longitude,geo.coords.latitude).then(res => {
+          loadNav.dismiss();
+          if(res.status == "0"){
 
-          loadNav.dismiss().then(() => {
-          });
+            let cityName = res.result.addressComponent.district;
+            console.log(cityName);
+            let zoneObj = {
+              "province":res.result.addressComponent.province,
+              "city":res.result.addressComponent.city,
+              "area": res.result.addressComponent.district
+            };
+            return this.http.get('/site',zoneObj);
+          }
+          throw new Error();
+        }).then(res => {
+          /**/
+           this.cityService.getNavigateBySiteCode(res['data']["code"]);
 
         }).catch(error => {
 
-          loadNav.dismiss().then(res => {
-            this.warn.toast('加载站点失败');
-          });
-
+          console.log(error);
         });
+
+        /*同意加载站点*/
+        // this.cityService.getNavigateByPosition(geo.coords.longitude,geo.coords.latitude).then(res => {
+        //
+        //   loadNav.dismiss().then(() => {
+        //   });
+        //
+        // }).catch(error => {
+        //
+        //   loadNav.dismiss().then(res => {
+        //     this.warn.toast('加载站点失败');
+        //   });
+        //
+        // });
 
       }, error => {
 
-        /*不同意获取默认站点*/
-        this.cityService.getNavigateByPosition(0,0).then(res => {
-          loadNav.dismiss().then(() => {
+        // console.log('定位超时');
+        // /*不同意获取默认站点*/
+        // this.cityService.getNavigateByPosition(0,0).then(res => {
+        //   loadNav.dismiss().then(() => {
+        //
+        //   });
+        //
+        // }).catch(error => {
+        //   loadNav.dismiss().then(res => {
+        //
+        //     this.warn.toast('加载站点失败');
+        //
+        //   });
+        // });
 
-          });
-
-        }).catch(error => {
-          loadNav.dismiss().then(res => {
-
-            this.warn.toast('加载站点失败');
-
-          });
-        });
+        loadNav.dismiss();
+        let zoneObj = {
+          "province":"未知",
+          "city":"未知",
+          "area": "未知"
+        };
+         this.http.get('/site',zoneObj).then(res => {
+           this.cityService.getNavigateBySiteCode(res['data']["code"]);
+         });
 
       },{timeout: 5000});
 

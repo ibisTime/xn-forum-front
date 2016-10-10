@@ -108,5 +108,8 @@ export class MinePage {
   goTZList(){
     this.navCtrl.push(MineDetailPage, {"tz": true});
   }
+    goChat(){
+
+    }
 
 }
