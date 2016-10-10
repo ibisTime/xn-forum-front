@@ -4,7 +4,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions} from "@angular/http";
 import {AlertController, Events} from "ionic-angular";
-
+import {url} from "./release"
 // const RELEASE_ADDR = "S";
 const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
 // const DEBUG_ADDR = "http://121.43.101.148:8080/xn-forum-front";
@@ -13,8 +13,8 @@ const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
 @Injectable()
 export class HttpService {
 
-  src = DEBUG_ADDR + '/captcha';
-  addr = DEBUG_ADDR;
+  src = url() + '/captcha';
+  addr = url();
   public headers;
   constructor(public http: Http,
               public alertCtrl: AlertController,
@@ -88,6 +88,7 @@ export class HttpService {
     try {
       /*登陆超时，重新登陆*/
       let resObj = res.json();
+      console.log(resObj);
       /*自己的请求*/
       if(typeof(resObj.success) != "undefined"){
 
@@ -99,7 +100,8 @@ export class HttpService {
             this.events.publish('user:timeout',"timeout");
             console.log(url1);
           }
-          reject('发生异常');
+
+          reject('请求出现异常');
         }
 
       } else {//其他接口请求

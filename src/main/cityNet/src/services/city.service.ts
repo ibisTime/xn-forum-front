@@ -3,6 +3,8 @@
  */
 import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
+import {baiduMapUrl} from "./release";
+
 
 export interface City{
   address?;
@@ -46,8 +48,9 @@ export class CityService {
   searchCitys = [];
   baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
   // baidu = 'http://api.map.baidu.com/location/ip';
-  baidu = "http://localhost:8080/geocoder/";
-  //baidu = http://api.map.baidu.com/geocoder/v2/
+  // baidu = "http://localhost:8080/geocoder/";
+  // baidu = "http://api.map.baidu.com/geocoder/v2/"
+  baidu = baiduMapUrl();
   /*客服引流数据*/
   kefuData = [];
   /*视频引流数据*/
