@@ -16,15 +16,7 @@ export class ContentPage {
   code: string;
   // item = {totalDzNum: "", code: "", commentList:[], publisher: "",isSC:"",isDZ:"", postTalkList:[]};
   /*解决错误*/
-  item = {
-      isSC: "0",
-      totalDzNum: "0",
-      isDZ: "0",
-      publisher: "",
-      postTalkList: [],
-      code: "",
-      commentList: []
-  };
+  item;
   followFlag:boolean = false;
   segment:string = "pjia";
   followCount: number = 0;
