@@ -36,7 +36,9 @@ $colors: (
   dark:       #222,
   favorite:   #69BB7B,
   white-them:  white,
-  background-theme: $background-color
+  white-color: white,
+  background-theme: $background-color,
+  background-color: $background-color
 );
 
 $tabs-ios-tab-color-active: $navbar-color;

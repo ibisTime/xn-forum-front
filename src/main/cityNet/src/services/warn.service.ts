@@ -25,13 +25,14 @@ export class WarnService {
     });
     alert.present();
   }
-  alertWithCanale(msg: string,confirmAction?: () => void){
+  alert2(msg: string,confirmAction?: () => void,cancleAction?: () => void){
     let  alert = this.alertCtrl.create({
       message: msg,
       buttons: [
         {
           text: '取消',
           handler: () => {
+            cancleAction ? cancleAction() : 1;
           }
         },
         {

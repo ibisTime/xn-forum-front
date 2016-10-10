@@ -100,6 +100,12 @@ export class CityService {
     });
 
   }
+  /*百度地图 根据经纬度查询地理位置*/
+  getAddressByBaiduMap(longitude,latitude){
+    // http://api.map.baidu.com/geocoder/v2/?ak=diLP00QHyzEs57O1xvnmfDZFpUu2vt7N&location=39.983424,116.322987&output=json
+    console
+  return  this.http.get(null,null,'http://api.map.baidu.com/geocoder/v2/?ak='+this.baiduMapAK+'&location='+latitude+','+longitude+"&output=json");
+  }
 
   /*经纬度 查站点详情*/
   getSiteByPosition(longitude?,latitude?){

@@ -88,18 +88,22 @@ export class HttpService {
     try {
       /*登陆超时，重新登陆*/
       let resObj = res.json();
+      /*自己的请求*/
+      console.log(resObj.success);
+      if(resObj.success != null){
 
-      console.log(resObj);
-      console.log(resObj.timeout);
-      if(resObj.timeout){
-        this.events.publish('user:timeout',"timeout");
-        console.log(url1);
-      }
+        if(resObj.success){//无异常
+          resolve(resObj);
+        } else {//有异常
+          alert(resObj.msg);
+          if(resObj.timeout){
+            this.events.publish('user:timeout',"timeout");
+            console.log(url1);
+          }
+          reject('发生异常');
+        }
 
-      if (resObj.eType == 2) {
-        alert(resObj.msg);
-        reject('发生异常');
-      } else {
+      } else {//其他接口请求
         resolve(resObj);
       }
 
