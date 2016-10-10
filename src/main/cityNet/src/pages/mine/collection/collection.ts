@@ -5,7 +5,6 @@ import {WarnService} from "../../../services/warn.service";
 import {IMService} from "../../../services/im.service";
 import {LoginPage} from "../../user/login";
 import {HttpService} from "../../../services/http.service";
-import {EditDetailPage} from "./editDetail";
 import {ContentPage} from "../../forum/content/content";
 import {ChatRoomPage} from "../../mine/im/chat-room";
 
@@ -39,43 +38,11 @@ export class MineDetailPage {
               public app :App) {
     this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
     this.pHeight = `${this.platform.height()}px`;
-    this.toUserId = params.data.toUserId || userService.userId;
-    this.watchTz = params.data.tz || false;
     
     this.isMe = this.toUserId == userService.userId ? true: false;
     this.start = 1;
     this.limit = 10;
-    this.getUserInfo();
     this.queryPostPage();
-    if(!this.isMe){
-          userService.queryFollowUsers().then(()=>{
-            let fUs = this.userService.followUsers;
-            for(let f of fUs){
-                if(this.toUserId == f.userId){
-                    this.followFlag = true;
-                    break;
-                }
-            }
-          });
-    }
-  }
-
-  loginOut(){
-    this.userService.loginOut();
-    this.imService.clearCurrentData();
-    this.imService.close();
-    this.app.getRootNav().setRoot(LoginPage);
-
-  }
-  getUserInfo(){
-    this.http.get('/user').then((res) => {
-      let userExt = res.data.userExt;
-      this.src = userExt && userExt.src || "images/marty-avatar.png";
-      document.getElementById("nickName").innerText = res.data.nickname || res.data.mobile;
-      document.getElementById("introduce").innerText = userExt.introduce || "还没有个人介绍哦";
-    }).catch((error) => {
-      this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
-    });
   }
   queryPostPage(event?, refresh?){
       return this.http.get('/post/page',{
@@ -95,7 +62,6 @@ export class MineDetailPage {
                     if(list[i].pic != null){
                         list[i].pic = list[i].pic.split(/\|\|/);
                     }
-                    //list[i].publishDatetime = this.jsDateDiff( new Date(list[i].publishDatetime).getTime()/1000 );
                     list[i].collectCount = 0;   //点击收藏次数
                     list[i].praiseCount = 0;    //点击点赞次数
                     this.items.push(list[i]);
@@ -105,9 +71,6 @@ export class MineDetailPage {
                 }
             }
             event && event.complete();
-            if(this.watchTz){
-                document.getElementById("totalTZ").scrollIntoView();
-            }
         }).catch(error => {
             if(this.watchTz){
                 document.getElementById("totalTZ").scrollIntoView();
@@ -115,48 +78,27 @@ export class MineDetailPage {
             event && event.complete();
         });
   }
-   //关注
-  follow(){
-      if(!this.followCount){
-            this.followCount = 1;
-            this.http.post('/rs/follow',{
-                "toUser": this.toUserId
-            })
-            .then((res) => {
-                this.followCount = 0;
-                if(res.success){
-                    this.followFlag = true;
-                }else if(res.timeout){
-                    this.warnCtrl.toast("登录超时，请重新登录!");
-                }else{
-                    this.warnCtrl.toast("关注失败，请稍后重试!");
-                }
-            }).catch(error => {
-                this.followCount = 0;
-                this.warnCtrl.toast("关注失败，请稍后重试!");
-            });
-      }
-  }
-  //取消关注
-  unfollow(){
-      if(!this.followCount){
-            this.followCount = 1;
-            this.http.post('/rs/unfollow',{
-                "toUser": this.toUserId
-                })
-                .then((res) => {
-                    this.followCount = 0;
+  collect(code, index){
+      if(!this.items[index].collectCount){
+          this.items[index].collectCount = 1;
+          this.http.post('/post/praise',{
+                "type": "2",
+                "postCode": code
+            }).then((res) => {
+                    this.items[index].collectCount = 0;
                     if(res.success){
-                        this.followFlag = false;
+                        this.items[index].isSC = "0";
                     }else if(res.timeout){
                         this.warnCtrl.toast("登录超时，请重新登录!");
                     }else{
-                        this.warnCtrl.toast("取消关注失败，请稍后重试!");
+                        this.warnCtrl.toast("取消收藏失败，请稍后重试!");
                     }
                 }).catch(error => {
-                    this.followCount = 0;
-                    this.warnCtrl.toast("取消关注失败，请稍后重试!");
+                    this.items[index].collectCount = 0;
+                    this.warnCtrl.toast("取消收藏失败，请稍后重试!");
                 });
+      }else{
+          this.warnCtrl.toast("请勿重复点击!");
       }
   }
   //点赞
@@ -211,29 +153,23 @@ export class MineDetailPage {
         }
 
   }
-  goChat(){
-    this.navCtrl.push(ChatRoomPage, this.toUserId);
-  }
   goDetail(toId){
     this.navCtrl.push(MineDetailPage, {toUserId: toId});
   }
   showImg(ev){
       if( ev.target.nodeName.match(/^img$/i) ){
           let img = ev.target;
-          let sDiv = document.getElementById("ylImg4");
+          let sDiv = document.getElementById("ylImg5");
           sDiv.className = sDiv.className.replace(/\s*hidden\s*/, "");
-          document.getElementById("yl-img4").setAttribute("src", img.src);
+          document.getElementById("yl-img5").setAttribute("src", img.src);
       }
   }
   closeImg(){
-      let sDiv = document.getElementById("ylImg4");
+      let sDiv = document.getElementById("ylImg5");
       sDiv.className = sDiv.className + " hidden";
   }
   //打开帖子详情页
   openPage(code){
       this.navCtrl.push(ContentPage,{code: code});
-  }
-  doEdit(){
-      this.navCtrl.push(EditDetailPage);
   }
 }

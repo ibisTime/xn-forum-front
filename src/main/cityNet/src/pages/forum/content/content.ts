@@ -16,15 +16,7 @@ export class ContentPage {
   code: string;
   // item = {totalDzNum: "", code: "", commentList:[], publisher: "",isSC:"",isDZ:"", postTalkList:[]};
   /*解决错误*/
-  item = {
-      isSC: "0",
-      totalDzNum: "0",
-      isDZ: "0",
-      publisher: "",
-      postTalkList: [],
-      code: "",
-      commentList: []
-  };
+  item;
   followFlag:boolean = false;
   segment:string = "pjia";
   followCount: number = 0;
@@ -51,16 +43,13 @@ export class ContentPage {
         this.isMe = this.toUser == uService.userId ? true: false;
         this.getPostDetail();
         uService.queryFollowUsers().then(()=>{
-            if(this.item.publisher){
-                let fUs = this.uService.followUsers;
-                for(let f of fUs){
-                    if(this.item.publisher == f.userId){
-                        this.followFlag = true;
-                        break;
-                    }
+            let fUs = this.uService.followUsers;
+            for(let f of fUs){
+                if(this.toUser == f.userId){
+                    this.followFlag = true;
+                    break;
                 }
             }
-
         });
   }
   //关注
@@ -240,17 +229,7 @@ export class ContentPage {
                 if(data.pic != null){
                     data.pic = data.pic.split(/\|\|/);
                 }
-                //data.publishDatetime = this.jsDateDiff( new Date(data.publishDatetime).getTime() /1000);
                 this.item = data;
-                if(this.uService.followUsers){
-                    let fUs = this.uService.followUsers;
-                    for(let f of fUs){
-                        if(this.item.publisher == f.userId){
-                            this.followFlag = true;
-                            break;
-                        }
-                    }
-                }
             }else{
                 this.warnCtrl.toast("帖子详情获取失败，请稍后重试!");
             }

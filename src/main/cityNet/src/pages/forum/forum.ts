@@ -65,11 +65,11 @@ export class ForumPage {
                     list[i].praiseCount = 0;    //点击点赞次数
                     this.items.push(list[i]);
                 }
-                event && event.complete();
                 if(i > 0){
                     this.start++;
                 }
             }
+            event && event.complete();
         }).catch(error => {
             event && event.complete();
         });
@@ -178,8 +178,8 @@ export class ForumPage {
        this.navCtrl.push(DetailPage);
   }
   //打开帖子详情页
-  openPage(code){
-      this.navCtrl.push(ContentPage,{code: code});
+  openPage(code, user){
+      this.navCtrl.push(ContentPage,{code: code, user: user});
   }
   /*聊天*/
   goChat(userId){
