@@ -8,9 +8,9 @@
   <!--顶部-->
   <div class="panel-top">
     <div class="avatar-detail" (click)="goDetail()">
-      <div class="avatar"><img [src]="src"/></div>
+      <div class="avatar"><img src="{{myUser.userExt.photo || 'assets/images/marty-avatar.png'}}"/></div>
       <div class="title-outer">
-        <div class="name" id="nickname"></div>
+        <div class="name" id="nickname">{{myUser.nickname}}</div>
         <div class="title">论坛元老</div>
       </div>
       <button ><ion-icon name="arrow-forward" text-color ></ion-icon></button>
@@ -59,7 +59,7 @@
       <div class="badage" *ngIf="imService.msgTotalCount > 0"></div>
       <i class="iconfont">&#xe610;</i><span>我的消息</span>
     </button>
-    <button ion-item >
+    <button ion-item (click)="goSetting()">
       <i class="iconfont">&#xe603;</i><span>设置</span>
     </button>
     <button ion-item  (click)="loginOut()">

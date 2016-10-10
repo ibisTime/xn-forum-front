@@ -8,6 +8,7 @@ import {LoginPage} from "../user/login";
 import {HttpService} from "../../services/http.service";
 import {MineDetailPage} from "./detail/detail";
 import {CollectionPage} from "./collection/collection";
+import {SettingPage} from "./setting/setting";
 
 
 @Component({
@@ -31,10 +32,11 @@ export class MinePage {
     {"name":'设置',"src":'&#xe603;'},
     {"name":'退出登录',"src":'&#xe617;'},
   ];
-  src:string = 'images/marty-avatar.png';
+  src:string = 'assets/images/marty-avatar.png';
   tzCount = '0';
   gzCount = '0';
   fsCount = '0';
+  myUser;
 
   constructor(public navCtrl: NavController,
               public platform: Platform,
@@ -44,9 +46,6 @@ export class MinePage {
               public http: HttpService,
               public app :App) {
     this.getUserInfo();
-    // this.queryTZCount();
-    // this.queryGZCount();
-    // this.queryFSCount();
   }
 
   loginOut(){
@@ -56,13 +55,14 @@ export class MinePage {
     this.app.getRootNav().setRoot(LoginPage);
   }
   getUserInfo(){
-    return this.http.get('/user').then((res) => {
-      let userExt = res.data.userExt;
-      this.src = userExt && userExt.src || "assets/images/marty-avatar.png";
-      document.getElementById("nickname").innerText = res.data.nickname || res.data.mobile;
-    }).catch((error) => {
-      this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
-    });
+    this.myUser = this.userService.user;
+    // return this.http.get('/user').then((res) => {
+    //   let userExt = res.data.userExt;
+    //   this.src = userExt && userExt.src || "assets/images/marty-avatar.png";
+    //   document.getElementById("nickname").innerText = res.data.nickname || res.data.mobile;
+    // }).catch((error) => {
+    //   this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
+    // });
   }
   queryTZCount(event?){
       return this.http.get('/post/page',{
@@ -104,7 +104,6 @@ export class MinePage {
   }
   goDetail(){
     this.navCtrl.push(MineDetailPage);
-
   }
   goTZList(){
     this.navCtrl.push(MineDetailPage, {"tz": true});
@@ -115,5 +114,7 @@ export class MinePage {
   goCollect(){
     this.navCtrl.push(CollectionPage);
   }
-
+  goSetting(){
+    this.navCtrl.push(SettingPage);
+  }
 }

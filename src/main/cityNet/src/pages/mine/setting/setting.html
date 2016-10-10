@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar color="navbar-color">
+    <ion-title>我的</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="mine">
+  <ion-list >
+    <button ion-item (click)="goEdit()">
+      <i class="iconfont">&#xe608;</i><span>个人资料</span>
+    </button>
+    <button ion-item >
+      <i class="iconfont">&#xe60e;</i><span>账号和密码</span>
+    </button>
+    <button ion-item >
+      <i class="iconfont">&#xe613;</i><span>关于城市网</span>
+    </button>
+    
+  </ion-list>
+  <ion-list style="margin-top: 40px;">
+    <button ion-item  (click)="loginOut()">
+      <i class="iconfont">&#xe617;</i><span>退出登录</span>
+    </button>
+  </ion-list>
+
+</ion-content>
