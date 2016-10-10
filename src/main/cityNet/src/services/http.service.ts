@@ -89,7 +89,6 @@ export class HttpService {
       /*登陆超时，重新登陆*/
       let resObj = res.json();
       /*自己的请求*/
-      console.log(resObj.success);
       if(typeof(resObj.success) != "undefined"){
 
         if(resObj.success){//无异常
