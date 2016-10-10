@@ -190,6 +190,21 @@
             }
         }
     }
+    .item.b-lable{
+        ion-label{
+            border-bottom: 1px solid #e6e6e6;
+            .comment-div{
+                background: #f5f5f5;
+                margin: 1em 0;
+                padding: 0.5em;
+                color: #999;
+            }
+            .comment-div1{
+                color: #7E0001;
+                font-size: 1.6rem;
+            }
+        }
+    }
     .plr10 {
         padding-left: 10px;
         padding-right: 10px;

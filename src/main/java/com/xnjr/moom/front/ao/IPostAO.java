@@ -90,4 +90,16 @@ public interface IPostAO {
      * @return
      */
     public Object deletePost(String code, String userId);
+    
+    /**
+     * 我收藏的帖子分页查询
+     * @param talker
+     * @param start
+     * @param limit
+     * @param orderColumn
+     * @param orderDir
+     * @return
+     */
+    public Object queryPageCollections(String talker, String start,
+    		String limit, String orderColumn, String orderDir);
 }

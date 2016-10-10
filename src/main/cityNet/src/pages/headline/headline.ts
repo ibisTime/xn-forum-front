@@ -8,7 +8,7 @@ import {SearchUserAndArticlePage} from "./search-user-article";
 import {SendArticlePage} from "../forum/send-article";
 import {CityChoosePage} from "./city-choose";
 import {IFramePage} from "./iframe";
-import {weChat} from "../release";
+import {weChat} from "../../services/release";
 import {ContentPage} from "../forum/content/content";
 import {DatePipe} from "@angular/common";
 

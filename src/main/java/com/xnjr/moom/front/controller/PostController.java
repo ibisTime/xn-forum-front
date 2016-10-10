@@ -95,4 +95,17 @@ public class PostController extends BaseController {
     public Object deletePost(@RequestParam("code") String code) {
         return postAO.deletePost(code, getSessionUserId(""));
     }
+    
+    // 我收藏的帖子分页查询
+    @RequestMapping(value = "/collection/page", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryPageCollections(
+    		@RequestParam(value = "talker", required = false) String talker,
+    		@RequestParam("start") String start,
+    		@RequestParam("limit") String limit,
+    		@RequestParam(value = "orderColumn", required = false) String orderColumn,
+    		@RequestParam(value = "orderDir", required = false) String orderDir){
+    	return postAO.queryPageCollections(getSessionUserId(talker),
+    			start, limit, orderColumn, orderDir);
+    }
 }

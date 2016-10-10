@@ -2,7 +2,7 @@ import {Component,AfterViewInit} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import {CityService} from "../../services/city.service";
 import {WarnService} from "../../services/warn.service";
-import {weChat} from "../release";
+import {weChat} from "../../services/release";
 import {IFramePage} from "../headline/iframe";
 
 

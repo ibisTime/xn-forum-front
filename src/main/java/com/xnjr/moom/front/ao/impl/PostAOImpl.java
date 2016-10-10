@@ -21,6 +21,7 @@ import com.xnjr.moom.front.req.XN610056Req;
 import com.xnjr.moom.front.req.XN610057Req;
 import com.xnjr.moom.front.req.XN610070Req;
 import com.xnjr.moom.front.req.XN610072Req;
+import com.xnjr.moom.front.req.XN610073Req;
 
 /** 
  * @author: xieyj 
@@ -119,6 +120,17 @@ public class PostAOImpl implements IPostAO {
     	req.setUserId(userId);
     	return BizConnecter.getBizData("610051", JsonUtils.object2Json(req),
                 Object.class);
-    	
+    }
+    
+    public Object queryPageCollections(String talker, String start,
+    		String limit, String orderColumn, String orderDir){
+    	XN610073Req req = new XN610073Req();
+    	req.setLimit(limit);
+    	req.setOrderColumn(orderColumn);
+    	req.setOrderDir(orderDir);
+    	req.setStart(start);
+    	req.setTalker(talker);
+    	return BizConnecter.getBizData("610073", JsonUtils.object2Json(req),
+                Object.class);
     }
 }

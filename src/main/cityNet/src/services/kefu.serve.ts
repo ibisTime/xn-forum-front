@@ -4,6 +4,7 @@
 import {Injectable} from '@angular/core';
 import {IMBaseService,MsgObj} from "./im-base.service";
 import {HttpService} from "./http.service";
+import {url} from "./release";
 
 declare var WebIM: any;
 
@@ -75,12 +76,12 @@ export class KefuService {
   listOfChatRoomData: any = {};
   scroll_bottom;
   scroll_top;
-
+  addr;
   conn;
 
   constructor(private imBase: IMBaseService,
               private ajax: HttpService) {
-
+    this.addr = url();
     this.conn = imBase.conn;
     this.to = imBase.to;
     this.tenantId = imBase.tenantId;
@@ -151,7 +152,7 @@ export class KefuService {
   //获取机器人欢迎语
   getRobertWelcome(msdData?){
     this.ajax.get(null, null,
-      location.origin + location.pathname + 'rvisitor/'+this.tenantId+'/robots/visitor/greetings?tenantId='+this.tenantId)
+      this.addr + '/rvisitor/'+this.tenantId+'/robots/visitor/greetings?tenantId='+this.tenantId)
       .then((rGreeting)=>{
         let msg;
         switch ( rGreeting.greetingTextType ) {

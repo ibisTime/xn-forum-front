@@ -1,7 +1,7 @@
 import {Component, AfterViewInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {ChatRoomPage } from './chat-room';
-
+import {CommentPage} from "./comment";
 import {IMService} from "../../../services/im.service";
 import {WarnService} from "../../../services/warn.service";
 import {UserService} from "../../../services/user.service";
@@ -58,5 +58,7 @@ export class ImPage implements AfterViewInit{
     this.navCtrl.push(FriendPage);
   }
 
-
+  goComment(){
+    this.navCtrl.push(CommentPage);
+  }
 }

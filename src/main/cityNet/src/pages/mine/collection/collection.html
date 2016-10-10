@@ -3,8 +3,6 @@
 </ion-header>
 
 <ion-content class="forum forum-detail">
-    <div [ngSwitch]="segment">
-        <div *ngSwitchCase="'yliao'">
         <ion-list>
             <ion-refresher (ionRefresh)="doRefresh($event)" class="no-abs">
                 <ion-refresher-content
@@ -64,8 +62,6 @@
                 <ion-infinite-scroll-content></ion-infinite-scroll-content>
             </ion-infinite-scroll>
         </ion-list>
-        </div>
-    </div>
 </ion-content>
 <div id="ylImg5" class="mask hidden" (click)="closeImg();">
     <div>
