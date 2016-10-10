@@ -1,24 +1,34 @@
 package com.xnjr.moom.front.req;
 
 public class XN610012Req {
-    private String longitude;
+    private String province;
 
-    private String latitude;
+    private String city;
+    
+    private String area;
 
-	public String getLongitude() {
-		return longitude;
+	public String getProvince() {
+		return province;
 	}
 
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
-	public String getLatitude() {
-		return latitude;
+	public String getCity() {
+		return city;
 	}
 
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
 	}
 
 }

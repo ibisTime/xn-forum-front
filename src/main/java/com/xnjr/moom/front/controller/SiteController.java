@@ -34,19 +34,19 @@ public class SiteController extends BaseController {
             Object.class);
     }
 
-    // 按经纬度查询站点
-    @RequestMapping(value = "/position", method = RequestMethod.GET)
-    @ResponseBody
-    public Object sitePosition(
-            @RequestParam(value = "longitude", required = false) String longitude,
-            @RequestParam(value = "latitude", required = false) String latitude) {
-
-    	XN610012Req req = new XN610012Req();
-    	req.setLongitude(longitude);
-    	req.setLatitude(latitude);
-        return BizConnecter.getBizData("610012", JsonUtils.object2Json(req),
-            Object.class);
-    }
+    // 按经纬度查询站点(弃用)
+//    @RequestMapping(value = "/position", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Object sitePosition(
+//            @RequestParam(value = "longitude", required = false) String longitude,
+//            @RequestParam(value = "latitude", required = false) String latitude) {
+//
+//    	XN610012Req req = new XN610012Req();
+//    	req.setLongitude(longitude);
+//    	req.setLatitude(latitude);
+//        return BizConnecter.getBizData("610012", JsonUtils.object2Json(req),
+//            Object.class);
+//    }
 
     // 查询站点详情
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
@@ -55,5 +55,21 @@ public class SiteController extends BaseController {
             @RequestParam(value = "code", required = false) String code) {
     	return BizConnecter.getBizData("610013", JsonUtils.string2Json("code", code),
                 Object.class);
+    }
+    
+    // 按省市区地址查询站点
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @ResponseBody
+    public Object siteQuery(
+            @RequestParam(value = "province", required = true) String province,
+            @RequestParam(value = "city", required = true) String city,
+            @RequestParam(value = "area", required = false) String area) {
+
+    	XN610012Req req = new XN610012Req();
+    	req.setProvince(province);
+    	req.setCity(city);
+    	req.setArea(area);
+        return BizConnecter.getBizData("610012", JsonUtils.object2Json(req),
+            Object.class);
     }
 }
