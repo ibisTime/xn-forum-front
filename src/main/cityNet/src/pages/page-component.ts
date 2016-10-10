@@ -25,6 +25,7 @@ import {ChatRoomPage} from "./mine/im/chat-room";
 import {AddFriendPage} from "./mine/friend/addFriend";
 import {FriendPage} from "./mine/friend/friend";
 import {EditDetailPage} from "./mine/detail/editDetail";
+import {AtPage} from "./forum/at";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -48,8 +49,8 @@ export const pages = [ TabsPage,
   ChatRoomPage,
   AddFriendPage,
   FriendPage,
-  EditDetailPage
-
+  EditDetailPage,
+  AtPage
 ];
 
 export const components = [

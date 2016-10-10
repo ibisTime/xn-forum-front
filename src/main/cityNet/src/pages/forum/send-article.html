@@ -56,7 +56,6 @@
     </div>
 
     <div class="choose-file" *ngIf="images.length < 9" [style.height]="height" [style.width]="height">
-      <div></div>
       <input type="file" accept="image/*" (change)="choosedImg($event)">
     </div>
 

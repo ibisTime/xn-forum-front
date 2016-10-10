@@ -95,20 +95,21 @@
     padding: 0 5px;
 
     .img-outer {
-      padding: 3px;
+      padding: 2px;
       position: relative;
-      background-color: orange;
-      flex: 0 0 33.3%;
+      flex: 0 0 25%;
       .img-delete {
         text-align: center;
         position: absolute;
-        top: 3px;
-        right: 3px;
-        width: 35%;
+        top: 1px;
+        right: 1px;
+        width: 40%;
         height: 20px;
         background-color: $navbar-color;
         color: white;
         opacity: .8;
+        box-sizing: border-box;
+        padding: 1px;
         border-radius: 3px;
         &:active{
           opacity: 0.3;
@@ -122,36 +123,36 @@
 
   .choose-file{
     position: relative;
-    flex: 0 0 33.3%;
+    flex: 0 0 25%;
     //background-color: orange;
-    font-size: 35px;
+    //font-size: 35px;
     box-sizing: border-box;
-    padding: 3px;
-    border: 3px solid grey;
-    background: url("../../images/forum/add.png") center;
-    overflow: hidden;
+    padding: 2px;
+    background: url("../../assets/images/forum/addPhoto.png") center;
+    //overflow: hidden;
+    background-size:98% 98%;
     &:active{
       opacity: .5;
     }
     input{
 
       //overflow: hidden;
-      font-size: 8px;
+      //font-size: 8px;
       display: inline-block;
       width: 100%;
       height: 100%;
       //background-color: orange;
       opacity: 0;
-      z-index: 1000;
+      z-index: 100;
     }
 
-    div {
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      width: 80%;
-      height: 80%;
-    }
+    //div {
+    //  position: absolute;
+    //  top: 0px;
+    //  right: 0px;
+    //  width: 80%;
+    //  height: 80%;
+    //}
 
   }
 

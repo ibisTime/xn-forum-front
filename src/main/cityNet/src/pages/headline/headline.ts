@@ -1,6 +1,5 @@
 import {Component,AfterViewInit} from '@angular/core';
-import {NavController, Platform, ModalController,Slides} from 'ionic-angular';
-import {LoginPage} from "../user/login";
+import {NavController, Platform, ModalController} from 'ionic-angular';
 import {UserService} from "../../services/user.service";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";

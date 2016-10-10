@@ -1,17 +1,18 @@
 /**
  * Created by tianlei on 16/9/22.
  */
-import {Component, OnInit, AfterViewInit} from '@angular/core';
-import {ViewController, Platform} from "ionic-angular";
+import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
+import {ViewController, Platform, ModalController} from "ionic-angular";
 import {HttpService} from "../../services/http.service";
 import {UserService} from "../../services/user.service";
 import {WarnService} from "../../services/warn.service";
 import {CityService} from "../../services/city.service";
+import {AtPage} from "./at";
 
 @Component({
   templateUrl: 'send-article.html'
 })
-export class SendArticlePage implements OnInit, AfterViewInit {
+export class SendArticlePage implements AfterViewInit,OnDestroy {
 
   // topicItems = [
   //   {'title': '招聘', 'src': 'images/forum/forum-zp.png'},
@@ -29,20 +30,29 @@ export class SendArticlePage implements OnInit, AfterViewInit {
   images:Array<any> = [];
   uploadImages = [];
   topicItems = [];
-  topicCode = "";
+  topicCode: String = "";
   plateName = "选择板块";
+  timeNum;
+  @ViewChild('contentTextarea') textArea: ElementRef;
+
 
   constructor(public viewCtrl: ViewController,
               public platform: Platform,
               public http: HttpService,
               public user: UserService,
               public warn: WarnService,
-              public cityS: CityService) {
-    this.height = `${(this.platform.width() - 10)/3.0}px`;
+              public cityS: CityService,
+              public model: ModalController) {
+    this.height = `${(this.platform.width() - 10)/4.0}px`;
+
+    /*监测键盘输入事件*/
+
+
+
   }
 
-  ngOnInit() {
-
+  ngOnDestroy(){
+    window.clearInterval(this.timeNum);
   }
 
   ngAfterViewInit(){
@@ -109,7 +119,13 @@ export class SendArticlePage implements OnInit, AfterViewInit {
   }
 
   cancle(){
-    this.viewCtrl.dismiss();
+    this.warn.alert2('是否保存为草稿',()=>{
+
+    },()=> {
+
+      this.viewCtrl.dismiss();
+
+    })
   }
 
   send(titleIput,contentTextarea){
@@ -213,7 +229,9 @@ export class SendArticlePage implements OnInit, AfterViewInit {
        this.http.post("/post/publish",articleObj).then(res => {
 
          this.warn.toast('发帖成功');
-         this.viewCtrl.dismiss();
+         this.viewCtrl.dismiss().then(()=> {
+           this.viewCtrl.dismiss();
+         });
 
        }).catch(error => {
          this.warn.toast('发帖失败');
@@ -323,6 +341,21 @@ export class SendArticlePage implements OnInit, AfterViewInit {
     // console.log($event.target.style);
     // let ele = document.getElementById("article-content");
 
+    console.log($event.target.value);
+
+    let text = this.textArea.nativeElement.value;
+    let len = text.length;
+
+    if (text.substr(len - 1, 1) == "@") {
+      let model = this.model.create(AtPage);
+      model.onDidDismiss((res) => {
+        let ar = this.textArea;
+        ar.nativeElement.value = ar.nativeElement.value + res + " ";
+        console.log(res, ar);
+      });
+      model.present();
+    }
+
     if($event.target.value.length > 0){
       this.isEditing = true;
     } else {
@@ -330,6 +363,8 @@ export class SendArticlePage implements OnInit, AfterViewInit {
     }
 
   }
+
+
 
 
 }
