@@ -32,75 +32,33 @@ export class TutorialPage implements AfterViewInit {
 
 
     setTimeout(() => {
-      let loadNav = this.warn.loading('定位中...');
+      let loadNav = this.warn.loading('加载中');
 
       navigator.geolocation.getCurrentPosition( (geo:any) => {
 
         /*同意定位加载*/
-
-        this.cityService.getAddressByBaiduMap(geo.coords.longitude,geo.coords.latitude).then(res => {
+        this.cityService.getNavByBaiduMap(geo.coords.longitude,geo.coords.latitude).then(res => {
           loadNav.dismiss();
-          if(res.status == "0"){
-
-            let cityName = res.result.addressComponent.district;
-            console.log(cityName);
-            let zoneObj = {
-              "province":res.result.addressComponent.province,
-              "city":res.result.addressComponent.city,
-              "area": res.result.addressComponent.district
-            };
-            return this.http.get('/site',zoneObj);
-          }
-          throw new Error();
-        }).then(res => {
-          /**/
-           this.cityService.getNavigateBySiteCode(res['data']["code"]);
-
+          console.log(res);
         }).catch(error => {
 
-          console.log(error);
+          loadNav.dismiss();
+          this.warn.toast('获取导航失败');
+
         });
 
-        /*同意加载站点*/
-        // this.cityService.getNavigateByPosition(geo.coords.longitude,geo.coords.latitude).then(res => {
-        //
-        //   loadNav.dismiss().then(() => {
-        //   });
-        //
-        // }).catch(error => {
-        //
-        //   loadNav.dismiss().then(res => {
-        //     this.warn.toast('加载站点失败');
-        //   });
-        //
-        // });
 
       }, error => {
 
-        // console.log('定位超时');
-        // /*不同意获取默认站点*/
-        // this.cityService.getNavigateByPosition(0,0).then(res => {
-        //   loadNav.dismiss().then(() => {
-        //
-        //   });
-        //
-        // }).catch(error => {
-        //   loadNav.dismiss().then(res => {
-        //
-        //     this.warn.toast('加载站点失败');
-        //
-        //   });
-        // });
-
         loadNav.dismiss();
-        let zoneObj = {
-          "province":"未知",
-          "city":"未知",
-          "area": "未知"
-        };
-         this.http.get('/site',zoneObj).then(res => {
-           this.cityService.getNavigateBySiteCode(res['data']["code"]);
-         });
+        /*加载默认*/
+        this.cityService.getNavByBaiduMap(0,0).then(res => {
+          console.log(res);
+        }).catch(error => {
+          this.warn.toast('获取导航失败');
+
+        });
+
 
       },{timeout: 5000});
 
