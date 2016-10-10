@@ -115,7 +115,7 @@ public class MemberController extends BaseController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		if (map != null) {
+		if (map == null) {
 			throw new BizException("10001", "用户不存在");
 		}
 		
