@@ -7,6 +7,7 @@ import {IMService} from "../../services/im.service";
 import {LoginPage} from "../user/login";
 import {HttpService} from "../../services/http.service";
 import {MineDetailPage} from "./detail/detail";
+import {CollectionPage} from "./collection/collection";
 
 
 @Component({
@@ -43,9 +44,9 @@ export class MinePage {
               public http: HttpService,
               public app :App) {
     this.getUserInfo();
-    this.queryTZCount();
-    this.queryGZCount();
-    this.queryFSCount();
+    // this.queryTZCount();
+    // this.queryGZCount();
+    // this.queryFSCount();
   }
 
   loginOut(){
@@ -108,8 +109,11 @@ export class MinePage {
   goTZList(){
     this.navCtrl.push(MineDetailPage, {"tz": true});
   }
-    goChat(){
-
-    }
+  goChat(){
+    this.navCtrl.push(ImPage);
+  }
+  goCollect(){
+    this.navCtrl.push(CollectionPage);
+  }
 
 }

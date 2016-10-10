@@ -7,12 +7,13 @@ import {LoginPage} from "../../user/login";
 import {HttpService} from "../../../services/http.service";
 import {ContentPage} from "../../forum/content/content";
 import {ChatRoomPage} from "../../mine/im/chat-room";
+import {MineDetailPage} from "../../mine/detail/detail";
 
 
 @Component({
-  templateUrl: 'detail.html'
+  templateUrl: 'collection.html'
 })
-export class MineDetailPage {
+export class CollectionPage {
   src:string = 'images/marty-avatar.png';
   imgHeight: string;
   pHeight: string;
@@ -20,12 +21,7 @@ export class MineDetailPage {
   start: number;
   limit: number;
   appendCount = 0;
-  toUserId = "";
-  isMe = true;
   totalCount = 0;
-  watchTz = false;
-  followCount: number = 0;
-  followFlag:boolean = false;
 
 
   constructor(public navCtrl: NavController,
@@ -39,24 +35,23 @@ export class MineDetailPage {
     this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
     this.pHeight = `${this.platform.height()}px`;
     
-    this.isMe = this.toUserId == userService.userId ? true: false;
     this.start = 1;
     this.limit = 10;
     this.queryPostPage();
   }
   queryPostPage(event?, refresh?){
-      return this.http.get('/post/page',{
-          "start": this.start,
-          "limit": this.limit,
-          "userId": this.toUserId
+      (function(me){
+        me.http.get('/post/collection/page',{
+          "start": me.start,
+          "limit": me.limit
         })
         .then((res) => {
             if(res.success){
-                this.totalCount = res.data.totalCount;
+                me.totalCount = res.data.totalCount;
                 let list = res.data.list;
                 let i = 0;
                 if(refresh){
-                    this.items = [];
+                    me.items = [];
                 }
                 for(i = 0; i < list.length; i++){
                     if(list[i].pic != null){
@@ -64,20 +59,47 @@ export class MineDetailPage {
                     }
                     list[i].collectCount = 0;   //点击收藏次数
                     list[i].praiseCount = 0;    //点击点赞次数
-                    this.items.push(list[i]);
+                    me.items.push(list[i]);
                 }
                 if(i > 0){
-                    this.start++;
+                    me.start++;
                 }
             }
             event && event.complete();
         }).catch(error => {
-            if(this.watchTz){
-                document.getElementById("totalTZ").scrollIntoView();
-            }
             event && event.complete();
         });
+      })(this);
+    //   this.http.get('/post/collection/page',{
+    //       "start": this.start,
+    //       "limit": this.limit
+    //     })
+    //     .then((res) => {
+    //         if(res.success){
+    //             this.totalCount = res.data.totalCount;
+    //             let list = res.data.list;
+    //             let i = 0;
+    //             if(refresh){
+    //                 this.items = [];
+    //             }
+    //             for(i = 0; i < list.length; i++){
+    //                 if(list[i].pic != null){
+    //                     list[i].pic = list[i].pic.split(/\|\|/);
+    //                 }
+    //                 list[i].collectCount = 0;   //点击收藏次数
+    //                 list[i].praiseCount = 0;    //点击点赞次数
+    //                 this.items.push(list[i]);
+    //             }
+    //             if(i > 0){
+    //                 this.start++;
+    //             }
+    //         }
+    //         event && event.complete();
+    //     }).catch(error => {
+    //         event && event.complete();
+    //     });
   }
+  //取消收藏
   collect(code, index){
       if(!this.items[index].collectCount){
           this.items[index].collectCount = 1;
@@ -88,6 +110,7 @@ export class MineDetailPage {
                     this.items[index].collectCount = 0;
                     if(res.success){
                         this.items[index].isSC = "0";
+                        this.items.splice(index, 1);
                     }else if(res.timeout){
                         this.warnCtrl.toast("登录超时，请重新登录!");
                     }else{

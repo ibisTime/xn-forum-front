@@ -1,0 +1,68 @@
+<ion-header class="forum-head">
+    <ion-navbar navbar-color>
+        <ion-title>评论</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="forum forum-detail">
+    <ion-segment [(ngModel)]="segment">
+        <ion-segment-button value="wsdd">
+        我收到的
+        </ion-segment-button>
+        <ion-segment-button value="wfcd">
+        我发出的
+        </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="segment">
+        <div *ngSwitchCase="'wsdd'">
+            <ion-list>
+                <ion-refresher (ionRefresh)="doRefresh($event)" class="no-abs">
+                    <ion-refresher-content
+                    pullingIcon="arrow-dropdown"
+                    pullingText="下拉加载"
+                    refreshingSpinner="circles"
+                    refreshingText="加载中...">
+                    </ion-refresher-content>
+                </ion-refresher>
+                <ion-item class="b-lable">
+                    <ion-card>
+                        <ion-item>
+                            <ion-avatar item-left>
+                                <img src="assets/images/marty-avatar.png">
+                            </ion-avatar>
+                            <div>
+                                <div style="position: relative;">
+                                    <h2>item.nickname</h2>
+                                </div>
+                                <p class="time">33分钟</p>
+                                <ion-card-content>
+                                    <div class="comment-div"><span>@asss</span>:改革春风吹满地，啦啦啦啦啦啦啦</div>
+                                    <div class="comment-div1">哈哈哈哈哈啊啊</div>
+                                </ion-card-content>
+                            </div>
+                        </ion-item>
+                    </ion-card>
+                </ion-item>
+                <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
+                    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                </ion-infinite-scroll>
+            </ion-list>
+        </div>
+        <div *ngSwitchCase="'wfcd'">
+            <ion-list>
+                啦啦啦
+            </ion-list>
+        </div>
+    </div>
+</ion-content>
+<div id="ylImg" class="mask hidden" (click)="closeImg();">
+    <div>
+        <div class="wrapper">
+            <div class="scroller" [style.line-height]="pHeight">
+                <img id="yl-img"/>
+            </div>
+        </div>
+    </div>
+
+</div>
+

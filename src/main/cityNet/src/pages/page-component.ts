@@ -26,6 +26,8 @@ import {AddFriendPage} from "./mine/friend/addFriend";
 import {FriendPage} from "./mine/friend/friend";
 import {EditDetailPage} from "./mine/detail/editDetail";
 import {AtPage} from "./forum/at";
+import {CollectionPage} from "./mine/collection/collection";
+import {CommentPage} from "./mine/im/comment";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -50,7 +52,9 @@ export const pages = [ TabsPage,
   AddFriendPage,
   FriendPage,
   EditDetailPage,
-  AtPage
+  AtPage,
+  CollectionPage,
+  CommentPage
 ];
 
 export const components = [

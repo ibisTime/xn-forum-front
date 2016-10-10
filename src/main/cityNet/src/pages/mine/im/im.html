@@ -11,11 +11,27 @@
 
 <ion-content class="im">
    <ion-list>
-     <button ion-item *ngFor="let item of func3" style="background-color: white;" >
+     <ion-item>
+     <button style="background-color: white;" >
       <ion-avatar item-left>
-        <img src={{item.src}}>
-      </ion-avatar> <span>{{item.name}}</span>
+        <img src="assets/images/mine/mine-msg-@.png">
+      </ion-avatar> <span>提到我的</span>
      </button>
+     </ion-item>
+     <ion-item>
+     <button style="background-color: white;" (click)="goComment()">
+      <ion-avatar item-left>
+        <img src="assets/images/mine/mine-msg-comment.png">
+      </ion-avatar> <span>评论</span>
+     </button>
+     </ion-item>
+     <ion-item>
+     <button style="background-color: white;" >
+      <ion-avatar item-left>
+        <img src="assets/images/mine/mine-msg-system-msg.png">
+      </ion-avatar> <span>系统消息</span>
+     </button>
+     </ion-item>
    </ion-list>
 
   <h6 *ngIf="imServe.listOfOpposite.length <= 0" style="padding-left: 40px;">暂无消息</h6>
@@ -23,11 +39,9 @@
   <ion-list>
     <div class="chat-list-outer"  (click)="goChatRoom(msgItem)"
             *ngFor="let msgItem of imServe.listOfOpposite" >
-      <!---->
-      <!---->
       <div class="chat-list-item" >
         <div class="headImg">
-          <img src="images/marty-avatar.png">
+          <img src="assets/images/marty-avatar.png">
           <div class="badge" *ngIf="msgItem.showBadge">{{(msgItem.badgeCount > 99) ? '99+' : msgItem.badgeCount}}</div>
         </div>
         <div class="chat-item-content">
