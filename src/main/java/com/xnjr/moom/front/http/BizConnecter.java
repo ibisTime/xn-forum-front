@@ -72,7 +72,8 @@ public class BizConnecter {
             postUrl = MALL_URL;
         } else if (code.startsWith("802")) {
             postUrl = ACCOUNT_URL;
-        } else if (code.startsWith("80")) {
+        } else if (code.startsWith("805") || code.startsWith("806")
+                || code.startsWith("807")) {
             postUrl = USER_URL;
         } else if (code.startsWith("79900")) {
             postUrl = SMS_URL;
