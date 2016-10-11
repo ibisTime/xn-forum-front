@@ -9,14 +9,14 @@ import {HttpService} from "../../../services/http.service";
 import {MineDetailPage} from "../detail/detail";
 import {CollectionPage} from "../collection/collection";
 import {EditDetailPage} from "../detail/editDetail";
+import {AccountPage} from "./account";
+import {AboutusPage} from "./aboutus";
 
 
 @Component({
   templateUrl: 'setting.html'
 })
 export class SettingPage {
-
-  src:string = 'assets/images/marty-avatar.png';
 
   constructor(public navCtrl: NavController,
               public platform: Platform,
@@ -37,6 +37,12 @@ export class SettingPage {
  
   goEdit(){
     this.navCtrl.push(EditDetailPage);
+  }
+  goAccount(){
+    this.navCtrl.push(AccountPage);
+  }
+  goUs(){
+    this.navCtrl.push(AboutusPage);
   }
 
 }

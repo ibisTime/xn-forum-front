@@ -17,7 +17,7 @@ export class InputItem {}
   templateUrl: "resetPwd.html"
 
 })
-export class ForgetPwdPage implements AfterViewInit {
+export class ResetPwdPage implements AfterViewInit {
 
   constructor(   public navCtrl: NavController,
                  public warnCtrl: WarnService,

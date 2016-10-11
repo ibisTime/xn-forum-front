@@ -29,6 +29,8 @@ import {AtPage} from "./forum/at";
 import {CollectionPage} from "./mine/collection/collection";
 import {CommentPage} from "./mine/im/comment";
 import {SettingPage} from "./mine/setting/setting";
+import {AccountPage} from "./mine/setting/account";
+import {AboutusPage} from "./mine/setting/aboutus";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -56,7 +58,9 @@ export const pages = [ TabsPage,
   AtPage,
   CollectionPage,
   CommentPage,
-  SettingPage
+  SettingPage,
+  AccountPage,
+  AboutusPage
 ];
 
 export const components = [
