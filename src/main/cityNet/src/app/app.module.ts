@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import {MY_SERVE} from "../services/services";
 import {pages,components} from "../pages/page-component"
 import {ForumDatePipe} from "../pipe/forum-date.pipe";
+import {TestView} from "../components/plate-choose/test-view";
 
 
 @NgModule({
@@ -13,7 +14,10 @@ import {ForumDatePipe} from "../pipe/forum-date.pipe";
     MyApp,
     ForumDatePipe,
     ...pages,
-    components
+    ...components,
+      TestView
+
+
 
   ],
   imports: [
@@ -27,7 +31,9 @@ import {ForumDatePipe} from "../pipe/forum-date.pipe";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ...pages
+    ...pages,
+    TestView
+
   ],
   providers: [...MY_SERVE,Storage]
 })

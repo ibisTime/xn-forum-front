@@ -214,13 +214,12 @@ export class CityService {
              headline["func8"].push(value);
            }
 
+         } else if(value.parentCode == tempArray[2].code) {
+           /*客服引流的数据*/
+           kefuData.push(value);
+         } else if(value.parentCode == tempArray[3].code){
+           this.videoData.push(value);
          }
-         // else if(value.parentCode == tempArray[2].code) {
-         //   /*客服引流的数据*/
-         //   kefuData.push(value);
-         // } else if(value.parentCode == tempArray[3].code){
-         //   this.videoData.push(value);
-         // }
 
         });
 

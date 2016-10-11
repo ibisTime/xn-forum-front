@@ -262,9 +262,16 @@
         display: none;
     }
 }
+
+
+
 .forum-head{
     .icon{
-        font-size: 2rem;
+        font-size: 25px;
+    }
+    .nav-bar-item-btn{
+        //background-color: $navbar-color;
+        background-color: rgba(0,0,0,0);
     }
     .iconfont{
         margin: 0;
@@ -282,20 +289,22 @@
     button{
         color: #fff;
     }
-    .toolbar div.toolbar-content .segment-button{
-        background-color:transparent;
-        border-color: #fff;
-        border-width: 0;
-        font-size: 1.4rem;
-        line-height: 32px;
-        height: 32px;
-        color: #E59D9F;
+     div.toolbar-content .segment-button{
+        //background-color:transparent;
+        border-color: white;
+        font-size: 18px;
+        //max-height: 35px;
+        //min-height: 35px;
+        height: 35px;
+        color: white;
     }
-    .toolbar div.toolbar-content .segment-button.segment-activated{
+     div.toolbar-content .segment-button.segment-activated{
         background-color:inherit;
-        border-bottom-width: 4px;
-        border-color: #fff;
-        color: #fff;
+        //border-bottom-width: 4px;
+         height: 35px;
+         border-color: white;
+        color: $navbar-color;
+        background-color: white;
     }
 }
 .zIndex999{

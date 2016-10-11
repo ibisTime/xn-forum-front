@@ -1,7 +1,7 @@
 <ion-header class="forum-head">
-    <ion-navbar navbar-color>
+    <ion-navbar color="navbar-color">
     <ion-buttons start>
-        <button>
+        <button class="nav-bar-item-btn" color="navbar-color">
         <!--<ion-icon name="search"></ion-icon>-->
         <i class="icon iconfont">&#xe601;</i>
         </button>
@@ -15,7 +15,7 @@
         </ion-segment-button>
     </ion-segment>
     <ion-buttons end>
-        <button>
+        <button class="nav-bar-item-btn">
         <!--<ion-icon name="create"></ion-icon>-->
         <i class="icon iconfont">&#xe616;</i>
         </button>
@@ -35,7 +35,9 @@
                 refreshingText="加载中...">
                 </ion-refresher-content>
             </ion-refresher>
+
             <ion-item *ngFor="let item of items;let idx=index;">
+
                 <ion-card>
                     <ion-item>
                         <ion-avatar item-left (tap)="goDetail(item.publisher)">
@@ -84,84 +86,31 @@
                     </ion-item>
                 </ion-card>
             </ion-item>
+
+
             <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
                 <ion-infinite-scroll-content></ion-infinite-scroll-content>
             </ion-infinite-scroll>
         </ion-list>
         </div>
 
-        <ion-list *ngSwitchCase="'ltan'" class="ltan">
-            <div class="clearfix">
-                <div class="lt-left fl wp30 bg_f0">
-                    <ul>
-                        <li class="on part1">论坛分类A</li>
-                        <li class="part2">论坛分类B</li>
-                    </ul>
-                </div>
-                <div class="lt-right fl wp70 bg_fff">
-                    <div class="part1 plr10">
-                        <ul>
-                            <li class="clearfix" (click)="showDetail('')">
-                                <div class="fl wp30"><img src="images/file_download.png"/></div>
-                                <div class="pl10 wp70 fl">
-                                    <div>板块名称</div>
-                                    <div class="com-btn">
-                                        <ion-buttons class="clearfix">
-                                            <button class="fl">
-                                                <i class="icon iconfont">&#xe624;</i>
-                                                <span>12</span>
-                                            </button>
-                                            <button class="fl ml10">
-                                                <i class="icon iconfont">&#xe610;</i>
-                                                <span>22</span>
-                                            </button>
-                                        </ion-buttons>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <div class="fl wp30"><img src="images/file_download.png"/></div>
-                                <div class="pl10 wp70 fl">
-                                    <div>板块名称</div>
-                                    <div class="com-btn">
-                                        <ion-buttons class="clearfix">
-                                            <button class="fl">
-                                                <i class="icon iconfont">&#xe624;</i>
-                                                <span>12</span>
-                                            </button>
-                                            <button class="fl ml10">
-                                                <i class="icon iconfont">&#xe610;</i>
-                                                <span>22</span>
-                                            </button>
-                                        </ion-buttons>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <div class="fl wp30"><img src="images/file_download.png"/></div>
-                                <div class="pl10 wp70 fl">
-                                    <div>板块名称</div>
-                                    <div class="com-btn">
-                                        <ion-buttons class="clearfix">
-                                            <button class="fl">
-                                                <i class="icon iconfont">&#xe624;</i>
-                                                <span>12</span>
-                                            </button>
-                                            <button class="fl ml10">
-                                                <i class="icon iconfont">&#xe610;</i>
-                                                <span>22</span>
-                                            </button>
-                                        </ion-buttons>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </ion-list>
+
+        <div *ngSwitchCase="'ltan'">
+
+            <plat-choose-view
+                    (goPlateEmitter)="goPlateDetail($event)"
+                    [classification]="classification"
+                    [siteCode]="cityService.currentCity.code"
+            >
+
+
+            </plat-choose-view>
+        </div>
+
     </div>
 </ion-content>
+
+
 <div id="ylImg" class="mask hidden" (click)="closeImg();">
     <div>
         <div class="wrapper">
@@ -170,6 +119,5 @@
             </div>
         </div>
     </div>
-
 </div>
 

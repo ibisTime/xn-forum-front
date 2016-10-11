@@ -8,6 +8,7 @@ import {ContentPage} from "./content/content";
 import {LoginPage} from "../user/login";
 import {ChatRoomPage} from "../mine/im/chat-room";MineDetailPage
 import {MineDetailPage} from "../mine/detail/detail";
+import {CityService} from "../../services/city.service";
 
 @Component({
   templateUrl: 'forum.html'
@@ -24,6 +25,9 @@ export class ForumPage {
   items = [];
   appendCount = 0;
 
+  /*分类*/
+  classification;
+
   @ViewChild(Content) content: Content;
 
   constructor(public navCtrl: NavController,
@@ -31,13 +35,15 @@ export class ForumPage {
               public warnCtrl : WarnService,
               public uService : UserService,
               public mCtrl: ModalController,
-              public http: HttpService) {
+              public http: HttpService,
+              public cityService: CityService) {
       this.isAndroid = platform.is('android');
       this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
       this.pHeight = `${this.platform.height()}px`;
       this.start = 1;
       this.limit = 10;
       this.queryPostPage();
+      this.getClass();
   }
   showLogin(){
     let modelCtrl = this.mCtrl.create(LoginPage);
@@ -175,6 +181,7 @@ export class ForumPage {
       sDiv.className = sDiv.className + " hidden";
   }
   showDetail(code){
+       console.log('打开详情页');
        this.navCtrl.push(DetailPage);
   }
   //打开帖子详情页
@@ -188,4 +195,28 @@ export class ForumPage {
   goDetail(toId){
     this.navCtrl.push(MineDetailPage, {toUserId: toId});
   }
+
+
+  /*分类数据*/
+  getClass(){
+      let obj = {
+          "parentKey": "plate_kind"
+      }
+      this.http.get("/general/dict/list",obj).then(res => {
+
+        this.classification = res["data"];
+
+      }).catch(res => {
+
+
+      });
+
+  }
+
+    goPlateDetail($event){
+      console.log("去相情页");
+        this.navCtrl.push(DetailPage);
+
+    }
+
 }

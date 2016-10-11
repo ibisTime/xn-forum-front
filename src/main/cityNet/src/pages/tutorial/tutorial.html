@@ -9,4 +9,6 @@
   <div *ngIf="cityService.ads[0]">
     <img [src]="cityService.ads[0]?.pic" (load)="loadEnd($event)">
   </div>
+  <button ion-button *ngIf="failure" (click)="relaod($event)" block color="navbar-color" style="margin-top: 40%">重新加载</button>
+
 </ion-content>

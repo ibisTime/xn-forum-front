@@ -31,6 +31,8 @@ import {CommentPage} from "./mine/im/comment";
 import {SettingPage} from "./mine/setting/setting";
 import {AccountPage} from "./mine/setting/account";
 import {AboutusPage} from "./mine/setting/aboutus";
+import {ForumCell} from "../components/forum-cell/forum-cell.component";
+import {PlatChooseView} from "../components/plate-choose/plat-choose.component";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -64,6 +66,8 @@ export const pages = [ TabsPage,
 ];
 
 export const components = [
+  ForumCell,
+  PlatChooseView,
   ChatViewComponent,
   CaptchaComponent
 ];

@@ -1,0 +1,266 @@
+.forum-cell{
+
+    background-color: #fff;
+    .button-icon-left ion-icon{
+      padding-right: 0;
+    }
+    .iconfont{
+      margin: 0;
+    }
+    .fr{
+      float: right;
+    }
+    .fl{
+      float: left;
+    }
+    .clearfix:after {
+      content: "";
+      display: block;
+      visibility: hidden;
+      height: 0;
+      clear: both;
+    }
+
+    .clearfix {
+      zoom: 1;
+    }
+    .bd_r_e6{
+      border-right: 1px solid #E6E6E6;
+    }
+    .bg_f0{
+      background: #F0F0F0;
+    }
+    .bg_fff{
+      background: #fff;
+    }
+    .wp30{
+      width: 30%;
+    }
+    .wp70{
+      width: 70%;
+    }
+    .inblock{
+      display: inline-block;
+    }
+    .t-3dot {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .com-btn1{
+      button{
+        border-color: transparent;
+        background-color: transparent;
+        font-size: 1.2rem;
+        height: 2rem;
+        color: #464646;
+        background: #fff;
+        margin: 10px 0 0;
+        padding: 0;
+      }
+      .u-msg{
+        white-space: normal;
+      }
+      ion-item{
+        font-size: 1.4rem;
+        border-bottom: 1px solid #e6e6e6;
+      }
+    }
+    .item{
+      padding-left: 0;
+      background-color: #fff;
+      .iconfont{
+        font-size: 1.6rem;
+      }
+      .item-inner{
+        padding-right: 0;
+        border-bottom: none;
+        ion-label{
+          margin-left: 8px;
+          .time{
+            color: #B4B4B4;
+          }
+          ion-card{
+            font-family: Microsoft YaHei,'宋体',Tahoma,Arial,sans-serif;
+            margin: 0;
+            width: 100%;
+            .item{
+              border-bottom: 1px solid #DCDCDC;
+            }
+            ion-card-content{
+              width: 100%;
+              white-space: normal;
+              padding: 0;
+              p {
+                font-size: 1.4rem;
+              }
+              .imgs{
+                height: 100%;
+                display: inline-block;
+              }
+              .img-cont{
+                margin-top: 8px;
+              }
+            }
+            .com-btn{
+              margin-top: 20px;
+            }
+            .com-btn button.activated{
+              opacity: 0.4;
+            }
+            ion-avatar{
+              position: absolute;
+              top: 0;
+              left: 0;
+              padding-top: 8px;
+              margin: 0;
+              img{
+                max-height: none;
+                max-width: none;
+                width: 45px;
+                height: 45px;
+              }
+            }
+            button{
+              height: 1.6em;
+              color: #464646;
+              background: #fff;
+              border: 1px solid #B4B4B4;
+              border-radius: 4px;
+              margin: 0 0.4rem;
+            }
+            .comment{
+              padding: 8px;
+              background: #EEEEEE;
+              border-radius: 4px;
+              .com-top{
+                color:#7E0100;
+                .t-3dot{
+                  font-size: 1.2rem;
+                  padding-left: 8px;
+                }
+                button{
+                  background-color: transparent;
+                  border: none;
+                  padding: 0;
+                  margin-top: 2px;
+                  font-size: 1.2rem;
+                }
+              }
+              .com-bottom{
+                font-size: 1.2rem;
+                padding: 6px 0px;
+                border-top: 1px solid #fff;
+                .u-name{
+                  color: #7D0000;
+                }
+                .item{
+                  background-color: transparent;
+                  border-top: none !important;
+                  min-height: 1.2em;
+                  line-height: 1.2em;
+                  border-bottom: none !important;
+                  .item-inner{
+                    margin-left: 0;
+                    border-bottom: none !important;
+                    ion-label{
+                      font-size: 1.2rem;
+                      margin: 0;
+                      white-space: normal;
+                    }
+                  }
+                }
+
+              }
+            }
+            .item-inner{
+              margin-left: 50px;
+              .origin{
+                position:absolute;
+                right:0;
+                top:0;
+                span{
+                  color:#D23E3C;
+                }
+              }
+            }
+            h2{
+              color: #7E0001;
+            }
+          }
+        }
+      }
+    }
+    .item.b-lable{
+      ion-label{
+        border-bottom: 1px solid #e6e6e6;
+        .comment-div{
+          background: #f5f5f5;
+          margin: 1em 0;
+          padding: 0.5em;
+          color: #999;
+        }
+        .comment-div1{
+          color: #7E0001;
+          font-size: 1.6rem;
+        }
+      }
+    }
+    .plr10 {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    .pl10 {
+      padding-left: 10px;
+    }
+    .pr10 {
+      padding-right: 10px;
+    }
+    .ltan{
+      .lt-left{
+        height: 100%;
+        position: fixed;
+        ul{
+          li{
+            border-bottom: 1px solid #e6e6e6;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            text-align: center;
+          }
+          li.on{
+            background: #fff;
+          }
+        }
+      }
+      .lt-right{
+        margin-left: 30%;
+        ul{
+          li{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e6e6e6;
+          }
+        }
+        .com-btn button{
+          border-color: transparent;
+          background-color: transparent;
+          font-size: 1.2rem;
+          height: 2rem;
+          color: #464646;
+          background: #fff;
+          margin: 10px 0 0;
+          padding: 0;
+        }
+      }
+    }
+    .mb10{
+      margin-bottom: 10px;
+    }
+    .ml10{
+      margin-left: 10px !important;
+    }
+    .hidden{
+      display: none;
+    }
+
+}

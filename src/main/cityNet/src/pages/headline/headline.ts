@@ -92,6 +92,10 @@ export class HeadlinePage implements AfterViewInit {
 
  }
 
+    emit($event){
+        console.log('终于成功了');
+    }
+
   chooseCity(){
 
     let load = this.warn.loading("加载站点中..");

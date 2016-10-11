@@ -20,8 +20,6 @@ export class CityChoosePage implements OnInit,AfterViewInit {
 
   }
 
-
-
   ngOnInit() {
 
   }
@@ -53,7 +51,6 @@ export class CityChoosePage implements OnInit,AfterViewInit {
     this.searching = value.length > 0;
     this.cityS.searchCity(value);
 
-
-
   }
+
 }
