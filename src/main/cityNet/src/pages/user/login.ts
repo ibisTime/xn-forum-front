@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Platform, NavController } from "ionic-angular";
+import {Platform, NavController, Events} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 
 import { RegisterPage } from './register';
@@ -21,7 +21,8 @@ export class LoginPage implements OnInit {
               public navCtrl: NavController,
               public platform: Platform,
               public warnCtrl : WarnService,
-              public http: HttpService
+              public http: HttpService,
+              public events: Events
 
              ) {
 
@@ -50,6 +51,8 @@ export class LoginPage implements OnInit {
 
       let tokenId = res["data"]["tokenId"];
       let userId = res["data"]["userId"];
+      /*发出登陆成功通知*/
+      this.events.publish("user:loginSuccess");
 
       //保存 uid  和  tokenid
       this.uService.saveUserInfo(tokenId, userId);
@@ -58,6 +61,7 @@ export class LoginPage implements OnInit {
 
 
     }).catch(error => {
+      console.log("denglu");
       loading.dismiss();
     });
 

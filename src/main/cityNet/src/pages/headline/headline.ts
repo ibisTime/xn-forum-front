@@ -77,49 +77,6 @@ export class HeadlinePage implements AfterViewInit {
       this.getArticle();
     },500)
 
-    // setTimeout(() => {
-    //
-    //
-    //   let loadNav = this.warn.loading('定位中...');
-    //   navigator.geolocation.getCurrentPosition( (position:any) => {
-    //
-    //     /*同意定位加载*/
-    //     console.log(position);
-    //
-    //     /*同意加载站点*/
-    //     this.cityS.getNavigateByPosition(position.x,position.y).then(res => {
-    //       loadNav.dismiss().then(() => {
-    //         this.getArticle();
-    //       });
-    //
-    //
-    //     }).catch(error => {
-    //       loadNav.dismiss().then(res => {
-    //         this.warn.toast('加载站点失败');
-    //       });
-    //     });
-    //
-    //   }, error => {
-    //
-    //     /*不同意获取默认站点*/
-    //     this.cityS.getNavigateByPosition(0,0).then(res => {
-    //       loadNav.dismiss().then(() => {
-    //
-    //         this.getArticle();
-    //       });
-    //
-    //     }).catch(error => {
-    //       loadNav.dismiss().then(res => {
-    //
-    //         this.warn.toast('加载站点失败');
-    //
-    //       });
-    //     });
-    //
-    //   },{timeout: 5000});
-    //
-    // },500);
-
   }
 
   /*所有跳转事件个功能点击事件*/
@@ -139,7 +96,6 @@ export class HeadlinePage implements AfterViewInit {
 
     let load = this.warn.loading("加载站点中..");
 
-    // let obj = {"da":"da"};
     let opt = {
       showBackdrop: false,
       enableBackdropDismiss : false
@@ -154,8 +110,7 @@ export class HeadlinePage implements AfterViewInit {
         model.present();
 
       });
-
-
+        
     }).then((res) => {
 
 
@@ -164,14 +119,6 @@ export class HeadlinePage implements AfterViewInit {
 
     });
 
-    //   .catch( error => {
-    //
-    //   load.dismiss().then(() => {
-    //     this.warn.alert('获取站点失败');
-    //   });
-    //
-    //   console.log('外部失败');
-    // });
 
   }
 
@@ -214,14 +161,16 @@ export class HeadlinePage implements AfterViewInit {
       let list = res.data.list;
         for(let i = 0; i < list.length; i++){
           if( list[i].pic  != null){
-            // list[i].publishDatetime = this.jsDateDiff( new Date(list[i].publishDatetime).getTime()/1000);
             list[i].pic = list[i].pic.split(/\|\|/);
           }
 
         }
         this.articles = list;
 
+    }).catch(error => {
+        console.log(error);
     });
+
   }
 
   doRefresh(refresher){

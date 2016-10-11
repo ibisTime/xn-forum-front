@@ -6,7 +6,7 @@ import {KefuPage} from "../kefu/kefu";
 import {VideoPage} from "../video/video";
 import {UserService} from "../../services/user.service";
 import {KefuService} from "../../services/kefu.serve";
-import {Tabs} from 'ionic-angular';
+import {Tabs, Events} from 'ionic-angular';
 import {IMService} from "../../services/im.service";
 import {CityService} from "../../services/city.service";
 import {HttpService} from "../../services/http.service";
@@ -30,7 +30,8 @@ export class TabsPage {
               public kefuService: KefuService,
               public imServe: IMService,
               public cityS: CityService,
-              public http: HttpService) {
+              public http: HttpService,
+              public events: Events) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
 
@@ -42,14 +43,31 @@ export class TabsPage {
 
     /**/
     this.kefuService.me = this.userServe.userId;
+
     this.imServe.login(this.userServe.userId);
+
+    this.login();
+
+
+    //超时帮用户登陆
+
+  }
+
+  login(){
     this.http.post('/user/login-t',{"tokenId":this.userServe.tokenId}).then(res => {
       console.log('login-t登陆成功 ');
+
       this.userServe.saveUserInfo(res.data.tokenId,this.userServe.userId);
 
-        this.http.get('/user').then((res) => {
-          this.userServe.user = res.data;
-        });
+      return this.http.get('/user');
+
+    }).then(res => {
+
+      this.userServe.user = res.data;
+
+    }).catch(error => {
+
+      console.log("登陆失败");
 
     });
 

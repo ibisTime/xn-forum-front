@@ -89,6 +89,7 @@ export class HttpService {
       /*登陆超时，重新登陆*/
       let resObj = res.json();
       console.log(resObj);
+      console.log(url1);
       /*自己的请求*/
       if(typeof(resObj.success) != "undefined"){
 
@@ -98,7 +99,6 @@ export class HttpService {
           alert(resObj.msg);
           if(resObj.timeout){
             this.events.publish('user:timeout',"timeout");
-            console.log(url1);
           }
 
           reject('请求出现异常');

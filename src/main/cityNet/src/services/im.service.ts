@@ -374,6 +374,7 @@ export class IMService {
 
   close(){
     this.conn.close();
+    this.clearCurrentData();
   }
 
   dateStr(date1:Date){

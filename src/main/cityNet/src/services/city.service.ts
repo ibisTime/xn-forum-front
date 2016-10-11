@@ -47,9 +47,6 @@ export class CityService {
   recommendSite = [];
   searchCitys = [];
   baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
-  // baidu = 'http://api.map.baidu.com/location/ip';
-  // baidu = "http://localhost:8080/geocoder/";
-  // baidu = "http://api.map.baidu.com/geocoder/v2/"
   baidu = baiduMapUrl();
   /*客服引流数据*/
   kefuData = [];
@@ -109,15 +106,21 @@ export class CityService {
   getNavByBaiduMap(longitude, latitude){
 
     return this.getSiteByBaiduMap(longitude, latitude).then(res => {
+
+      let city = res.result.addressComponent.city;
+      let area = res.result.addressComponent.district;
       let zoneObj = {
-        "province":res.result.addressComponent.province,
-        "city":res.result.addressComponent.city,
-        "area": res.result.addressComponent.district
+        // "province":res.result.addressComponent.province,
+        // "city":res.result.addressComponent.city,
+        "area": area,
+        "city":city.slice(0,city.length - 1)
       }
       /*获取站点*/
        return this.getSiteByAddress(zoneObj);
     }).then(res => {
-      return this.getNavigateBySiteCode(res["data"]["code"]);
+      let data = res["data"];
+      return this.getNavigateBySiteCode(data[0]["code"]);
+
     });
 
   }
@@ -125,7 +128,7 @@ export class CityService {
   /*百度地图 根据经纬度查询地理位置*/
   getSiteByBaiduMap(longitude, latitude) {
 
-    return this.http.get(null, null, this.baidu + '?ak=' + this.baiduMapAK + '&location=' + latitude + ',' + longitude + "&output=json").then(res => {
+    return this.http.get(null, null, this.baidu + '?ak=' + this.baiduMapAK + '&location=' +`${latitude}` + ',' + `${longitude}` + "&output=json").then(res => {
       if(res.status == "0"){
 
         return res;
@@ -136,12 +139,12 @@ export class CityService {
 
   /*通过地址获取站点*/
   getSiteByAddress(zoneObj){
-    return this.http.get('/site',zoneObj).then(res => {
+    return this.http.get('/site/list',zoneObj).then(res => {
 
       let re = res;
       console.log(res);
 
-      this.currentCity = res["data"];
+      this.currentCity = res["data"][0];
       return res;
     });
   }
@@ -179,9 +182,12 @@ export class CityService {
        });
 
        /*排序*/
-       tempArray = tempArray.sort((a,b) => {
-         return a.orderNo - b.orderNo;
-       });
+       if(tempArray.length > 1){
+         tempArray = tempArray.sort((a,b) => {
+           return a.orderNo - b.orderNo;
+         });
+       }
+
 
      }
 
@@ -208,12 +214,13 @@ export class CityService {
              headline["func8"].push(value);
            }
 
-         } else if(value.parentCode == tempArray[2].code) {
-           /*客服引流的数据*/
-           kefuData.push(value);
-         } else if(value.parentCode == tempArray[3].code){
-           this.videoData.push(value);
          }
+         // else if(value.parentCode == tempArray[2].code) {
+         //   /*客服引流的数据*/
+         //   kefuData.push(value);
+         // } else if(value.parentCode == tempArray[3].code){
+         //   this.videoData.push(value);
+         // }
 
         });
 
@@ -233,6 +240,9 @@ export class CityService {
         console.log(this.kefuData);
 
       }
+
+      /*外界 得知 是否否有广告图*/
+      return this.ads;
 
     });
 
@@ -322,38 +332,38 @@ export class CityService {
 
 
 
-  /*经纬度 查站点详情*/
-  getSiteByPosition(longitude?,latitude?){
-
-    let obj;
-    if((longitude instanceof String) &&(latitude instanceof String)){
-      obj = {
-        "longitude":longitude,
-        "latitude" :latitude
-      }
-    }
-
-
-    return this.http.get('/site/position',obj).then( res => {
-
-      console.log(res);
-      this.currentCity = res["data"];
-
-      return res;
-    });
-
-  }
-
-  /*通过坐标获取详情*/
-  getNavigateByPosition(x?,y?){
-
-    return this.getSiteByPosition(x,y).then((res) => {
-
-      return this.getNavigateBySiteCode(res['data']["code"]);
-
-    });
-
-  }
+  // /*经纬度 查站点详情*/
+  // getSiteByPosition(longitude?,latitude?){
+  //
+  //   let obj;
+  //   if((longitude instanceof String) &&(latitude instanceof String)){
+  //     obj = {
+  //       "longitude":longitude,
+  //       "latitude" :latitude
+  //     }
+  //   }
+  //
+  //
+  //   return this.http.get('/site/position',obj).then( res => {
+  //
+  //     console.log(res);
+  //     this.currentCity = res["data"];
+  //
+  //     return res;
+  //   });
+  //
+  // }
+  //
+  // /*通过坐标获取详情*/
+  // getNavigateByPosition(x?,y?){
+  //
+  //   return this.getSiteByPosition(x,y).then((res) => {
+  //
+  //     return this.getNavigateBySiteCode(res['data']["code"]);
+  //
+  //   });
+  //
+  // }
 
 
 }

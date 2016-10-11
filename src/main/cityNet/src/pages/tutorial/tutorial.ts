@@ -16,6 +16,9 @@ import {HttpService} from "../../services/http.service";
   templateUrl: 'tutorial.html'
 })
 export class TutorialPage implements AfterViewInit {
+
+  failure = false;
+  logining = false;
   constructor( public nav: NavController,
                public userServe: UserService,
                public cityService: CityService,
@@ -29,10 +32,11 @@ export class TutorialPage implements AfterViewInit {
 
   ngAfterViewInit() {
 
-
-
+   // this.loadNav();
     setTimeout(() => {
+
       let loadNav = this.warn.loading('加载中');
+      /*加载默认*/
 
       navigator.geolocation.getCurrentPosition( (geo:any) => {
 
@@ -43,7 +47,68 @@ export class TutorialPage implements AfterViewInit {
         }).catch(error => {
 
           loadNav.dismiss();
-          this.warn.toast('获取导航失败');
+          this.warn.toast('加载失败失败');
+          this.failure = true;
+
+        });
+
+
+      }, error => {
+
+        loadNav.dismiss();
+        /*加载默认*/
+        this.cityService.getNavByBaiduMap(0,0).then(res => {
+
+          console.log(res);
+
+        }).catch(error => {
+
+          this.warn.toast('加载失败失败');
+          this.failure = true;
+
+        });
+
+
+      },{timeout: 5000});
+
+    },100);
+
+    this.events.subscribe("user:timeout",()=> {
+
+      if(!this.logining){
+        this.userServe.loginOut();
+        this.im.close();
+      }
+
+    });
+
+
+  }
+
+  reload(){
+
+    this.loadNav();
+
+  }
+
+  loadNav(){
+    setTimeout(() => {
+      let loadNav = this.warn.loading('加载中');
+      loadNav.dismiss();
+      /*加载默认*/
+
+
+      navigator.geolocation.getCurrentPosition( (geo:any) => {
+
+        /*同意定位加载*/
+        this.cityService.getNavByBaiduMap(geo.coords.longitude,geo.coords.latitude).then(res => {
+          loadNav.dismiss();
+          console.log(res);
+        }).catch(error => {
+
+          loadNav.dismiss();
+          this.warn.toast('加载失败失败');
+          this.failure = true;
 
         });
 
@@ -55,7 +120,9 @@ export class TutorialPage implements AfterViewInit {
         this.cityService.getNavByBaiduMap(0,0).then(res => {
           console.log(res);
         }).catch(error => {
-          this.warn.toast('获取导航失败');
+
+          this.warn.toast('加载失败失败');
+          this.failure = true;
 
         });
 
@@ -69,7 +136,6 @@ export class TutorialPage implements AfterViewInit {
       this.userServe.loginOut();
       this.im.close();
       this.nav.push(LoginPage);
-
     });
 
   }
