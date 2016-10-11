@@ -1,6 +1,6 @@
 package com.xnjr.moom.front.req;
 
-public class XN610011Req {
+public class XN806013Req {
     private String code;
 
     private String name;

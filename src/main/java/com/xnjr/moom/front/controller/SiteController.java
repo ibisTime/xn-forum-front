@@ -10,6 +10,7 @@ import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.req.XN610011Req;
 import com.xnjr.moom.front.req.XN610012Req;
+import com.xnjr.moom.front.req.XN806013Req;
 
 @Controller
 @RequestMapping(value = "/site")
@@ -23,14 +24,16 @@ public class SiteController extends BaseController {
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "userId", required = false) String userId,
             @RequestParam(value = "priority", required = false) String priority,
+            @RequestParam(value = "city", required = false) String city,
             @RequestParam(value = "isDefault", required = false) String isDefault) {
-    	XN610011Req req = new XN610011Req();
+    	XN806013Req req = new XN806013Req();
     	req.setCode(code);
     	req.setName(name);
+    	req.setCity(city);
         req.setUserId(userId);
-        req.setPriority(priority);
+        req.setLocation(priority);
         req.setIsDefault(isDefault);
-        return BizConnecter.getBizData("610011", JsonUtils.object2Json(req),
+        return BizConnecter.getBizData("806013", JsonUtils.object2Json(req),
             Object.class);
     }
 
@@ -53,23 +56,7 @@ public class SiteController extends BaseController {
     @ResponseBody
     public Object siteDetail(
             @RequestParam(value = "code", required = false) String code) {
-    	return BizConnecter.getBizData("610013", JsonUtils.string2Json("code", code),
+    	return BizConnecter.getBizData("806010", JsonUtils.string2Json("code", code),
                 Object.class);
-    }
-    
-    // 按省市区地址查询站点
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    @ResponseBody
-    public Object siteQuery(
-            @RequestParam(value = "province", required = true) String province,
-            @RequestParam(value = "city", required = true) String city,
-            @RequestParam(value = "area", required = false) String area) {
-
-    	XN610012Req req = new XN610012Req();
-    	req.setProvince(province);
-    	req.setCity(city);
-    	req.setArea(area);
-        return BizConnecter.getBizData("610012", JsonUtils.object2Json(req),
-            Object.class);
     }
 }
