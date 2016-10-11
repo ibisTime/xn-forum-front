@@ -25,11 +25,13 @@ public class SiteController extends BaseController {
             @RequestParam(value = "userId", required = false) String userId,
             @RequestParam(value = "priority", required = false) String priority,
             @RequestParam(value = "city", required = false) String city,
+            @RequestParam(value = "area", required = false) String area,
             @RequestParam(value = "isDefault", required = false) String isDefault) {
     	XN806013Req req = new XN806013Req();
     	req.setCode(code);
     	req.setName(name);
     	req.setCity(city);
+    	req.setArea(area);
         req.setUserId(userId);
         req.setLocation(priority);
         req.setIsDefault(isDefault);

@@ -10,6 +10,8 @@ public class XN806013Req {
     private String location;
     
     private String city;
+    
+    private String area;
 
     private String isDefault;
 
@@ -59,6 +61,14 @@ public class XN806013Req {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
 	}
 
 }
