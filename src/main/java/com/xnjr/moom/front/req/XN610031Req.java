@@ -5,7 +5,7 @@ public class XN610031Req {
     
     private String isDqNavigate;
 
-    private String title;
+    private String name;
 
     private String status;
 
@@ -23,14 +23,6 @@ public class XN610031Req {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getStatus() {
@@ -79,6 +71,14 @@ public class XN610031Req {
 
 	public void setIsDqNavigate(String isDqNavigate) {
 		this.isDqNavigate = isDqNavigate;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	

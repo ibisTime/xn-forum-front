@@ -31,7 +31,7 @@ public class ViewController extends BaseController {
     	XN610031Req req = new XN610031Req();
     	req.setCode(code);
     	req.setIsDqNavigate(isDqNavigate);
-    	req.setTitle(title);
+    	req.setName(title);
     	req.setStatus(status);
     	req.setType(type);
     	req.setIsGlobal(isGlobal);
@@ -41,7 +41,7 @@ public class ViewController extends BaseController {
             Object.class);
     }
 
-    // 查询站点详情
+    // 查询导航详情
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     @ResponseBody
     public Object siteDetail(
