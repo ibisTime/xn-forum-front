@@ -13,6 +13,12 @@ public class XN610046Req {
     // 站点编号(选填)
     private String siteCode;
 
+    // 种类(选填)
+    private String kind;
+
+    // 状态(选填)
+    private String status;
+
     public String getName() {
         return name;
     }
@@ -27,5 +33,21 @@ public class XN610046Req {
 
     public void setSiteCode(String siteCode) {
         this.siteCode = siteCode;
+    }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

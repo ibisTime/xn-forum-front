@@ -30,7 +30,7 @@ public class ConfigProperties {
         public static String IDENTIFY_URL = props.getProperty("IDENTIFY_URL");
 
         public static String ACCOUNT_URL = props.getProperty("ACCOUNT_URL");
-        
+
         public static String MAIL_URL = props.getProperty("MAIL_URL");
 
         // #****** picture server config ******
@@ -49,5 +49,8 @@ public class ConfigProperties {
         public static String FILE_PRE_DIR = props.getProperty("FILE_PRE_DIR");
 
         public static String MOBILE_URL = props.getProperty("MOBILE_URL");
+
+        public static String BASE_URL = props.getProperty("BASE_URL");
+
     }
 }

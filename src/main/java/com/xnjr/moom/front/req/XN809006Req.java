@@ -1,6 +1,6 @@
 package com.xnjr.moom.front.req;
 
-public class XNlh5014Req {
+public class XN809006Req {
 
     private String type;
 

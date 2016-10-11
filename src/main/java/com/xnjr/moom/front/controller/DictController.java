@@ -15,7 +15,6 @@ public class DictController {
     @Autowired
     IDictAO dictAO;
 
-    @SuppressWarnings("rawtypes")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Object queryDictList(

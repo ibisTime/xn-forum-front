@@ -16,12 +16,13 @@ package com.xnjr.moom.front.ao;
 public interface IPlateAO {
 
     /**
-     * 根据站点列表查询板块
+     * 根据站点,种类列表查询板块
      * @param siteCode
+     * @param kind
      * @return 
-     * @create: 2016年9月27日 下午5:12:16 xieyj
+     * @create: 2016年10月11日 下午3:46:42 xieyj
      * @history:
      */
-    public Object queryPlateList(String siteCode);
+    public Object queryPlateList(String siteCode, String kind);
 
 }
