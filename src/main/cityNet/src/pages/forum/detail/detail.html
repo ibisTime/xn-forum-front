@@ -51,7 +51,9 @@
             </ion-item>
         </ion-list>
     </div>
-    <div class="ptb10 tc bg_fff">更多</div>
+
+    <!--获取更多置顶帖-->
+    <div class="ptb10 tc bg_fff" (tap)="loadModeTopArticle()">更多</div>
 
 
     <div class="bg_fff mt20">
@@ -71,55 +73,8 @@
 
     <div [ngSwitch]="segment">
         <ion-list *ngSwitchCase="'all'">
-            <forum-cell></forum-cell>
-            <!--<ion-item (click)="showImg($event)">-->
-                <!--<ion-card>-->
-                    <!--<ion-item>-->
-                        <!--<ion-avatar item-left>-->
-                            <!--<img src="images/marty-avatar.png">-->
-                        <!--</ion-avatar>-->
-                        <!--<div>-->
-                            <!--<div style="position: relative;">-->
-                                <!--<h2>爆料达人</h2>-->
-                                <!--<p style="" class="origin">来自 <span>散讲</span></p>-->
-                            <!--</div>-->
-                            <!--<p class="time">1小时前</p>-->
-                            <!--<ion-card-content>-->
-                                <!--<p (click)="openContent()">开学了转给热爱学习的你，我爱学习，学习让我快乐</p>-->
-                                <!--<div [style.height]="imgHeight" class="img-cont">-->
-                                    <!--<img class="imgs" [style.width]="imgHeight"-->
-                                         <!--src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>-->
-                                    <!--<img class="imgs" [style.width]="imgHeight"-->
-                                         <!--src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>-->
-                                    <!--<img class="imgs" [style.width]="imgHeight"-->
-                                         <!--src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>-->
-                                <!--</div>-->
-                                <!--<div [style.height]="imgHeight" class="img-cont">-->
-                                    <!--<img class="imgs" [style.width]="imgHeight"-->
-                                         <!--src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>-->
-                                    <!--<img class="imgs" [style.width]="imgHeight"-->
-                                         <!--src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>-->
-                                    <!--<img class="imgs" [style.width]="imgHeight"-->
-                                         <!--src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>-->
-                                <!--</div>-->
-                            <!--</ion-card-content>-->
+            <!--<forum-cell></forum-cell>-->
 
-                            <!--<div class="com-btn">-->
-                                <!--<ion-buttons class="clearfix">-->
-                                    <!--<button class="fr">-->
-                                        <!--<i class="icon iconfont">&#xe610;</i>-->
-                                        <!--<span>22</span>-->
-                                    <!--</button>-->
-                                    <!--<button class="fr">-->
-                                        <!--<i class="icon iconfont">&#xe624;</i>-->
-                                        <!--<span>12</span>-->
-                                    <!--</button>-->
-                                <!--</ion-buttons>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</ion-item>-->
-                <!--</ion-card>-->
-            <!--</ion-item>-->
         </ion-list>
 
 

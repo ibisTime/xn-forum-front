@@ -1,72 +1,49 @@
 <div class="forum-cell">
-<ion-card >
-    <ion-item>
-        <ion-avatar item-left>
-            <img src="images/marty-avatar.png">
-        </ion-avatar>
-        <div>
-            <div style="position: relative;">
-                <h2>爆料达人</h2>
-                <p style="" class="origin">来自 <span>散讲</span></p>
-            </div>
-            <p class="time">1小时前</p>
-            <ion-card-content>
-                <p>开学了转给热爱学习的你，我爱学习，学习让我快乐</p>
-                <div [style.height]="imgHeight" class="img-cont">
-                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
+    <ion-card>
+        <ion-item>
+            <ion-avatar item-left (tap)="goDetail(item.publisher)">
+                <img src="{{item.photo || 'assets/images/marty-avatar.png'}}">
+            </ion-avatar>
+            <div>
+                <div style="position: relative;">
+                    <h2>{{item.nickname}}</h2>
+                    <!--<p style="" class="origin">来自 <span>散讲</span></p>-->
                 </div>
-                <div [style.height]="imgHeight" class="img-cont">
-                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                    <img class="imgs" [style.width]="imgHeight" src="http://ww3.sinaimg.cn/large/6927e7a5jw1f7rtrs2ubvj208c08c0sx.jpg"/>
-                </div>
-            </ion-card-content>
-
-            <div class="com-btn">
-                <ion-buttons class="clearfix">
-                    <button class="fl">
-                        <i class="icon iconfont">&#xe60a;</i>
-                    </button>
-                    <button class="fr">
-                        <i class="icon iconfont">&#xe610;</i>
-                    </button>
-                    <button class="fr">
-                        <i class="icon iconfont">&#xe624;</i>
-                    </button>
-                </ion-buttons>
-            </div>
-            <div class="comment">
-                <div class="com-top clearfix">
-                    <button class="fl">
-                        <i class="icon iconfont">&#xe624;</i>
-                        <span>50</span>
-                    </button>
-                    <div class="t-3dot">
-                        <span>aaa</span>
-                        <span>，啊啊啊</span>
-                        <span>，史蒂夫</span>
-                        <span>，我空间</span>
-                        <span>，译意风</span>
-                        <span>，开始佛</span>
+                <p class="time">{{item.publishDatetime | forumDate}}</p>
+                <ion-card-content>
+                    <div (click)="openPage(item.code, item.publisher)">
+                        <h2 style="margin: 6px 0;">{{item.title}}</h2>
+                        <p>{{item.content}}</p>
                     </div>
-                </div>
-                <div class="com-bottom">
-                    <ion-list>
-                        <ion-item>
-                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
-                        </ion-item>
-                        <ion-item>
-                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
-                        </ion-item>
-                        <ion-item>
-                            <span class="u-name"><span>阿萨姆</span>：</span><span class="u-msg">是对方的说法技术的父节点是否is的地点。是福建省的房间的司法局</span>
-                        </ion-item>
-                    </ion-list>
+                    <div *ngIf="item.pic" [style.height]="imgHeight" class="img-cont" (click)="showImg($event)">
+                        <img class="imgs" [style.width]="imgHeight" src="{{p}}" *ngFor="let p of item.pic"/>
+                    </div>
+                </ion-card-content>
+
+                <div class="com-btn">
+                    <ion-buttons class="clearfix">
+                        <button class="fl">
+                            <i class="icon iconfont">&#xe60a;</i>
+                        </button>
+                        <button class="sp-btn fl {{item.isSC == '0'?'':'hidden'}}" (click)="collect(item.code, idx);">
+                            <ion-icon name="star-outline"></ion-icon>
+                        </button>
+                        <button class="sp-btn fl {{item.isSC == '0'?'hidden':''}}" (click)="collect(item.code, idx, true);">
+                            <ion-icon name="star" style="color:#f64444"></ion-icon>
+                        </button>
+                        <button class="fr" (click)="openPage(item.code, item.publisher)">
+                            <i class="icon iconfont">&#xe610;</i><span>{{item.totalCommNum}}</span>
+                        </button>
+                        <button class="sp-btn fr {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code, idx)">
+                            <i class="icon iconfont">&#xe624;</i><span class="praise-total">{{item.totalDzNum}}</span>
+                        </button>
+                        <button class="sp-btn fr {{item.isDZ == '0'?'hidden':''}}" (click)="praise(item.code, idx, true)">
+                            <!--<i class="icon iconfont">&#xe624;</i>-->
+                            <ion-icon name="thumbs-up" style="color:#f64444"></ion-icon><span class="praise-total">{{item.totalDzNum}}</span>
+                        </button>
+                    </ion-buttons>
                 </div>
             </div>
-        </div>
-    </ion-item>
+        </ion-item>
     </ion-card>
 </div>

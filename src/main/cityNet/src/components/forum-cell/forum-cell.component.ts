@@ -11,7 +11,6 @@ import {Platform} from "ionic-angular";
 export class ForumCell implements OnInit {
 
     @Input() item;
-    // @Output()
     imgHeight;
     constructor(public platform: Platform) {
 

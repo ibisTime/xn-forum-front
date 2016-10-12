@@ -4,6 +4,7 @@
 import {Component, OnInit, Input,Output, EventEmitter,ViewChild, ElementRef} from '@angular/core';
 import {Platform} from "ionic-angular";
 import {HttpService} from "../../services/http.service";
+import {WarnService} from "../../services/warn.service";
 
 @Component({
     selector: 'plat-choose-view',
@@ -20,7 +21,8 @@ export class PlatChooseView implements OnInit {
     @Output() goPlateEmitter = new EventEmitter<any>();
 
     constructor(public platform: Platform,
-                public http: HttpService) {
+                public http: HttpService,
+                public warn: WarnService) {
 
     }
 
@@ -50,26 +52,45 @@ export class PlatChooseView implements OnInit {
     }
 
     getPlateByKind(dkey){
+       let load = this.warn.loading('加载中');
         let obj = {
             "siteCode":this.siteCode,
             "kind":dkey
         }
         this.http.get('/plate/list',obj).then(res => {
             this.currentPlats = res.data;
-
+            load.dismiss();
         }).catch(error => {
-
+            load.dismiss().then(() => {
+                this.warn.toast('获取失败');
+            });
         });
     }
 
-    goPlate(){
+    goPlate(plat){
 
-        this.goPlateEmitter.emit('11');
+        this.goPlateEmitter.emit(plat.code);
     }
+
+
 
 
 }
 
+/*板块信息*/
+// code: "BK2016101210295107361"
+// kind: "19"
+// location: "2"
+// name: "宠物"
+// orderNo: "1"
+// personCount: "0"
+// pic: "http://121.43.101.148:8901/2016101210/20161028610295172475228.png"
+// postCount: "0"
+// siteCode: "GS2016101110040872244"
+// status: "1"
+// updateDatetime: "Oct 12, 2016 10:29:51 AM"
+// updater: "U2016093020201250058"
+// userId: "U2016101302294421919"
 
 
 // dkey: "21"
@@ -81,3 +102,4 @@ export class PlatChooseView implements OnInit {
 // type: "1"
 // updateDatetime: "Oct 11, 2016 4:26:40 PM"
 // updater: "admin"
+

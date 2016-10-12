@@ -130,6 +130,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
   send(titleIput,contentTextarea){
 
+    let load = this.warn.loading('发送中...');
     if(contentTextarea.value.length <= 0){
       this.warn.alert('帖子内容不能为空');
       return;
@@ -205,13 +206,18 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
           "publisher": this.user.userId
         };
 
+        console.log(articleObj);
         return this.http.post("/post/publish",articleObj);
 
       }).then(res => {
+        load.dismiss().then(()=> {
 
+          this.viewCtrl.dismiss();
+
+        });
         this.warn.toast('发帖成功');
       }).catch(error => {
-
+        load.dismiss();
         this.warn.toast('发帖失败');
 
       });
@@ -230,7 +236,9 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
          this.warn.toast('发帖成功');
          this.viewCtrl.dismiss().then(()=> {
+
            this.viewCtrl.dismiss();
+
          });
 
        }).catch(error => {

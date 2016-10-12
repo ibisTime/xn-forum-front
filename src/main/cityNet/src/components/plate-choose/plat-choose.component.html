@@ -17,22 +17,22 @@
         <div class="fl-right fl wp70 bg_fff">
             <div class="part1 plr10">
 
-                <button (click)="goPlate('dd')">去详情</button>
+                <!--<button (click)="goPlate('dd')">去详情</button>-->
                 <ul>
                     <li class="clearfix" *ngFor="let plate of currentPlats" (click)="goPlate(plate)">
-                        <div class="fl wp30"><img src="images/file_download.png"/>
+                        <div class="fl wp30"><img [src]="plate.pic"/>
                         </div>
                         <div class="pl10 wp70 fl">
-                            <div>板块名称</div>
+                            <div>{{plate.name}}</div>
                             <div class="com-btn">
                                 <ion-buttons class="clearfix">
                                     <button class="fl">
                                         <i class="icon iconfont">&#xe624;</i>
-                                        <span>12</span>
+                                        <span>{{plate.postCount}}</span>
                                     </button>
                                     <button class="fl ml10">
                                         <i class="icon iconfont">&#xe610;</i>
-                                        <span>22</span>
+                                        <span>{{plate.personCount}}</span>
                                     </button>
                                 </ion-buttons>
                             </div>
