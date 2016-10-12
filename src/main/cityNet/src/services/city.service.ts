@@ -112,7 +112,9 @@ export class CityService {
       let zoneObj = {
         // "province":res.result.addressComponent.province,
         // "city":res.result.addressComponent.city,
-        "area": area,
+        // "city":city.slice(0,city.length - 1)
+
+        "area": "下城区",
         "city":city.slice(0,city.length - 1)
       }
       /*获取站点*/

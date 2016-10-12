@@ -58,7 +58,11 @@ export class PlatChooseView implements OnInit {
             "kind":dkey
         }
         this.http.get('/plate/list',obj).then(res => {
-            this.currentPlats = res.data;
+             // = res.data;
+
+            this.currentPlats = res.data.sort((a,b) => {
+                return (+a.orderNo) - (+b.orderNo);
+            })
             load.dismiss();
         }).catch(error => {
             load.dismiss().then(() => {
@@ -69,11 +73,9 @@ export class PlatChooseView implements OnInit {
 
     goPlate(plat){
 
-        this.goPlateEmitter.emit(plat.code);
+        this.goPlateEmitter.emit(plat);
+
     }
-
-
-
 
 }
 
@@ -92,7 +94,7 @@ export class PlatChooseView implements OnInit {
 // updater: "U2016093020201250058"
 // userId: "U2016101302294421919"
 
-
+/*分类*/
 // dkey: "21"
 // dvalue: "其他"
 // id: 59

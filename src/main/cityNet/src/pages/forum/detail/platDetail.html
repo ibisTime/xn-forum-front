@@ -29,65 +29,57 @@
     </div>
 
     <div class="clearfix bg_fff">
-        <div class="plr10 ptb10 fl wp30"><img src="images/file_download.png"/></div>
+        <div class="plr10 ptb10 fl wp30"><img [src]="plat.pic"/></div>
         <div class="pl10 ptb10 fl wp70">
-            <div>板块名称</div>
-            <div class="dt-div">主题：<span class="pr20">120</span>今日：<span>10</span></div>
+            <div>{{plat.name}}</div>
+            <div class="dt-div">主题：<span class="pr20">??</span>今日：<span>???</span></div>
         </div>
     </div>
+    <!--置顶-->
     <div>
         <ion-list class="dt-list">
-            <ion-item>
+            <ion-item *ngFor="let item of platService.topArticels" (tap)="goArticleDetail(item)">
                 <button>置顶</button>
-                <div class="ml30 inblock">永嘉城市网介绍</div>
-            </ion-item>
-            <ion-item>
-                <button>置顶</button>
-                <div class="ml30 inblock">永嘉城市网介绍</div>
-            </ion-item>
-            <ion-item>
-                <button>置顶</button>
-                <div class="ml30 inblock">永嘉城市网介绍</div>
+                <div class="ml30 inblock">{{item.content}}</div>
             </ion-item>
         </ion-list>
     </div>
-
-    <!--获取更多置顶帖-->
-    <div class="ptb10 tc bg_fff" (tap)="loadModeTopArticle()">更多</div>
+    <div *ngIf="topLoadMoreHidden" class="ptb10 tc bg_fff" (tap)="loadModeTopArticle()">更多</div>
 
 
+    <!--其他-->
     <div class="bg_fff mt20">
         <ion-segment [(ngModel)]="segment">
-            <ion-segment-button value="all">
+            <ion-segment-button value="all" (ionSelect)="changeType($event)">
                 全部
             </ion-segment-button>
-            <ion-segment-button value="new">
+            <ion-segment-button value="new" (ionSelect)="changeType($event)">
                 最新
             </ion-segment-button>
-            <ion-segment-button value="essence">
+            <ion-segment-button value="essence" (ionSelect)="changeType($event)">
                 精华
             </ion-segment-button>
         </ion-segment>
     </div>
 
 
-    <div [ngSwitch]="segment">
-        <ion-list *ngSwitchCase="'all'">
-            <!--<forum-cell></forum-cell>-->
-
+        <ion-list >
+            <div  *ngFor="let item of platService.articles">
+                <forum-cell
+                        [item]="item"
+                        (articleDetailEmitter)="goArticleDetail(item)"
+                >
+                </forum-cell>
+            </div>
         </ion-list>
 
-
-    </div>
+        <ion-infinite-scroll (ionInfinite)="doLoadMore($event)">
+            <ion-infinite-scroll-content
+                    loadingSpinner="bubbles"
+                    loadingText="Loading more data...">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
 
 </ion-content>
 
-<div id="ylImg" class="mask hidden" (click)="closeImg();">
-    <div>
-        <div class="wrapper">
-            <div class="scroller" [style.line-height]="pHeight">
-                <img id="yl-img"/>
-            </div>
-        </div>
-    </div>
-</div>
+

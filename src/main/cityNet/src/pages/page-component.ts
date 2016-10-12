@@ -19,7 +19,7 @@ import {ImPage} from "./mine/im/im";
 import {SendArticlePage} from "./forum/send-article";
 import {SearchUserAndArticlePage} from "./headline/search-user-article";
 import {TutorialPage} from "./tutorial/tutorial";
-import {DetailPage} from "./forum/detail/detail";
+import {PlatDetailPage} from "./forum/detail/platDetail";
 import {MineDetailPage} from "./mine/detail/detail";
 import {ChatRoomPage} from "./mine/im/chat-room";
 import {AddFriendPage} from "./mine/friend/addFriend";
@@ -49,7 +49,7 @@ export const pages = [ TabsPage,
   MinePage,
   ImPage,
   SendArticlePage,
-  DetailPage,
+  PlatDetailPage,
   MineDetailPage,
   SearchUserAndArticlePage,
   TutorialPage,

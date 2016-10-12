@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, Platform, Content, ModalController} from 'ionic-angular';
-import {DetailPage} from "./detail/detail";
+import {PlatDetailPage} from "./detail/platDetail";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.service";
@@ -26,7 +26,7 @@ export class ForumPage {
   appendCount = 0;
 
   /*分类*/
-  classification;
+  classification = [];
 
   @ViewChild(Content) content: Content;
 
@@ -38,8 +38,7 @@ export class ForumPage {
               public http: HttpService,
               public cityService: CityService) {
       this.isAndroid = platform.is('android');
-      this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
-      this.pHeight = `${this.platform.height()}px`;
+
       this.start = 1;
       this.limit = 10;
       this.queryPostPage();
@@ -168,55 +167,57 @@ export class ForumPage {
         }
 
   }
-  showImg(ev){
-      if( ev.target.nodeName.match(/^img$/i) ){
-          let img = ev.target;
-          let sDiv = document.getElementById("ylImg");
-          sDiv.className = sDiv.className.replace(/\s*hidden\s*/, "");
-          document.getElementById("yl-img").setAttribute("src", img.src);
-      }
-  }
-  closeImg(){
-      let sDiv = document.getElementById("ylImg");
-      sDiv.className = sDiv.className + " hidden";
-  }
-  showDetail(code){
-       console.log('打开详情页');
-       this.navCtrl.push(DetailPage);
-  }
-  //打开帖子详情页
-  openPage(code, user){
-      this.navCtrl.push(ContentPage,{code: code, user: user});
-  }
-  /*聊天*/
-  goChat(userId){
-    this.navCtrl.push(ChatRoomPage,userId);
-  }
-  goDetail(toId){
-    this.navCtrl.push(MineDetailPage, {toUserId: toId});
-  }
+
+    showDetail(code) {
+        console.log('打开详情页');
+        this.navCtrl.push(DetailPage);
+    }
+
+    //打开帖子详情页
+    openPage($event) {
+
+        this.navCtrl.push(ContentPage, $event);
+        // this.navCtrl.push(ContentPage, {code: $event.code, user: $event.publisher});
+    }
+
+    /*聊天*/
+    goChat(userId) {
+        this.navCtrl.push(ChatRoomPage, userId);
+    }
+
+    goDetail(toId) {
+        this.navCtrl.push(MineDetailPage, {toUserId: toId});
+    }
 
 
   /*分类数据*/
-  getClass(){
-      let obj = {
-          "parentKey": "plate_kind"
-      }
-      this.http.get("/general/dict/list",obj).then(res => {
+    getClass() {
 
-        this.classification = res["data"];
+        if(this.classification.length > 0){
+            return;
+        }
 
-      }).catch(res => {
+        let obj = {
+            "parentKey": "plate_kind"
+        }
+        this.http.get("/general/dict/list", obj).then(res => {
 
+            let data = res["data"];
+            if(data instanceof Array){
+             this.classification = res["data"];
 
-      });
+            }
 
-  }
+        }).catch(res => {
 
-    goPlateDetail($event){
-      console.log("去相情页");
-        this.navCtrl.push(DetailPage);
+        });
+    }
+
+    goPlateDetail($event) {
+        console.log("去板块详情页");
+        this.navCtrl.push(PlatDetailPage,$event);
 
     }
+
 
 }

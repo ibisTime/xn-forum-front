@@ -1,12 +1,12 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, Platform, Content, ModalController} from 'ionic-angular';
-import {DetailPage} from "../../forum/detail/detail";
+import {PlatDetailPage} from "../../forum/detail/platDetail";
 import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
 import {UserService} from "../../../services/user.service";
 import {ContentPage} from "../../forum/content/content";
 import {LoginPage} from "../../user/login";
-import {ChatRoomPage} from "./chat-room";MineDetailPage
+import {ChatRoomPage} from "./chat-room";
 import {MineDetailPage} from "../detail/detail";
 
 @Component({

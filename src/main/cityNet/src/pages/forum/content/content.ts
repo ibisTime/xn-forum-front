@@ -35,11 +35,12 @@ export class ContentPage {
               public warnCtrl : WarnService,
               public uService : UserService,
               public http: HttpService) {
+
         this.isAndroid = platform.is('android');
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.pHeight = `${this.platform.height()}px`;
         this.code = navPara.data.code;
-        this.toUser = navPara.data.user || "";
+        this.toUser = navPara.data.publisher || "";
         this.isMe = this.toUser == uService.userId ? true: false;
         this.getPostDetail();
         uService.queryFollowUsers().then(()=>{
