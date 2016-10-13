@@ -47,11 +47,10 @@ public class PostController extends BaseController {
     @ResponseBody
     public Object queryPostPage(
             @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "status", required = false) String status,
-            @RequestParam(value = "isReport", required = false) String isReport,
-            @RequestParam(value = "isHeadline", required = false) String isHeadline,
-            @RequestParam(value = "isTop", required = false) String isTop,
-            @RequestParam(value = "isEssence", required = false) String isEssence,
+            @RequestParam(value = "isHeadlines", required = false) String isHeadlines,
+            @RequestParam(value = "location", required = false) String location,
             @RequestParam(value = "plateCode", required = false) String plateCode,
             @RequestParam(value = "siteCode", required = false) String siteCode,
             @RequestParam("start") String start,
@@ -59,9 +58,9 @@ public class PostController extends BaseController {
             @RequestParam(value = "orderColumn", required = false) String orderColumn,
             @RequestParam(value = "orderDir", required = false) String orderDir,
             @RequestParam(value = "userId", required = false) String userId) {
-        return postAO.queryPagePost(title, status, isReport, isHeadline, isTop,
-            isEssence, plateCode, siteCode, start, limit, orderColumn,
-            orderDir, getSessionUserId(userId));
+        return postAO.queryPagePost(title, keyword, status, isHeadlines,
+            location, plateCode, siteCode, start, limit, orderColumn, orderDir,
+            getSessionUserId(userId));
     }
 
     // 获取帖子详情
@@ -110,8 +109,8 @@ public class PostController extends BaseController {
         return postAO.queryPageCollections(getSessionUserId(talker), start,
             limit, orderColumn, orderDir);
     }
-    
-    // 发帖保存到草稿箱 
+
+    // 发帖保存到草稿箱
     @RequestMapping(value = "/craft/add", method = RequestMethod.POST)
     @ResponseBody
     public Object postCraftAdd(
@@ -122,12 +121,12 @@ public class PostController extends BaseController {
         return postAO.postCraftAdd(title, content, pic, plateCode, this
             .getSessionUser().getUserId());
     }
-    
+
     // 草稿编辑保存
     @RequestMapping(value = "/craft/edit", method = RequestMethod.POST)
     @ResponseBody
     public Object postCraftEdit(
-    		@RequestParam(value = "code", required = true) String code,
+            @RequestParam(value = "code", required = true) String code,
             @RequestParam(value = "title", required = true) String title,
             @RequestParam(value = "content", required = true) String content,
             @RequestParam(value = "pic", required = false) String pic,
@@ -135,20 +134,20 @@ public class PostController extends BaseController {
         return postAO.postCraftEdit(code, title, content, pic, plateCode, this
             .getSessionUser().getUserId());
     }
-    
+
     // 草稿发布帖子，根据用户的信任等级，设置状态为已发布或待审核
     @RequestMapping(value = "/craft/publish", method = RequestMethod.POST)
     @ResponseBody
     public Object postCraftPublish(
-    		@RequestParam(value = "code", required = true) String code,
+            @RequestParam(value = "code", required = true) String code,
             @RequestParam(value = "title", required = true) String title,
             @RequestParam(value = "content", required = true) String content,
             @RequestParam(value = "pic", required = false) String pic,
             @RequestParam(value = "plateCode", required = true) String plateCode) {
-        return postAO.postCraftPublish(code, title, content, pic, plateCode, this
-            .getSessionUser().getUserId());
+        return postAO.postCraftPublish(code, title, content, pic, plateCode,
+            this.getSessionUser().getUserId());
     }
-    
+
     // 分页查询我的帖子
     @RequestMapping(value = "/my/page", method = RequestMethod.GET)
     @ResponseBody
@@ -160,7 +159,7 @@ public class PostController extends BaseController {
             @RequestParam("limit") String limit,
             @RequestParam(value = "orderColumn", required = false) String orderColumn,
             @RequestParam(value = "orderDir", required = false) String orderDir) {
-        return postAO.queryMyPostPage(this.getSessionUser().getUserId(), status, 
-        		dateStart, dateEnd, start, limit, orderColumn, orderDir);
+        return postAO.queryMyPostPage(this.getSessionUser().getUserId(),
+            status, dateStart, dateEnd, start, limit, orderColumn, orderDir);
     }
 }

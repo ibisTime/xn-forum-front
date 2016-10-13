@@ -31,25 +31,25 @@ public interface IPostAO {
     /**
      * 分页查询帖子
      * @param title
+     * @param keyword
      * @param status
-     * @param isReport
-     * @param isHeadline
-     * @param isTop
-     * @param isEssence
+     * @param isHeadlines
+     * @param location
      * @param plateCode
+     * @param siteCode
      * @param start
      * @param limit
      * @param orderColumn
      * @param orderDir
      * @param userId
      * @return 
-     * @create: 2016年9月27日 下午3:53:53 xieyj
+     * @create: 2016年10月13日 下午5:46:33 xieyj
      * @history:
      */
-    public Object queryPagePost(String title, String status, String isReport,
-            String isHeadline, String isTop, String isEssence,
-            String plateCode, String siteCode, String start, String limit,
-            String orderColumn, String orderDir, String userId);
+    public Object queryPagePost(String title, String keyword, String status,
+            String isHeadlines, String location, String plateCode,
+            String siteCode, String start, String limit, String orderColumn,
+            String orderDir, String userId);
 
     /**
      * 获取帖子详情
@@ -102,16 +102,17 @@ public interface IPostAO {
      */
     public Object queryPageCollections(String talker, String start,
             String limit, String orderColumn, String orderDir);
-    
-    public Object postCraftAdd(String title, String content, String pic, 
-    		String plateCode, String userId);
-    
-    public Object postCraftEdit(String code, String title, String content, String pic, 
-    		String plateCode, String userId);
-    
-    public Object postCraftPublish(String code, String title, String content, String pic, 
-    		String plateCode, String userId);
-    
-    public Object queryMyPostPage(String userId, String status, String dateStart, String dateEnd, 
-    		String start, String limit, String orderColumn, String orderDir);
+
+    public Object postCraftAdd(String title, String content, String pic,
+            String plateCode, String userId);
+
+    public Object postCraftEdit(String code, String title, String content,
+            String pic, String plateCode, String userId);
+
+    public Object postCraftPublish(String code, String title, String content,
+            String pic, String plateCode, String userId);
+
+    public Object queryMyPostPage(String userId, String status,
+            String dateStart, String dateEnd, String start, String limit,
+            String orderColumn, String orderDir);
 }

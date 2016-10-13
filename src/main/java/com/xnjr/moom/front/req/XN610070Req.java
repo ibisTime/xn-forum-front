@@ -1,52 +1,37 @@
 package com.xnjr.moom.front.req;
 
-public class XN610070Req {
-    // 标题
+public class XN610070Req extends APageReq {
+    /** 
+     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
+     */
+    private static final long serialVersionUID = 42624793469132513L;
+
+    // 当前用户（选填）
+    private String userId;
+
+    // 标题（选填）
     private String title;
 
-    // 发布人
+    // 发布人（选填）
     private String publisher;
 
-    // 状态 0 待审核 1 审核通过 2 审核不同 3 已发布
+    // 状态 （选填）
     private String status;
 
-    // 是否举报 1 是 0 否
-    private String isReport;
+    // 是否推荐 （选填）
+    private String isHeadlines;
 
-    // 是否推荐 1 是 0 否
-    private String isHeadline;
+    // 置顶 1/精华 2/置顶+精华 3（选填）
+    private String location;
 
-    // 是否置顶 1 是 0 否
-    private String isTop;
-
-    // 是否精华 1 是 0 否
-    private String isEssence;
-
-    // 板块编号
+    // 板块编号 （选填）
     private String plateCode;
 
-    // 站点编号
+    // 站点编号（选填）
     private String siteCode;
 
-    // 发布开始时间 2015-01-01
-    private String dateStart;
-
-    // 发布结束时间 2015-10-01
-    private String dateEnd;
-
-    // 第几页 0=第一页；1=第二页…
-    private String start;
-
-    // 页面个数 1
-    private String limit;
-
-    // 排序字段 code等
-    private String orderColumn;
-
-    // 排序方向 asc=升序；desc=降序
-    private String orderDir;
-
-    private String userId;
+    // 关键字搜索（选填）
+    private String keyword;
 
     public String getUserId() {
         return userId;
@@ -80,36 +65,20 @@ public class XN610070Req {
         this.status = status;
     }
 
-    public String getIsReport() {
-        return isReport;
+    public String getIsHeadlines() {
+        return isHeadlines;
     }
 
-    public void setIsReport(String isReport) {
-        this.isReport = isReport;
+    public void setIsHeadlines(String isHeadlines) {
+        this.isHeadlines = isHeadlines;
     }
 
-    public String getIsHeadline() {
-        return isHeadline;
+    public String getLocation() {
+        return location;
     }
 
-    public void setIsHeadline(String isHeadline) {
-        this.isHeadline = isHeadline;
-    }
-
-    public String getIsTop() {
-        return isTop;
-    }
-
-    public void setIsTop(String isTop) {
-        this.isTop = isTop;
-    }
-
-    public String getIsEssence() {
-        return isEssence;
-    }
-
-    public void setIsEssence(String isEssence) {
-        this.isEssence = isEssence;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getPlateCode() {
@@ -120,54 +89,6 @@ public class XN610070Req {
         this.plateCode = plateCode;
     }
 
-    public String getDateStart() {
-        return dateStart;
-    }
-
-    public void setDateStart(String dateStart) {
-        this.dateStart = dateStart;
-    }
-
-    public String getDateEnd() {
-        return dateEnd;
-    }
-
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
-    }
-
-    public String getStart() {
-        return start;
-    }
-
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public String getLimit() {
-        return limit;
-    }
-
-    public void setLimit(String limit) {
-        this.limit = limit;
-    }
-
-    public String getOrderColumn() {
-        return orderColumn;
-    }
-
-    public void setOrderColumn(String orderColumn) {
-        this.orderColumn = orderColumn;
-    }
-
-    public String getOrderDir() {
-        return orderDir;
-    }
-
-    public void setOrderDir(String orderDir) {
-        this.orderDir = orderDir;
-    }
-
     public String getSiteCode() {
         return siteCode;
     }
@@ -176,4 +97,11 @@ public class XN610070Req {
         this.siteCode = siteCode;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
 }
