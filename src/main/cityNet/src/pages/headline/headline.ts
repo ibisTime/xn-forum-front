@@ -1,5 +1,5 @@
-import {Component,AfterViewInit} from '@angular/core';
-import {NavController, Platform, ModalController} from 'ionic-angular';
+import {Component,AfterViewInit,ViewChild} from '@angular/core';
+import {NavController, Platform, ModalController, InfiniteScroll, Refresher} from 'ionic-angular';
 import {UserService} from "../../services/user.service";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
@@ -11,10 +11,11 @@ import {IFramePage} from "./iframe";
 import {weChat} from "../../services/release";
 import {ContentPage} from "../forum/content/content";
 import {DatePipe} from "@angular/common";
+import {PageDataService} from "./page-data.services";
 
 @Component({
   templateUrl: 'headline.html',
-  providers:[DatePipe]
+  providers:[DatePipe,PageDataService]
 
 })
 export class HeadlinePage implements AfterViewInit {
@@ -38,6 +39,10 @@ export class HeadlinePage implements AfterViewInit {
     {'name': '吃货', 'src': 'images/headline/headline-ch.png'}
   ];
 
+  start = 1;
+  @ViewChild(InfiniteScroll)  loadMoreScroll:  InfiniteScroll;
+  @ViewChild(Refresher)  refresher:  Refresher;
+
   public headlineData = {};
   h8: string;
   h3h;
@@ -55,14 +60,8 @@ export class HeadlinePage implements AfterViewInit {
               public mCtrl: ModalController,
               public http: HttpService,
               public warn: WarnService,
-              public cityS: CityService) {
-
-    // this.headlineData = this.cityS.headlineData;
-    setTimeout(() => {
-
-
-
-    },500);
+              public cityS: CityService,
+              public pageDataService: PageDataService) {
 
   }
 
@@ -73,9 +72,15 @@ export class HeadlinePage implements AfterViewInit {
     this.h3w = `${(w - 36)/3}px`;
     this.h3h = `${(w - 36)/9}px`;
 
-    setTimeout(() => {
-      this.getArticle();
-    },500)
+      this.pageDataService.url = "/post/page";
+      this.pageDataService.reqObj = {
+         "siteCode" : this.cityS.currentCity.code
+      };
+      this.pageDataService.refreshComp = this.refresher;
+      this.pageDataService.loadMoreComp = this.loadMoreScroll;
+
+
+      this.pageDataService.refresh();
 
   }
 
@@ -89,21 +94,12 @@ export class HeadlinePage implements AfterViewInit {
 
     }
 
-
  }
 
-    emit($event){
-        console.log('终于成功了');
-    }
 
   chooseCity(){
 
     let load = this.warn.loading("加载站点中..");
-
-    let opt = {
-      showBackdrop: false,
-      enableBackdropDismiss : false
-    };
 
     this.cityS.getCity().then(() => {
 
@@ -128,18 +124,18 @@ export class HeadlinePage implements AfterViewInit {
 
   chooseCallBack(city){
 
-    if( city != null && city.code != this.cityS.currentCity.code){
-      this.cityName = city.name;
-      let load = this.warn.loading('');
-      // this.cityService.getDetail(city.code);
-      this.cityS.currentCity = city;
-      this.cityS.getNavigateBySiteCode(city.code).then(msg => {
-        load.dismiss();
-      }).catch(error => {
-        load.dismiss();
-        this.warn.alert('切换失败');
-      });
-    }
+      if (city != null && city.code != this.cityS.currentCity.code) {
+          this.cityName = city.name;
+          let load = this.warn.loading('');
+          this.cityS.currentCity = city;
+          this.cityS.getNavigateBySiteCode(city.code).then(msg => {
+              load.dismiss();
+
+          }).catch(error => {
+              load.dismiss();
+              this.warn.alert('切换失败');
+          });
+      }
 
   }
 
@@ -155,51 +151,83 @@ export class HeadlinePage implements AfterViewInit {
    this.navCtrl.push(SearchUserAndArticlePage);
   }
 
-  /*获取帖子数据*/
-  getArticle(){
-    let reqObj = {
-      "start": "0",
-      "limit": "10"
-    };
-    return this.http.get('/post/page',reqObj).then(res => {
-      let list = res.data.list;
-        for(let i = 0; i < list.length; i++){
-          if( list[i].pic  != null){
-            list[i].pic = list[i].pic.split(/\|\|/);
-          }
+    doRefresh(refresher) {
 
+        this.pageDataService.refresh();
+        // this.start = 1;
+        // this.loadMoreScroll.enable(true);
+        // /*导航相关信息*/
+        // this.getArticle("refresh").then(res => {
+        //
+        //     refresher.complete();
+        //
+        // }).catch(error => {
+        //
+        //     refresher.complete();
+        // });
+
+    }
+
+    doLoadMore(loadMore) {
+
+        this.pageDataService.loadMore();
+        // this.getArticle().then(res => {
+        //
+        //     loadMore.complete();
+        //
+        // }).catch(error => {
+        //
+        //     loadMore.complete();
+        //
+        // });
+
+    }
+
+
+    browserArticle(article){
+        this.navCtrl.push(ContentPage,article);
+    }
+
+
+
+
+
+  /*获取帖子数据*/
+  getArticle(refresh?){
+    let reqObj = {
+      "start": this.start,
+      "limit": 3,
+      "siteCode":this.cityS.currentCity.code
+    };
+
+    return this.http.get('/post/page',reqObj).then(res => {
+
+      (refresh == "refresh") &&(this.articles = []);
+      let list = res.data.list;
+        if(list.length > 0){
+
+            for (let i = 0; i < list.length; i++) {
+                if (list[i].pic != null) {
+                    list[i].pic = list[i].pic.split(/\|\|/);
+                }
+            }
+            this.articles.push(...list);
+
+            if (3*this.start >= res.data.totalCount) {
+                this.loadMoreScroll.enable(false)
+            }
+
+        } else {
+            this.loadMoreScroll.enable(false);
         }
-        this.articles = list;
+
+        this.start++;
 
     }).catch(error => {
         console.log(error);
     });
 
   }
-
-  doRefresh(refresher){
-
-    /*导航相关信息*/
-   this.getArticle().then(res => {
-     refresher.complete();
-   }).catch(error => {
-
-   });
-
-  }
-
-  doLoadMore(loadMore){
-    setTimeout(() => {
-
-      loadMore.complete();
-
-    },2000);
-  }
-
-  browserArticle(code, user){
-    this.navCtrl.push(ContentPage,{"code": code, "user": user});
-  }
-
 
 }
 

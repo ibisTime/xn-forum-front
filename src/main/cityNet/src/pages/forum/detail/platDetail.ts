@@ -1,5 +1,5 @@
 import {Component, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
-import {NavController, Platform, Content, NavParams} from 'ionic-angular';
+import {NavController, Platform, Content, NavParams, InfiniteScroll} from 'ionic-angular';
 import {ContentPage} from '../content/content';
 import {HttpService} from "../../../services/http.service";
 import {PlatService} from "./plat.services";
@@ -10,14 +10,23 @@ import {WarnService} from "../../../services/warn.service";
   templateUrl: 'platDetail.html',
     providers: [PlatService]
 })
-export class PlatDetailPage implements AfterViewInit,OnDestroy{
+export class PlatDetailPage implements AfterViewInit{
 
   segment: string = "all";
   imgHeight: string;
   pHeight: string;
   plat;
 
-  topLoadMoreHidden = false;
+  enableLoadMore = {
+      "all" :true,
+      "new" :true,
+      "essence" : true
+  }
+
+
+
+  topLoadMoreHidden = true;
+  @ViewChild(InfiniteScroll)  loadMoreScroll:  InfiniteScroll;
   @ViewChild(Content) content: Content;
 
   constructor(public navCtrl: NavController,
@@ -38,19 +47,22 @@ export class PlatDetailPage implements AfterViewInit,OnDestroy{
 
     ngAfterViewInit() {
 
-
-     this.changeType("all");
+     this.changeType({"value":"all"});
      this.loadModeTopArticle();
 
     }
 
 
     loadModeTopArticle() {
+        let load = this.warn.loading("");
         this.platService.getTopArticle().then(res => {
-
-            this.topLoadMoreHidden = !res;
+            load.dismiss();
+            console.log(res);
+            this.topLoadMoreHidden = res;
 
         }).catch(error => {
+            load.dismiss();
+            this.warn.toast('加载失败，请稍后再试');
 
         })
     }
@@ -60,25 +72,37 @@ export class PlatDetailPage implements AfterViewInit,OnDestroy{
         this.navCtrl.push(ContentPage,item);
     }
 
+
     changeType($event){
+        // console.log($event);
+        this.loadMoreScroll.enable(this.enableLoadMore[$event.value]);
+        this.platService.getArticleByType($event.value).then(res => {
 
-         this.platService.getArticleByType(this.segment);
+        }).catch(err => {
 
-        //      .then(res => {
-        //
-        //     load.dismiss();
-        // }).cathch(error => {
-        //
-        //     load.dismiss();
-        //
-        // });
-
+        });
     }
+
 
     doLoadMore(infiniteScroll){
 
 
-        infiniteScroll.complete();
+        this.platService.getArticleByType(this.segment).then(res => {
+
+            console.log(res);
+            infiniteScroll.complete();
+            if(!res){
+                infiniteScroll.enable(false);
+                this.enableLoadMore[this.segment] = false;
+            }
+
+        }).catch(err => {
+
+            infiniteScroll.complete();
+
+
+        });
+
 
     }
 

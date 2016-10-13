@@ -2,7 +2,10 @@
  * Created by tianlei on 2016/10/11.
  */
 import {Component, OnInit, Input,Output, EventEmitter} from '@angular/core';
-import {Platform} from "ionic-angular";
+import {Platform, NavController} from "ionic-angular";
+import {WarnService} from "../../services/warn.service";
+import {HttpService} from "../../services/http.service";
+import {MineDetailPage} from "../../pages/mine/detail/detail";
 
 @Component({
     selector: 'forum-cell',
@@ -11,14 +14,15 @@ import {Platform} from "ionic-angular";
 export class ForumCell implements OnInit {
 
     @Input() item;
-
     /*详情事件*/
     @Output() articleDetailEmitter = new EventEmitter();
-
+    @Input() navCtrl: NavController;
 
     imgHeight;
     pHeight;
-    constructor(public platform: Platform) {
+    constructor(public platform: Platform,
+                public warnCtrl: WarnService,
+                public http: HttpService) {
 
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
@@ -29,9 +33,92 @@ export class ForumCell implements OnInit {
     ngOnInit() {
     }
 
+    /*点击头像去详情页*/
+    goDetail(toId){
+        this.navCtrl.push(MineDetailPage, {toUserId: toId});
+    }
+
+    /*收藏*/
+    collect(code, index, flag?){
+        if(!this.item.collectCount){
+            this.item.collectCount = 1;
+            this.http.post('/post/praise',{
+                "type": "2",
+                "postCode": code
+            }).then((res) => {
+                this.item.collectCount = 0;
+                if(res.success){
+                    if(!flag){
+                        this.item.isSC = "1";
+                    }else{
+                        this.item.isSC = "0";
+                    }
+                }else{
+                    if(!flag){
+                        this.warnCtrl.toast("收藏失败，请稍后重试!");
+                    }else{
+                        this.warnCtrl.toast("取消收藏失败，请稍后重试!");
+                    }
+                }
+            }).catch(error => {
+                this.item.collectCount = 0;
+                if(!flag){
+                    this.warnCtrl.toast("收藏失败，请稍后重试!");
+                }else{
+                    this.warnCtrl.toast("取消收藏失败，请稍后重试!");
+                }
+            });
+        }else{
+            this.warnCtrl.toast("请勿重复点击!");
+        }
+    }
+
+    /*点赞*/
+    praise(code, index, flag?){
+        if(!this.item.praiseCount){
+            this.item.praiseCount = 1;
+            this.http.post('/post/praise',{
+                "type": "1",
+                "postCode": code
+            })
+                .then((res) => {
+                    this.item.praiseCount = 0;
+                    if(res.success){
+                        if(!flag){
+                            this.item.totalDzNum = +this.item.totalDzNum + 1;
+                            this.item.isDZ = "1";
+                        }else{
+                            this.item.totalDzNum = +this.item.totalDzNum - 1;
+                            this.item.isDZ = "0";
+                        }
+                    }else if(res.timeout){
+                        this.warnCtrl.toast("登录超时，请重新登录!");
+                    }else{
+                        if(flag){
+                            this.warnCtrl.toast("取消点赞失败，请稍后重试!");
+                        }else{
+                            this.warnCtrl.toast("点赞失败，请稍后重试!");
+                        }
+                    }
+                }).catch(error => {
+                this.item.praiseCount = 0;
+                if(flag){
+                    this.warnCtrl.toast("取消点赞失败，请稍后重试!");
+                }else{
+                    this.warnCtrl.toast("点赞失败，请稍后重试!");
+                }
+            });
+        }else{
+            this.warnCtrl.toast("请勿重复点击!");
+        }
+    }
+
+
+    /*去详情页*/
     openPage(item){
         this.articleDetailEmitter.emit(item);
     }
+
     showImg(ev){
         if( ev.target.nodeName.match(/^img$/i) ){
             let img = ev.target;

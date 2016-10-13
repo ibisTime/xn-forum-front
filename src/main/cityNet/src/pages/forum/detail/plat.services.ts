@@ -4,8 +4,16 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {HttpService} from "../../../services/http.service";
 
+
+export class Start {
+    start;
+    constructor(start){
+        this.start = start;
+    }
+}
+
 @Injectable()
-export class PlatService implements OnDestroy{
+export class PlatService{
 
     articles = [];
     /*头条*/
@@ -19,81 +27,42 @@ export class PlatService implements OnDestroy{
 
     platCode;
 
-    topStart = 1;
-    articleStart = 1;
-    lastStart = 1;
-    essenceeStart = 1;
+    lim = 3;
+
+    topStart = new Start(1);
+    articleStart = new Start(1);
+    lastStart = new Start(1);
+    essenceeStart = new Start(1);
+
 
 
     constructor(public  http: HttpService) {
         this.tempArticles = this.articles;
     }
 
-    ngOnDestroy(){
-    }
-
-    destroy(){
-        this.topStart = 1;
-        this.articles = [];
-        this.lastArticles = [];
-        this.topArticels = [];
-        this.essenceeArticles = [];
-    }
-
     getTopArticle(){
         let lim = 3;
         let obj = {
-            // isTop: "",//置顶
-            // plateCode: this.platCode,//板块代码
-            start: this.topStart,
+            isTop: "1",//置顶
+            plateCode: this.platCode,//板块代码
+            start: this.topStart.start,
             limit: lim
         }
 
-
         return this.http.get("/post/page",obj).then(res => {
 
-            // let thisCopy = this;
-
-            this.resolveData(res,this.topStart,10,this.topArticels);
-
-            // let tmpAtrticles = this.topArticels;
-            // let list = res.data.list;
-            //
-            // if(list.length > 0){
-            //     for(let i = 0; i < list.length; i++){
-            //         if( list[i].pic  != null){
-            //             list[i].pic = list[i].pic.split(/\|\|/);
-            //         }
-            //
-            //     }
-            //
-            //
-            //
-            //     tmpAtrticles.push(...list);
-            //     console.log(this.topArticels);
-            //
-            //     if (lim * thisCopy.topStart >= res.data.totalCount) {
-            //         return false;
-            //     } else {
-            //         thisCopy.topStart++;
-            //         return true;
-            //     }
-            //
-            //
-            // } else {
-            //     /*无数据*/
-            //     return false;
-            // }
+          return  this.resolveData(res,this.topStart,lim,this.topArticels);
 
         });
     }
 
 
     getArticleByType(type){
-        if(type = "all"){
+        console.log(type);
+        if(type == "all"){
             return this.getArticle();
 
-        } else if(type = "new") {
+        } else if(type == "new") {
             return this.getLastArticles();
 
         } else  { //
@@ -105,14 +74,14 @@ export class PlatService implements OnDestroy{
     getEssenceeArticles(){
         this.tempArticles = this.essenceeArticles;
         let obj = {
-            // plateCode: this.platCode,//板块代码
-            start: this.topStart,
-            // isEssence: ""//精华
-            limit: 10
+            plateCode: this.platCode,//板块代码
+            start: this.essenceeStart.start,
+            isEssence: "1",//精华
+            limit: this.lim
         }
         return this.http.get("/post/page",obj).then(res => {
 
-            this.resolveData(res,this.essenceeStart,10,this.essenceeArticles);
+          return  this.resolveData(res,this.essenceeStart,this.lim,this.essenceeArticles);
 
         });
 
@@ -122,13 +91,12 @@ export class PlatService implements OnDestroy{
     getLastArticles(){
         this.tempArticles = this.lastArticles;
         let obj = {
-            // isHeadline: "",//头条
-            // plateCode: this.platCode,//板块代码
-            start: this.topStart,
-            limit: 10
+            plateCode: this.platCode,//板块代码
+            start: this.lastStart.start,
+            limit: this.lim
         }
         return this.http.get("/post/page",obj).then(res => {
-            this.resolveData(res,this.lastStart,10,this.lastArticles);
+          return  this.resolveData(res,this.lastStart,this.lim,this.lastArticles);
         });
 
     }
@@ -137,20 +105,19 @@ export class PlatService implements OnDestroy{
     getArticle() {
         this.tempArticles = this.articles;
         let obj = {
-            // plateCode: this.platCode,//板块代码
-            start: "1",
-            limit: "10"
+            plateCode: this.platCode,//板块代码
+            start: this.articleStart.start,
+            limit: this.lim
         }
        return this.http.get("/post/page",obj).then(res => {
 
-           let thisCopy = this;
-           this.resolveData(res,thisCopy.articleStart,10,thisCopy.articles);
+           return  this.resolveData(res,this.articleStart,this.lim,this.articles);
 
         });
 
     }
 
-    resolveData(res, start,lim, tmpAtrticles){
+    resolveData(res, start: Start,lim, tmpAtrticles){
         let list = res.data.list;
 
         if(list.length > 0){
@@ -161,22 +128,22 @@ export class PlatService implements OnDestroy{
 
             }
 
-            tmpAtrticles = tmpAtrticles.concat(...list);
-            console.log(this.topArticels);
-            if (lim * start >= res.data.totalCount) {
+            tmpAtrticles.push(...list);
+
+            if (lim * start.start >= res.data.totalCount) {
+                start.start ++;
                 return false;
             } else {
-                start++;
+
+                start.start ++;
                 return true;
             }
-
 
         } else {
             /*无数据*/
             return false;
         }
     }
-    /*获取置顶帖*/
-    /*获取*/
+
 
 }

@@ -42,7 +42,9 @@
             <ion-item *ngFor="let item of items;let idx=index;">
                 <forum-cell
                         [item]="item"
+                        [navCtrl]="nav"
                         (articleDetailEmitter)="openPage($event)"
+
                 >
                 </forum-cell>
             </ion-item>

@@ -64,7 +64,7 @@
 
 
         <ion-list >
-            <div  *ngFor="let item of platService.articles">
+            <div  *ngFor="let item of platService.tempArticles">
                 <forum-cell
                         [item]="item"
                         (articleDetailEmitter)="goArticleDetail(item)"
@@ -72,11 +72,10 @@
                 </forum-cell>
             </div>
         </ion-list>
-
         <ion-infinite-scroll (ionInfinite)="doLoadMore($event)">
             <ion-infinite-scroll-content
                     loadingSpinner="bubbles"
-                    loadingText="Loading more data...">
+                    loadingText="加载更多...">
             </ion-infinite-scroll-content>
         </ion-infinite-scroll>
 

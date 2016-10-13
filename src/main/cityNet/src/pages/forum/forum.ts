@@ -25,6 +25,7 @@ export class ForumPage {
   items = [];
   appendCount = 0;
 
+    nav;
   /*分类*/
   classification = [];
 
@@ -37,7 +38,7 @@ export class ForumPage {
               public mCtrl: ModalController,
               public http: HttpService,
               public cityService: CityService) {
-      this.isAndroid = platform.is('android');
+      this.nav = navCtrl;
 
       this.start = 1;
       this.limit = 10;
@@ -79,6 +80,7 @@ export class ForumPage {
             event && event.complete();
         });
   }
+
   //收藏
   collect(code, index, flag?){
       if(!this.items[index].collectCount){
@@ -115,6 +117,7 @@ export class ForumPage {
           this.warnCtrl.toast("请勿重复点击!");
       }
   }
+
   //点赞
   praise(code, index, flag?){
       if(!this.items[index].praiseCount){
@@ -154,10 +157,13 @@ export class ForumPage {
           this.warnCtrl.toast("请勿重复点击!");
       }
   }
+
+
   doRefresh(event){
         this.start = 1;
         this.queryPostPage(event, true);
   }
+
   doAppendData(event){
         if(!this.appendCount){
             this.appendCount = 1;
@@ -173,7 +179,8 @@ export class ForumPage {
         this.navCtrl.push(DetailPage);
     }
 
-    //打开帖子详情页
+
+    /*帖子详情*/
     openPage($event) {
 
         this.navCtrl.push(ContentPage, $event);
@@ -213,8 +220,8 @@ export class ForumPage {
         });
     }
 
+    /*板块详情*/
     goPlateDetail($event) {
-        console.log("去板块详情页");
         this.navCtrl.push(PlatDetailPage,$event);
 
     }
