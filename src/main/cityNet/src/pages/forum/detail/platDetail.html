@@ -64,13 +64,13 @@
 
 
         <ion-list >
-            <div  *ngFor="let item of platService.tempArticles">
+            <ion-item *ngFor="let item of platService.tempArticles">
                 <forum-cell
                         [item]="item"
                         (articleDetailEmitter)="goArticleDetail(item)"
                 >
                 </forum-cell>
-            </div>
+            </ion-item>
         </ion-list>
         <ion-infinite-scroll (ionInfinite)="doLoadMore($event)">
             <ion-infinite-scroll-content

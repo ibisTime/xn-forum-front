@@ -218,7 +218,8 @@
     .ltan{
         .lt-left{
                 height: 100%;
-                position: fixed;
+                position: absolute;
+                overflow-y: auto;
             ul{
                 li{
                     border-bottom: 1px solid #e6e6e6;
