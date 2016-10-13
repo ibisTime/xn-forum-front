@@ -102,4 +102,16 @@ public interface IPostAO {
      */
     public Object queryPageCollections(String talker, String start,
             String limit, String orderColumn, String orderDir);
+    
+    public Object postCraftAdd(String title, String content, String pic, 
+    		String plateCode, String userId);
+    
+    public Object postCraftEdit(String code, String title, String content, String pic, 
+    		String plateCode, String userId);
+    
+    public Object postCraftPublish(String code, String title, String content, String pic, 
+    		String plateCode, String userId);
+    
+    public Object queryMyPostPage(String userId, String status, String dateStart, String dateEnd, 
+    		String start, String limit, String orderColumn, String orderDir);
 }

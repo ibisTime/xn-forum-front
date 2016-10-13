@@ -110,4 +110,57 @@ public class PostController extends BaseController {
         return postAO.queryPageCollections(getSessionUserId(talker), start,
             limit, orderColumn, orderDir);
     }
+    
+    // 发帖保存到草稿箱 
+    @RequestMapping(value = "/craft/add", method = RequestMethod.POST)
+    @ResponseBody
+    public Object postCraftAdd(
+            @RequestParam(value = "title", required = true) String title,
+            @RequestParam(value = "content", required = true) String content,
+            @RequestParam(value = "pic", required = false) String pic,
+            @RequestParam(value = "plateCode", required = true) String plateCode) {
+        return postAO.postCraftAdd(title, content, pic, plateCode, this
+            .getSessionUser().getUserId());
+    }
+    
+    // 草稿编辑保存
+    @RequestMapping(value = "/craft/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Object postCraftEdit(
+    		@RequestParam(value = "code", required = true) String code,
+            @RequestParam(value = "title", required = true) String title,
+            @RequestParam(value = "content", required = true) String content,
+            @RequestParam(value = "pic", required = false) String pic,
+            @RequestParam(value = "plateCode", required = true) String plateCode) {
+        return postAO.postCraftEdit(code, title, content, pic, plateCode, this
+            .getSessionUser().getUserId());
+    }
+    
+    // 草稿发布帖子，根据用户的信任等级，设置状态为已发布或待审核
+    @RequestMapping(value = "/craft/publish", method = RequestMethod.POST)
+    @ResponseBody
+    public Object postCraftPublish(
+    		@RequestParam(value = "code", required = true) String code,
+            @RequestParam(value = "title", required = true) String title,
+            @RequestParam(value = "content", required = true) String content,
+            @RequestParam(value = "pic", required = false) String pic,
+            @RequestParam(value = "plateCode", required = true) String plateCode) {
+        return postAO.postCraftPublish(code, title, content, pic, plateCode, this
+            .getSessionUser().getUserId());
+    }
+    
+    // 分页查询我的帖子
+    @RequestMapping(value = "/my/page", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryMyPostPage(
+            @RequestParam(value = "status", required = false) String status,
+            @RequestParam(value = "dateStart", required = false) String dateStart,
+            @RequestParam(value = "dateEnd", required = false) String dateEnd,
+            @RequestParam("start") String start,
+            @RequestParam("limit") String limit,
+            @RequestParam(value = "orderColumn", required = false) String orderColumn,
+            @RequestParam(value = "orderDir", required = false) String orderDir) {
+        return postAO.queryMyPostPage(this.getSessionUser().getUserId(), status, 
+        		dateStart, dateEnd, start, limit, orderColumn, orderDir);
+    }
 }

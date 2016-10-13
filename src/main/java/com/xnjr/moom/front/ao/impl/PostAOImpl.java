@@ -19,9 +19,13 @@ import com.xnjr.moom.front.req.XN610050Req;
 import com.xnjr.moom.front.req.XN610051Req;
 import com.xnjr.moom.front.req.XN610056Req;
 import com.xnjr.moom.front.req.XN610057Req;
+import com.xnjr.moom.front.req.XN610061Req;
+import com.xnjr.moom.front.req.XN610062Req;
+import com.xnjr.moom.front.req.XN610063Req;
 import com.xnjr.moom.front.req.XN610070Req;
 import com.xnjr.moom.front.req.XN610072Req;
 import com.xnjr.moom.front.req.XN610073Req;
+import com.xnjr.moom.front.util.UploadUtil;
 
 /** 
  * @author: xieyj 
@@ -134,4 +138,61 @@ public class PostAOImpl implements IPostAO {
         return BizConnecter.getBizData("610073", JsonUtils.object2Json(req),
             Object.class);
     }
+
+	@Override
+	public Object postCraftAdd(String title, String content, String pic,
+			String plateCode, String userId) {
+		XN610061Req req = new XN610061Req();
+        req.setTitle(title);
+        req.setContent(content);
+        req.setPic(UploadUtil.uploadPicture(pic));
+        req.setPlateCode(plateCode);
+        req.setPublisher(userId);
+        return BizConnecter.getBizData("610061", JsonUtils.object2Json(req),
+            Object.class);
+	}
+
+	@Override
+	public Object postCraftEdit(String code, String title, String content,
+			String pic, String plateCode, String userId) {
+		XN610062Req req = new XN610062Req();
+		req.setCode(code);
+        req.setTitle(title);
+        req.setContent(content);
+        req.setPic(UploadUtil.uploadPicture(pic));
+        req.setPlateCode(plateCode);
+        req.setPublisher(userId);
+        return BizConnecter.getBizData("610062", JsonUtils.object2Json(req),
+            Object.class);
+	}
+
+	@Override
+	public Object postCraftPublish(String code, String title, String content,
+			String pic, String plateCode, String userId) {
+		XN610063Req req = new XN610063Req();
+		req.setCode(code);
+        req.setTitle(title);
+        req.setContent(content);
+        req.setPic(UploadUtil.uploadPicture(pic));
+        req.setPlateCode(plateCode);
+        req.setPublisher(userId);
+        return BizConnecter.getBizData("610063", JsonUtils.object2Json(req),
+            Object.class);
+	}
+
+	@Override
+	public Object queryMyPostPage(String userId, String status, String dateStart, String dateEnd, 
+    		String start, String limit, String orderColumn, String orderDir) {
+		XN610070Req req = new XN610070Req();
+        req.setUserId(userId);
+        req.setStatus(status);
+        req.setDateStart(dateStart);
+        req.setDateEnd(dateEnd);
+        req.setStart(start);
+        req.setLimit(limit);
+        req.setOrderColumn(orderColumn);
+        req.setOrderDir(orderDir);
+        return BizConnecter.getBizData("610070", JsonUtils.object2Json(req),
+            Object.class);
+	}
 }

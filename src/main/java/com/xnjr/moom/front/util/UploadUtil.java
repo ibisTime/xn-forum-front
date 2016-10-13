@@ -121,11 +121,14 @@ public class UploadUtil {
      */
     public static String uploadPicture(String base64String) {
         // 参数检测
+    	if (base64String == null) {
+    		return null;
+    	}
         Pattern pattern = Pattern.compile("data:image/(.+?);base64");
         Matcher matcher = pattern.matcher(base64String);
         if (!matcher.find()) {
             System.out.println("请传入正确的base64编码格式的图片");
-            return null;
+            return base64String;
         }
         // 取得图片后缀名
         String suffix = matcher.group(1);
