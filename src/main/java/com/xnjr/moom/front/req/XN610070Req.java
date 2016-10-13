@@ -25,6 +25,9 @@ public class XN610070Req {
     // 板块编号
     private String plateCode;
 
+    // 站点编号
+    private String siteCode;
+
     // 发布开始时间 2015-01-01
     private String dateStart;
 
@@ -164,4 +167,13 @@ public class XN610070Req {
     public void setOrderDir(String orderDir) {
         this.orderDir = orderDir;
     }
+
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
+    }
+
 }

@@ -65,8 +65,8 @@ public class PostAOImpl implements IPostAO {
     @Override
     public Object queryPagePost(String title, String status, String isReport,
             String isHeadline, String isTop, String isEssence,
-            String plateCode, String start, String limit, String orderColumn,
-            String orderDir, String userId) {
+            String plateCode, String siteCode, String start, String limit,
+            String orderColumn, String orderDir, String userId) {
         XN610070Req req = new XN610070Req();
         req.setTitle(title);
         req.setStatus(status);
@@ -75,6 +75,7 @@ public class PostAOImpl implements IPostAO {
         req.setIsTop(isTop);
         req.setIsEssence(isEssence);
         req.setPlateCode(plateCode);
+        req.setSiteCode(siteCode);
         req.setStart(start);
         req.setLimit(limit);
         req.setOrderColumn(orderColumn);
@@ -113,24 +114,24 @@ public class PostAOImpl implements IPostAO {
         return BizConnecter.getBizData("610057", JsonUtils.object2Json(req),
             Object.class);
     }
-    
-    public Object deletePost(String code, String userId){
-    	XN610051Req req = new XN610051Req();
-    	req.setCode(code);
-    	req.setUserId(userId);
-    	return BizConnecter.getBizData("610051", JsonUtils.object2Json(req),
-                Object.class);
+
+    public Object deletePost(String code, String userId) {
+        XN610051Req req = new XN610051Req();
+        req.setCode(code);
+        req.setUserId(userId);
+        return BizConnecter.getBizData("610051", JsonUtils.object2Json(req),
+            Object.class);
     }
-    
+
     public Object queryPageCollections(String talker, String start,
-    		String limit, String orderColumn, String orderDir){
-    	XN610073Req req = new XN610073Req();
-    	req.setLimit(limit);
-    	req.setOrderColumn(orderColumn);
-    	req.setOrderDir(orderDir);
-    	req.setStart(start);
-    	req.setTalker(talker);
-    	return BizConnecter.getBizData("610073", JsonUtils.object2Json(req),
-                Object.class);
+            String limit, String orderColumn, String orderDir) {
+        XN610073Req req = new XN610073Req();
+        req.setLimit(limit);
+        req.setOrderColumn(orderColumn);
+        req.setOrderDir(orderDir);
+        req.setStart(start);
+        req.setTalker(talker);
+        return BizConnecter.getBizData("610073", JsonUtils.object2Json(req),
+            Object.class);
     }
 }

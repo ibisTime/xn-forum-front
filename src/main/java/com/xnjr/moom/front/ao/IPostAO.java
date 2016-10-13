@@ -48,8 +48,8 @@ public interface IPostAO {
      */
     public Object queryPagePost(String title, String status, String isReport,
             String isHeadline, String isTop, String isEssence,
-            String plateCode, String start, String limit, String orderColumn,
-            String orderDir, String userId);
+            String plateCode, String siteCode, String start, String limit,
+            String orderColumn, String orderDir, String userId);
 
     /**
      * 获取帖子详情
@@ -82,7 +82,7 @@ public interface IPostAO {
      * @history:
      */
     public Object comment(String content, String parentCode, String commer);
-    
+
     /**
      * 将自己已发布的帖子删除
      * @param code
@@ -90,7 +90,7 @@ public interface IPostAO {
      * @return
      */
     public Object deletePost(String code, String userId);
-    
+
     /**
      * 我收藏的帖子分页查询
      * @param talker
@@ -101,5 +101,5 @@ public interface IPostAO {
      * @return
      */
     public Object queryPageCollections(String talker, String start,
-    		String limit, String orderColumn, String orderDir);
+            String limit, String orderColumn, String orderDir);
 }

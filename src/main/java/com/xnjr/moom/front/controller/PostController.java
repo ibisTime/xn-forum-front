@@ -53,14 +53,15 @@ public class PostController extends BaseController {
             @RequestParam(value = "isTop", required = false) String isTop,
             @RequestParam(value = "isEssence", required = false) String isEssence,
             @RequestParam(value = "plateCode", required = false) String plateCode,
+            @RequestParam(value = "siteCode", required = false) String siteCode,
             @RequestParam("start") String start,
             @RequestParam("limit") String limit,
             @RequestParam(value = "orderColumn", required = false) String orderColumn,
             @RequestParam(value = "orderDir", required = false) String orderDir,
             @RequestParam(value = "userId", required = false) String userId) {
         return postAO.queryPagePost(title, status, isReport, isHeadline, isTop,
-            isEssence, plateCode, start, limit, orderColumn, orderDir,
-            getSessionUserId(userId));
+            isEssence, plateCode, siteCode, start, limit, orderColumn,
+            orderDir, getSessionUserId(userId));
     }
 
     // 获取帖子详情
@@ -89,23 +90,24 @@ public class PostController extends BaseController {
             @RequestParam(value = "commer", required = false) String commer) {
         return postAO.comment(content, parentCode, getSessionUserId(commer));
     }
+
     // 将自己已发布的帖子删除
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public Object deletePost(@RequestParam("code") String code) {
         return postAO.deletePost(code, getSessionUserId(""));
     }
-    
+
     // 我收藏的帖子分页查询
     @RequestMapping(value = "/collection/page", method = RequestMethod.GET)
     @ResponseBody
     public Object queryPageCollections(
-    		@RequestParam(value = "talker", required = false) String talker,
-    		@RequestParam("start") String start,
-    		@RequestParam("limit") String limit,
-    		@RequestParam(value = "orderColumn", required = false) String orderColumn,
-    		@RequestParam(value = "orderDir", required = false) String orderDir){
-    	return postAO.queryPageCollections(getSessionUserId(talker),
-    			start, limit, orderColumn, orderDir);
+            @RequestParam(value = "talker", required = false) String talker,
+            @RequestParam("start") String start,
+            @RequestParam("limit") String limit,
+            @RequestParam(value = "orderColumn", required = false) String orderColumn,
+            @RequestParam(value = "orderDir", required = false) String orderDir) {
+        return postAO.queryPageCollections(getSessionUserId(talker), start,
+            limit, orderColumn, orderDir);
     }
 }
