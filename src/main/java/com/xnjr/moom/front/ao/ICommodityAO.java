@@ -1,16 +1,24 @@
 package com.xnjr.moom.front.ao;
 
 public interface ICommodityAO {
+
     /**
-     * 列表查询产品
-     * @param type
+     * 分页查询产品
      * @param name
-     * @param updater
+     * @param kind
      * @param status
-     * @return
+     * @param siteCode
+     * @param start
+     * @param limit
+     * @param orderColumn
+     * @param orderDir
+     * @return 
+     * @create: 2016年10月14日 上午11:22:58 xieyj
+     * @history:
      */
-    public Object queryProduces(String type, String name, String updater,
-            String status);
+    public Object queryProducePage(String name, String kind, String status,
+            String siteCode, String start, String limit, String orderColumn,
+            String orderDir);
 
     /**
      * 详情查询产品
@@ -20,72 +28,10 @@ public interface ICommodityAO {
     public Object queryProduce(String code);
 
     /**
-     * 查询列表型号
-     * @param modelCode
-     * @param toSite
-     * @return
-     */
-    public Object queryListModel(String modelCode, String toSite);
-
-    /**
-     * 详情查询型号
      * @param code
-     * @return
-     */
-    public Object queryModel(String code);
-
-    /**
-     * 分页查询型号
-     * @param modelCode
-     * @param toSite
-     * @param start
-     * @param limit
-     * @param orderColumn
-     * @param orderDir
-     * @param modelName
      * @return 
+     * @create: 2016年10月14日 上午11:10:59 xieyj
      * @history:
      */
-    public Object queryPageModel(String modelCode, String toSite, String start,
-            String limit, String orderColumn, String orderDir, String category,
-            String type, String productCode, String modelName);
-
-    /**
-     * 分页查询产品类型
-     * @param category
-     * @param type
-     * @param name
-     * @param status
-     * @param updater
-     * @param start
-     * @param limit
-     * @param orderColumn
-     * @param orderDir
-     * @return 
-     * @history:
-     */
-    public Object getProductPage(String category, String type, String name,
-            String status, String updater, String start, String limit,
-            String orderColumn, String orderDir);
-
-    /**
-     * 列表查询产品类型
-     * @param category
-     * @param type
-     * @param name
-     * @param status
-     * @param updater
-     * @return 
-     * @history:
-     */
-    public Object getProductList(String category, String type, String name,
-            String status, String updater);
-
-    /**
-     * 根据大类查询所有启用产品的小类
-     * @param category
-     * @return 
-     * @history:
-     */
-    public Object querySubdivisionList(String category);
+    public Object buyProduct(String userId, String productCode, String quantity);
 }
