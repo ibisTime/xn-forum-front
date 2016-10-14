@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar navbar-color>
+  <ion-navbar color="navbar-color">
     <ion-title>{{params.data}}</ion-title>
   </ion-navbar>
 </ion-header>
@@ -21,7 +21,7 @@
 <ion-footer>
   <div class="bootomInput">
     <ion-input class="imInput" type="text" #msgInput  placeholder="请输入信息" ></ion-input>
-    <button  (click)="sendMsg(msgInput)" navbar-color [disabled]="msgInput.value.length <= 0">发送</button>
+    <button  (click)="sendMsg(msgInput)" color="navbar-color" [disabled]="msgInput.value.length <= 0">发送</button>
   </div>
 </ion-footer>
 

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Platform, NavController, Events} from "ionic-angular";
+import {Platform, NavController, Events, App} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 
 import { RegisterPage } from './register';
@@ -22,7 +22,8 @@ export class LoginPage implements OnInit {
               public platform: Platform,
               public warnCtrl : WarnService,
               public http: HttpService,
-              public events: Events
+              public events: Events,
+              public app: App
 
              ) {
 
@@ -56,8 +57,11 @@ export class LoginPage implements OnInit {
 
       //保存 uid  和  tokenid
       this.uService.saveUserInfo(tokenId, userId);
-      //切换控制
-      this.navCtrl.push(TabsPage);
+
+      /*切换根控制器*/
+      let rootNav: NavController = this.app.getRootNav();
+      rootNav.setRoot(TabsPage);
+      // this.navCtrl.push(TabsPage);
 
 
     }).catch(error => {

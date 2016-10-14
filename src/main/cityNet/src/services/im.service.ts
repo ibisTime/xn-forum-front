@@ -20,6 +20,7 @@ export interface ListItem{
   time: string;
   showBadge: boolean;
   badgeCount: number;
+
 }
 
 
@@ -27,9 +28,9 @@ export interface ListItem{
 export class IMService {
 
   me: string = '';
+
   /*存入当前聊天对象*/
   currentLinkMan = "";
-
   /*存储全部聊天数据的对象*/
   listOfChatRoomData: any = {};
   /*存储聊天列表数据的对象*/
@@ -77,11 +78,9 @@ export class IMService {
     //1.不存在数据
     if ( typeof(this.listOfChatRoomData[from]) === "undefined"){
       this.listOfChatRoomData[from] = [];
-      console.log('没有查找到数据');
       return this.listOfChatRoomData[from];
     }
     //2.存在数据
-    console.log('查找到数据');
     return this.listOfChatRoomData[from];
   }
 
@@ -104,8 +103,6 @@ export class IMService {
     //1.文本信息
     //2.图片信息
     //3.文件信息
-    /*转大写 环信会把小写转为大写*/
-    // let from = msg.from.toUpperCase();
     /*内部聊天数据*/
     this.handleMsgData(msg,false);
     /*外部列表数据*/
@@ -197,7 +194,6 @@ export class IMService {
   }
 
 
-
   /*发文本消息*/
   sendTextMsg(message,to,successCallBack: (id, serverMsgId) => void ) {
 
@@ -212,6 +208,33 @@ export class IMService {
     });
     this.conn.send(msg.body);
   }
+
+  /*登陆*/
+  login(userName){
+    this.me = userName;//保存用户信息
+    let loginOptions = {
+      apiUrl: this.imBase.apiUrl,
+      user: userName,
+      pwd: IM_PASSWORD,
+      appKey: this.imBase.appKey
+    };
+
+    this.conn.open(loginOptions);
+  }
+
+  clearCurrentData(){
+    this.listOfChatRoomData = {};
+    //存储聊天列表数据的对象
+    this.listOfOpposite = [];
+    //好友列表清除
+    this.listOfFriend= [];
+  }
+
+  close(){
+    this.conn.close();
+    this.clearCurrentData();
+  }
+
 
   /*注册*/
   register(userName,nickName): Promise<any>{
@@ -232,20 +255,6 @@ export class IMService {
       WebIM.utils.registerUser(registerOptions);
 
     });
-  }
-
-
-  /*登陆*/
-  login(userName){
-    this.me = userName;//保存用户信息
-    let loginOptions = {
-      apiUrl: this.imBase.apiUrl,
-      user: userName,
-      pwd: IM_PASSWORD,
-      appKey: this.imBase.appKey
-    };
-
-    this.conn.open(loginOptions);
   }
 
 
@@ -364,18 +373,7 @@ export class IMService {
 
 
 
-  clearCurrentData(){
-    this.listOfChatRoomData = {};
-    //存储聊天列表数据的对象
-    this.listOfOpposite = [];
-    //好友列表清除
-    this.listOfFriend= [];
-  }
 
-  close(){
-    this.conn.close();
-    this.clearCurrentData();
-  }
 
   dateStr(date1:Date){
 
@@ -413,6 +411,7 @@ export class IMService {
 
     return date1.getFullYear() + '-' + this.formatStr(date1.getMonth()) + '-' +   this.formatStr(date1.getDate());
   }
+
   formatStr(str){
 
     if(`${str}`.length == 1){

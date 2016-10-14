@@ -5,7 +5,6 @@ import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 import {baiduMapUrl} from "./release";
 
-
 export interface City{
   address?;
   code?;
@@ -37,6 +36,7 @@ interface navObj{
   url?;
 }
 
+
 @Injectable()
 export class CityService {
 
@@ -49,8 +49,10 @@ export class CityService {
   searchCitys = [];
   baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
   baidu = baiduMapUrl();
+
   /*客服引流数据*/
   kefuData = [];
+
   /*视频引流数据*/
   videoData = [];
 
@@ -66,7 +68,7 @@ export class CityService {
     "two" : [],
     "three" : [],
     "four": []
-  }
+  };
 
   currentCity: City = {"name":"未知地点"}; //根据经纬度获得
 
@@ -115,14 +117,16 @@ export class CityService {
         // "city":res.result.addressComponent.city,
         // "city":city.slice(0,city.length - 1)
 
-        "area": "下城区",
-        "city":city.slice(0,city.length - 1)
+        "province":res.result.addressComponent.province,
+        "area": area,
+        "city":city
       }
+
       /*获取站点*/
        return this.getSiteByAddress(zoneObj);
     }).then(res => {
       let data = res["data"];
-      return this.getNavigateBySiteCode(data[0]["code"]);
+      return this.getNavigateBySiteCode(data["code"]);
 
     });
 
@@ -142,12 +146,9 @@ export class CityService {
 
   /*通过地址获取站点*/
   getSiteByAddress(zoneObj){
-    return this.http.get('/site/list',zoneObj).then(res => {
+    return this.http.get('/site/fetchone',zoneObj).then(res => {
 
-      let re = res;
-      console.log(res);
-
-      this.currentCity = res["data"][0];
+      this.currentCity = res["data"];
       return res;
     });
   }

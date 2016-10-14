@@ -1,7 +1,7 @@
 /**
  * Created by tianlei on 16/9/22.
  */
-import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
+import {Component, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import {ViewController, Platform, ModalController, NavParams} from "ionic-angular";
 import {HttpService} from "../../services/http.service";
 import {UserService} from "../../services/user.service";
@@ -26,8 +26,8 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   plateName = "选择板块";
   timeNum;
 
-  title: string = new String();
-  content: string = new String();
+  title = "";
+  content = "";
   @ViewChild('contentTextarea') textArea: ElementRef;
 
 

@@ -1,4 +1,4 @@
-import {Component, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
+import {Component, ViewChild, AfterViewInit} from '@angular/core';
 import {NavController, Platform, Content, NavParams, InfiniteScroll} from 'ionic-angular';
 import {ContentPage} from '../content/content';
 import {HttpService} from "../../../services/http.service";

@@ -5,10 +5,9 @@ import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions} from "@angular/http";
 import {AlertController, Events} from "ionic-angular";
 import {url} from "./release";
-// const RELEASE_ADDR = "S";
+
 const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
-// const DEBUG_ADDR = "http://121.43.101.148:8080/xn-forum-front";
-// const TEST_ADDR = "S";
+
 
 @Injectable()
 export class HttpService {
@@ -85,22 +84,27 @@ export class HttpService {
   }
 
   handleRes(res, resolve, reject, url1) {
-    try {
+
+    if (url1.indexOf("webimplugin/welcome?") != -1) {/////////
+
+      resolve(res._body);
+
+    } else {////////////////
+
       /*登陆超时，重新登陆*/
       let resObj = res.json();
       console.log(resObj);
       console.log(url1);
       /*自己的请求*/
-      if(typeof(resObj.success) != "undefined"){
+      if (typeof(resObj.success) != "undefined") {
 
-        if(resObj.success){//无异常
+        if (resObj.success) {//无异常
           resolve(resObj);
         } else {//有异常
           alert(resObj.msg);
-          if(resObj.timeout){
-            this.events.publish('user:timeout',"timeout");
+          if (resObj.timeout) {
+            this.events.publish('user:timeout', "timeout");
           }
-
           reject('请求出现异常');
         }
 
@@ -108,15 +112,10 @@ export class HttpService {
         resolve(resObj);
       }
 
+    }////////////
 
-    } catch (e) {
-      if (url1.indexOf("webimplugin/welcome?") != -1) {
-        resolve(res._body);
-      } else {
-        reject('发生异常');
-      }
-    }
   }
+
 
   handelError(error, reject) {
 

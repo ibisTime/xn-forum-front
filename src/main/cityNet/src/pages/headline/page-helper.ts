@@ -1,7 +1,6 @@
 /**
  * Created by tianlei on 16/9/27.
  */
-import {Component, OnInit} from '@angular/core';
 import {HttpService} from "../../services/http.service";
 
 interface Article{

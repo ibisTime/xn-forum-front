@@ -46,8 +46,8 @@ export class TabsPage {
 
     this.imServe.login(this.userServe.userId);
 
+    /*login-t登陆*/
     this.login();
-
 
     //超时帮用户登陆
 

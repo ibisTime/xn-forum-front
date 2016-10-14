@@ -76,7 +76,7 @@ export class HeadlinePage implements AfterViewInit {
       this.pageDataService.url = "/post/page";
       this.pageDataService.reqObj = {
          "siteCode" : this.cityS.currentCity.code,
-          "isHeadline": "1"
+          "isHeadlines": "1"
       };
       this.pageDataService.refreshComp = this.refresher;
       this.pageDataService.loadMoreComp = this.loadMoreScroll;
@@ -156,32 +156,12 @@ export class HeadlinePage implements AfterViewInit {
     doRefresh(refresher) {
 
         this.pageDataService.refresh();
-        // this.start = 1;
-        // this.loadMoreScroll.enable(true);
-        // /*导航相关信息*/
-        // this.getArticle("refresh").then(res => {
-        //
-        //     refresher.complete();
-        //
-        // }).catch(error => {
-        //
-        //     refresher.complete();
-        // });
 
     }
 
     doLoadMore(loadMore) {
 
         this.pageDataService.loadMore();
-        // this.getArticle().then(res => {
-        //
-        //     loadMore.complete();
-        //
-        // }).catch(error => {
-        //
-        //     loadMore.complete();
-        //
-        // });
 
     }
 
@@ -249,7 +229,7 @@ export class HeadlinePage implements AfterViewInit {
 
             this.warn.toast("签到失败");
             load.dismiss();
-        })
+        });
 
     }
 

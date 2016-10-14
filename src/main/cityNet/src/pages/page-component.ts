@@ -36,6 +36,9 @@ import {PlatChooseView} from "../components/plate-choose/plat-choose.component";
 import {DraftPage} from "./mine/draft/draft";
 import {MallPage} from "./headline/mall/mall";
 import {GoodsDetailPage} from "./headline/mall/goods-detail";
+import {ResetPwdPage} from "./user/resetPwd";
+import {RelationPage} from "./mine/relationship-people/relationship";
+import {PlaceholderView} from "../components/placeholder-view/placeholder-view";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -68,10 +71,13 @@ export const pages = [ TabsPage,
   AboutusPage,
   DraftPage,
   MallPage,
-  GoodsDetailPage
+  GoodsDetailPage,
+  ResetPwdPage,
+  RelationPage
 ];
 
 export const components = [
+  PlaceholderView,
   ForumCell,
   PlatChooseView,
   ChatViewComponent,

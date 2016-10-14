@@ -6,7 +6,7 @@ import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.service";
 import {ContentPage} from "./content/content";
 import {LoginPage} from "../user/login";
-import {ChatRoomPage} from "../mine/im/chat-room";MineDetailPage
+import {ChatRoomPage} from "../mine/im/chat-room";
 import {MineDetailPage} from "../mine/detail/detail";
 import {CityService} from "../../services/city.service";
 
@@ -63,9 +63,9 @@ export class ForumPage {
                     this.items = [];
                 }
                 for(i = 0; i < list.length; i++){
-                    if(list[i].pic){
-                        list[i].pic = list[i].pic.split(/\|\|/);
-                    }
+                    // if(list[i].pic){
+                    //     list[i].pic = list[i].pic.split(/\|\|/);
+                    // }
                     list[i].collectCount = 0;   //点击收藏次数
                     list[i].praiseCount = 0;    //点击点赞次数
                     this.items.push(list[i]);
@@ -135,8 +135,6 @@ export class ForumPage {
                             this.items[index].totalDzNum = +this.items[index].totalDzNum - 1;
                             this.items[index].isDZ = "0";
                         }
-                    }else if(res.timeout){
-                        this.warnCtrl.toast("登录超时，请重新登录!");
                     }else{
                         if(flag){
                             this.warnCtrl.toast("取消点赞失败，请稍后重试!");
@@ -173,10 +171,10 @@ export class ForumPage {
 
   }
 
-    showDetail(code) {
-        console.log('打开详情页');
-        this.navCtrl.push(DetailPage);
-    }
+    // showDetail(code) {
+    //     console.log('打开详情页');
+    //     this.navCtrl.push(DetailPage);
+    // }
 
 
     /*帖子详情*/

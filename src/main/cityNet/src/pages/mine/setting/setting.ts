@@ -1,13 +1,10 @@
-import {Component,AfterViewInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController, Platform, App} from 'ionic-angular';
 import {UserService} from "../../../services/user.service";
 import {WarnService} from "../../../services/warn.service";
-import {ImPage} from "../im/im";
 import {IMService} from "../../../services/im.service";
 import {LoginPage} from "../../user/login";
 import {HttpService} from "../../../services/http.service";
-import {MineDetailPage} from "../detail/detail";
-import {CollectionPage} from "../collection/collection";
 import {EditDetailPage} from "../detail/editDetail";
 import {AccountPage} from "./account";
 import {AboutusPage} from "./aboutus";

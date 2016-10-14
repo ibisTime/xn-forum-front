@@ -29,6 +29,7 @@ export class CollectionPage {
   }
 
   ngAfterViewInit(){
+
       this.pageDataService.url = "/post/collection/page";
       this.pageDataService.reqObj = {};
       this.pageDataService.refreshComp = this.refresher;
@@ -43,10 +44,12 @@ export class CollectionPage {
         this.pageDataService.refresh();
     }
 
-    goArticleDetail($event){
-        this.navCtrl.push(ContentPage,$event);
-    }
+
     doAppendData($event){
         this.pageDataService.loadMore();
+    }
+
+    goArticleDetail($event){
+        this.navCtrl.push(ContentPage,$event);
     }
 }

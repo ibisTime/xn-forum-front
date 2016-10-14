@@ -1,7 +1,7 @@
 /**
  * Created by tianlei on 2016/10/12.
  */
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpService} from "../../../services/http.service";
 
 
@@ -121,12 +121,7 @@ export class PlatService{
         let list = res.data.list;
 
         if(list.length > 0){
-            for(let i = 0; i < list.length; i++){
-                if( list[i].pic  != null){
-                    list[i].pic = list[i].pic.split(/\|\|/);
-                }
 
-            }
 
             tmpAtrticles.push(...list);
 

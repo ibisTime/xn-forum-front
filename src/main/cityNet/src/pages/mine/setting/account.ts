@@ -1,4 +1,4 @@
-import {Component,AfterViewInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import {UserService} from "../../../services/user.service";
 import {WarnService} from "../../../services/warn.service";

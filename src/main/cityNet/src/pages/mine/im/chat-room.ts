@@ -6,6 +6,7 @@ import {NavController, Content, NavParams, TextInput, Platform} from 'ionic-angu
 import {IMService} from "../../../services/im.service";
 import {AfterViewInit} from "@angular/core";
 import {ChatViewComponent} from "../../../components/chat-view/chat.component";
+import {WarnService} from "../../../services/warn.service";
 
 
 @Component({
@@ -30,10 +31,13 @@ export class ChatRoomPage implements AfterViewInit {
   constructor(public  nav: NavController,
               public imServe: IMService,
               public params: NavParams,
-              public platform: Platform
+              public platform: Platform,
+              public warn: WarnService
               ) {
 
     /*通过聊天人获取数据*/
+
+    /*把user 对象传送过来*/
     this.listOfChatData = this.imServe.getDataByFromName(params.data);
 
     console.log(params.data);
@@ -89,11 +93,14 @@ export class ChatRoomPage implements AfterViewInit {
   sendMsg(msgInput) {
 
     this.msgPut.setFocus();
+
+    let load = this.warn.loading("发送中");
     this.imServe.handleToMsg(msgInput.value,this.params.data);
+
     this.imServe.sendTextMsg(msgInput.value,this.params.data, (id, serverMsgId) => {
 
+      load.dismiss();
       msgInput.value = "";
-      this.msgPut.setFocus();
 
     });
 

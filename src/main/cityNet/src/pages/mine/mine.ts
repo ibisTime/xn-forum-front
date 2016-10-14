@@ -10,6 +10,7 @@ import {MineDetailPage} from "./detail/detail";
 import {CollectionPage} from "./collection/collection";
 import {SettingPage} from "./setting/setting";
 import {DraftPage} from "./draft/draft";
+import {RelationPage} from "./relationship-people/relationship";
 
 
 @Component({
@@ -39,6 +40,10 @@ export class MinePage implements AfterViewInit{
   fsCount = '0';
   myUser;
 
+  statisticsInfo = {
+
+  }
+
   constructor(public navCtrl: NavController,
               public platform: Platform,
               public userService: UserService,
@@ -46,8 +51,18 @@ export class MinePage implements AfterViewInit{
               public warnCtrl: WarnService,
               public http: HttpService,
               public app :App) {
+
     this.getUserInfo();
+
   }
+
+  ngAfterViewInit(){
+
+    this.getStatisticsInfo();
+
+  }
+
+
 
   loginOut(){
     this.userService.loginOut();
@@ -55,17 +70,24 @@ export class MinePage implements AfterViewInit{
     this.imService.close();
     this.app.getRootNav().setRoot(LoginPage);
   }
+
   doRefresh($event){
-      this.queryFSCount();
-      this.queryGZCount();
-      this.queryTZCount($event);
+
+      this.getStatisticsInfo($event);
 
   }
 
-  ngAfterViewInit(){
-      this.queryFSCount();
-      this.queryGZCount();
-      this.queryTZCount()
+
+
+  getStatisticsInfo($event?){
+      this.http.get("/user/stats").then(res => {
+
+          this.statisticsInfo = res.data;
+          (typeof($event) != "undefined")&& ($event.complete());
+
+      }).catch(error => {
+          (typeof($event) != "undefined")&& ($event.complete());
+      });
   }
 
 
@@ -78,54 +100,22 @@ export class MinePage implements AfterViewInit{
     // }).catch((error) => {
     //   this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
     // });
-  }
-  queryTZCount(event?){
-      return this.http.get('/post/page',{
-          "start": 0,
-          "limit": 1
-        })
-        .then((res) => {
-            if(res.success){
-                this.tzCount = res.data.totalCount;
-                event && event.complete();
-            }
-        }).catch(error => {
-            event && event.complete();
-        });
-  }
-  queryGZCount(){
-      return this.http.get('/rs/follows/page',{
-          "start": 0,
-          "limit": 1
-        })
-        .then((res) => {
-            if(res.success){
-                this.gzCount = res.data.totalCount;
-            }
-        }).catch(error => {
-        });
-  }
-  queryFSCount(){
-      return this.http.get('/rs/fans/page',{
-          "start": 0,
-          "limit": 1
-        })
-        .then((res) => {
-            if(res.success){
-                this.fsCount = res.data.totalCount;
-            }
-        }).catch(error => {
-        });
+
   }
 
+  /**/
+  goRelationList(type){
+     this.navCtrl.push(RelationPage,type);
+  }
 
-  /*跳转事件*/
   goDetail(){
     this.navCtrl.push(MineDetailPage);
   }
   goTZList(){
     this.navCtrl.push(MineDetailPage, {"tz": true});
   }
+
+  /*跳转事件*/
   goChat(){
     this.navCtrl.push(ImPage);
   }
@@ -138,4 +128,20 @@ export class MinePage implements AfterViewInit{
   goDraft(){
     this.navCtrl.push(DraftPage);
   }
+
+
 }
+
+// amount: "null"
+// level: "1"
+// ljAmount: "null"
+
+// loginName: "13868074590"
+// mobile: "13868074590"
+// nickname: "tianlei"
+// status: "0"
+// totalFansNum: "0"
+// totalFollowNum: "0"
+// totalPostNum:
+// 16
+// userId: "U2016100913405823244"

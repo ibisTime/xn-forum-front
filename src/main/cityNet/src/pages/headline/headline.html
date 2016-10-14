@@ -27,78 +27,82 @@
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
-      pullingIcon="arrow-dropdown"
-      pullingText="下拉刷新"
-      refreshingSpinner="circles"
-      refreshingText="正在加载">
+            pullingIcon="arrow-dropdown"
+            pullingText="下拉刷新"
+            refreshingSpinner="circles"
+            refreshingText="正在加载">
     </ion-refresher-content>
   </ion-refresher>
+  <div style="background-color: white">
+    <ion-slides [style.height]="bannerHeight" [options]="mySlideOptions">
+      <ion-slide *ngFor="let banner of cityS.headlineData.banner" (tap)="goOther(banner.url,'')">
+        <!--<div class="banner-content"></div>-->
+        <img src={{banner.pic}}>
+        <div class="banner-title">{{banner.title}}</div>
+      </ion-slide>
+    </ion-slides>
 
-  <ion-slides [style.height]="bannerHeight" [options]="mySlideOptions">
-    <ion-slide *ngFor="let banner of cityS.headlineData.banner" (tap)="goOther(banner.url,'')">
-      <!--<div class="banner-content"></div>-->
-      <img src={{banner.pic}}>
-      <div class="banner-title">{{banner.title}}</div>
-    </ion-slide>
-  </ion-slides>
+    <div class="content">
+      <div class="three-func">
 
-  <div class="content">
-    <div class="three-func">
+        <div class="outer" [style.width]="h3w" [style.height]="h3h" (tap)="goMall()">
+          <div *ngIf="cityS.headlineData.func3[0]">
+            <img class="func" src={{cityS.headlineData.func3[0].pic}} [style.width]="h3w" [style.height]="h3h"
+            >
+          </div>
+          <div class="func3-title">积分商城</div>
+        </div>
 
-      <div class="outer" [style.width]="h3w" [style.height]="h3h" (tap)="goMall()">
-        <div  *ngIf="cityS.headlineData.func3[0]">
-        <img class="func"  src={{cityS.headlineData.func3[0].pic}} [style.width]="h3w" [style.height]="h3h"
+        <div class="outer" [style.width]="h3w" [style.height]="h3h" (tap)="sign()"
         >
+          <div *ngIf="cityS.headlineData.func3[1]">
+            <img class="func" src={{cityS.headlineData.func3[1].pic}} [style.width]="h3w" [style.height]="h3h">
+          </div>
+          <div class="func3-title">签到</div>
         </div>
-        <div class="func3-title">积分商城</div>
+
+        <!--*ngFor="let func of cityS.headlineData.func3-->
+        <div class="outer" [style.width]="h3w" [style.height]="h3h"
+             *ngIf="cityS.headlineData.func3[2]">
+          <img class="func" src={{cityS.headlineData.func3[2].pic}} [style.width]="h3w" [style.height]="h3h"
+               (tap)="goOther(func.url,func.title)">
+          <div class="func3-title">{{cityS.headlineData.func3[2].title}}</div>
+        </div>
+
       </div>
 
-      <div class="outer" [style.width]="h3w" [style.height]="h3h" (tap)="sign()"
-      >
-        <div *ngIf="cityS.headlineData.func3[1]">
-        <img class="func"  src={{cityS.headlineData.func3[1].pic}} [style.width]="h3w" [style.height]="h3h">
+
+      <div class="eight-func">
+        <div class="eight-inner-div" *ngFor="let func of cityS.headlineData.func8">
+          <div class="func" [style.height]="h8" [style.width]="h8"
+               (tap)="goOther(func.url,func.title)">
+            <img src={{func.pic}}>
+            <div class="func8-title">{{func.title}}</div>
+          </div>
         </div>
-        <div class="func3-title">签到</div>
       </div>
 
-      <!--*ngFor="let func of cityS.headlineData.func3-->
-      <div class="outer" [style.width]="h3w" [style.height]="h3h"
-           *ngIf="cityS.headlineData.func3[2]">
-        <img class="func" src={{cityS.headlineData.func3[2].pic}} [style.width]="h3w" [style.height]="h3h"
-             (tap)="goOther(func.url,func.title)">
-        <div class="func3-title">{{cityS.headlineData.func3[2].title}}</div>
+      <div class="article">
+        <div class="article-row" *ngFor="let article of pageDataService.articles" (tap)="browserArticle(article)">
+
+          <!--!= null; article.picArr.length <= 0;-->
+          <img class="left-img" src={{article.picArr[0]}}
+               *ngIf="article.picArr">
+
+          <div class="text-outer">s
+            <div class="article-title">{{article.content}}</div>
+            <div class="article-date">{{article.publishDatetime | forumDate}}</div>
+            <div class="focuse-count">{{article.totalCommNum}}</div>
+          </div>
+        </div>
       </div>
 
     </div>
-
-
-
-    <div class="eight-func">
-      <div class="eight-inner-div" *ngFor="let func of cityS.headlineData.func8">
-        <div class="func"  [style.height]="h8" [style.width]="h8"
-             (tap)="goOther(func.url,func.title)">
-          <img src={{func.pic}}>
-          <div class="func8-title">{{func.title}}</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="article">
-      <div class="article-row" *ngFor="let article of pageDataService.articles" (tap)="browserArticle(article)">
-        <img class="left-img" src={{article.pic[0]}} *ngIf="article.pic != null">
-        <div class="text-outer">
-          <div class="article-title">{{article.content}}</div>
-          <div class="article-date">{{article.publishDatetime | forumDate}}</div>
-          <div class="focuse-count">{{article.totalCommNum}}</div>
-        </div>
-      </div>
-    </div>
-
   </div>
   <ion-infinite-scroll (ionInfinite)="doLoadMore($event)">
     <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="加载中...">
+            loadingSpinner="bubbles"
+            loadingText="加载中...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

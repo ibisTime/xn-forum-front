@@ -68,7 +68,6 @@ export class IMBaseService {
   }
   constructor() {
 
-    console.log("基础连接创建了");
     this.conn.listen({
 
       /*1.文本消息*/

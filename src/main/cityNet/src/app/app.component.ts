@@ -4,17 +4,16 @@ import {TabsPage} from '../pages/tabs/tabs';
 import {UserService} from "../services/user.service";
 import {LoginPage} from "../pages/user/login";
 
-import {TutorialPage} from "../pages/tutorial/tutorial";
 import {CityService} from "../services/city.service";
 import {WarnService} from "../services/warn.service";
 import {IMService} from "../services/im.service";
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`
-  // +
-  // `<img style="position: fixed; left: 0; right: 0; width: 100%; height: 100%; background-color:#0c60ee; z-index:10000" [style.display]="adDisplay"
-  // [src]="cityService.ads[0].pic" (load)="loadEnd($event)"
-  // >`
+  +
+  `<div *ngIf="cityService.ads[0]"><img style="position: fixed; left: 0; right: 0; width: 100%; height: 100%; background-color:#f1f1f1; z-index:10000" [style.display]="adDisplay"
+  [src]="cityService.ads[0].pic" (load)="loadEnd($event)"
+  ></div>`
 })
 export class MyApp {
 
@@ -52,12 +51,16 @@ export class MyApp {
   }
 
   loadEnd($event){
-    this.adDisplay = "none";
+    setTimeout(res => {
+      this.adDisplay = "none";
+      this.howLoad();
+    },2000)
+
   }
 
   getNav(){
 
-    let loadNav = this.warn.loading('加载中');
+    let loadNav = this.warn.loading();
     /*加载默认*/
     navigator.geolocation.getCurrentPosition((geo: any) => {
 
@@ -79,6 +82,12 @@ export class MyApp {
       loadNav.dismiss();
       //有广告图进行加载
       if(res.length > 0){
+
+        setTimeout(res => {
+
+          this.howLoad();
+
+        },3000);
 
       } else  {
         //无图直接跳转

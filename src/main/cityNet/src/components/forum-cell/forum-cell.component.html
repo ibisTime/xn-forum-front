@@ -15,8 +15,8 @@
                         <h2 style="margin: 6px 0;">{{item.title}}</h2>
                         <p>{{item.content}}</p>
                     </div>
-                    <div *ngIf="item.pic" [style.height]="imgHeight" class="img-cont" (click)="showImg($event)">
-                        <img class="imgs" [style.width]="imgHeight" src="{{p}}" *ngFor="let p of item.pic"/>
+                    <div *ngIf="item.picArr" [style.height]="imgHeight" class="img-cont" (click)="showImg($event)">
+                        <img class="imgs" [style.width]="imgHeight" [src]="p" *ngFor="let p of item.picArr"/>
                     </div>
                 </ion-card-content>
 

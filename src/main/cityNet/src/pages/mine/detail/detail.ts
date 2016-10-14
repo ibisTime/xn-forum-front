@@ -16,7 +16,7 @@ import {PageDataService} from "../../headline/page-data.services";
 })
 export class MineDetailPage implements AfterViewInit{
 
-  src:string = 'images/marty-avatar.png';
+  src:string = 'assets/images/marty-avatar.png';
   imgHeight: string;
   pHeight: string;
   items = [];
@@ -47,17 +47,21 @@ export class MineDetailPage implements AfterViewInit{
     this.isMe = this.toUserId == userService.userId ? true: false;
 
     this.getUserInfo();
-    if(!this.isMe){
-          userService.queryFollowUsers().then(()=>{
-            let fUs = this.userService.followUsers;
-            for(let f of fUs){
-                if(this.toUserId == f.userId){
-                    this.followFlag = true;
-                    break;
-                }
-            }
+
+      if (!this.isMe) {
+
+          userService.queryFollowUsers().then(()=> {
+              let fUs = this.userService.followUsers;
+              for (let f of fUs) {
+
+                  if (this.toUserId == f.userId) {
+                      this.followFlag = true;
+                      break;
+                  }
+              }
           });
-    }
+      }
+
   }
 
   ngAfterViewInit(){
@@ -176,12 +180,17 @@ export class MineDetailPage implements AfterViewInit{
      this.pageDataService.loadMore();
 
   }
+
+  /*聊天*/
   goChat(){
     this.navCtrl.push(ChatRoomPage, this.toUserId);
   }
+
+
   goDetail(toId){
     this.navCtrl.push(MineDetailPage, {toUserId: toId});
   }
+
 
   //打开帖子详情页
   openPage($event){

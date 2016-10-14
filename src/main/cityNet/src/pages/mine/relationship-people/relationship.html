@@ -1,0 +1,33 @@
+<ion-header >
+    <ion-navbar color="navbar-color">
+        <ion-title>{{title}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉加载"
+                refreshingSpinner="circles"
+                refreshingText="加载中...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <placeholder-view (show)="pageDataService.items.length < 1"> </placeholder-view>
+
+    <ion-list>
+        <button ion-item style="background-color: white;" *ngFor="let item of pageDataService.items" (click)="goDetail(item)">
+            <ion-avatar item-left>
+                <img src="{{item.photo||'assets/images/marty-avatar.png'}}">
+            </ion-avatar>
+            <span>{{item.nickname}}</span>
+        </button>
+    </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="doLoadMore($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+
+

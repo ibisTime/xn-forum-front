@@ -1,7 +1,7 @@
 /**
  * Created by tianlei on 16/9/21.
  */
-import {Component, OnInit, ViewChild, ElementRef, AfterViewInit, Renderer} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import {NavController} from "ionic-angular";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
