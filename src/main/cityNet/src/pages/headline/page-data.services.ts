@@ -9,7 +9,7 @@ export class PageDataService implements OnDestroy{
 
     start = 1;
     limit = 3;
-
+    type = "article";
     reqObj;
     url;
     refreshComp;
@@ -62,9 +62,11 @@ export class PageDataService implements OnDestroy{
             let list = res.data.list;
             if(list.length > 0){
 
-                for (let i = 0; i < list.length; i++) {
-                    if (list[i].pic != null) {
-                        list[i].pic = list[i].pic.split(/\|\|/);
+                if(this.type == "article"){
+                    for (let i = 0; i < list.length; i++) {
+                        if (list[i].pic != null) {
+                            list[i].pic = list[i].pic.split(/\|\|/);
+                        }
                     }
                 }
 

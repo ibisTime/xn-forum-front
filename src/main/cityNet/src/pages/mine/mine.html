@@ -5,6 +5,15 @@
 </ion-header>
 
 <ion-content class="mine">
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="下拉加载"
+            refreshingSpinner="circles"
+            refreshingText="加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
   <!--顶部-->
   <div class="panel-top">
     <div class="avatar-detail" (click)="goDetail()">
@@ -52,7 +61,7 @@
     <button ion-item (click)="goCollect()">
       <i class="iconfont">&#xe60e;</i><span>我的收藏</span>
     </button>
-    <button ion-item >
+    <button ion-item (click)="goDraft()">
       <i class="iconfont">&#xe613;</i><span>草稿箱</span>
     </button>
     <button ion-item (click)="goChat()" style="position: relative;" >

@@ -1,9 +1,7 @@
 import {Component, AfterViewInit,ViewChild} from '@angular/core';
-import {NavController, Platform, App, NavParams,InfiniteScroll,Refresher} from 'ionic-angular';
-import {UserService} from "../../../services/user.service";
+import {NavController, Platform, NavParams,InfiniteScroll,Refresher} from 'ionic-angular';
 import {WarnService} from "../../../services/warn.service";
-import {IMService} from "../../../services/im.service";
-import {HttpService} from "../../../services/http.service";
+
 import {ContentPage} from "../../forum/content/content";
 import {PageDataService} from "../../headline/page-data.services";
 

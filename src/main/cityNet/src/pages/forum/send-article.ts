@@ -2,7 +2,7 @@
  * Created by tianlei on 16/9/22.
  */
 import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
-import {ViewController, Platform, ModalController} from "ionic-angular";
+import {ViewController, Platform, ModalController, NavParams} from "ionic-angular";
 import {HttpService} from "../../services/http.service";
 import {UserService} from "../../services/user.service";
 import {WarnService} from "../../services/warn.service";
@@ -14,25 +14,20 @@ import {AtPage} from "./at";
 })
 export class SendArticlePage implements AfterViewInit,OnDestroy {
 
-  // topicItems = [
-  //   {'title': '招聘', 'src': 'images/forum/forum-zp.png'},
-  //   {'title': '二手', 'src': 'images/forum/forum-es.png'},
-  //   {'title': '出租', 'src': 'images/forum/forum-cz.png'},
-  //   {'title': '求助', 'src': 'images/forum/forum-qz.png'},
-  //   {'title': '便民', 'src': 'images/forum/forum-bm.png'},
-  //   {'title': '车友', 'src': 'images/forum/forum-cy.png'},
-  //   {'title': '情感', 'src': 'images/forum/forum-qg.png'},
-  //   {'title': '吃货', 'src': 'images/forum/forum-ch.png'}
-  // ];
   showTopicDashboard = false;
   isEditing = false;
   height;
+
   images:Array<any> = [];
-  uploadImages = [];
+  uploadImages = []; // 对象 id 和 src
+
   topicItems = [];
   topicCode: String = "";
   plateName = "选择板块";
   timeNum;
+
+  title = "";
+  content = "";
   @ViewChild('contentTextarea') textArea: ElementRef;
 
 
@@ -42,13 +37,33 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
               public user: UserService,
               public warn: WarnService,
               public cityS: CityService,
-              public model: ModalController) {
+              public model: ModalController,
+              public navParams: NavParams) {
+
     this.height = `${(this.platform.width() - 10)/4.0}px`;
 
-    /*监测键盘输入事件*/
+    //从草稿箱中读取
+    if(navParams.data){
+      this.title = navParams.data.title;
+      this.content = navParams.data.content;
+
+      if(typeof(navParams.data.pic) != "undefined"){
+        navParams.data.pic.forEach((value,index,array) =>{
+          let date = new Date();
+
+          let img = {
+            "src": value,
+            "id" : date.toString()
+          }
+          this.images.push(img);
+          this.uploadImages.push(img);
+
+        });
+
+      }
 
 
-
+    }
   }
 
   ngOnDestroy(){
@@ -56,7 +71,9 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   }
 
   ngAfterViewInit(){
+
   }
+
 
   handleImg(src,imgId){
 
@@ -94,8 +111,6 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       cxt.width = trueLong;
       cxt.height = trueLong;
 
-      // cxt.style.width = `${0.5*trueLong}px`;
-      // cxt.style.width  =  `${0.5*trueLong}px`;
 
       let cxtRenderer = cxt.getContext("2d");
 
@@ -104,33 +119,56 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
       let src = cxt.toDataURL();
 
-      let date = new Date();
-      date.getMilliseconds();
       let imgItem = {
         "src": src,
-        "id": date.getMilliseconds()
+        "id": imgId
       }
-
       thisCopy.images.push(imgItem);
 
     }
 
+  }
+
+
+  cancle(titleIput,contentTextarea){
+    if(this.title.length > 0 || this.content.length > 0 ||
+        this.uploadImages.length > 0){
+
+      this.warn.alert2('是否保存为草稿',()=>{
+
+        this.sendOrSave(titleIput,contentTextarea,"save");
+
+      },()=> {
+
+        this.viewCtrl.dismiss();
+
+      })
+
+    }
 
   }
 
-  cancle(){
-    this.warn.alert2('是否保存为草稿',()=>{
 
-    },()=> {
+  send(titleIput,contentTextarea) {
+    this.sendOrSave(titleIput,contentTextarea,"send");
 
-      this.viewCtrl.dismiss();
-
-    })
   }
 
-  send(titleIput,contentTextarea){
+  sendOrSave(titleIput,contentTextarea,type){
 
-    let load = this.warn.loading('发送中...');
+    let url = "/post/publish";
+    let successStr = "发帖成功";
+    let failureStr = "发帖失败";
+
+    if(type == "save"){
+      url = "/post/craft/add";
+      successStr="保存为草稿成功";
+      failureStr="保存为草稿失败";
+    }
+
+
+    let load = this.warn.loading("");
+
     if(contentTextarea.value.length <= 0){
       this.warn.alert('帖子内容不能为空');
       return;
@@ -148,51 +186,78 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     /*1. 上传全部图片，并拼接全部URL*/
     if(this.uploadImages.length > 0){
 
+      /*遍历图片数组 找出已上传 和 base64图片*/
       let pics = [];
-      let len = 0;
-      // let tag = 0;
-      let imgCount = this.uploadImages.length;
+      let base64Pics = [];
+      this.uploadImages.forEach((value,index,array) => {
+        if(/base64/.test(value.src)){
 
-     let imgPromise = new Promise((resolve, reject) =>{
+          base64Pics.push(value.src);
 
-        this.uploadImages.forEach((value,index,array) => {
-          let msgItem = {
-            "photo":value.src
-          }
-
-          this.http.post("/user/upload/img",msgItem).then(res => {
-
-            if (typeof(res.data) == "string") {
-
-              pics.push(res.data)
-              len++;
-              if(len == imgCount){
-                /*拼接图片URL字符串*/
-                let picStr = "";
-                pics.forEach((value,index,array) => {
-                  picStr += index == 0? value : ("||" + value);
-                });
-
-                resolve(picStr);
-              }
-
-            } else {
-
-              reject("图片上传失败");
-
-            }
-
-          }).catch(error => {
-
-            reject("图片上传失败");
-
-          });
-
-
-        });
-
+         }
 
       });
+
+
+
+      let len = 0;
+      let imgCount = base64Pics.length;
+
+     /*图片上传*/
+     let imgPromise = new Promise((resolve, reject) =>{
+
+       if(imgCount <= 0){
+         let picStr = "";
+         pics.forEach((value,index,array) => {
+           picStr += index == 0? value : ("||" + value);
+         });
+
+         resolve(picStr);
+
+       } else { //有base64图片
+
+         base64Pics.forEach((value,index,array) => {
+           let msgItem = {
+             "photo":value
+           }
+
+           this.http.post("/user/upload/img",msgItem).then(res => {
+
+             if (typeof(res.data) == "string") {
+
+               pics.push(res.data)
+               len++;
+
+               /*相等的话所有图片上传完成*/
+               if(len == imgCount){
+                 /*拼接图片URL字符串*/
+                 let picStr = "";
+                 pics.forEach((value,index,array) => {
+                   picStr += index == 0? value : ("||" + value);
+                 });
+
+                 resolve(picStr);
+               }
+
+             } else {
+
+               reject("图片上传失败");
+
+             }
+
+           }).catch(error => {
+
+             reject("图片上传失败");
+
+           });
+
+
+         });
+
+       }
+
+      });
+
 
       imgPromise.then(picStr => {
 
@@ -206,8 +271,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
           "publisher": this.user.userId
         };
 
-        console.log(articleObj);
-        return this.http.post("/post/publish",articleObj);
+        return this.http.post(url,articleObj);
 
       }).then(res => {
         load.dismiss().then(()=> {
@@ -215,10 +279,10 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
           this.viewCtrl.dismiss();
 
         });
-        this.warn.toast('发帖成功');
+        this.warn.toast(successStr);
       }).catch(error => {
         load.dismiss();
-        this.warn.toast('发帖失败');
+        this.warn.toast(failureStr);
 
       });
 
@@ -228,29 +292,22 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       let articleObj = {
         "title": titleIput.value,
         "content": contentTextarea.value,
-        "plateCode": this.topicCode,
-        "publisher": this.user.userId
+        "plateCode": this.topicCode
       };
 
-       this.http.post("/post/publish",articleObj).then(res => {
+       this.http.post(url,articleObj).then(res => {
 
-         this.warn.toast('发帖成功');
-         this.viewCtrl.dismiss().then(()=> {
-
+         this.warn.toast(successStr);
+         load.dismiss().then(res => {
            this.viewCtrl.dismiss();
+         })
 
-         });
 
        }).catch(error => {
-         this.warn.toast('发帖失败');
+         load.dismiss();
+         this.warn.toast(failureStr);
        });
-
-
     }
-
-
-
-
   }
 
 
@@ -263,7 +320,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       return;
     }
     /*查询话题*/
-    let load = this.warn.loading("加载中");
+    let load = this.warn.loading("板块获取中...");
     let obj = {
       "siteCode": this.cityS.currentCity.code
     };
@@ -319,7 +376,6 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     if(file == null) return;
     fileReader.readAsDataURL($event.target.files[0]);
     // $event.target.files[0] = null;
-
   }
 
   imgTrack(index,item){
@@ -333,7 +389,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     this.images.splice(index,1);
     // this.images = this.images.splice(index,1);
 
-    /*处理真是上传列表*/
+    /*处理真正的上传列表*/
     let upLoadIndex;
     this.uploadImages.find((value, index, obj) => {
       if (value.id == img.id) {
@@ -341,7 +397,8 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       }
       return value.id == img.id;
     });
-    this.uploadImages.slice(upLoadIndex,1);
+
+    (typeof(upLoadIndex) != "undefined")&&(this.uploadImages.slice(upLoadIndex,1));
 
   }
 

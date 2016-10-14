@@ -33,6 +33,9 @@ import {AccountPage} from "./mine/setting/account";
 import {AboutusPage} from "./mine/setting/aboutus";
 import {ForumCell} from "../components/forum-cell/forum-cell.component";
 import {PlatChooseView} from "../components/plate-choose/plat-choose.component";
+import {DraftPage} from "./mine/draft/draft";
+import {MallPage} from "./headline/mall/mall";
+import {GoodsDetailPage} from "./headline/mall/goods-detail";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -62,7 +65,10 @@ export const pages = [ TabsPage,
   CommentPage,
   SettingPage,
   AccountPage,
-  AboutusPage
+  AboutusPage,
+  DraftPage,
+  MallPage,
+  GoodsDetailPage
 ];
 
 export const components = [

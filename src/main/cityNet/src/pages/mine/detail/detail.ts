@@ -15,6 +15,7 @@ import {PageDataService} from "../../headline/page-data.services";
   providers: [PageDataService]
 })
 export class MineDetailPage implements AfterViewInit{
+
   src:string = 'images/marty-avatar.png';
   imgHeight: string;
   pHeight: string;
@@ -62,7 +63,7 @@ export class MineDetailPage implements AfterViewInit{
   ngAfterViewInit(){
 
       /*数据配置*/
-      this.pageDataService.url = "/post/collection/page";
+      this.pageDataService.url = "/post/page";
       this.pageDataService.reqObj = {
           "userId": this.toUserId
       };

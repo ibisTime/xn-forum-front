@@ -1,7 +1,7 @@
 <ion-header class="send-article-header">
   <ion-navbar no-border-bottom background-theme>
     <ion-buttons>
-      <button (click)="cancle()" style="color: black;">
+      <button (click)="cancle(titleIput,contentTextarea)" style="color: black;">
         取消
       </button>
     </ion-buttons>
@@ -39,13 +39,13 @@
   </div>
 
   <!--发送界面-->
-  <input class="article-title" #titleIput  placeholder="标题 (选填)">
+  <input class="article-title" #titleIput [(ngModel)]="title"  placeholder="标题">
 
   <!--正文内容-->
   <!--<div *ngIf="!isEditing" class="article-content-placeholder" (input)="editing($event)">分享新鲜事...</div>-->
 
   <!--<div class="article-content-outer">-->
-    <textarea class="article-content" #contentTextarea  placeholder="分享新鲜事..." (input)="editing($event)"></textarea>
+    <textarea class="article-content" #contentTextarea [(ngModel)]="content"  placeholder="分享新鲜事..." (input)="editing($event)"></textarea>
   <!--</div>-->
 
   <div class="img-list">

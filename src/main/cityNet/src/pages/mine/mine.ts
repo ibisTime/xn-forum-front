@@ -9,12 +9,13 @@ import {HttpService} from "../../services/http.service";
 import {MineDetailPage} from "./detail/detail";
 import {CollectionPage} from "./collection/collection";
 import {SettingPage} from "./setting/setting";
+import {DraftPage} from "./draft/draft";
 
 
 @Component({
   templateUrl: 'mine.html'
 })
-export class MinePage {
+export class MinePage implements AfterViewInit{
 
   className = 'test-class';
   forumData = [
@@ -54,6 +55,20 @@ export class MinePage {
     this.imService.close();
     this.app.getRootNav().setRoot(LoginPage);
   }
+  doRefresh($event){
+      this.queryFSCount();
+      this.queryGZCount();
+      this.queryTZCount($event);
+
+  }
+
+  ngAfterViewInit(){
+      this.queryFSCount();
+      this.queryGZCount();
+      this.queryTZCount()
+  }
+
+
   getUserInfo(){
     this.myUser = this.userService.user;
     // return this.http.get('/user').then((res) => {
@@ -102,6 +117,9 @@ export class MinePage {
         }).catch(error => {
         });
   }
+
+
+  /*跳转事件*/
   goDetail(){
     this.navCtrl.push(MineDetailPage);
   }
@@ -116,5 +134,8 @@ export class MinePage {
   }
   goSetting(){
     this.navCtrl.push(SettingPage);
+  }
+  goDraft(){
+    this.navCtrl.push(DraftPage);
   }
 }

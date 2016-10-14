@@ -12,6 +12,7 @@ import {weChat} from "../../services/release";
 import {ContentPage} from "../forum/content/content";
 import {DatePipe} from "@angular/common";
 import {PageDataService} from "./page-data.services";
+import {MallPage} from "./mall/mall";
 
 @Component({
   templateUrl: 'headline.html',
@@ -74,7 +75,8 @@ export class HeadlinePage implements AfterViewInit {
 
       this.pageDataService.url = "/post/page";
       this.pageDataService.reqObj = {
-         "siteCode" : this.cityS.currentCity.code
+         "siteCode" : this.cityS.currentCity.code,
+          "isHeadline": "1"
       };
       this.pageDataService.refreshComp = this.refresher;
       this.pageDataService.loadMoreComp = this.loadMoreScroll;
@@ -189,45 +191,67 @@ export class HeadlinePage implements AfterViewInit {
     }
 
 
+   /*获取帖子数据*/
+    getArticle(refresh?) {
+        let reqObj = {
+            "start": this.start,
+            "limit": 3,
+            "siteCode": this.cityS.currentCity.code
+        };
 
+        return this.http.get('/post/page', reqObj).then(res => {
 
+            (refresh == "refresh") && (this.articles = []);
+            let list = res.data.list;
+            if (list.length > 0) {
 
-  /*获取帖子数据*/
-  getArticle(refresh?){
-    let reqObj = {
-      "start": this.start,
-      "limit": 3,
-      "siteCode":this.cityS.currentCity.code
-    };
-
-    return this.http.get('/post/page',reqObj).then(res => {
-
-      (refresh == "refresh") &&(this.articles = []);
-      let list = res.data.list;
-        if(list.length > 0){
-
-            for (let i = 0; i < list.length; i++) {
-                if (list[i].pic != null) {
-                    list[i].pic = list[i].pic.split(/\|\|/);
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].pic != null) {
+                        list[i].pic = list[i].pic.split(/\|\|/);
+                    }
                 }
-            }
-            this.articles.push(...list);
+                this.articles.push(...list);
 
-            if (3*this.start >= res.data.totalCount) {
-                this.loadMoreScroll.enable(false)
+                if (3 * this.start >= res.data.totalCount) {
+                    this.loadMoreScroll.enable(false)
+                }
+
+            } else {
+                this.loadMoreScroll.enable(false);
             }
 
-        } else {
-            this.loadMoreScroll.enable(false);
+            this.start++;
+
+        }).catch(error => {
+            console.log(error);
+        });
+
+    }
+
+    /*商城*/
+    goMall() {
+     this.navCtrl.push(MallPage);
+    }
+
+    /*签到*/
+    sign() {
+        let obj = {
+            "location" : "杭州"
         }
 
-        this.start++;
+        let load = this.warn.loading("");
+        this.http.post("/signIn",obj).then(res => {
 
-    }).catch(error => {
-        console.log(error);
-    });
+            load.dismiss();
+            this.warn.toast("签到成功");
 
-  }
+        }).catch(error => {
+
+            this.warn.toast("签到失败");
+            load.dismiss();
+        })
+
+    }
 
 }
 
