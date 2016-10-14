@@ -332,4 +332,6 @@ public interface IUserAO {
      * @history:
      */
     public Object signInList(String userId, String dateStart, String dateEnd);
+    
+    public Object userSTAT(String userId);
 }

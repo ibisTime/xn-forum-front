@@ -417,17 +417,11 @@ public class MemberController extends BaseController {
 				tradePwd);
 		return true;
 	}
-	//
-	// @RequestMapping(value = "/kyc", method = RequestMethod.GET)
-	// @ResponseBody
-	// public Object doKyc(
-	// @RequestParam(value = "userId", required = false) String userId) {
-	// return userAO.doKyc(getSessionUserId(userId));
-	// }
-
-	// @RequestMapping(value = "/getHpsList", method = RequestMethod.GET)
-	// @ResponseBody
-	// public Object getHpsList() {
-	// return userAO.getHpsList();
-	// }
+	
+	// 详情查询用户关注、粉丝、账户、发帖数
+	@RequestMapping(value = "/stats", method = RequestMethod.GET)
+	@ResponseBody
+	public Object userSTAT() {
+		return userAO.userSTAT(getSessionUserId(null));
+	}
 }

@@ -519,4 +519,10 @@ public class UserAOImpl implements IUserAO {
         return BizConnecter.getBizData("805102", JsonUtils.object2Json(req),
             Object.class);
     }
+
+	@Override
+	public Object userSTAT(String userId) {
+		return BizConnecter.getBizData("610902", JsonUtils.string2Json("userId", userId),
+	            Object.class);
+	}
 }
