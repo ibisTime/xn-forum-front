@@ -1,0 +1,59 @@
+
+
+.goods-detail{
+
+  .goods-img-div{
+    overflow: hidden;
+
+  }
+
+  .goods-description-div{
+    padding: 5px 10px;
+    margin-top: 10px;
+    min-height: 40px;
+    background-color: white;
+
+    span{
+      color: $navbar-color;
+      font-size: 16px;
+    }
+
+  }
+
+}
+
+.goods-detail-footer{
+  background-color: white;
+  border-top: 1px solid gainsboro;
+  height: 50px;
+  display: flex;
+
+  .price-div{
+
+    flex: 0 0 70%;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    span{
+      color: $navbar-color;
+      font-size: 20px;
+    }
+  }
+  .exchange{
+    flex: 0 0 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    button{
+      height: 35px;
+      width: 80%;
+      font-size: 16px;
+      color: white;
+      background-color: orange;
+      &:active{
+        opacity: .5;
+      }
+    }
+  }
+}

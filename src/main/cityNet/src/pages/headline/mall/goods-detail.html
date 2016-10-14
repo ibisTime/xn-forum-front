@@ -5,6 +5,25 @@
 </ion-header>
 
 <ion-content class="goods-detail">
-    <div>商品详情</div>
+    <div class="goods-img-div" [style.height]="imgHeight">
+        <img [src]="item.pic" [style.height]="imgHeight" style="width:100%;">
+    </div>
+
+    <div class="goods-description-div">
+        <span>介绍: </span>{{item.description}}
+    </div>
 
 </ion-content>
+<ion-footer>
+    <div class="goods-detail-footer">
+        <div class="price-div">
+            价格: <span>{{item.price}} </span> 积分
+        </div>
+        <div class="exchange">
+            <button (tap)="buy()">
+            立即兑换
+            </button>
+        </div>
+    </div>
+
+</ion-footer>

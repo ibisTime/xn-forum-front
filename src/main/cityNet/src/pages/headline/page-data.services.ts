@@ -28,11 +28,11 @@ export class PageDataService implements OnDestroy{
         /*导航相关信息*/
       return this.getArticle("refresh").then(res => {
 
-            this.refreshComp.complete();
+          (typeof(this.refreshComp) != "undefined")&&(this.refreshComp.complete());
 
         }).catch(error => {
 
-            this.refreshComp.complete();
+          (typeof(this.refreshComp) != "undefined")&&(this.refreshComp.complete());
         });
 
     }
@@ -41,11 +41,11 @@ export class PageDataService implements OnDestroy{
 
        return this.getArticle().then(res => {
 
-            this.loadMoreComp.complete();
+           (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.complete());
 
         }).catch(error => {
 
-            this.loadMoreComp.complete();
+           (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.complete());
 
         });
 
@@ -74,11 +74,13 @@ export class PageDataService implements OnDestroy{
                 this.articles.push(...list);
 
                 if (3*this.start >= res.data.totalCount) {
-                    this.loadMoreComp.enable(false)
+                    (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.enable(false));
+
+
                 }
 
             } else {
-                this.loadMoreComp.enable(false);
+                (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.enable(false));
             }
 
             this.start++;

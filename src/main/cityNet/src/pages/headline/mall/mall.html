@@ -5,27 +5,28 @@
 </ion-header>
 
 <ion-content class="mall">
-    <!--<ion-refresher (ionRefresh)="doRefresh($event)">-->
-        <!--<ion-refresher-content-->
-                <!--pullingIcon="arrow-dropdown"-->
-                <!--pullingText="下拉加载"-->
-                <!--refreshingSpinner="circles"-->
-                <!--refreshingText="加载中...">-->
-        <!--</ion-refresher-content>-->
-    <!--</ion-refresher>-->
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉加载"
+                refreshingSpinner="circles"
+                refreshingText="加载中...">
+        </ion-refresher-content>
+    </ion-refresher>
 
-    <!--<ion-list>-->
+    <ion-list>
         <div class="mall-item-outer">
-            <div class="mall-item" (tap)="goDetail()">
-                <img src="http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg" [style.height]="imgHeight">
-                <div>商品名称</div>
+            <div class="mall-item" (tap)="goDetail(item)" *ngFor="let item of pageDataService.articles"  >
+                <img [src]=item.pic [style.height]="imgHeight">
+                <div>{{item.name}}</div>
+                <div>价格: <span>{{item.price}}</span> 积分</div>
             </div>
         </div>
-    <!--</ion-list>-->
+    </ion-list>
 
-    <!--<ion-infinite-scroll (ionInfinite)="doAppendData($event)">-->
-        <!--<ion-infinite-scroll-content></ion-infinite-scroll-content>-->
-    <!--</ion-infinite-scroll>-->
+    <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
 </ion-content>
 

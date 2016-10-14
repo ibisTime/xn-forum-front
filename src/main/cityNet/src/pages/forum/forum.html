@@ -28,16 +28,18 @@
     <div [ngSwitch]="segment">
 
         <!--帖子相关-->
+
         <div *ngSwitchCase="'yliao'">
-        <ion-list>
-            <ion-refresher (ionRefresh)="doRefresh($event)" class="no-abs">
+            <!--class="no-abs"-->
+            <ion-refresher (ionRefresh)="doRefresh($event)">
                 <ion-refresher-content
-                pullingIcon="arrow-dropdown"
-                pullingText="下拉加载"
-                refreshingSpinner="circles"
-                refreshingText="加载中...">
+                        pullingIcon="arrow-dropdown"
+                        pullingText="下拉加载"
+                        refreshingSpinner="circles"
+                        refreshingText="加载中...">
                 </ion-refresher-content>
             </ion-refresher>
+        <ion-list>
 
             <ion-item *ngFor="let item of items;let idx=index;">
                 <forum-cell

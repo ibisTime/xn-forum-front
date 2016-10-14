@@ -22,12 +22,12 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   uploadImages = []; // 对象 id 和 src
 
   topicItems = [];
-  topicCode: String = "";
+  topicCode: string = "";
   plateName = "选择板块";
   timeNum;
 
-  title = "";
-  content = "";
+  title: string = new String();
+  content: string = new String();
   @ViewChild('contentTextarea') textArea: ElementRef;
 
 
@@ -131,8 +131,14 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
 
   cancle(titleIput,contentTextarea){
-    if(this.title.length > 0 || this.content.length > 0 ||
-        this.uploadImages.length > 0){
+
+    if(
+        (typeof(this.title) != "undefined" && this.title.length > 0)
+        ||
+        (typeof(this.content) != "undefined" && this.content.length > 0)
+        ||
+        this.uploadImages.length > 0
+    ){
 
       this.warn.alert2('是否保存为草稿',()=>{
 
@@ -144,6 +150,8 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
       })
 
+    } else{
+      this.viewCtrl.dismiss();
     }
 
   }
@@ -167,7 +175,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     }
 
 
-    let load = this.warn.loading("");
+
 
     if(contentTextarea.value.length <= 0){
       this.warn.alert('帖子内容不能为空');
@@ -176,12 +184,15 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
     if(titleIput.value.length <= 0){
       titleIput.value = "";
+      return;
     }
 
     if(this.topicCode.length <= 0){
       this.warn.alert('请选择板块块');
       return;
     }
+
+    let load = this.warn.loading("");
 
     /*1. 上传全部图片，并拼接全部URL*/
     if(this.uploadImages.length > 0){

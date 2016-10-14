@@ -96,7 +96,7 @@ export class HttpService {
         if(resObj.success){//无异常
           resolve(resObj);
         } else {//有异常
-          // alert(resObj.msg);
+          alert(resObj.msg);
           if(resObj.timeout){
             this.events.publish('user:timeout',"timeout");
           }

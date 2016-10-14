@@ -14,8 +14,16 @@
 <ion-content  class="search-user-article">
 
   <div class="search-input-outer">
-    <input id = "search-user-article-input" placeholder="请输入搜索关键词">
-    <button class="search-btn">搜索</button>
+    <input id = "search-user-article-input" #searchInput placeholder="请输入搜索关键词">
+    <button class="search-btn" (click)="search(searchInput.value)">搜索</button>
   </div>
+
+  <div class="placeholder-div" *ngIf="result">
+    没有匹配的结果
+  </div>
+
+  <forum-cell *ngFor="let item of articles"
+         [item]="item">
+  </forum-cell>
 
 </ion-content>
