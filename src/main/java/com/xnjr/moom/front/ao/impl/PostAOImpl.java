@@ -25,6 +25,9 @@ import com.xnjr.moom.front.req.XN610063Req;
 import com.xnjr.moom.front.req.XN610070Req;
 import com.xnjr.moom.front.req.XN610072Req;
 import com.xnjr.moom.front.req.XN610073Req;
+import com.xnjr.moom.front.req.XN610076Req;
+import com.xnjr.moom.front.req.XN610077Req;
+import com.xnjr.moom.front.req.XN610078Req;
 import com.xnjr.moom.front.util.UploadUtil;
 
 /** 
@@ -191,4 +194,34 @@ public class PostAOImpl implements IPostAO {
         return BizConnecter.getBizData("610070", JsonUtils.object2Json(req),
             Object.class);
     }
+
+	@Override
+	public Object queryMyCommentToPage(String userId, String start, String limit) {
+		XN610076Req req = new XN610076Req();
+        req.setUserId(userId);
+        req.setStart(start);
+        req.setLimit(limit);
+        return BizConnecter.getBizData("610076", JsonUtils.object2Json(req),
+            Object.class);
+	}
+
+	@Override
+	public Object queryMyCommentFromPage(String userId, String start,
+			String limit) {
+		XN610077Req req = new XN610077Req();
+        req.setUserId(userId);
+        req.setStart(start);
+        req.setLimit(limit);
+        return BizConnecter.getBizData("610077", JsonUtils.object2Json(req),
+            Object.class);
+	}
+
+	@Override
+	public Object queryPostDetailComment(String userId, String commentCode) {
+		XN610078Req req = new XN610078Req();
+        req.setUserId(userId);
+        req.setCommentCode(commentCode);
+        return BizConnecter.getBizData("610078", JsonUtils.object2Json(req),
+            Object.class);
+	}
 }

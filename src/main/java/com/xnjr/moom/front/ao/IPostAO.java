@@ -115,4 +115,10 @@ public interface IPostAO {
     public Object queryMyPostPage(String userId, String status,
             String dateStart, String dateEnd, String start, String limit,
             String orderColumn, String orderDir);
+    
+    public Object queryMyCommentToPage(String userId, String start, String limit);
+    
+    public Object queryMyCommentFromPage(String userId, String start, String limit);
+    
+    public Object queryPostDetailComment(String userId, String commentCode);
 }

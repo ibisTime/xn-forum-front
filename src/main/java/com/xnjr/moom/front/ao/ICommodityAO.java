@@ -34,4 +34,8 @@ public interface ICommodityAO {
      * @history:
      */
     public Object buyProduct(String userId, String productCode, String quantity);
+    
+    public Object orderPage(String userId, String start, String limit);
+    
+    public Object orderDetail(String orderCode);
 }

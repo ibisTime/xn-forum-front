@@ -162,4 +162,30 @@ public class PostController extends BaseController {
         return postAO.queryMyPostPage(this.getSessionUser().getUserId(),
             status, dateStart, dateEnd, start, limit, orderColumn, orderDir);
     }
+    
+    // 我发出的评论分页查询
+    @RequestMapping(value = "/mytocomment/page", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryMyCommentToPage(
+            @RequestParam("start") String start,
+            @RequestParam("limit") String limit) {
+        return postAO.queryMyCommentToPage(this.getSessionUser().getUserId(), start, limit);
+    }
+    
+    // 我收到的评论分页查询
+    @RequestMapping(value = "/myfromcomment/page", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryMyCommentFromPage(
+            @RequestParam("start") String start,
+            @RequestParam("limit") String limit) {
+        return postAO.queryMyCommentFromPage(this.getSessionUser().getUserId(), start, limit);
+    }
+    
+    // 根据评论编号获取帖子详情
+    @RequestMapping(value = "/detail/comment", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryPostDetailComment(
+            @RequestParam("commentCode") String commentCode) {
+        return postAO.queryPostDetailComment(this.getSessionUser().getUserId(), commentCode);
+    }
 }

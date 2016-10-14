@@ -10,6 +10,8 @@ import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.req.XN610310Req;
 import com.xnjr.moom.front.req.XN610311Req;
 import com.xnjr.moom.front.req.XN610320Req;
+import com.xnjr.moom.front.req.XN610330Req;
+import com.xnjr.moom.front.req.XN610331Req;
 
 @Service
 public class CommodityAOImpl implements ICommodityAO {
@@ -63,4 +65,22 @@ public class CommodityAOImpl implements ICommodityAO {
         return BizConnecter.getBizData("610320", JsonUtils.object2Json(req),
             Object.class);
     }
+
+	@Override
+	public Object orderPage(String userId, String start, String limit) {
+		XN610330Req req = new XN610330Req();
+        req.setUserId(userId);
+        req.setStart(start);
+        req.setLimit(limit);
+        return BizConnecter.getBizData("610330", JsonUtils.object2Json(req),
+            Object.class);
+	}
+
+	@Override
+	public Object orderDetail(String orderCode) {
+		XN610331Req req = new XN610331Req();
+        req.setOrderCode(orderCode);
+        return BizConnecter.getBizData("610331", JsonUtils.object2Json(req),
+            Object.class);
+	}
 }

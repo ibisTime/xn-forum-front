@@ -48,4 +48,22 @@ public class CommodityController extends BaseController {
         return commodityAO.buyProduct(this.getSessionUserId(null), productCode,
             quantity);
     }
+    
+    // 分页查询我购买的商品
+    @RequestMapping(value = "/order/page", method = RequestMethod.POST)
+    @ResponseBody
+    public Object orderPage(
+            @RequestParam(value = "start", required = true) String start,
+            @RequestParam(value = "limit", required = true) String limit) {
+        return commodityAO.orderPage(this.getSessionUserId(null), start,
+        		limit);
+    }
+    
+    // 我的订单详情查询
+    @RequestMapping(value = "/order/detail", method = RequestMethod.POST)
+    @ResponseBody
+    public Object orderDetail(
+            @RequestParam(value = "orderCode", required = true) String orderCode) {
+        return commodityAO.orderDetail(orderCode);
+    }
 }
