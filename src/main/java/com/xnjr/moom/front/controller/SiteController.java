@@ -61,4 +61,19 @@ public class SiteController extends BaseController {
     	return BizConnecter.getBizData("806010", JsonUtils.string2Json("code", code),
                 Object.class);
     }
+    
+    // 查询站点（有默认值）
+    @RequestMapping(value = "/fetchone", method = RequestMethod.GET)
+    @ResponseBody
+    public Object siteFetchone(
+    		@RequestParam(value = "province", required = false) String province,
+    		@RequestParam(value = "city", required = false) String city,
+            @RequestParam(value = "area", required = false) String area) {
+    	XN806013Req req = new XN806013Req();
+    	req.setProvince(province);
+    	req.setCity(city);
+    	req.setArea(area);
+        return BizConnecter.getBizData("806012", JsonUtils.object2Json(req),
+            Object.class);
+    }
 }

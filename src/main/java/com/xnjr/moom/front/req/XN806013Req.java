@@ -9,6 +9,8 @@ public class XN806013Req {
 
     private String location;
     
+    private String province;
+    
     private String city;
     
     private String area;
@@ -69,6 +71,14 @@ public class XN806013Req {
 
 	public void setArea(String area) {
 		this.area = area;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
 }
