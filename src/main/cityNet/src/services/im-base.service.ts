@@ -97,10 +97,10 @@ export class IMBaseService {
       },
       onOnline: () => {
         console.log('本机网络连接成功');
-      },                  //本机网络连接成功
+      },
       onOffline: () => {
         console.log('本机网络掉线')
-      },                 //本机网络掉线
+      },
 
       /*连接关闭*/
       onClosed: (message) => {

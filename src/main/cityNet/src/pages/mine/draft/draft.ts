@@ -9,6 +9,7 @@ import {WarnService} from "../../../services/warn.service";
 import {ContentPage} from "../../forum/content/content";
 import {PageDataService} from "../../headline/page-data.services";
 import {SendArticlePage} from "../../forum/send-article";
+import {HttpService} from "../../../services/http.service";
 
 @Component({
     templateUrl: 'draft.html',
@@ -27,7 +28,7 @@ export class DraftPage {
                 public warnCtrl: WarnService,
                 public params: NavParams,
                 public pageDataService:PageDataService,
-                public model: ModalController) {
+                public model: ModalController,public http: HttpService) {
 
 
     }
@@ -64,4 +65,61 @@ export class DraftPage {
 
     }
 
+    reSend(item,index){
+
+       let load = this.warnCtrl.loading();
+        let obj = {
+            "code":item.code,
+            "title":item.title,
+            "content":item.content,
+            "plateCode": item.platCode
+        };
+
+        if (typeof(item.picArr) != "undefined") {
+
+            obj["pic"] = item.picArr.join("||");
+
+        }
+
+        this.http.post("/post/craft/publish",obj).then(res => {
+
+            load.dismiss();
+            this.warnCtrl.toast("重新发布成功");
+            this.pageDataService.articles.splice(index,1);
+
+        }).catch(error => {
+
+            load.dismiss();
+            this.warnCtrl.toast("重新发布失败");
+
+        });
+
+    }
+
 }
+
+// code: "TZ2016101317200592039"
+// commentList: Array[
+//     0
+//     ]
+// content: "4444"
+// isDZ: "0"
+// isSC: "0"
+// likeList: Array[
+//     0
+//     ]
+// nickname: "tianlei"
+// picArr: Array[
+//     1
+//     ]
+// plateCode: "BK2016101118522446147"
+// publishDatetime: "Oct 13, 2016 5:20:05 PM"
+// publisher: "U2016100913405823244"
+// status: "-1"
+// title: "444"
+// totalCommNum:
+//     0
+// totalLikeNum:
+//     0
+// totalReadTimes:
+//     0

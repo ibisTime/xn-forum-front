@@ -8,7 +8,7 @@ import {SearchUserAndArticlePage} from "./search-user-article";
 import {SendArticlePage} from "../forum/send-article";
 import {CityChoosePage} from "./city-choose";
 import {IFramePage} from "./iframe";
-import {weChat} from "../../services/release";
+import {Release} from "../../services/release";
 import {ContentPage} from "../forum/content/content";
 import {DatePipe} from "@angular/common";
 import {PageDataService} from "./page-data.services";
@@ -89,7 +89,7 @@ export class HeadlinePage implements AfterViewInit {
   /*所有跳转事件个功能点击事件*/
   goOther(url,title){
 
-    if(weChat){
+    if(Release.weChat){
       console.log('点击功能');
       this.navCtrl.push(IFramePage,{"url":url,"title":title});
     } else {

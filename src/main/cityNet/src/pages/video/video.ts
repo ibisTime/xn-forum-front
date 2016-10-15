@@ -1,10 +1,8 @@
 import {Component,AfterViewInit} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import {CityService} from "../../services/city.service";
-import {WarnService} from "../../services/warn.service";
-import {weChat} from "../../services/release";
 import {IFramePage} from "../headline/iframe";
-
+import {Release} from "../../services/release"
 
 @Component({
   templateUrl: 'video.html'
@@ -16,7 +14,9 @@ export class VideoPage implements AfterViewInit{
               public platform: Platform,
               public cityS: CityService
               ) {
+    if(Release.weChat){
 
+    }
   }
 
   ngAfterViewInit(){
@@ -37,7 +37,8 @@ export class VideoPage implements AfterViewInit{
   }
 
   goOther(url,title){
-    if(weChat){
+    if(Release.weChat){
+
       this.navCtrl.push(IFramePage,{"url":url,"title":title});
 
     } else {

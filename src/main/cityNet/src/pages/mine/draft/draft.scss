@@ -1,3 +1,47 @@
 .draft{
 
+
+
+  .draft-item{
+    background-color: white;
+    display: flex;
+    padding: 10px 10px;
+    border-bottom: 1px solid $line-color;
+
+    div{
+      overflow: hidden;
+    }
+
+    .left{
+      flex: 1;
+      .title{
+        font-size: 14px;
+        padding-bootom: 5px;
+      }
+      .content{
+        font-size: 16px;
+      }
+    }
+
+    .right{
+      flex: 0 0 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      button {
+        width: 80%;
+        border-radius: 3px;
+        padding: 5px 5px;
+        color: white;
+        font-size: 14px;
+        background-color: $navbar-color;
+
+        &:active{
+        opacity: .5;
+        }
+
+      }
+    }
+  }
+
 }

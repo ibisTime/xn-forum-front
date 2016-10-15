@@ -3,7 +3,7 @@
  */
 import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
-import {baiduMapUrl} from "./release";
+import {Release} from "./release";
 
 export interface City{
   address?;
@@ -47,8 +47,8 @@ export class CityService {
   /*推荐站点*/
   recommendSite = [];
   searchCitys = [];
-  baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
-  baidu = baiduMapUrl();
+  baiduMapAK = Release.baiduMapAK;
+  baidu = Release.baiduMapUrl();
 
   /*客服引流数据*/
   kefuData = [];
@@ -117,10 +117,11 @@ export class CityService {
         // "city":res.result.addressComponent.city,
         // "city":city.slice(0,city.length - 1)
 
-        "province":res.result.addressComponent.province,
-        "area": area,
-        "city":city
+        "province":res.result.addressComponent.province || "未知",
+        "area": area || "未知",
+        "city":city || "未知"
       }
+      console.log(res.result.addressComponent.province);
 
       /*获取站点*/
        return this.getSiteByAddress(zoneObj);
@@ -146,6 +147,7 @@ export class CityService {
 
   /*通过地址获取站点*/
   getSiteByAddress(zoneObj){
+
     return this.http.get('/site/fetchone',zoneObj).then(res => {
 
       this.currentCity = res["data"];

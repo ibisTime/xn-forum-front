@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content class="draft">
+
     <ion-refresher (ionRefresh)="refresh($event)">
         <ion-refresher-content
                 pullingIcon="arrow-dropdown"
@@ -14,13 +15,19 @@
         </ion-refresher-content>
     </ion-refresher>
     <ion-list>
-        <forum-cell *ngFor="let item of pageDataService.articles"
-                    (tap)="goSendArticle(item)"
-                    [item]="item"
-                    (articleDetailEmitter)="goArticleDetail($event)"
-        >
 
-        </forum-cell>
+
+      <div class="draft-item"
+           *ngFor="let item of pageDataService.articles; let i = index;"
+           (click)="goSendArticle(item)">
+          <div class="left">
+              <div class="title">{{item.title}}</div>
+              <div class="content">{{item.content}}</div>
+          </div>
+          <div class="right">
+              <button (click)="reSend(item,i)">重发</button>
+          </div>
+      </div>
 
     </ion-list>
 

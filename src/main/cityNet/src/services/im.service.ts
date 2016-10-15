@@ -49,7 +49,6 @@ export class IMService {
   constructor(  private  imBase: IMBaseService,
                 private events: Events) {
 
-    console.log("调用基础连接");
 
     this.conn = this.imBase.conn;
     this.imBase.imMessage = msg => {

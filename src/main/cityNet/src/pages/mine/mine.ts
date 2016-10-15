@@ -34,15 +34,16 @@ export class MinePage implements AfterViewInit{
     {"name":'设置',"src":'&#xe603;'},
     {"name":'退出登录',"src":'&#xe617;'},
   ];
+
   src:string = 'assets/images/marty-avatar.png';
-  tzCount = '0';
-  gzCount = '0';
-  fsCount = '0';
   myUser;
 
   statisticsInfo = {
-
-  }
+    totalFansNum: "0",
+    totalFollowNum: "0",
+    totalPostNum:"0",
+    amount:"0"
+  };
 
   constructor(public navCtrl: NavController,
               public platform: Platform,

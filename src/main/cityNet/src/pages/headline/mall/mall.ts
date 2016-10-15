@@ -69,6 +69,14 @@ export class MallPage implements OnInit,AfterViewInit {
         this.nav.push(GoodsDetailPage,item);
     }
 
+    refresh($event){
+      this.pageDataService.refresh();
+    }
+
+    loadMore($event){
+       this.pageDataService.loadMore();
+    }
+
 }
 
 //

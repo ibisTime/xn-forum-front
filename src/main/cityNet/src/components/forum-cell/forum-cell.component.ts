@@ -39,7 +39,7 @@ export class ForumCell implements OnInit {
     }
 
     /*收藏*/
-    collect(code, index, flag?){
+    collect(code, flag?){
         if(!this.item.collectCount){
             this.item.collectCount = 1;
             this.http.post('/post/praise',{
@@ -74,7 +74,7 @@ export class ForumCell implements OnInit {
     }
 
     /*点赞*/
-    praise(code, index, flag?){
+    praise(code, flag?){
         if(!this.item.praiseCount){
             this.item.praiseCount = 1;
             this.http.post('/post/praise',{
@@ -132,25 +132,25 @@ export class ForumCell implements OnInit {
         sDiv.className = sDiv.className + " hidden";
     }
 
+
 }
 
-// approveDatetime: "Oct 12, 2016 2:02:10 PM"
-// approveNote: "11"
-// approver: "U201600000000000000"
-// code: "TZ2016101211362572125"
-// content: "test test test "
+// Object
+// code: "TZ2016101423003422779"
+// collectCount:0
+// commentList: Array[4]
+// content: "321312"
 // isDZ: "0"
 // isSC: "0"
-// nickname: "05823244"
-// pic: Array[
-//     1
-//     ]
-// plateCode: "BK2016101118522446147"
-// publishDatetime: "Oct 12, 2016 11:36:25 AM"
-// publisher: "U2016100913405823244"
-// status: "1"
-// title: "324324"
-// totalCommNum:
-//     3
-// totalDzNum:
-//     0
+// likeList: Array[0]
+// nickname: "我是？？？"
+// picArr: Array[1]
+// plateCode: "BK2016101413580681223"
+// praiseCount:0
+// publishDatetime: "Oct 14, 2016 11:00:34 PM"
+// publisher: "U2016101412435083050"
+// status: "0"
+// title: "323"
+// totalCommNum:4
+// totalLikeNum:0
+// totalReadTimes:0
