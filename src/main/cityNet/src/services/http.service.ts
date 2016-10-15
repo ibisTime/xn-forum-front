@@ -4,7 +4,8 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions} from "@angular/http";
 import {AlertController, Events} from "ionic-angular";
-import {url} from "./release";
+import {Release} from "./release";
+import {WarnService} from "./warn.service";
 
 const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
 
@@ -12,12 +13,13 @@ const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
 @Injectable()
 export class HttpService {
 
-  src = url() + '/captcha';
-  addr = url();
+
+  addr = Release.url();
   public headers;
   constructor(public http: Http,
               public alertCtrl: AlertController,
-              public events: Events) {
+              public events: Events,
+              public warn: WarnService) {
 
   }
 
@@ -101,11 +103,12 @@ export class HttpService {
         if (resObj.success) {//无异常
           resolve(resObj);
         } else {//有异常
-          alert(resObj.msg);
+          reject('请求出现异常');
+          this.warn.toast(resObj.msg);
           if (resObj.timeout) {
             this.events.publish('user:timeout', "timeout");
           }
-          reject('请求出现异常');
+
         }
 
       } else {//其他接口请求
@@ -125,19 +128,7 @@ export class HttpService {
 
   }
 
-  alert(msg: string, confirmAction?: () => void) {
-    let alert = this.alertCtrl.create({
-      message: msg,
-      buttons: [{
-        text: '确定',
-        handler: () => {
-          confirmAction ? confirmAction() : 1;
-          // typeof(confirmAction) === "undefined"  ? 1>0 : confirmAction();
-        }
-      }]
-    });
-    alert.present();
-  }
+
 
 
 /*end*/

@@ -1,0 +1,10 @@
+<ion-nav [root]="rootPage"></ion-nav>`
+
+<div *ngIf="cityService.ads[0]" class="ad-bg">
+    <div class="time-back">{{time}} s</div>
+    <img  [style.display]="adDisplay"
+
+         [src]="cityService.ads[0].pic" (load)="loadEnd($event)"
+    >
+</div>
+<!---->

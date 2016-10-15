@@ -39,6 +39,7 @@ import {GoodsDetailPage} from "./headline/mall/goods-detail";
 import {ResetPwdPage} from "./user/resetPwd";
 import {RelationPage} from "./mine/relationship-people/relationship";
 import {PlaceholderView} from "../components/placeholder-view/placeholder-view";
+import {SegmentView} from "../components/segment/segment";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -81,5 +82,6 @@ export const components = [
   ForumCell,
   PlatChooseView,
   ChatViewComponent,
-  CaptchaComponent
+  CaptchaComponent,
+  SegmentView
 ];

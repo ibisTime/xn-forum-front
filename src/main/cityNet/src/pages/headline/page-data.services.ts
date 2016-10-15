@@ -74,7 +74,7 @@ export class PageDataService implements OnDestroy{
                 this.items.push(...list);
 
 
-                if (3*this.start >= res.data.totalCount) {
+                if (this.limit*this.start >= res.data.totalCount) {
                     (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.enable(false));
 
 

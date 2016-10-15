@@ -2,12 +2,12 @@ import {
   Component, AfterViewInit, ViewChild, Directive
 
 } from '@angular/core';
-import { NavController, NavParams} from "ionic-angular";
-import { TabsPage} from '../tabs/tabs';
+import {NavController, NavParams, App} from "ionic-angular";
 import {IMService} from "../../services/im.service";
 import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.service";
 import {HttpService} from "../../services/http.service";
+import {LoginPage} from "./login";
 
 
 @Directive({ selector: 'input' })
@@ -24,7 +24,8 @@ export class ResetPwdPage implements AfterViewInit {
                  public user: UserService,
                  public para: NavParams,
                  public http: HttpService,
-                 public imServe: IMService
+                 public imServe: IMService,
+                 public app: App
                  ) {
   }
 
@@ -61,7 +62,10 @@ export class ResetPwdPage implements AfterViewInit {
     //let load = this.warnCtrl.loading("");
       this.http.post('/user/loginpwd/reset',find).then((res) => {
         if(res.success){
-            this.warnCtrl.toast('修改成功');
+
+          this.warnCtrl.toast('修改成功');
+          this.app.getRootNav().setRoot(LoginPage);
+
         }else{
             this.warnCtrl.toast('修改失败');
         }

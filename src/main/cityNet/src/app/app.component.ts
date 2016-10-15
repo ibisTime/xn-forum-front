@@ -7,24 +7,28 @@ import {LoginPage} from "../pages/user/login";
 import {CityService} from "../services/city.service";
 import {WarnService} from "../services/warn.service";
 import {IMService} from "../services/im.service";
+import {HttpService} from "../services/http.service";
+import {KefuService} from "../services/kefu.serve";
 
 @Component({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`
-  +
-  `<div *ngIf="cityService.ads[0]"><img style="position: fixed; left: 0; right: 0; width: 100%; height: 100%; background-color:#f1f1f1; z-index:10000" [style.display]="adDisplay"
-  [src]="cityService.ads[0].pic" (load)="loadEnd($event)"
-  ></div>`
+  selector:"app-root-comp",
+  templateUrl:"app.component.html"
 })
 export class MyApp {
 
   public rootPage: any;
-  adDisplay = "none";
+  adDisplay = "inline";
+  time = 3;
+
   constructor(public platform: Platform,
               public userServe:UserService,
               public cityService: CityService,
               public warn: WarnService,
               public events: Events,
-              public im: IMService
+              public im: IMService,
+              public http: HttpService,
+              public kefuService: KefuService,
+              public imServe: IMService
               ) {
     //根视图
     platform.ready().then(() => {
@@ -52,8 +56,10 @@ export class MyApp {
 
   loadEnd($event){
     setTimeout(res => {
+
       this.adDisplay = "none";
       this.howLoad();
+
     },2000)
 
   }
@@ -79,21 +85,30 @@ export class MyApp {
     /*加载默认*/
     this.cityService.getNavByBaiduMap(x, y).then(res => {
 
-      loadNav.dismiss();
       //有广告图进行加载
       if(res.length > 0){
 
-        setTimeout(res => {
+      //
+      //   setTimeout(res => {
+      //     this.time --;
+      //   },1000);
+      //
+      //   setTimeout(res => {
+      //
+      //    return  this.howLoad();
+      //
+      //   },30000);
 
-          this.howLoad();
 
-        },3000);
-
-      } else  {
+      }  else  {
         //无图直接跳转
-        this.howLoad();
+         return this.howLoad();
       }
 
+
+    }).then(res => {
+
+      loadNav.dismiss();
 
     }).catch(error => {
 
@@ -106,17 +121,60 @@ export class MyApp {
 
   }
 
+
   howLoad(){
 
-    this.userServe.whetherLogin().then((msg) => {
+  return  this.userServe.whetherLogin().then((msg) => {
 
       if (msg != null) {
-        this.rootPage = TabsPage;
+
+        /*客服*/
+        this.kefuService.me = this.userServe.userId;
+
+        /*im登陆*/
+        this.imServe.login(this.userServe.userId);
+
+        /*类 session 登陆*/
+       return  this.http.post('/user/login-t',{"tokenId":this.userServe.tokenId}).then(res => {
+
+          this.rootPage = TabsPage;
+         /*异步更新用户数据*/
+          this.http.get('/user').then(res => {
+             this.userServe.user = res.data;
+          });
+
+        });
+
+
       } else {
+
         this.rootPage = LoginPage;
+
       }
     });
 
   }
+
+
+
+  // login(){
+  //   this.http.post('/user/login-t',{"tokenId":this.userServe.tokenId}).then(res => {
+  //     console.log('login-t登陆成功 ');
+  //
+  //     this.userServe.saveUserInfo(res.data.tokenId,this.userServe.userId);
+  //
+  //     return this.http.get('/user');
+  //
+  //   }).then(res => {
+  //
+  //     this.userServe.user = res.data;
+  //
+  //   }).catch(error => {
+  //
+  //     console.log("登陆失败");
+  //
+  //   });
+  //
+  // }
 
 }

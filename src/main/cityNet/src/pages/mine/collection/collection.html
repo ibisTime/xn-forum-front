@@ -13,12 +13,12 @@
                 refreshingText="加载中...">
                 </ion-refresher-content>
             </ion-refresher>
+            <placeholder-view [show]="pageDataService.articles.length <= 0"></placeholder-view>
             <ion-list>
                 <forum-cell *ngFor="let item of pageDataService.articles"
                             [item]="item"
                             (articleDetailEmitter)="goArticleDetail($event)"
                 >
-
                 </forum-cell>
 
             </ion-list>

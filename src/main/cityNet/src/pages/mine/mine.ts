@@ -53,7 +53,6 @@ export class MinePage implements AfterViewInit{
               public http: HttpService,
               public app :App) {
 
-    this.getUserInfo();
 
   }
 
@@ -64,20 +63,16 @@ export class MinePage implements AfterViewInit{
   }
 
 
-
   loginOut(){
     this.userService.loginOut();
-    this.imService.clearCurrentData();
     this.imService.close();
     this.app.getRootNav().setRoot(LoginPage);
   }
 
   doRefresh($event){
-
       this.getStatisticsInfo($event);
-
+      this.userService.UpdateUserInfo();
   }
-
 
 
   getStatisticsInfo($event?){
@@ -91,18 +86,6 @@ export class MinePage implements AfterViewInit{
       });
   }
 
-
-  getUserInfo(){
-    this.myUser = this.userService.user;
-    // return this.http.get('/user').then((res) => {
-    //   let userExt = res.data.userExt;
-    //   this.src = userExt && userExt.src || "assets/images/marty-avatar.png";
-    //   document.getElementById("nickname").innerText = res.data.nickname || res.data.mobile;
-    // }).catch((error) => {
-    //   this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
-    // });
-
-  }
 
   /**/
   goRelationList(type){

@@ -16,11 +16,11 @@ import {WarnService} from "../../services/warn.service";
   }
   `]
 })
-export class SearchUserAndArticlePage implements OnInit, AfterViewInit {
+export class SearchUserAndArticlePage implements AfterViewInit {
   @ViewChild('left') left: ElementRef;
 
-  result;
   show = true;
+  result;
   articles = [];
   constructor(public  navCtrl: NavController,
               public  http: HttpService,
@@ -29,20 +29,17 @@ export class SearchUserAndArticlePage implements OnInit, AfterViewInit {
 
   }
 
-  ngOnInit() {
-  }
 
   back(){
     this.navCtrl.pop();
   }
 
-  leftClick(){
-    this.show = true;
-  }
+  changType($event){
+    if($event=="left"){
 
-  rightClick(){
-    this.show = false;
+    } else  {
 
+    }
   }
 
   ngAfterViewInit(){

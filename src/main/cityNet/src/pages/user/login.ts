@@ -14,7 +14,7 @@ import {UserService} from "../../services/user.service";
   templateUrl: "login.html"
 
 })
-export class LoginPage implements OnInit {
+export class LoginPage  {
 
   constructor(
               public uService: UserService,
@@ -29,9 +29,6 @@ export class LoginPage implements OnInit {
 
   }
 
-  ngOnInit() {
-    console.log('登陆界面被创建了');
-  }
 
   login(userName,pwd) {
     if (!userName || userName.length != 11 || !/^1[3,4,5,7,8]\d{9}$/.test(userName) ) {
@@ -46,28 +43,45 @@ export class LoginPage implements OnInit {
     }
 
     let loading = this.warnCtrl.loading('登录中');
-    this.http.post('/user/login',params).then((res) => {
+    this.uService.login(params).then(res => {
 
       loading.dismiss();
-
-      let tokenId = res["data"]["tokenId"];
-      let userId = res["data"]["userId"];
-      /*发出登陆成功通知*/
-      this.events.publish("user:loginSuccess");
-
-      //保存 uid  和  tokenid
-      this.uService.saveUserInfo(tokenId, userId);
-
-      /*切换根控制器*/
       let rootNav: NavController = this.app.getRootNav();
       rootNav.setRoot(TabsPage);
-      // this.navCtrl.push(TabsPage);
-
 
     }).catch(error => {
-      console.log("denglu");
+
       loading.dismiss();
+
+      // this.warnCtrl.toast('登陆失败');
+
     });
+
+    // this.http.post('/user/login',params).then((res) => {
+    //
+    //   /*登陆成功后获取用户信息*/
+    //   loading.dismiss();
+    //
+    //   let tokenId = res["data"]["tokenId"];
+    //   let userId = res["data"]["userId"];
+    //
+    //   return this.http.get("/user");
+    //   /*发出登陆成功通知*/
+    //   this.events.publish("user:loginSuccess");
+    //
+    //   //保存 uid  和  tokenid
+    //   this.uService.saveUserInfo(tokenId, userId);
+    //
+    //   /*切换根控制器*/
+    //   let rootNav: NavController = this.app.getRootNav();
+    //   rootNav.setRoot(TabsPage);
+    //   // this.navCtrl.push(TabsPage);
+    // }).then(res => {
+    //
+    //
+    // }).catch(error => {
+    //   loading.dismiss();
+    // });
 
   }
 

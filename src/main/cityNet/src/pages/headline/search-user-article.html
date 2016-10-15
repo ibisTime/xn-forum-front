@@ -1,10 +1,12 @@
 <ion-header class="search-user-article" >
 
   <ion-navbar no-border-bottom color="navbar-color">
-    <!--<ion-title>搜索</ion-title>-->
     <ion-title>
-      <button #left [class.current-btn] = "show" class="left" (click)="leftClick()">用户</button>
-      <button #right [ngClass]="{'current-btn': !show}" class="right" (click)="rightClick()">帖子</button>
+      <segment-view
+      [leftTitle]="'用户'"
+      [rightTitle]="'帖子'"
+      (emitter) = "changType($event)"
+      ></segment-view>
     </ion-title>
   </ion-navbar>
 
@@ -18,7 +20,7 @@
     <button class="search-btn" (click)="search(searchInput.value)">搜索</button>
   </div>
 
-  <div class="placeholder-div" *ngIf="result">
+  <div class="placeholder-div " *ngIf="result">
     没有匹配的结果
   </div>
 

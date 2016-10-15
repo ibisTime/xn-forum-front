@@ -1,4 +1,4 @@
-import {Component, AfterViewInit,ViewChild} from '@angular/core';
+import {Component,ViewChild} from '@angular/core';
 import {NavController, Platform, NavParams,InfiniteScroll,Refresher} from 'ionic-angular';
 import {WarnService} from "../../../services/warn.service";
 
@@ -34,8 +34,7 @@ export class CollectionPage {
       this.pageDataService.reqObj = {};
       this.pageDataService.refreshComp = this.refresher;
       this.pageDataService.loadMoreComp = this.loadMoreScroll;
-
-      this.pageDataService.refresh();
+      this.refresher._beginRefresh();
 
   }
 

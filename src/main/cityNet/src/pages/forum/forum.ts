@@ -219,6 +219,7 @@ export class ForumPage {
 
     /*板块详情*/
     goPlateDetail($event) {
+
         this.navCtrl.push(PlatDetailPage,$event);
 
     }

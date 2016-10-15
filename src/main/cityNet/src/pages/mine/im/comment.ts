@@ -1,5 +1,5 @@
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
-import {NavController, Platform, Content, ModalController} from 'ionic-angular';
+import {NavController, Platform, Content, ModalController, InfiniteScroll,Refresher} from 'ionic-angular';
 import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
 import {UserService} from "../../../services/user.service";
@@ -9,19 +9,19 @@ import {UserService} from "../../../services/user.service";
 })
 export class CommentPage implements AfterViewInit{
 
-  segment: string = "wsdd";
-  imgHeight: string;
-  pHeight: string;
-  imgUrl: string;
-  start1: number;
-  limit1: number;
-  start2: number;
-  limit2: number;
-  items1 = [];
-  items2 = [];
-  appendCount = 0;
-  load;
 
+  start1 = 1;
+  start2 = 1;
+
+  limit = 3;
+
+  fromMe = [];
+  toMe = [];
+
+  type = "left";
+
+  @ViewChild(InfiniteScroll)  loadMoreComp:  InfiniteScroll;
+  @ViewChild(Refresher)  refreshCmp:  Refresher;
   @ViewChild(Content) content: Content;
 
   constructor(public navCtrl: NavController,
@@ -30,55 +30,112 @@ export class CommentPage implements AfterViewInit{
               public uService : UserService,
               public mCtrl: ModalController,
               public http: HttpService) {
-      this.start1 = 1;
-      this.limit1 = 10;
-      this.start2 = 1;
-      this.limit2 = 10;
+
+      this.type = "left";
 
   }
 
   ngAfterViewInit(){
       this.getCommentFromMe();
-      this.getCommentToMe();
+  }
+
+  changType($event){
+
+      console.log('正在发送事件');
+      this.loadMoreComp.enable(true);
+
+      if($event == "left"){
+
+          this.type = "left";
+
+      } else {
+
+          this.type = "right";
+
+      }
+
   }
 
   /*我发出的评论*/
   getCommentFromMe() {
-      let obj = {
-          "start": 1,
-          "limit": 10
-      }
-      this.http.get("/post/mytocomment/page",obj).then(res => {
 
+      let obj = {
+          "start": this.start1,
+          "limit": this.limit
+      }
+      this.http.get("/post/myfromcomment/page",obj).then(res => {
+
+          if(this.start1 == 1){
+              this.fromMe = [];
+          }
+          this.fromMe.push(...res.data.list);
+          this.start1 ++;
+
+
+          this.refreshCmp.complete();
+          this.loadMoreComp.complete();
+
+          if (this.limit*this.start1 >= res.data.totalCount) {
+              this.loadMoreComp.enable(false);
+          }
       }).catch(error => {
 
+          this.refreshCmp.complete();
+          this.loadMoreComp.complete();
       })
-
+      
   }
-
 
   /*我收到的评论*/
   getCommentToMe(){
 
       let obj = {
-          "start": 1,
-          "limit": 10
+          "start": this.start2,
+          "limit": this.limit
       }
-      this.http.get("/post/myfromcomment/page",obj).then(res => {
+
+      this.http.get("/post/mytocomment/page",obj).then(res => {
+
+          if(this.start2 == 1){
+              this.toMe = [];
+          }
+          this.toMe.push(...res.data.list);
+          this.start2 ++;
+
+          this.refreshCmp.complete();
+          this.loadMoreComp.complete();
+
+          if (this.limit*this.start2 >= res.data.totalCount) {
+              this.loadMoreComp.enable(false);
+          }
+
 
       }).catch(error => {
+
+          this.refreshCmp.complete();
+          this.loadMoreComp.complete();
 
       })
 
   }
 
   refresh($event){
-
+    if(this.type == "left"){
+        this.start1 = 1;
+        this.getCommentFromMe();
+    } else {
+        this.start2 = 1;
+        this.getCommentToMe();
+    }
 
   }
 
   loadMore($event){
-
+      if(this.type == "left"){
+          this.getCommentFromMe();
+      } else {
+          this.getCommentToMe();
+      }
 
   }
 
@@ -107,11 +164,11 @@ post: Object[
 
 
 //我发出的
-/*code: "PL2016101212203137384"
+/*code:     "PL2016101212203137384"
 commDatetime: "Oct 12, 2016 12:20:31 PM"
-commer: "U2016100913405823244"
-content: "23233232323"
+commer:     "U2016100913405823244"
+content:    "23233232323"
 nextCommentList: Array[0]
-nickname: "tianlei"
+nickname:   "tianlei"
 parentCode: "TZ2016101211362092517"*/
 

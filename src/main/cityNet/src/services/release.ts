@@ -29,6 +29,16 @@ export namespace Release {
         }
     }
 
+    export function  url(){
+
+        if(RELEASE){
+            return "http://121.43.101.148:7303/xn-forum-front";
+        } else {
+            return "http://localhost:8080/xn-forum-front";
+        }
+
+    }
+
 
     export function log(msg) {
         if (!release) {

@@ -14,26 +14,33 @@
         </ion-refresher-content>
     </ion-refresher>
   <!--顶部-->
-  <div text-center class="p20 c_white bg_ad_d6">
+  <div text-center class="p20 c_white bg_ad_d6" *ngIf="user">
       <div>
           <img class="br50" [src]="src"/>
       </div>
       <div class="lh2em">
-          <span id="nickName">CT-454543534</span>
-          <span class="br50 bg_e66c61 xb"><ion-icon name="female"></ion-icon></span>
+          <span id="nickName">{{user.nickname}}</span>
+          <span class="br50 bg_e66c61 xb">
+              <ion-icon name="female"></ion-icon>
+          </span>
           <!--<ion-icon name="male"></ion-icon>-->
-          <span class="inblock bg_43a8e8 dj">V2</span>
+          <span class="inblock bg_43a8e8 dj">V{{user.level}}</span>
       </div>
+
       <div class="wp100 clearfix lh2em">
-          <div class="fl wp50">关注<span class="pl10">580</span></div>
+          <div class="fl wp50">关注<span class="pl10">{{user.totalFollowNum}}</span></div>
           <div class="fl w_line"></div>
-          <div class="fl wp49">粉丝<span class="pl10">345</span></div>
+          <div class="fl wp49">粉丝<span class="pl10">{{user.totalFansNum}}</span></div>
       </div>
+
       <div id="introduce">
-          个人简介
+          <!--<span>自我介绍：</span>{{user.userExt.introduce || 暂无信息}}-->
       </div>
   </div>
-  <div class="bg_f0 c_a3 pl8 lh2em" id="totalTZ">{{pageDataService.articles.length}}个帖子</div>
+
+  <div class="bg_f0 c_a3 pl8 lh2em" id="totalTZ">
+      {{pageDataService.articles.length}}个帖子
+  </div>
   
    <ion-list>
         <ion-item *ngFor="let item of pageDataService.articles">
@@ -42,14 +49,12 @@
                     (articleDetailEmitter)="openPage($event)"
             ></forum-cell>
         </ion-item>
-
-
-
     </ion-list>
+
     <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"
-                loadingText="加载中...">
+                >
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
 
@@ -57,12 +62,14 @@
 
 
 <ion-footer class="mine-detail-foot">
+
     <div class="b_fff lh2em ptb6 bd_t_e6" *ngIf="isMe" (click)="doEdit()">
         <div class="tc">
             <i class="icon iconfont c_d23e3e">&#xe616;</i>
             <span class="c_80">编辑资料</span>
         </div>
     </div>
+
     <div class="tc b_fff clearfix lh2em ptb6 bd_t_e6" *ngIf="!isMe">
         <div class="fl tc wp49 {{followFlag?'hidden':''}}" (click)="follow()">
             <ion-icon name="add" class="c_d23e3e"></ion-icon>
@@ -78,4 +85,5 @@
             <span class="c_80" (click)="goChat()">私信</span>
         </div>
     </div>
+
 </ion-footer>

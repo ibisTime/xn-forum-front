@@ -34,8 +34,8 @@ export class ForumCell implements OnInit {
     }
 
     /*点击头像去详情页*/
-    goDetail(toId){
-        this.navCtrl.push(MineDetailPage, {toUserId: toId});
+    goDetail(article){
+        this.navCtrl.push(MineDetailPage, article);
     }
 
     /*收藏*/

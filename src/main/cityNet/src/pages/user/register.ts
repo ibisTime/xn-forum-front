@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NavController} from "ionic-angular";
+import {NavController, App} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 import {IMService} from "../../services/im.service";
 import {WarnService} from "../../services/warn.service";
@@ -15,7 +15,6 @@ import {HttpService} from "../../services/http.service";
 export class RegisterPage implements OnInit {
 
   captchaValue;
-  src;
   userNameValue;
   @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
   constructor(   public navCtrl: NavController,
@@ -23,8 +22,8 @@ export class RegisterPage implements OnInit {
                  public user: UserService,
                  public imServe: IMService,
                  public http: HttpService,
+                 public app: App
                  ) {
-    this.src = this.http.src;
     }
 
   ngOnInit() {
@@ -93,53 +92,63 @@ export class RegisterPage implements OnInit {
       smsCaptcha: captcha
     }
 
-
-
-    let loading = this.warnCtrl.loading('');
     /*注册*/
-    this.http.post("/user/reg",params).then( res => {
-
-      this.warnCtrl.toast('注册成功');
-      let userId = res.data.userId;
-      // let tokenId = res.data
-
-      /*通过userId注册环信*/
-      this.imServe.register(userId,"").then(() => {
-
-        loading.dismiss();
-        this.warnCtrl.toast('注册IM成功');
-        /*帮用户进行登陆*/
-        let loginParams = {
-          loginName: userName,
-          loginPwd: pwd,
-          terminalType: "1"
-        }
-
-        return this.http.post('/user/login',loginParams);
-
-      }).then(res => {
-        /*登陆成功 保存信息*/
-        let tokenId = res["data"]["tokenId"];
-        let userId = res["data"]["userId"];
-
-        console.log('在真机中使用');
-        //保存 uid  和  tokenid
-        this.user.saveUserInfo(tokenId,userId);
-
-        //切换控制
-        this.navCtrl.push(TabsPage);
-
-      }).catch((error) => {
-        this.warnCtrl.toast('注册IM失败');
-        loading.dismiss();
-      });
-
-    }).catch( error => {
+    let loading = this.warnCtrl.loading('');
+    this.user.register(params).then(res => {
 
       loading.dismiss();
-      console.log('外部--失败');
+      this.app.getRootNav().setRoot(TabsPage);
+
+    }).catch(error => {
+
+      loading.dismiss();
 
     });
+
+    // /*注册*/
+    // this.http.post("/user/reg",params).then( res => {
+    //
+    //   this.warnCtrl.toast('注册成功');
+    //   let userId = res.data.userId;
+    //   // let tokenId = res.data
+    //
+    //   /*通过userId注册环信*/
+    //   this.imServe.register(userId,"").then(() => {
+    //
+    //     loading.dismiss();
+    //     this.warnCtrl.toast('注册IM成功');
+    //     /*帮用户进行登陆*/
+    //     let loginParams = {
+    //       loginName: userName,
+    //       loginPwd: pwd,
+    //       terminalType: "1"
+    //     }
+    //
+    //     return this.http.post('/user/login',loginParams);
+    //
+    //   }).then(res => {
+    //     /*登陆成功 保存信息*/
+    //     let tokenId = res["data"]["tokenId"];
+    //     let userId = res["data"]["userId"];
+    //
+    //     console.log('在真机中使用');
+    //     //保存 uid  和  tokenid
+    //     this.user.saveUserInfo(tokenId,userId);
+    //
+    //     //切换控制
+    //     this.navCtrl.push(TabsPage);
+    //
+    //   }).catch((error) => {
+    //     this.warnCtrl.toast('注册IM失败');
+    //     loading.dismiss();
+    //   });
+    //
+    // }).catch( error => {
+    //
+    //   loading.dismiss();
+    //   console.log('外部--失败');
+    //
+    // });
 
 
   }

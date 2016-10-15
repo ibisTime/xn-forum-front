@@ -17,18 +17,18 @@ import {PageDataService} from "../../headline/page-data.services";
 export class MineDetailPage implements AfterViewInit{
 
   src:string = 'assets/images/marty-avatar.png';
-  imgHeight: string;
-  pHeight: string;
   items = [];
   start: number;
   limit: number;
   appendCount = 0;
+
   toUserId = "";
   isMe = true;
   totalCount = 0;
   watchTz = false;
   followCount: number = 0;
   followFlag:boolean = false;
+  user;
 
   @ViewChild(InfiniteScroll)  loadMoreComp:  InfiniteScroll;
   @ViewChild(Refresher)  refreshComp:  Refresher;
@@ -36,20 +36,20 @@ export class MineDetailPage implements AfterViewInit{
   constructor(public navCtrl: NavController,
               public platform: Platform,
               public userService: UserService,
-              public imService: IMService,
               public warnCtrl: WarnService,
               public params: NavParams,
               public http: HttpService,
               public pageDataService: PageDataService) {
-    this.toUserId = params.data.toUserId || userService.userId;
-    this.watchTz = params.data.tz || false;
-    
-    this.isMe = this.toUserId == userService.userId ? true: false;
 
-    this.getUserInfo();
+      this.toUserId = params.data.publisher || userService.userId;
+      this.watchTz = params.data.tz || false;
+
+      this.isMe = this.toUserId == userService.userId ? true : false;
+      // this.getUserInfo();
+
+      /*差一个获取用户信息接口*/
 
       if (!this.isMe) {
-
           userService.queryFollowUsers().then(()=> {
               let fUs = this.userService.followUsers;
               for (let f of fUs) {
@@ -60,6 +60,10 @@ export class MineDetailPage implements AfterViewInit{
                   }
               }
           });
+
+      } else {
+          this.user = this.userService.user;
+
       }
 
   }
@@ -74,15 +78,15 @@ export class MineDetailPage implements AfterViewInit{
       this.pageDataService.refreshComp = this.refreshComp;
       this.pageDataService.loadMoreComp = this.loadMoreComp;
 
-      /*获取帖子数据*/
-      this.pageDataService.refresh();
+      /*获取帖子数据 自动刷新*/
+      this.refreshComp._beginRefresh();
 
   }
 
   getUserInfo(){
     this.http.get('/user').then((res) => {
       let userExt = res.data.userExt;
-      this.src = userExt && userExt.src || "images/marty-avatar.png";
+      // this.src = userExt && userExt.src || "images/marty-avatar.png";
       document.getElementById("nickName").innerText = res.data.nickname || res.data.mobile;
       document.getElementById("introduce").innerText = userExt.introduce || "还没有个人介绍哦";
     }).catch((error) => {
@@ -140,8 +144,6 @@ export class MineDetailPage implements AfterViewInit{
                 this.followCount = 0;
                 if(res.success){
                     this.followFlag = true;
-                }else if(res.timeout){
-                    this.warnCtrl.toast("登录超时，请重新登录!");
                 }else{
                     this.warnCtrl.toast("关注失败，请稍后重试!");
                 }
@@ -151,6 +153,7 @@ export class MineDetailPage implements AfterViewInit{
             });
       }
   }
+
   //取消关注
   unfollow(){
       if(!this.followCount){
@@ -176,14 +179,16 @@ export class MineDetailPage implements AfterViewInit{
 
      this.pageDataService.refresh();
   }
+
   doAppendData(event){
      this.pageDataService.loadMore();
 
   }
 
+
   /*聊天*/
   goChat(){
-    this.navCtrl.push(ChatRoomPage, this.toUserId);
+    this.navCtrl.push(ChatRoomPage, {"userId":this.toUserId,"nickname":this});
   }
 
 
@@ -191,12 +196,14 @@ export class MineDetailPage implements AfterViewInit{
     this.navCtrl.push(MineDetailPage, {toUserId: toId});
   }
 
-
   //打开帖子详情页
   openPage($event){
       this.navCtrl.push(ContentPage,$event);
   }
+
+  /*自己，进行信息编辑*/
   doEdit(){
       this.navCtrl.push(EditDetailPage);
   }
+
 }
