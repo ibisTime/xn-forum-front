@@ -1,6 +1,6 @@
 package com.xnjr.moom.front.req;
 
-public class XN805041Req {
+public class XN610900Req {
     // 手机号
     private String mobile;
 
@@ -15,6 +15,15 @@ public class XN805041Req {
 
     // 验证码
     private String smsCaptcha;
+
+    // 省份
+    private String province;
+
+    // 城市
+    private String city;
+
+    // 区域
+    private String area;
 
     public String getMobile() {
         return mobile;
@@ -56,4 +65,27 @@ public class XN805041Req {
         this.smsCaptcha = smsCaptcha;
     }
 
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
 }

@@ -76,9 +76,12 @@ public class MemberController extends BaseController {
             @RequestParam("mobile") String mobile,
             @RequestParam("loginPwd") String loginPwd,
             @RequestParam("smsCaptcha") String smsCaptcha,
-            @RequestParam(value = "userReferee", required = false) String userReferee) {
-
-        return userAO.doReg(mobile, loginPwd, smsCaptcha, userReferee);
+            @RequestParam(value = "userReferee", required = false) String userReferee,
+            @RequestParam(value = "province", required = false) String province,
+            @RequestParam(value = "city", required = false) String city,
+            @RequestParam(value = "area", required = false) String area) {
+        return userAO.doReg(mobile, loginPwd, smsCaptcha, userReferee,
+            province, city, area);
     }
 
     // 用户登录
