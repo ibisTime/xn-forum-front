@@ -7,6 +7,7 @@ import {WarnService} from "../../services/warn.service";
 import {HttpService} from "../../services/http.service";
 import {MineDetailPage} from "../../pages/mine/detail/detail";
 import {UserService} from "../../services/user.service";
+import {ContentPage} from "../../pages/forum/content/content";
 
 @Component({
     selector: 'forum-cell',
@@ -38,7 +39,7 @@ export class ForumCell implements OnInit {
     } 
     @Input()
     set item(item){
-        item.content = item.content.replace(/\s@([^\s]*)\s/ig, "<a class='people'>$1</a>");
+        item.content = item.content.replace(/(@[^\s]*)\s/ig, "<a class='people'>$1</a>");
         this._item = item;
     }
     /*点击头像去详情页*/
@@ -47,18 +48,18 @@ export class ForumCell implements OnInit {
     }
     /*收藏*/
     collect(code, flag?){
-        if(!this.item.collectCount){
-            this.item.collectCount = 1;
+        if(!this._item.collectCount){
+            this._item.collectCount = 1;
             this.http.post('/post/praise',{
                 "type": "2",
                 "postCode": code
             }).then((res) => {
-                this.item.collectCount = 0;
+                this._item.collectCount = 0;
                 if(res.success){
                     if(!flag){
-                        this.item.isSC = "1";
+                        this._item.isSC = "1";
                     }else{
-                        this.item.isSC = "0";
+                        this._item.isSC = "0";
                     }
                 }else{
                     if(!flag){
@@ -68,7 +69,7 @@ export class ForumCell implements OnInit {
                     }
                 }
             }).catch(error => {
-                this.item.collectCount = 0;
+                this._item.collectCount = 0;
                 if(!flag){
                     this.warnCtrl.toast("收藏失败，请稍后重试!");
                 }else{
@@ -82,20 +83,20 @@ export class ForumCell implements OnInit {
 
     /*点赞*/
     praise(code, flag?){
-        if(!this.item.praiseCount){
-            this.item.praiseCount = 1;
+        if(!this._item.praiseCount){
+            this._item.praiseCount = 1;
             this.http.post('/post/praise',{
                 "type": "1",
                 "postCode": code
             })
                 .then((res) => {
-                    this.item.praiseCount = 0;
+                    this._item.praiseCount = 0;
                     if(res.success){
                         if(!flag){
-                            this.item.totalLikeNum = +this.item.totalLikeNum + 1;
-                            this.item.isDZ = "1";
+                            this._item.totalLikeNum = +this._item.totalLikeNum + 1;
+                            this._item.isDZ = "1";
                             if(!this.isHideCom){
-                                this.item.likeList.push({
+                                this._item.likeList.push({
                                     talker:this.uService.userId,
                                     nickname: this.uService.user.nickname,
                                     postCode: code
@@ -103,14 +104,14 @@ export class ForumCell implements OnInit {
                             }
                         }else{
                             if(!this.isHideCom){
-                                for(let i = 0; i < this.item.likeList.length; i++){
-                                    if(this.item.likeList[i].talker == this.uService.userId){
-                                        this.item.likeList.splice(i, 1);
+                                for(let i = 0; i < this._item.likeList.length; i++){
+                                    if(this._item.likeList[i].talker == this.uService.userId){
+                                        this._item.likeList.splice(i, 1);
                                     }
                                 }
                             }
-                            this.item.totalLikeNum = +this.item.totalLikeNum - 1;
-                            this.item.isDZ = "0";
+                            this._item.totalLikeNum = +this._item.totalLikeNum - 1;
+                            this._item.isDZ = "0";
                         }
                     }else if(res.timeout){
                         this.warnCtrl.toast("登录超时，请重新登录!");
@@ -122,7 +123,7 @@ export class ForumCell implements OnInit {
                         }
                     }
                 }).catch(error => {
-                this.item.praiseCount = 0;
+                this._item.praiseCount = 0;
                 if(flag){
                     this.warnCtrl.toast("取消点赞失败，请稍后重试!");
                 }else{
@@ -136,9 +137,22 @@ export class ForumCell implements OnInit {
 
 
     /*去详情页*/
-    openPage($event, item){
-        item.event = $event;
-        this.articleDetailEmitter.emit(item);
+    // openPage($event, item){
+    //     item.event = $event;
+    //     this.articleDetailEmitter.emit(item);
+    // }
+    openPage($event,item) {
+        let target = $event.target;
+        if(target.className == "people"){
+            //点击@
+
+            $event.stopPropagation();
+            this.navCtrl.push(MineDetailPage,{"nickname":target.innerText});
+            return;
+        }else{
+            this.navCtrl.push(ContentPage, this._item);
+        }
+        // this.navCtrl.push(ContentPage, {code: $event.code, user: $event.publisher});
     }
 
     showImg(ev){

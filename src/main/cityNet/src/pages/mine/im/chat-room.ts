@@ -35,12 +35,11 @@ export class ChatRoomPage implements AfterViewInit {
               public warn: WarnService
               ) {
 
-    /*通过聊天人获取数据*/
+    //接受参数包含     userId    nickname   photo
 
     /*把user 对象传送过来*/
-    this.listOfChatData = this.imServe.getDataByFromName(params.data);
+    this.listOfChatData = this.imServe.getDataByFromName(params.data.userId);
 
-    console.log(params.data);
     //1.哪到导航数据就去获取信息
     this.imServe.imTextMessageInner = msg => {
       setTimeout(() => {
@@ -92,21 +91,32 @@ export class ChatRoomPage implements AfterViewInit {
 
   sendMsg(msgInput) {
 
-    this.msgPut.setFocus();
-
+    let success = false;
     let load = this.warn.loading("发送中");
-    this.imServe.handleToMsg(msgInput.value,this.params.data);
 
-    this.imServe.sendTextMsg(msgInput.value,this.params.data, (id, serverMsgId) => {
+    this.imServe.sendTextMsg(msgInput.value,this.params.data.userId, (id, serverMsgId) => {
 
       load.dismiss();
+      success = true;
+      this.imServe.handleToMsg(msgInput.value,this.params.data.userId);
       msgInput.value = "";
+
 
     });
 
+    // setTimeout(() => {
+    //
+    //   this.content.scrollToBottom();
+    //
+    // },200)
     setTimeout(() => {
-      this.content.scrollToBottom();
-    },200)
+
+      if(!success){
+        load.dismiss();
+        this.warn.toast('发送失败');
+      }
+
+    },5000)
 
   }
 
