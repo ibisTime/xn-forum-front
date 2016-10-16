@@ -17,6 +17,7 @@ import com.xnjr.moom.front.req.XN602802Req;
 import com.xnjr.moom.front.req.XN602803Req;
 import com.xnjr.moom.front.req.XN602804Req;
 import com.xnjr.moom.front.req.XN602805Req;
+import com.xnjr.moom.front.req.XN610903Req;
 import com.xnjr.moom.front.req.XN805040Req;
 import com.xnjr.moom.front.req.XN805041Req;
 import com.xnjr.moom.front.req.XN805043Req;
@@ -30,7 +31,6 @@ import com.xnjr.moom.front.req.XN805057Req;
 import com.xnjr.moom.front.req.XN805073Req;
 import com.xnjr.moom.front.req.XN805074Req;
 import com.xnjr.moom.front.req.XN805075Req;
-import com.xnjr.moom.front.req.XN805100Req;
 import com.xnjr.moom.front.req.XN805101Req;
 import com.xnjr.moom.front.req.XN805102Req;
 import com.xnjr.moom.front.req.XNfd0003Req;
@@ -479,10 +479,10 @@ public class UserAOImpl implements IUserAO {
         if (StringUtils.isBlank(location)) {
             throw new BizException("A010001", "地区不能为空");
         }
-        XN805100Req req = new XN805100Req();
+        XN610903Req req = new XN610903Req();
         req.setUserId(userId);
         req.setLocation(location);
-        return BizConnecter.getBizData("805100", JsonUtils.object2Json(req),
+        return BizConnecter.getBizData("610903", JsonUtils.object2Json(req),
             Object.class);
     }
 
