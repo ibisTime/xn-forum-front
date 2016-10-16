@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.xnjr.moom.front.ao.IUserAO;
+import com.xnjr.moom.front.enums.EUserKind;
 import com.xnjr.moom.front.exception.BizException;
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
@@ -520,9 +521,22 @@ public class UserAOImpl implements IUserAO {
             Object.class);
     }
 
-	@Override
-	public Object userSTAT(String userId) {
-		return BizConnecter.getBizData("610902", JsonUtils.string2Json("userId", userId),
-	            Object.class);
-	}
+    @Override
+    public Object userSTAT(String userId) {
+        return BizConnecter.getBizData("610902",
+            JsonUtils.string2Json("userId", userId), Object.class);
+    }
+
+    /** 
+     * @see com.xnjr.moom.front.ao.IUserAO#queryUserList(java.lang.String, java.lang.String)
+     */
+    @Override
+    public Object queryUserList(String nickname, String mobile) {
+        XN805055Req req = new XN805055Req();
+        req.setNickname(nickname);
+        req.setMobile(mobile);
+        req.setKind(EUserKind.F1.getCode());
+        return BizConnecter.getBizData("805055", JsonUtils.object2Json(req),
+            Object.class);
+    }
 }

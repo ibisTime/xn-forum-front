@@ -3,6 +3,8 @@ package com.xnjr.moom.front.req;
 public class XN805055Req {
     private String loginName;
 
+    private String nickname;
+
     private String kind;
 
     private String level;
@@ -109,5 +111,13 @@ public class XN805055Req {
 
     public void setUpdater(String updater) {
         this.updater = updater;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
