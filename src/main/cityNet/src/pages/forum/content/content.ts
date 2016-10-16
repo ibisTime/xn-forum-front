@@ -169,17 +169,17 @@ export class ContentPage {
                 if(res.success){
 
                     if(!flag){
-                        this.item.totalDzNum = (+this.item.totalDzNum + 1) + "";
+                        this.item.totalLikeNum = (+this.item.totalLikeNum + 1) + "";
                         this.item.isDZ = "1";
-                        this.item.postTalkList.push({
+                        this.item.likeList.push({
                             talker:this.uService.userId,
-                            nickname: "昵称",
+                            nickname: this.uService.user.nickname,
                             postCode: code
                         });
                     }else{
-                        this.item.totalDzNum = (+this.item.totalDzNum - 1) + "";
+                        this.item.totalLikeNum = (+this.item.totalLikeNum - 1) + "";
                         this.item.isDZ = "0";
-                        this.item.postTalkList.pop();
+                        this.item.likeList.pop();
                     }
                 }else if(res.timeout){
                     this.warnCtrl.toast("登录超时，请重新登录!");
@@ -210,7 +210,7 @@ export class ContentPage {
         .then((res) => {
             if(res.success){
                 this.item.commentList.push({
-                    nickname: "自己",
+                    nickname: this.uService.user.nickname,
                     content: msg
                 });
             }else{

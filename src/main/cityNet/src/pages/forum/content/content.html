@@ -63,10 +63,10 @@
                                 <div class="com-top clearfix">
                                     <button class="fl">
                                         <i class="icon iconfont">&#xe624;</i>
-                                        <span>{{item.totalDzNum}}</span>
+                                        <span class="va-t">{{item.totalLikeNum}}</span>
                                     </button>
                                     <div class="t-3dot">
-                                        <span *ngFor="let g of item.postTalkList">{{g.nickname}}</span>
+                                        <span *ngFor="let g of item.likeList">{{g.nickname}}</span>
                                     </div>
                                 </div>
                                 <div class="com-bottom">
@@ -88,7 +88,7 @@
         评价{{item.totalCommNum}}
       </ion-segment-button>
       <ion-segment-button value="dzan">
-        点赞{{item.totalDzNum}}
+        点赞{{item.totalLikeNum}}
       </ion-segment-button>
     </ion-segment>
     <div [ngSwitch]="segment" class="com-btn1">
@@ -104,7 +104,7 @@
         <div *ngSwitchCase="'dzan'">
             <div class="com-top clearfix">
                 <ion-list>
-                    <ion-item *ngFor="let g of item.postTalkList">
+                    <ion-item *ngFor="let g of item.likeList">
                         <span class="t-3dot">{{g.nickname}}</span>
                     </ion-item>
                 </ion-list>

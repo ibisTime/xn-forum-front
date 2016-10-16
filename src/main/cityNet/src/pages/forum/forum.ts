@@ -23,6 +23,7 @@ export class ForumPage {
   start: number;
   limit: number;
   items = [];
+  isEnd = false;
   appendCount = 0;
 
     nav;
@@ -61,6 +62,9 @@ export class ForumPage {
                 let i = 0;
                 if(refresh){
                     this.items = [];
+                }
+                if(!list.length){
+                    this.isEnd = true;
                 }
                 for(i = 0; i < list.length; i++){
                     // if(list[i].pic){
@@ -129,10 +133,10 @@ export class ForumPage {
                     this.items[index].praiseCount = 0;
                     if(res.success){
                         if(!flag){
-                            this.items[index].totalDzNum = +this.items[index].totalDzNum + 1;
+                            this.items[index].totalLikeNum = +this.items[index].totalLikeNum + 1;
                             this.items[index].isDZ = "1";
                         }else{
-                            this.items[index].totalDzNum = +this.items[index].totalDzNum - 1;
+                            this.items[index].totalLikeNum = +this.items[index].totalLikeNum - 1;
                             this.items[index].isDZ = "0";
                         }
                     }else{
@@ -158,11 +162,12 @@ export class ForumPage {
 
   doRefresh(event){
         this.start = 1;
+        this.isEnd = false;
         this.queryPostPage(event, true);
   }
 
   doAppendData(event){
-        if(!this.appendCount){
+        if(!this.appendCount && !this.isEnd){
             this.appendCount = 1;
             this.queryPostPage(event).then(()=>{
                 this.appendCount = 0;

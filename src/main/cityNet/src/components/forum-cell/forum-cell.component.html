@@ -40,19 +40,19 @@
                             <i class="icon iconfont">&#xe610;</i><span>{{item.totalCommNum}}</span>
                         </button>
                         <button class="sp-btn fr "
-                                [class.hidden]="item.isDZ == '0'"
+                                [class.hidden]="item.isDZ != '0'"
                                 (click)="praise(item.code)">
                             <i class="icon iconfont">&#xe624;</i>
-                            <span class="praise-total">{{item.totalDzNum}}</span>
+                            <span class="praise-total">{{item.totalLikeNum}}</span>
                         </button>
                         <button class="sp-btn fr"
-                                [class.hidden]="item.isDZ != '0'"
+                                [class.hidden]="item.isDZ == '0'"
                                 (click)="praise(item.code,true)"
                         >
                             <!--<i class="icon iconfont">&#xe624;</i>-->
                             <ion-icon name="thumbs-up" style="color:#f64444">
                             </ion-icon>
-                            <span class="praise-total">{{item.totalDzNum}}</span>
+                            <span class="praise-total">{{item.totalLikeNum}}</span>
                         </button>
                     </ion-buttons>
                 </div>

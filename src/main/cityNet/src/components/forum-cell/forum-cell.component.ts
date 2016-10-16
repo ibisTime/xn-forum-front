@@ -85,10 +85,10 @@ export class ForumCell implements OnInit {
                     this.item.praiseCount = 0;
                     if(res.success){
                         if(!flag){
-                            this.item.totalDzNum = +this.item.totalDzNum + 1;
+                            this.item.totalLikeNum = +this.item.totalLikeNum + 1;
                             this.item.isDZ = "1";
                         }else{
-                            this.item.totalDzNum = +this.item.totalDzNum - 1;
+                            this.item.totalLikeNum = +this.item.totalLikeNum - 1;
                             this.item.isDZ = "0";
                         }
                     }else if(res.timeout){
