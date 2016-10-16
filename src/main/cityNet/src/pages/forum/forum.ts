@@ -67,11 +67,9 @@ export class ForumPage {
                     this.isEnd = true;
                 }
                 for(i = 0; i < list.length; i++){
-                    // if(list[i].pic){
-                    //     list[i].pic = list[i].pic.split(/\|\|/);
-                    // }
                     list[i].collectCount = 0;   //点击收藏次数
                     list[i].praiseCount = 0;    //点击点赞次数
+                    //list[i].commentList.splice(5);
                     this.items.push(list[i]);
                 }
                 if(i > 0){
@@ -172,6 +170,8 @@ export class ForumPage {
             this.queryPostPage(event).then(()=>{
                 this.appendCount = 0;
             });
+        }else{
+            event.complete();
         }
 
   }
@@ -184,8 +184,15 @@ export class ForumPage {
 
     /*帖子详情*/
     openPage($event) {
+        let target = $event.event.target;
+        if(target.className == "people"){
+            //点击@
 
-        this.navCtrl.push(ContentPage, $event);
+            $event.event.stopPropagation();
+            return;
+        }else{
+            this.navCtrl.push(ContentPage, $event);
+        }
         // this.navCtrl.push(ContentPage, {code: $event.code, user: $event.publisher});
     }
 

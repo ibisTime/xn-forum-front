@@ -4,7 +4,7 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="forum">
             <ion-refresher (ionRefresh)="doRefresh($event)">
                 <ion-refresher-content
                 pullingIcon="arrow-dropdown"
@@ -16,11 +16,12 @@
             <placeholder-view [show]="pageDataService.articles.length <= 0"></placeholder-view>
 
             <ion-list>
-                <forum-cell *ngFor="let item of pageDataService.articles"
-                            [item]="item"
+                <ion-item *ngFor="let item of pageDataService.articles;">
+                <forum-cell [item]="item"
                             (articleDetailEmitter)="goArticleDetail($event)"
                 >
                 </forum-cell>
+                </ion-item>
             </ion-list>
 
             <ion-infinite-scroll (ionInfinite)="doAppendData($event)">

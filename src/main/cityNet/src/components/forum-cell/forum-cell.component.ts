@@ -6,6 +6,7 @@ import {Platform, NavController} from "ionic-angular";
 import {WarnService} from "../../services/warn.service";
 import {HttpService} from "../../services/http.service";
 import {MineDetailPage} from "../../pages/mine/detail/detail";
+import {UserService} from "../../services/user.service";
 
 @Component({
     selector: 'forum-cell',
@@ -13,16 +14,19 @@ import {MineDetailPage} from "../../pages/mine/detail/detail";
 })
 export class ForumCell implements OnInit {
 
-    @Input() item;
+    
+    _item;
     /*详情事件*/
     @Output() articleDetailEmitter = new EventEmitter();
     @Input() navCtrl: NavController;
 
     imgHeight;
     pHeight;
+    @Input() isHideCom = true;
     constructor(public platform: Platform,
                 public warnCtrl: WarnService,
-                public http: HttpService) {
+                public uService : UserService,
+                public http: HttpService,) {
 
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
@@ -31,13 +35,16 @@ export class ForumCell implements OnInit {
     }
 
     ngOnInit() {
+    } 
+    @Input()
+    set item(item){
+        item.content = item.content.replace(/\s@([^\s]*)\s/ig, "<a class='people'>$1</a>");
+        this._item = item;
     }
-
     /*点击头像去详情页*/
     goDetail(article){
         this.navCtrl.push(MineDetailPage, article);
     }
-
     /*收藏*/
     collect(code, flag?){
         if(!this.item.collectCount){
@@ -87,7 +94,21 @@ export class ForumCell implements OnInit {
                         if(!flag){
                             this.item.totalLikeNum = +this.item.totalLikeNum + 1;
                             this.item.isDZ = "1";
+                            if(!this.isHideCom){
+                                this.item.likeList.push({
+                                    talker:this.uService.userId,
+                                    nickname: this.uService.user.nickname,
+                                    postCode: code
+                                });
+                            }
                         }else{
+                            if(!this.isHideCom){
+                                for(let i = 0; i < this.item.likeList.length; i++){
+                                    if(this.item.likeList[i].talker == this.uService.userId){
+                                        this.item.likeList.splice(i, 1);
+                                    }
+                                }
+                            }
                             this.item.totalLikeNum = +this.item.totalLikeNum - 1;
                             this.item.isDZ = "0";
                         }
@@ -115,7 +136,8 @@ export class ForumCell implements OnInit {
 
 
     /*去详情页*/
-    openPage(item){
+    openPage($event, item){
+        item.event = $event;
         this.articleDetailEmitter.emit(item);
     }
 
