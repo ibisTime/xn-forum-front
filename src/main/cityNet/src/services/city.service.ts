@@ -56,6 +56,8 @@ export class CityService {
   /*视频引流数据*/
   videoData = [];
 
+  address;//存入省市区
+
   public headlineData = {
   "banner": [],
   "func3": [],
@@ -108,28 +110,51 @@ export class CityService {
   /*通过经纬度直接获取导航*/
   getNavByBaiduMap(longitude, latitude){
 
-    return this.getSiteByBaiduMap(longitude, latitude).then(res => {
+    if(longitude == 0 && latitude == 0){
 
-      let city = res.result.addressComponent.city;
-      let area = res.result.addressComponent.district;
       let zoneObj = {
-        // "province":res.result.addressComponent.province,
-        // "city":res.result.addressComponent.city,
-        // "city":city.slice(0,city.length - 1)
-
-        "province":res.result.addressComponent.province || "未知",
-        "area": area || "未知",
-        "city":city || "未知"
+        "province": "未知",
+        "area":  "未知",
+        "city": "未知"
       }
-      console.log(res.result.addressComponent.province);
 
-      /*获取站点*/
-       return this.getSiteByAddress(zoneObj);
-    }).then(res => {
-      let data = res["data"];
-      return this.getNavigateBySiteCode(data["code"]);
+      return this.getSiteByAddress(zoneObj).then(res => {
 
-    });
+        let data = res["data"];
+        return this.getNavigateBySiteCode(data["code"]);
+
+      });
+
+    } else {
+
+      return this.getSiteByBaiduMap(longitude, latitude).then(res => {
+
+        let city = res.result.addressComponent.city;
+        let area = res.result.addressComponent.district;
+        let zoneObj = {
+          // "province":res.result.addressComponent.province,
+          // "city":res.result.addressComponent.city,
+          // "city":city.slice(0,city.length - 1)
+
+          "province":res.result.addressComponent.province || "未知",
+          "area": area || "未知",
+          "city":city || "未知"
+        }
+
+
+        this.address = zoneObj;
+        console.log(res.result.addressComponent.province);
+
+
+        /*获取站点*/
+        return this.getSiteByAddress(zoneObj);
+      }).then(res => {
+        let data = res["data"];
+        return this.getNavigateBySiteCode(data["code"]);
+
+      });
+    }
+
 
   }
 

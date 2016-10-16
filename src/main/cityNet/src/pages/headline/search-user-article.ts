@@ -6,6 +6,7 @@ import {NavController} from "ionic-angular";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
 import {MineDetailPage} from "../mine/detail/detail";
+import {UserService} from "../../services/user.service";
 
 @Component({
 
@@ -30,7 +31,8 @@ export class SearchUserAndArticlePage implements AfterViewInit {
 
   constructor(public  navCtrl: NavController,
               public  http: HttpService,
-              public  warn: WarnService
+              public  warn: WarnService,
+              public  userService: UserService
          ) {
 
   }
@@ -86,10 +88,16 @@ export class SearchUserAndArticlePage implements AfterViewInit {
       this.users = res.data;
       this.resultUser = res.data.length <= 0;
 
+      if(this.users.length > 0 && this.users[0].userId == this.userService.userId){
+        this.users = [];
+      }
+
     }).catch(error => {
 
 
-    })
+    });
+
+
   }
 
 

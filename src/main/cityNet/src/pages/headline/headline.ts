@@ -75,8 +75,8 @@ export class HeadlinePage implements AfterViewInit {
 
       this.pageDataService.url = "/post/page";
       this.pageDataService.reqObj = {
-         // "siteCode" : this.cityS.currentCity.code
-          // "isHeadlines": "1"
+         "siteCode" : this.cityS.currentCity.code,
+          "isHeadlines": "1",
           "status" : "1"
       };
       this.pageDataService.refreshComp = this.refresher;
@@ -235,7 +235,6 @@ export class HeadlinePage implements AfterViewInit {
 
         }).catch(error => {
 
-            this.warn.toast("签到失败");
             load.dismiss();
         });
 

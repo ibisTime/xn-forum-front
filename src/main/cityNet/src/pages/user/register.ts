@@ -6,6 +6,7 @@ import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.service";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
 import {HttpService} from "../../services/http.service";
+import {CityService} from "../../services/city.service";
 
 
 @Component({
@@ -22,7 +23,8 @@ export class RegisterPage implements OnInit {
                  public user: UserService,
                  public imServe: IMService,
                  public http: HttpService,
-                 public app: App
+                 public app: App,
+                 public cityService: CityService
                  ) {
     }
 
@@ -91,6 +93,14 @@ export class RegisterPage implements OnInit {
       loginPwd: pwd,
       smsCaptcha: captcha
     }
+
+
+    if(typeof(this.cityService.address != "undefined")){
+      params["province"] = this.cityService.address.province;
+      params["city"] = this.cityService.address.city;
+      params["area"] = this.cityService.address.area;
+    }
+
 
     /*注册*/
     let loading = this.warnCtrl.loading('');
