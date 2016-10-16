@@ -46,7 +46,8 @@ export class PlatService{
             isTop: "1",//置顶
             plateCode: this.platCode,//板块代码
             start: this.topStart.start,
-            limit: lim
+            limit: lim,
+            "status" : "1"
         }
 
         return this.http.get("/post/page",obj).then(res => {
@@ -77,7 +78,8 @@ export class PlatService{
             plateCode: this.platCode,//板块代码
             start: this.essenceeStart.start,
             isEssence: "1",//精华
-            limit: this.lim
+            limit: this.lim,
+            "status" : "1"
         }
         return this.http.get("/post/page",obj).then(res => {
 
@@ -93,7 +95,8 @@ export class PlatService{
         let obj = {
             plateCode: this.platCode,//板块代码
             start: this.lastStart.start,
-            limit: this.lim
+            limit: this.lim,
+            "status" : "1"
         }
         return this.http.get("/post/page",obj).then(res => {
           return  this.resolveData(res,this.lastStart,this.lim,this.lastArticles);
@@ -107,7 +110,8 @@ export class PlatService{
         let obj = {
             plateCode: this.platCode,//板块代码
             start: this.articleStart.start,
-            limit: this.lim
+            limit: this.lim,
+            "status" : "1"
         }
        return this.http.get("/post/page",obj).then(res => {
 

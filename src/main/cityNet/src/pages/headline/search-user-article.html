@@ -20,12 +20,27 @@
     <button class="search-btn" (click)="search(searchInput.value)">搜索</button>
   </div>
 
-  <div class="placeholder-div " *ngIf="result">
-    没有匹配的结果
+  <!--<div class="placeholder-div " *ngIf="result">-->
+    <!--没有匹配的结果-->
+  <!--</div>-->
+
+  <div *ngIf="type == 'left'">
+    <placeholder-view [show]="resultUser"></placeholder-view>
+    <ion-list>
+      <button ion-item *ngFor="let item of users" style="background-color: white;" (click)="goUserDetail(item)">
+        <ion-avatar item-left>
+          <img src="{{item.pic||'assets/images/marty-avatar.png'}}">
+        </ion-avatar>
+        <span>{{item.nickname}}</span>
+      </button>
+    </ion-list>
   </div>
 
-  <forum-cell *ngFor="let item of articles"
-         [item]="item">
-  </forum-cell>
+  <div *ngIf="type == 'right'">
+    <placeholder-view [show]="resultArticle"></placeholder-view>
+    <forum-cell *ngFor="let item of articles"
+                [item]="item">
+    </forum-cell>
+  </div>
 
 </ion-content>

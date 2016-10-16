@@ -17,6 +17,7 @@ import {PageDataService} from "../../headline/page-data.services";
 export class MineDetailPage implements AfterViewInit{
 
   src:string = 'assets/images/marty-avatar.png';
+
   items = [];
   start: number;
   limit: number;
@@ -41,7 +42,7 @@ export class MineDetailPage implements AfterViewInit{
               public http: HttpService,
               public pageDataService: PageDataService) {
 
-      this.toUserId = params.data.publisher || userService.userId;
+      this.toUserId = params.data.publisher || params.data.userId || userService.userId;
       this.watchTz = params.data.tz || false;
 
       this.isMe = this.toUserId == userService.userId ? true : false;
@@ -49,7 +50,16 @@ export class MineDetailPage implements AfterViewInit{
 
       /*差一个获取用户信息接口*/
 
+
       if (!this.isMe) {
+          this.http.get("/user",{"userId":this.toUserId}).then(res => {
+
+            this.user = res.data;
+
+          }).catch(error => {
+
+          });
+
           userService.queryFollowUsers().then(()=> {
               let fUs = this.userService.followUsers;
               for (let f of fUs) {
@@ -73,7 +83,8 @@ export class MineDetailPage implements AfterViewInit{
       /*数据配置*/
       this.pageDataService.url = "/post/page";
       this.pageDataService.reqObj = {
-          "userId": this.toUserId
+          "publisher": this.toUserId,
+          "status" : "1"
       };
       this.pageDataService.refreshComp = this.refreshComp;
       this.pageDataService.loadMoreComp = this.loadMoreComp;

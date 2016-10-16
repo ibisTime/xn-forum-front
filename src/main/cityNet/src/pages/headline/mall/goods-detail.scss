@@ -50,7 +50,8 @@
       width: 80%;
       font-size: 16px;
       color: white;
-      background-color: orange;
+      background-color: $navbar-color;
+      border-radius: 3px;
       &:active{
         opacity: .5;
       }

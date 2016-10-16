@@ -60,7 +60,7 @@ export class MyApp {
       this.adDisplay = "none";
       this.howLoad();
 
-    },2000)
+    },2000);
 
   }
 
@@ -92,12 +92,12 @@ export class MyApp {
       //   setTimeout(res => {
       //     this.time --;
       //   },1000);
-      //
-      //   setTimeout(res => {
-      //
-      //    return  this.howLoad();
-      //
-      //   },30000);
+
+        setTimeout(res => {
+
+         return  this.howLoad();
+
+        },2000);
 
 
       }  else  {
@@ -147,10 +147,9 @@ export class MyApp {
 
 
       } else {
-
         this.rootPage = LoginPage;
-
       }
+
     });
 
   }

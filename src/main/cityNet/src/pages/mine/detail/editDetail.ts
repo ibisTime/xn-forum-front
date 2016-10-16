@@ -22,6 +22,8 @@ export class EditDetailPage implements AfterViewInit {
       "region": "",
       "introduce": ""
   }
+
+  result;
   nickname:string;
   orignalNickname:string;
   flag: boolean = false;
@@ -80,26 +82,50 @@ export class EditDetailPage implements AfterViewInit {
         let file = e.target.files[0];
         let reader = new FileReader();
 
-        (function(me){
-            let load = this.warnCtrl.loading("修改中");
-            reader.onload = function (ee) {
-                me.http.post('/user/avatar', {"photo":encodeURIComponent(this.result)})
-                .then((res)=>{
-                    if(res.success){
-                        me.uService.user.userExt.photo = me.src;
-                        me.warnCtrl.toast('头像修改成功!');
-                    }else{
-                        me.warnCtrl.toast('头像修改失败!');
-                    }
-                    load.dismiss();
-                }).catch((err)=>{
-                    me.warnCtrl.toast('err!');
-                    load.dismiss();
-                });
-                me.src = this.result;
-            }
-            reader.readAsDataURL(file);//获取base64编码
-        })(this);
+          let load = this.warnCtrl.loading("修改中");
+          reader.onload = (event: any) => {
+
+              this.src = event.target.result;
+
+              this.http.post('/user/avatar', {"photo":encodeURIComponent(event.target.result)})
+                  .then((res)=>{
+                      if(res.success){
+                          this.uService.user.userExt.photo = this.src;
+                          this.warnCtrl.toast('头像修改成功!');
+                      }else{
+                          this.warnCtrl.toast('头像修改失败!');
+                      }
+                      load.dismiss();
+                  }).catch((err)=>{
+                  this.warnCtrl.toast('err!');
+                  load.dismiss();
+              });
+
+
+          }
+          reader.readAsDataURL(file);//获取base64编码
+
+
+        // (function(me){
+        //     let load = this.warnCtrl.loading("修改中");
+        //     reader.onload = function (ee) {
+        //         me.http.post('/user/avatar', {"photo":encodeURIComponent(this.result)})
+        //         .then((res)=>{
+        //             if(res.success){
+        //                 me.uService.user.userExt.photo = me.src;
+        //                 me.warnCtrl.toast('头像修改成功!');
+        //             }else{
+        //                 me.warnCtrl.toast('头像修改失败!');
+        //             }
+        //             load.dismiss();
+        //         }).catch((err)=>{
+        //             me.warnCtrl.toast('err!');
+        //             load.dismiss();
+        //         });
+        //         me.src = this.result;
+        //     }
+        //     reader.readAsDataURL(file);//获取base64编码
+        // })(this);
 
   }
   changeExt(){

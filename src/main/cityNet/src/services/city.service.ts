@@ -161,7 +161,8 @@ export class CityService {
 
     let obj = {
       "isDqNavigate":"1",
-      "siteCode":siteCode
+      "siteCode":siteCode,
+      "status":"1"
     };
 
     /*1 菜单tabbar 2 banner 3 模块func3  4 引流func8  5.启动广告图*/

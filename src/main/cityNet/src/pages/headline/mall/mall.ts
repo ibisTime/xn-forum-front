@@ -31,15 +31,14 @@ export class MallPage implements OnInit,AfterViewInit {
         this.imgHeight = `${(this.platform.width() - 20) * 0.48 * 0.55}px`;
 
 
-
-        // this.getGoodsList();
-
     }
+
     ngAfterViewInit(){
 
         this.pageDataService.url = "/commodity/queryProducePage";
         this.pageDataService.reqObj = {
-            "siteCode": this.cityS.currentCity.code
+            "siteCode": this.cityS.currentCity.code,
+            "status":"1"
         };
         this.pageDataService.type = "other";
         this.pageDataService.refreshComp = this.refresher;
@@ -52,18 +51,6 @@ export class MallPage implements OnInit,AfterViewInit {
 
     }
 
-    getGoodsList(){
-
-        let load = this.warn.loading();
-        this.http.get("/commodity/queryProduces").then(res => {
-
-            load.dismiss();
-        }).catch(error => {
-            load.dismiss();
-            this.warn.toast('获取商品列表失败');
-        });
-
-    }
 
     goDetail(item){
         this.nav.push(GoodsDetailPage,item);

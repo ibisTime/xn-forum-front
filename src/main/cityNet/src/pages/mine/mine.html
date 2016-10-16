@@ -17,7 +17,7 @@
   <!--顶部-->
   <div class="panel-top">
     <div class="avatar-detail" (click)="goDetail()">
-      <div class="avatar"><img src="{{userService.user?.userExt.photo || 'assets/images/marty-avatar.png'}}"/></div>
+      <div class="avatar"><img src="{{userService.user.userExt?.photo || 'assets/images/marty-avatar.png'}}"/></div>
       <div class="title-outer">
         <div class="name" id="nickname">{{userService.user.nickname}}</div>
         <div class="title">论坛元老</div>

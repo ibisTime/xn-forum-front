@@ -75,8 +75,9 @@ export class HeadlinePage implements AfterViewInit {
 
       this.pageDataService.url = "/post/page";
       this.pageDataService.reqObj = {
-         "siteCode" : this.cityS.currentCity.code,
-          "isHeadlines": "1"
+         // "siteCode" : this.cityS.currentCity.code
+          // "isHeadlines": "1"
+          "status" : "1"
       };
       this.pageDataService.refreshComp = this.refresher;
       this.pageDataService.loadMoreComp = this.loadMoreScroll;
@@ -131,7 +132,12 @@ export class HeadlinePage implements AfterViewInit {
           let load = this.warn.loading('');
           this.cityS.currentCity = city;
           this.cityS.getNavigateBySiteCode(city.code).then(msg => {
+
               load.dismiss();
+
+
+              /*切换城市成功，刷新下面头条帖子*/
+              this.pageDataService.refresh();
 
           }).catch(error => {
               load.dismiss();
@@ -167,46 +173,48 @@ export class HeadlinePage implements AfterViewInit {
 
 
     browserArticle(article){
+
         this.navCtrl.push(ContentPage,article);
     }
 
 
    /*获取帖子数据*/
-    getArticle(refresh?) {
-        let reqObj = {
-            "start": this.start,
-            "limit": 3,
-            "siteCode": this.cityS.currentCity.code
-        };
+    // getArticle(refresh?) {
+    //     let reqObj = {
+    //         "start": this.start,
+    //         "limit": 3,
+    //         "siteCode": this.cityS.currentCity.code
+    //     };
+    //
+    //     return this.http.get('/post/page', reqObj).then(res => {
+    //
+    //         (refresh == "refresh") && (this.articles = []);
+    //         let list = res.data.list;
+    //         if (list.length > 0) {
+    //
+    //             for (let i = 0; i < list.length; i++) {
+    //                 if (list[i].pic != null) {
+    //                     list[i].pic = list[i].pic.split(/\|\|/);
+    //                 }
+    //             }
+    //             this.articles.push(...list);
+    //
+    //             if (3 * this.start >= res.data.totalCount) {
+    //                 this.loadMoreScroll.enable(false)
+    //             }
+    //
+    //         } else {
+    //             this.loadMoreScroll.enable(false);
+    //         }
+    //
+    //         this.start++;
+    //
+    //     }).catch(error => {
+    //         console.log(error);
+    //     });
+    //
+    // }
 
-        return this.http.get('/post/page', reqObj).then(res => {
-
-            (refresh == "refresh") && (this.articles = []);
-            let list = res.data.list;
-            if (list.length > 0) {
-
-                for (let i = 0; i < list.length; i++) {
-                    if (list[i].pic != null) {
-                        list[i].pic = list[i].pic.split(/\|\|/);
-                    }
-                }
-                this.articles.push(...list);
-
-                if (3 * this.start >= res.data.totalCount) {
-                    this.loadMoreScroll.enable(false)
-                }
-
-            } else {
-                this.loadMoreScroll.enable(false);
-            }
-
-            this.start++;
-
-        }).catch(error => {
-            console.log(error);
-        });
-
-    }
 
     /*商城*/
     goMall() {
@@ -220,7 +228,7 @@ export class HeadlinePage implements AfterViewInit {
         }
 
         let load = this.warn.loading("");
-        this.http.post("/signIn",obj).then(res => {
+        this.http.post("/user/signIn",obj).then(res => {
 
             load.dismiss();
             this.warn.toast("签到成功");
