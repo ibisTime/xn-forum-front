@@ -4,7 +4,7 @@
 import {Injectable} from '@angular/core';
 import {IMBaseService,MsgObj} from "./im-base.service";
 import {HttpService} from "./http.service";
-import {url} from "./release";
+import {Release} from "./release";
 
 declare var WebIM: any;
 
@@ -76,12 +76,11 @@ export class KefuService {
   listOfChatRoomData: any = {};
   scroll_bottom;
   scroll_top;
-  addr;
+  addr = Release.kefuUrl();
   conn;
 
   constructor(private imBase: IMBaseService,
               private ajax: HttpService) {
-    this.addr = url();
     this.conn = imBase.conn;
     this.to = imBase.to;
     this.tenantId = imBase.tenantId;

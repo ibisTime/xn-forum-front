@@ -39,6 +39,16 @@ export namespace Release {
 
     }
 
+    export function  kefuUrl(){
+
+        if(RELEASE){
+            return "http://121.43.101.148:7303";
+        } else {
+            return "http://localhost:8080";
+        }
+
+    }
+
 
     export function log(msg) {
         if (!release) {
