@@ -48,8 +48,6 @@ export class MineDetailPage implements AfterViewInit{
       this.isMe = this.toUserId == userService.userId ? true : false;
       // this.getUserInfo();
 
-      /*差一个获取用户信息接口*/
-
 
       if (!this.isMe) {
           this.http.get("/user",{"userId":this.toUserId}).then(res => {
@@ -199,7 +197,8 @@ export class MineDetailPage implements AfterViewInit{
 
   /*聊天*/
   goChat(){
-    this.navCtrl.push(ChatRoomPage, {"userId":this.toUserId,"nickname":this});
+
+    this.navCtrl.push(ChatRoomPage, this.user);
   }
 
 

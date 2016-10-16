@@ -65,7 +65,9 @@ export class DraftPage {
 
     }
 
-    reSend(item,index){
+    reSend($event,item,index){
+
+        $event.stopPropagation();
 
        let load = this.warnCtrl.loading();
         let obj = {

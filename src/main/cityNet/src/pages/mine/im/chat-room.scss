@@ -85,6 +85,10 @@
   button {
     flex: 0 0 70px;
     height: 35px;
+    background-color: $navbar-color;
+    color: white;
+    font-size: 16px;
+    border-radius: 3px;
     margin: 0 10px 0 10px;
   }
 

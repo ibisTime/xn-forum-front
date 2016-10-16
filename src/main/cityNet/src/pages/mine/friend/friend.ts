@@ -1,21 +1,27 @@
 import {Component, AfterViewInit} from '@angular/core';
-import {NavController, Tabs} from 'ionic-angular';
+import {NavController, Searchbar} from 'ionic-angular';
 import {IMService} from "../../../services/im.service";
 import {ChatRoomPage} from "../im/chat-room";
 import {AddFriendPage} from "./addFriend";
 import {WarnService} from "../../../services/warn.service";
-import {Observable}  from 'rxjs/Observable'
+import {HttpService} from "../../../services/http.service";
+import {variable} from "@angular/compiler/src/output/output_ast";
+import {isUndefined} from "ionic-angular/es2015/util/util";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   templateUrl: 'friend.html'
 })
 export class FriendPage implements AfterViewInit {
 
+  users;
   constructor(public navCtrl: NavController,
               public imServe: IMService,
-              public warnServe: WarnService) {
-
+              public warnServe: WarnService,
+              public http: HttpService,
+              public userService: UserService) {
   }
+
 
   ngAfterViewInit() {
 
@@ -30,14 +36,50 @@ export class FriendPage implements AfterViewInit {
 
   }
 
-  goChat(friendName) {
+
+
+  goChat(item) {
+
+    let peo = {
+      "userId" : item.userId,
+      "nickname" : item.nickname,
+      "photo": item.photo
+    };
     /**/
-    this.navCtrl.push(ChatRoomPage, friendName);
+    this.navCtrl.push(ChatRoomPage,peo);
   }
 
-  searchAction() {
-    console.log("搜索了");
+  searchAction($event) {
+
+   let value = $event.target.value;
+
+    console.log(value);
+
+    if(isUndefined(value) || value.length <= 0){
+      this.users = [];
+      return;
+    }
+
+    console.log($event);
+    let obj = {
+      "nickname" : value
+    };
+
+    this.http.get("/user/list",obj).then(res => {
+
+
+      this.users = res.data;
+      if(this.users.length > 0 && this.users[0].userId == this.userService.userId){
+        this.users = [];
+      }
+
+    }).catch(error => {
+
+
+    });
   }
+
+
 
   lookFriendAsk() {
 

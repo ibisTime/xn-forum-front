@@ -425,9 +425,18 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     if (text.substr(len - 1, 1) == "@") {
       let model = this.model.create(AtPage);
       model.onDidDismiss((res) => {
+
         let ar = this.textArea;
-        ar.nativeElement.value = ar.nativeElement.value + res + " ";
-        console.log(res, ar);
+        if((typeof(res) != "undefined")&&(res != null)){
+
+
+          ar.nativeElement.value = ar.nativeElement.value + res + " ";
+          console.log(res, ar);
+        } else {
+
+          ar.nativeElement.value = ar.nativeElement.value.substr(0,len - 1);
+        }
+
       });
       model.present();
     }
