@@ -25,6 +25,7 @@ import com.xnjr.moom.front.req.XN610063Req;
 import com.xnjr.moom.front.req.XN610070Req;
 import com.xnjr.moom.front.req.XN610072Req;
 import com.xnjr.moom.front.req.XN610073Req;
+import com.xnjr.moom.front.req.XN610075Req;
 import com.xnjr.moom.front.req.XN610076Req;
 import com.xnjr.moom.front.req.XN610077Req;
 import com.xnjr.moom.front.req.XN610078Req;
@@ -69,8 +70,8 @@ public class PostAOImpl implements IPostAO {
     @Override
     public Object queryPagePost(String title, String keyword, String status,
             String isHeadlines, String location, String plateCode,
-            String siteCode, String start, String limit, String orderColumn,
-            String orderDir, String userId) {
+            String siteCode, String publisher, String start, String limit,
+            String orderColumn, String orderDir, String userId) {
         XN610070Req req = new XN610070Req();
         req.setTitle(title);
         req.setKeyword(keyword);
@@ -78,6 +79,7 @@ public class PostAOImpl implements IPostAO {
         req.setLocation(location);
         req.setPlateCode(plateCode);
         req.setSiteCode(siteCode);
+        req.setPublisher(publisher);
         req.setStart(start);
         req.setLimit(limit);
         req.setOrderColumn(orderColumn);
@@ -182,7 +184,7 @@ public class PostAOImpl implements IPostAO {
     public Object queryMyPostPage(String userId, String status,
             String dateStart, String dateEnd, String start, String limit,
             String orderColumn, String orderDir) {
-        XN610070Req req = new XN610070Req();
+        XN610075Req req = new XN610075Req();
         req.setUserId(userId);
         req.setStatus(status);
         req.setDateStart(dateStart);
@@ -191,37 +193,37 @@ public class PostAOImpl implements IPostAO {
         req.setLimit(limit);
         req.setOrderColumn(orderColumn);
         req.setOrderDir(orderDir);
-        return BizConnecter.getBizData("610070", JsonUtils.object2Json(req),
+        return BizConnecter.getBizData("610075", JsonUtils.object2Json(req),
             Object.class);
     }
 
-	@Override
-	public Object queryMyCommentToPage(String userId, String start, String limit) {
-		XN610076Req req = new XN610076Req();
+    @Override
+    public Object queryMyCommentToPage(String userId, String start, String limit) {
+        XN610076Req req = new XN610076Req();
         req.setUserId(userId);
         req.setStart(start);
         req.setLimit(limit);
         return BizConnecter.getBizData("610076", JsonUtils.object2Json(req),
             Object.class);
-	}
+    }
 
-	@Override
-	public Object queryMyCommentFromPage(String userId, String start,
-			String limit) {
-		XN610077Req req = new XN610077Req();
+    @Override
+    public Object queryMyCommentFromPage(String userId, String start,
+            String limit) {
+        XN610077Req req = new XN610077Req();
         req.setUserId(userId);
         req.setStart(start);
         req.setLimit(limit);
         return BizConnecter.getBizData("610077", JsonUtils.object2Json(req),
             Object.class);
-	}
+    }
 
-	@Override
-	public Object queryPostDetailComment(String userId, String commentCode) {
-		XN610078Req req = new XN610078Req();
+    @Override
+    public Object queryPostDetailComment(String userId, String commentCode) {
+        XN610078Req req = new XN610078Req();
         req.setUserId(userId);
         req.setCommentCode(commentCode);
         return BizConnecter.getBizData("610078", JsonUtils.object2Json(req),
             Object.class);
-	}
+    }
 }

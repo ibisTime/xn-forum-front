@@ -37,19 +37,20 @@ public interface IPostAO {
      * @param location
      * @param plateCode
      * @param siteCode
+     * @param publisher
      * @param start
      * @param limit
      * @param orderColumn
      * @param orderDir
      * @param userId
      * @return 
-     * @create: 2016年10月13日 下午5:46:33 xieyj
+     * @create: 2016年10月16日 上午11:25:56 xieyj
      * @history:
      */
     public Object queryPagePost(String title, String keyword, String status,
             String isHeadlines, String location, String plateCode,
-            String siteCode, String start, String limit, String orderColumn,
-            String orderDir, String userId);
+            String siteCode, String publisher, String start, String limit,
+            String orderColumn, String orderDir, String userId);
 
     /**
      * 获取帖子详情
@@ -115,10 +116,11 @@ public interface IPostAO {
     public Object queryMyPostPage(String userId, String status,
             String dateStart, String dateEnd, String start, String limit,
             String orderColumn, String orderDir);
-    
+
     public Object queryMyCommentToPage(String userId, String start, String limit);
-    
-    public Object queryMyCommentFromPage(String userId, String start, String limit);
-    
+
+    public Object queryMyCommentFromPage(String userId, String start,
+            String limit);
+
     public Object queryPostDetailComment(String userId, String commentCode);
 }

@@ -53,14 +53,15 @@ public class PostController extends BaseController {
             @RequestParam(value = "location", required = false) String location,
             @RequestParam(value = "plateCode", required = false) String plateCode,
             @RequestParam(value = "siteCode", required = false) String siteCode,
+            @RequestParam(value = "publisher", required = false) String publisher,
             @RequestParam("start") String start,
             @RequestParam("limit") String limit,
             @RequestParam(value = "orderColumn", required = false) String orderColumn,
             @RequestParam(value = "orderDir", required = false) String orderDir,
             @RequestParam(value = "userId", required = false) String userId) {
         return postAO.queryPagePost(title, keyword, status, isHeadlines,
-            location, plateCode, siteCode, start, limit, orderColumn, orderDir,
-            getSessionUserId(userId));
+            location, plateCode, siteCode, publisher, start, limit,
+            orderColumn, orderDir, getSessionUserId(userId));
     }
 
     // 获取帖子详情
@@ -162,30 +163,31 @@ public class PostController extends BaseController {
         return postAO.queryMyPostPage(this.getSessionUser().getUserId(),
             status, dateStart, dateEnd, start, limit, orderColumn, orderDir);
     }
-    
+
     // 我发出的评论分页查询
     @RequestMapping(value = "/mytocomment/page", method = RequestMethod.GET)
     @ResponseBody
-    public Object queryMyCommentToPage(
-            @RequestParam("start") String start,
+    public Object queryMyCommentToPage(@RequestParam("start") String start,
             @RequestParam("limit") String limit) {
-        return postAO.queryMyCommentToPage(this.getSessionUser().getUserId(), start, limit);
+        return postAO.queryMyCommentToPage(this.getSessionUser().getUserId(),
+            start, limit);
     }
-    
+
     // 我收到的评论分页查询
     @RequestMapping(value = "/myfromcomment/page", method = RequestMethod.GET)
     @ResponseBody
-    public Object queryMyCommentFromPage(
-            @RequestParam("start") String start,
+    public Object queryMyCommentFromPage(@RequestParam("start") String start,
             @RequestParam("limit") String limit) {
-        return postAO.queryMyCommentFromPage(this.getSessionUser().getUserId(), start, limit);
+        return postAO.queryMyCommentFromPage(this.getSessionUser().getUserId(),
+            start, limit);
     }
-    
+
     // 根据评论编号获取帖子详情
     @RequestMapping(value = "/detail/comment", method = RequestMethod.GET)
     @ResponseBody
     public Object queryPostDetailComment(
             @RequestParam("commentCode") String commentCode) {
-        return postAO.queryPostDetailComment(this.getSessionUser().getUserId(), commentCode);
+        return postAO.queryPostDetailComment(this.getSessionUser().getUserId(),
+            commentCode);
     }
 }
