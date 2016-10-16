@@ -1,10 +1,10 @@
 package com.xnjr.moom.front.req;
 
 public class XN610903Req {
-    // （必填） 用户编号
+    // 用户编号（必填）
     private String userId;
 
-    // （必填） 地区
+    // 地区（选填）
     private String location;
 
     public String getUserId() {

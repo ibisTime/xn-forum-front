@@ -17,9 +17,9 @@ import com.xnjr.moom.front.req.XN602802Req;
 import com.xnjr.moom.front.req.XN602803Req;
 import com.xnjr.moom.front.req.XN602804Req;
 import com.xnjr.moom.front.req.XN602805Req;
+import com.xnjr.moom.front.req.XN610900Req;
 import com.xnjr.moom.front.req.XN610903Req;
 import com.xnjr.moom.front.req.XN805040Req;
-import com.xnjr.moom.front.req.XN805041Req;
 import com.xnjr.moom.front.req.XN805043Req;
 import com.xnjr.moom.front.req.XN805045Req;
 import com.xnjr.moom.front.req.XN805047Req;
@@ -425,14 +425,17 @@ public class UserAOImpl implements IUserAO {
 
     @Override
     public Object doReg(String mobile, String loginPwd, String smsCaptcha,
-            String userReferee) {
-        XN805041Req req = new XN805041Req();
+            String userReferee, String province, String city, String area) {
+        XN610900Req req = new XN610900Req();
         req.setMobile(mobile);
         req.setLoginPwd(loginPwd);
         req.setLoginPwdStrength(PwdUtil.calculateSecurityLevel(loginPwd));
         req.setSmsCaptcha(smsCaptcha);
         req.setUserReferee(userReferee);
-        return BizConnecter.getBizData("805041", JsonUtils.object2Json(req),
+        req.setProvince(province);
+        req.setCity(province);
+        req.setArea(area);
+        return BizConnecter.getBizData("610900", JsonUtils.object2Json(req),
             Object.class);
     }
 
