@@ -179,7 +179,11 @@ export class ContentPage {
                     }else{
                         this.item.totalLikeNum = (+this.item.totalLikeNum - 1) + "";
                         this.item.isDZ = "0";
-                        this.item.likeList.pop();
+                        for(let i = 0; i < this.item.likeList.length; i++){
+                            if(this.item.likeList[i].talker == this.uService.userId){
+                                this.item.likeList.splice(i, 1);
+                            }
+                        }
                     }
                 }else if(res.timeout){
                     this.warnCtrl.toast("登录超时，请重新登录!");

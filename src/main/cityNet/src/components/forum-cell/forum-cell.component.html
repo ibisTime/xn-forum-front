@@ -1,22 +1,22 @@
 <div class="forum-cell">
     <ion-card>
         <ion-item>
-            <ion-avatar item-left (tap)="goDetail(item)">
-                <img src="{{item.photo || 'assets/images/marty-avatar.png'}}">
+            <ion-avatar item-left (tap)="goDetail(_item)">
+                <img src="{{_item.photo || 'assets/images/marty-avatar.png'}}">
             </ion-avatar>
             <div>
                 <div style="position: relative;">
-                    <h2>{{item.nickname}}</h2>
+                    <h2>{{_item.nickname}}</h2>
                     <!--<p style="" class="origin">来自 <span>散讲</span></p>-->
                 </div>
-                <p class="time">{{item.publishDatetime | forumDate}}</p>
+                <p class="time">{{_item.publishDatetime | forumDate}}</p>
                 <ion-card-content>
-                    <div (click)="openPage(item)">
-                        <h2 style="margin: 6px 0;">{{item.title}}</h2>
-                        <p>{{item.content}}</p>
+                    <div (click)="openPage($event,_item)">
+                        <h2 style="margin: 6px 0;">{{_item.title}}</h2>
+                        <p [innerHTML]="_item.content"></p>
                     </div>
-                    <div *ngIf="item.picArr" [style.height]="imgHeight" class="img-cont" (click)="showImg($event)">
-                        <img class="imgs" [style.width]="imgHeight" [src]="p" *ngFor="let p of item.picArr"/>
+                    <div *ngIf="_item.picArr" [style.height]="imgHeight" class="img-cont" (click)="showImg($event)">
+                        <img class="imgs" [style.width]="imgHeight" [src]="p" *ngFor="let p of _item.picArr"/>
                     </div>
                 </ion-card-content>
 
@@ -27,34 +27,52 @@
                             <i class="icon iconfont">&#xe60a;</i>
                         </button>
                         <button class="sp-btn fl"
-                                [class.hidden]="item.isSC != '0'"
-                                (click)="collect(item.code)">
+                                [class.hidden]="_item.isSC != '0'"
+                                (click)="collect(_item.code)">
                             <ion-icon name="star-outline"></ion-icon>
                         </button>
                         <button class="sp-btn fl "
-                                [class.hidden]="item.isSC == '0'"
-                                (click)="collect(item.code,true)">
+                                [class.hidden]="_item.isSC == '0'"
+                                (click)="collect(_item.code,true)">
                             <ion-icon name="star" style="color:#f64444"></ion-icon>
                         </button>
-                        <button class="fr" (click)="openPage(item)">
-                            <i class="icon iconfont">&#xe610;</i><span>{{item.totalCommNum}}</span>
+                        <button class="fr" (click)="openPage(_item)">
+                            <i class="icon iconfont">&#xe610;</i><span>{{_item.totalCommNum}}</span>
                         </button>
                         <button class="sp-btn fr "
-                                [class.hidden]="item.isDZ != '0'"
-                                (click)="praise(item.code)">
+                                [class.hidden]="_item.isDZ != '0'"
+                                (click)="praise(_item.code)">
                             <i class="icon iconfont">&#xe624;</i>
-                            <span class="praise-total">{{item.totalLikeNum}}</span>
+                            <span class="praise-total">{{_item.totalLikeNum}}</span>
                         </button>
                         <button class="sp-btn fr"
-                                [class.hidden]="item.isDZ == '0'"
-                                (click)="praise(item.code,true)"
+                                [class.hidden]="_item.isDZ == '0'"
+                                (click)="praise(_item.code,true)"
                         >
                             <!--<i class="icon iconfont">&#xe624;</i>-->
                             <ion-icon name="thumbs-up" style="color:#f64444">
                             </ion-icon>
-                            <span class="praise-total">{{item.totalLikeNum}}</span>
+                            <span class="praise-total">{{_item.totalLikeNum}}</span>
                         </button>
                     </ion-buttons>
+                </div>
+                <div class="comment mt10" [class.hidden]="isHideCom">
+                    <div class="com-top clearfix">
+                        <button class="fl">
+                            <i class="icon iconfont">&#xe624;</i>
+                            <span class="va-t">{{_item.totalLikeNum}}</span>
+                        </button>
+                        <div class="t-3dot">
+                            <span *ngFor="let g of _item.likeList">{{g.nickname}} </span>
+                        </div>
+                    </div>
+                    <div class="com-bottom">
+                        <ion-list>
+                            <ion-item *ngFor="let c of _item.commentList;">
+                                <div *ngIf="indx<5"><span class="u-name"><span>{{c.nickname}}</span>：</span><span class="u-msg">{{c.content}}</span></div>
+                            </ion-item>
+                        </ion-list>
+                    </div>
                 </div>
             </div>
         </ion-item>

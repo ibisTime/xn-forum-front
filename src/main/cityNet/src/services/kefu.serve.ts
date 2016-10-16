@@ -245,7 +245,7 @@ export class KefuService {
           while ( msg.data.indexOf(face) > -1 ) {
             flag = true;
             msg.data = msg.data.replace(face, "!#!");
-            emotionArr.push("images/faces/"+this.map[face]);
+            emotionArr.push("assets/images/faces/"+this.map[face]);
           }
         }
       }
