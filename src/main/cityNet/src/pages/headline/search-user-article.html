@@ -3,9 +3,9 @@
   <ion-navbar no-border-bottom color="navbar-color">
     <ion-title>
       <segment-view
-      [leftTitle]="'用户'"
-      [rightTitle]="'帖子'"
-      (emitter) = "changType($event)"
+              [leftTitle]="'用户'"
+              [rightTitle]="'帖子'"
+              (emitter)="changType($event)"
       ></segment-view>
     </ion-title>
   </ion-navbar>
@@ -13,10 +13,10 @@
 </ion-header>
 
 
-<ion-content  class="search-user-article">
+<ion-content  class="search-user-article forum">
 
   <div class="search-input-outer">
-    <input id = "search-user-article-input" #searchInput placeholder="请输入搜索关键词">
+    <input id="search-user-article-input" #searchInput placeholder="请输入搜索关键词">
     <button class="search-btn" (click)="search(searchInput.value)">搜索</button>
   </div>
 
@@ -38,9 +38,15 @@
 
   <div *ngIf="type == 'right'">
     <placeholder-view [show]="resultArticle"></placeholder-view>
-    <forum-cell *ngFor="let item of articles"
+    <ion-list>
+      <ion-item *ngFor="let item of articles">
+
+        <forum-cell
                 [item]="item">
-    </forum-cell>
+        </forum-cell>
+
+      </ion-item>
+    </ion-list>
   </div>
 
 </ion-content>

@@ -92,6 +92,7 @@ export class IMBaseService {
       },
       onOpened: (msg) => {
         console.log("登陆成功");
+        console.log(msg);
         (typeof(this.imOpened) =="function")&&(this.imOpened(msg));
         this.conn.setPresence();
       },

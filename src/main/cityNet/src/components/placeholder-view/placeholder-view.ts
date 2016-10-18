@@ -5,13 +5,13 @@ import {Component, OnInit, Input} from '@angular/core';
 
 @Component({
     selector:"placeholder-view",
-    template:`
-    <div *ngIf="show" 
+    template:`<div *ngIf="show" 
     style="font-size: 18px; min-height: 40px; padding: 50px 10px; text-align: center;"
     >
-     {{text}}
-    </div>
-   `
+    {{text}}
+</div>`
+
+
 })
 export class PlaceholderView implements OnInit {
 

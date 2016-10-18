@@ -52,6 +52,17 @@ export class MyApp {
 
     });
 
+    /*user-services 中发出的通知*/
+    this.events.subscribe("user:loginSuccess",() => {
+
+      /*客服*/
+      this.kefuService.me = this.userServe.userId;
+
+      /*im登陆*/
+      this.imServe.login(this.userServe.userId);
+
+    });
+
   }
 
   loadEnd($event){

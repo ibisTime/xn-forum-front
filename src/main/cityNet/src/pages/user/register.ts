@@ -95,11 +95,11 @@ export class RegisterPage implements OnInit {
     }
 
 
-    if(typeof(this.cityService.address != "undefined")){
-      params["province"] = this.cityService.address.province;
-      params["city"] = this.cityService.address.city;
-      params["area"] = this.cityService.address.area;
-    }
+    // if(typeof(this.cityService.address != "undefined")){
+    //   params["province"] = this.cityService.address.province;
+    //   params["city"] = this.cityService.address.city;
+    //   params["area"] = this.cityService.address.area;
+    // }
 
 
     /*注册*/

@@ -42,11 +42,12 @@ export class MineDetailPage implements AfterViewInit{
               public http: HttpService,
               public pageDataService: PageDataService) {
 
+      /*@是根据    用户名称进行    查找*/
       this.toUserId = params.data.publisher || params.data.userId || userService.userId;
       this.watchTz = params.data.tz || false;
 
       this.isMe = this.toUserId == userService.userId ? true : false;
-      // this.getUserInfo();
+
 
 
       if (!this.isMe) {

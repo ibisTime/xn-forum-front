@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 import { Storage } from '@ionic/storage';
 import {IMService} from "./im.service";
+import {Events} from "ionic-angular";
 
 export interface User{
   kind?,
@@ -38,6 +39,7 @@ export class UserService {
               private http: HttpService,
               private storage: Storage,
               public imServe: IMService,
+              public events: Events
              ) {
 
   }
@@ -146,6 +148,9 @@ export class UserService {
 
       this.user = res.data;
       this.saveUserInfo(this.tokenId,this.userId,this.user);
+
+      /*发出消息*/
+      this.events.publish("user:loginSuccess");
 
     })
 

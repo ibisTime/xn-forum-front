@@ -31,7 +31,7 @@ interface navObj{
   pic?;
   siteCode?;
   status?;
-  title?;
+  name?;
   type?;
   url?;
 }
@@ -41,6 +41,7 @@ interface navObj{
 export class CityService {
 
   citys = [];
+
   /*启动广告*/
   ads = [];
 
@@ -52,25 +53,21 @@ export class CityService {
 
   /*客服引流数据*/
   kefuData = [];
-
   /*视频引流数据*/
-  videoData = [];
+  customData = [];
+  customTitle = "";
+
+  headlineData = {
+    "banner": [],
+    "func3": [],
+    "func8": []
+  };
+
+  tabbarItems = [];
+  customItems = [];
 
   address;//存入省市区
 
-  public headlineData = {
-  "banner": [],
-  "func3": [],
-  "func8": [],
-  "tabs": []
-  };
-
-  public tabsData = {
-    "one": [],
-    "two" : [],
-    "three" : [],
-    "four": []
-  };
 
   currentCity: City = {"name":"未知地点"}; //根据经纬度获得
 
@@ -181,6 +178,17 @@ export class CityService {
   }
 
 
+  deleteEleFromArray(datas,indexs){
+
+    /*删除已经遍历的元素*/
+    for(let i = datas.length - 1; i >= 0; i --){
+
+      datas.splice(indexs[i],1);
+
+    }
+  }
+
+
   /*code 查询导航详情*/
   getNavigateBySiteCode(siteCode){
 
@@ -193,84 +201,156 @@ export class CityService {
     /*1 菜单tabbar 2 banner 3 模块func3  4 引流func8  5.启动广告图*/
    return this.http.get('/view/list',obj).then(res => {
 
-
+     /*重新整理逻辑*/
      let data = res["data"];
-     let tempArray = [];
 
-     if(data instanceof Array){
-        //是否全局
-       data.forEach((value:navObj,index,array) => {
+     /*取出 tabbar*/
+     let tempIndex = [];
+     data.forEach((value: navObj, index, array) => {
 
-         if(value.parentCode == "0" && value.type != "5"){
+       if (value.type == "1") {
+         this.tabbarItems.push(value);
+         tempIndex.push(index);
+       }
+       /*取出广告图*/
+       if (value.type == "5") {
 
-           tempArray.push(value);
+         this.ads.push(value);
+         tempIndex.push(index);
+       }
 
-         }
+     });
 
-         if(value.type == "5"){
-            this.ads.push(value);
+     /*删除已经遍历的元素*/
+     // for (let i = data.length - 1; i >= 0; i--) {
+     //
+     //   data.splice(tempIndex[i], 1);
+     //
+     // }
+     this.deleteEleFromArray(data,tempIndex);
+
+
+     /*根据tabbar 取出 子导航*/
+     this.tabbarItems.forEach((value: navObj, index, array) => {
+
+       data.forEach((value_inner: navObj, index_inner, array_inner) => {
+
+         if(value_inner.parentCode == value.code){
+
+           if(/page:headline/.test(value.url)){
+
+             if (value_inner.type == "2") {//banner
+
+               this.headlineData.banner.push(value_inner);
+
+             } else if (value_inner.type == "3") { //
+
+               this.headlineData.func3.push(value_inner);
+
+             } else if (value_inner.type == "4") { //func3
+
+               this.headlineData.func8.push(value_inner);
+
+             }
+
+           } else if(/page:xiaomi/.test(value.url) && value_inner.type == "4"){
+
+             this.kefuData.push(value_inner);
+
+           } else if(/page:custom/.test(value.url) && value_inner.type == "4"){
+
+             this.customTitle = value.name;
+             this.customData.push(value_inner);
+
+           }
+
          }
 
        });
 
-       /*排序*/
-       if(tempArray.length > 1){
-         tempArray = tempArray.sort((a,b) => {
-           return a.orderNo - b.orderNo;
-         });
-       }
+     });
 
 
-     }
 
 
-      let headline =  {
-        "banner": [],
-        "func3": [],
-        "func8": [],
-        "tabs": tempArray
-      };
-      let kefuData = [];
+     // let data = res["data"];
+     // let tempArray = [];
+     //
+     // if(data instanceof Array){
+     //    //是否全局
+     //   data.forEach((value:navObj,index,array) => {
+     //
+     //     if(value.parentCode == "0" && value.type != "5"){
+     //
+     //       tempArray.push(value);
+     //
+     //     }
+     //
+     //     if(value.type == "5"){
+     //        this.ads.push(value);
+     //     }
+     //
+     //   });
+     //
+     //   /*排序*/
+     //   if(tempArray.length > 1){
+     //     tempArray = tempArray.sort((a,b) => {
+     //       return a.orderNo - b.orderNo;
+     //     });
+     //   }
+     //
+     //
+     // }
 
-      if(data instanceof Array){
 
-        data.forEach((value,index,array) => {
-          /*首页及tab数据*/
-         if(value.parentCode == tempArray[0].code){
-
-           if(value.type == "2"){
-             headline["banner"].push(value);
-           } else if(value.type == "3") {
-             headline["func3"].push(value);
-           } else if(value.type == "4"){
-             headline["func8"].push(value);
-           }
-
-         } else if(value.parentCode == tempArray[2].code) {
-           /*客服引流的数据*/
-           kefuData.push(value);
-         } else if(value.parentCode == tempArray[3].code){
-           this.videoData.push(value);
-         }
-
-        });
-
-        /*排序*/
-        for ( let key in headline){
-          headline[key] = headline[key].sort((a,b) => {
-            return a.orderNo - b.orderNo;
-          });
-        }
-        this.headlineData = headline;
-
-        /*客服数据排序*/
-        kefuData = kefuData.sort((a,b) => {
-          return a.orderNo - b.orderNo;
-        });
-        this.kefuData = kefuData;
-        console.log(this.kefuData);
-
-      }
+      // let headline =  {
+      //   "banner": [],
+      //   "func3": [],
+      //   "func8": [],
+      //   "tabs": tempArray
+      // };
+      // let kefuData = [];
+      //
+      // if(data instanceof Array){
+      //
+      //   data.forEach((value,index,array) => {
+      //     /*首页及tab数据*/
+      //    if(value.parentCode == tempArray[0].code){
+      //
+      //      if(value.type == "2"){
+      //        headline["banner"].push(value);
+      //      } else if(value.type == "3") {
+      //        headline["func3"].push(value);
+      //      } else if(value.type == "4"){
+      //        headline["func8"].push(value);
+      //      }
+      //
+      //    }
+      //    // else if(value.parentCode == tempArray[2].code) {
+      //    //   /*客服引流的数据*/
+      //    //   kefuData.push(value);
+      //    // } else if(value.parentCode == tempArray[3].code){
+      //    //   this.videoData.push(value);
+      //    // }
+      //
+      //   });
+      //
+      //   /*排序*/
+      //   for ( let key in headline){
+      //     headline[key] = headline[key].sort((a,b) => {
+      //       return a.orderNo - b.orderNo;
+      //     });
+      //   }
+      //   this.headlineData = headline;
+      //
+      //   /*客服数据排序*/
+      //   kefuData = kefuData.sort((a,b) => {
+      //     return a.orderNo - b.orderNo;
+      //   });
+      //   this.kefuData = kefuData;
+      //   console.log(this.kefuData);
+      //
+      // }
 
       /*外界 得知 是否否有广告图*/
       return this.ads;

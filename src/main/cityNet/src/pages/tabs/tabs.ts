@@ -22,8 +22,10 @@ export class TabsPage {
    tab4Root: any;
    tab5Root: any;
 
+  tabInfo = [{tabTitle:"",},{},{},{}]
 
 
+  tabItems = [];
   @ViewChild(Tabs) tabs: Tabs;
   constructor(
               public imServe: IMService,
@@ -33,21 +35,32 @@ export class TabsPage {
     // this tells the tabs component which Pages
     // should be each tab's root Page
 
-    this.tab1Root = HeadlinePage;
-    this.tab2Root = ForumPage;
-    this.tab3Root = KefuPage;
-    this.tab4Root = VideoPage;
-    this.tab5Root = MinePage;
+    let tabDict = {
+
+      "page:headline" : HeadlinePage,
+      "page:forum" : ForumPage,
+      "page:xiaomi" : KefuPage,
+      "page:custom" : VideoPage,
+      "page:mine" : MinePage
+
+    }
+
+
+    this.tab1Root = tabDict[cityS.tabbarItems[0].url];
+    this.tab2Root = tabDict[cityS.tabbarItems[1].url];
+    this.tab3Root = tabDict[cityS.tabbarItems[2].url];
+    this.tab4Root = tabDict[cityS.tabbarItems[3].url];
+    this.tab5Root = tabDict[cityS.tabbarItems[4].url];
 
     /**/
-
-
     /*login-t登陆*/
-    // this.login();
-    //超时帮用户登陆
 
   }
 
+
+  selected(i){
+    this.tabs.select(i);
+  }
 
 
   goOther(index){

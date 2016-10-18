@@ -5,7 +5,7 @@
   height: 49px;
   bottom: 0px;
   position: absolute;
-  background-color: rgb(248,248,248);
+  background-color: white;
   display: flex;
 
   a{
@@ -20,7 +20,7 @@
     text-align: center;
     margin: 0 auto;
     div{
-      height: 30px;
+      //height: 30px;
       justify-content: center;
       align-items: center;
       width: 100%;
@@ -28,6 +28,7 @@
     .default-img{
        height: 30px;
     }
+
 
     .default-title{
       align-self: center;
@@ -44,9 +45,21 @@
       //background-color: cyan;
 
     }
+
     .kf-img{
-      margin: 0 auto;
+      //margin: 0 auto;
+      //height: 100px;
+      height: 70px;
+      position: relative;
+      bottom: 0px;
+      //position: absolute;
+      //bootom: 0px;
     }
+
+    .kf-title{
+      display: none;
+    }
+
   }
 
 }
