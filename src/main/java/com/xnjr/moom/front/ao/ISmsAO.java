@@ -22,5 +22,7 @@ public interface ISmsAO {
      * @history:
      */
     public void sendSmsCaptcha(String mobile, String bizType);
+    
+    public void sendSmsCaptcha1(String mobile, String bizType);
 
 }

@@ -14,6 +14,7 @@ import com.xnjr.moom.front.ao.ISmsAO;
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.req.XN799003Req;
+import com.xnjr.moom.front.req.XN805904Req;
 
 /** 
  * @author: miyb 
@@ -32,6 +33,14 @@ public class SmsAOImpl implements ISmsAO {
         req.setMobile(mobile);
         req.setBizType(bizType);
         BizConnecter.getBizData("799003", JsonUtils.object2Json(req),
+            Object.class);
+    }
+    @Override
+    public void sendSmsCaptcha1(String mobile, String bizType) {
+    	XN805904Req req = new XN805904Req();
+        req.setMobile(mobile);
+        req.setBizType(bizType);
+        BizConnecter.getBizData("805904", JsonUtils.object2Json(req),
             Object.class);
     }
 }

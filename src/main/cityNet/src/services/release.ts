@@ -6,7 +6,7 @@ export const RELEASE = false;
 export function  url(){
 
     if(RELEASE){
-        return "http://121.43.101.148:7303/xn-forum-front";
+        return "http://121.43.101.148:8080/xn-forum-front";
     } else {
         return "http://localhost:8080/xn-forum-front";
     }
@@ -32,7 +32,7 @@ export namespace Release {
     export function  url(){
 
         if(RELEASE){
-            return "http://121.43.101.148:7303/xn-forum-front";
+            return "http://121.43.101.148:8080/xn-forum-front";
         } else {
             return "http://localhost:8080/xn-forum-front";
         }
@@ -42,7 +42,7 @@ export namespace Release {
     export function  kefuUrl(){
 
         if(RELEASE){
-            return "http://121.43.101.148:7303";
+            return "http://121.43.101.148:8080";
         } else {
             return "http://localhost:8080";
         }

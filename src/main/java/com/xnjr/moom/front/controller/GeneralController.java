@@ -59,14 +59,14 @@ public class GeneralController extends BaseController {
     @RequestMapping(value = "/register/send", method = RequestMethod.POST)
     @ResponseBody
     public boolean sendRegisterCode(@RequestParam("mobile") String mobile) {
-        sendPhoneCode(ESmsBizType.REGISTER.getCode(), mobile);
+    	smsAO.sendSmsCaptcha1(mobile, ESmsBizType.REGISTER.getCode());
         return true;
     }
 
     @RequestMapping(value = "/findloginpwd/send", method = RequestMethod.POST)
     @ResponseBody
     public boolean sendLoginpwdCode(@RequestParam("mobile") String mobile) {
-        sendPhoneCode(ESmsBizType.FINDLOGINPWD.getCode(), mobile);
+        smsAO.sendSmsCaptcha1(mobile, ESmsBizType.FINDLOGINPWD.getCode());
         return true;
     }
 
