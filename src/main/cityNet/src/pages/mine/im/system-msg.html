@@ -1,0 +1,34 @@
+<ion-header class="im-header">
+    <ion-navbar color="navbar-color">
+        <ion-title>
+            系统消息
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+
+    <ion-refresher (ionRefresh)="refresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉加载"
+                refreshingSpinner="circles"
+                refreshingText="加载中...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+
+    <ion-list>
+        <ion-item  (click)="selected(item)" style="background-color: white;" *ngFor="let item of pageDataService.items">
+            消息名称
+        </ion-item>
+    </ion-list>
+
+
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+
+</ion-content>
