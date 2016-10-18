@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Platform, NavController, Events, App} from "ionic-angular";
+import {Platform, NavController, Events, App, ModalController, ViewController} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 
 import { RegisterPage } from './register';
@@ -16,17 +16,32 @@ import {UserService} from "../../services/user.service";
 })
 export class LoginPage  {
 
+  fromReg = false;
   constructor(
               public uService: UserService,
               public navCtrl: NavController,
               public platform: Platform,
               public warnCtrl : WarnService,
               public http: HttpService,
-              public events: Events,
-              public app: App
+              public app: App,
+              public viewCtrl: ViewController,
+              public events: Events
 
              ) {
 
+    this.events.subscribe("reginst：success",res => {
+
+      this.fromReg = true;
+
+    });
+
+  }
+
+
+  ionViewWillEnter(){
+    if(this.fromReg ){
+      this.viewCtrl.dismiss();
+    }
   }
 
 
@@ -45,44 +60,29 @@ export class LoginPage  {
     let loading = this.warnCtrl.loading('登陆中');
     this.uService.login(params).then(res => {
 
-      loading.dismiss();
-      let rootNav: NavController = this.app.getRootNav();
-      rootNav.setRoot(TabsPage);
+      loading.dismiss().then(res => {
+
+        this.viewCtrl.dismiss({"success":true});
+
+      });
+      // let rootNav: NavController = this.app.getRootNav();
+      // rootNav.setRoot(TabsPage);
+
 
     }).catch(error => {
 
       loading.dismiss();
-
-      // this.warnCtrl.toast('登陆失败');
+      //this.warnCtrl.toast('登陆失败');
 
     });
 
-    // this.http.post('/user/login',params).then((res) => {
-    //
-    //   /*登陆成功后获取用户信息*/
-    //   loading.dismiss();
-    //
-    //   let tokenId = res["data"]["tokenId"];
-    //   let userId = res["data"]["userId"];
-    //
-    //   return this.http.get("/user");
-    //   /*发出登陆成功通知*/
-    //   this.events.publish("user:loginSuccess");
-    //
-    //   //保存 uid  和  tokenid
-    //   this.uService.saveUserInfo(tokenId, userId);
-    //
-    //   /*切换根控制器*/
-    //   let rootNav: NavController = this.app.getRootNav();
-    //   rootNav.setRoot(TabsPage);
-    //   // this.navCtrl.push(TabsPage);
-    // }).then(res => {
-    //
-    //
-    // }).catch(error => {
-    //   loading.dismiss();
-    // });
 
+
+
+  }
+
+  cancle($event){
+    this.viewCtrl.dismiss({"success":false});
   }
 
   register($event) {

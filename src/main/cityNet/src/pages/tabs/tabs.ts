@@ -53,12 +53,12 @@ export class TabsPage {
 
     }
 
-
     this.tab1Root = tabDict[this.cityS.tabbarItems[0].url];
     this.tab2Root = tabDict[this.cityS.tabbarItems[1].url];
     this.tab3Root = tabDict[this.cityS.tabbarItems[2].url];
     this.tab4Root = tabDict[this.cityS.tabbarItems[3].url];
     this.tab5Root = tabDict[this.cityS.tabbarItems[4].url];
+
   }
 
 
@@ -75,26 +75,6 @@ export class TabsPage {
       this.tabs.select(index);
     }
 
-  }
-
-  goKefu(){
-    this.tabs.select(2);
-  }
-
-  goVideo($event){
-    this.tabs.select(3);
-    // if(weChat){
-    //
-    // } else {
-    //   /*app*/
-    //   let url = this.cityS.headlineData.tabs[3].url;
-    //   window.open(url);
-    //   setTimeout(() => {
-    //     let tab = this.tabs.previousTab();
-    //     this.tabs.select(tab);
-    //   },50);
-    //
-    // }
   }
 
 }

@@ -4,6 +4,7 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 import {Release} from "./release";
+import {Events} from "ionic-angular";
 
 export interface City{
   address?;
@@ -71,7 +72,8 @@ export class CityService {
 
   currentCity: City = {"name":"未知地点"}; //根据经纬度获得
 
-  constructor( private  http: HttpService) {
+  constructor( private  http: HttpService,
+               public   events: Events) {
 
   }
 
@@ -266,7 +268,10 @@ export class CityService {
 
       /*外界 得知 是否否有广告图*/
       if(this.tabbarItems.length >= 4){
+
+        this.events.publish("city:change");
         return true;
+
       } else {
         return false;
       };

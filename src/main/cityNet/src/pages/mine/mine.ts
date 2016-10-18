@@ -1,5 +1,5 @@
 import {Component,AfterViewInit} from '@angular/core';
-import {NavController, Platform, App} from 'ionic-angular';
+import {NavController, Platform, App, ModalController} from 'ionic-angular';
 import {UserService} from "../../services/user.service";
 import {WarnService} from "../../services/warn.service";
 import {ImPage} from "./im/im";
@@ -11,6 +11,7 @@ import {CollectionPage} from "./collection/collection";
 import {SettingPage} from "./setting/setting";
 import {DraftPage} from "./draft/draft";
 import {RelationPage} from "./relationship-people/relationship";
+import {RegisterPage} from "../user/register";
 
 
 @Component({
@@ -51,7 +52,8 @@ export class MinePage implements AfterViewInit{
               public imService: IMService,
               public warnCtrl: WarnService,
               public http: HttpService,
-              public app :App) {
+              public app :App,
+              public modelCtrl :ModalController) {
 
 
   }
@@ -62,11 +64,22 @@ export class MinePage implements AfterViewInit{
 
   }
 
+  goLogin(){
+
+   let model = this.modelCtrl.create(LoginPage);
+    model.present();
+  }
+
+  goReg(){
+    let model = this.modelCtrl.create(RegisterPage,{"hidden": true});
+    model.present();
+  }
+
 
   loginOut(){
     this.userService.loginOut();
     this.imService.close();
-    this.app.getRootNav().setRoot(LoginPage);
+    // this.app.getRootNav().setRoot(LoginPage);
   }
 
   doRefresh($event){

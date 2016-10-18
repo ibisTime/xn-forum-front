@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NavController, App} from "ionic-angular";
+import {NavController, App, NavParams, ViewController, Events} from "ionic-angular";
 import { TabsPage} from '../tabs/tabs';
 import {IMService} from "../../services/im.service";
 import {WarnService} from "../../services/warn.service";
@@ -17,6 +17,7 @@ export class RegisterPage implements OnInit {
 
   captchaValue;
   userNameValue;
+  navbarHidden = false;
   @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
   constructor(   public navCtrl: NavController,
                  public warnCtrl: WarnService,
@@ -24,8 +25,17 @@ export class RegisterPage implements OnInit {
                  public imServe: IMService,
                  public http: HttpService,
                  public app: App,
-                 public cityService: CityService
+                 public cityService: CityService,
+                 public navParams: NavParams,
+                 public viewCtrl: ViewController,
+                 public events: Events
                  ) {
+
+
+    if(navParams.data.hidden){
+      this.navbarHidden = navParams.data.hidden;
+    }
+
     }
 
   ngOnInit() {
@@ -46,24 +56,25 @@ export class RegisterPage implements OnInit {
     }
     btn.setAttribute("disabled", "disabled");
 
-    for(var i = 0; i <= 30; i++){
-        (function (i) {
-            setTimeout(function(){
-                if(i < 30){
-                    btn.innerText = (30 - i) + "s";
-                }else{
-                    btn.removeAttribute("disabled");
-                    btn.innerText = "发送验证码";
-                }
-            }, 1000*i);
-        })(i);
-    }
+
 
     let mobile = {
       "mobile" : this.userNameValue
     };
     this.http.post('/gene/register/send',mobile).then((res) => {
-      //this.captchaView.beginTime();
+
+      for(var i = 0; i <= 30; i++){
+        (function (i) {
+          setTimeout(function(){
+            if(i < 30){
+              btn.innerText = (30 - i) + "s";
+            }else{
+              btn.removeAttribute("disabled");
+              btn.innerText = "发送验证码";
+            }
+          }, 1000*i);
+        })(i);
+      }
 
     }).catch((error) => {
       this.warnCtrl.toast('验证码发送失败，请稍后重试!');
@@ -106,8 +117,16 @@ export class RegisterPage implements OnInit {
     let loading = this.warnCtrl.loading('');
     this.user.register(params).then(res => {
 
-      loading.dismiss();
-      this.app.getRootNav().setRoot(TabsPage);
+      loading.dismiss().then(res =>{
+
+        this.viewCtrl.dismiss({"success":true}).then(res => {
+
+          this.events.publish("reginst：success");
+
+        });
+
+      });
+
 
     }).catch(error => {
 
@@ -115,57 +134,17 @@ export class RegisterPage implements OnInit {
 
     });
 
-    // /*注册*/
-    // this.http.post("/user/reg",params).then( res => {
-    //
-    //   this.warnCtrl.toast('注册成功');
-    //   let userId = res.data.userId;
-    //   // let tokenId = res.data
-    //
-    //   /*通过userId注册环信*/
-    //   this.imServe.register(userId,"").then(() => {
-    //
-    //     loading.dismiss();
-    //     this.warnCtrl.toast('注册IM成功');
-    //     /*帮用户进行登陆*/
-    //     let loginParams = {
-    //       loginName: userName,
-    //       loginPwd: pwd,
-    //       terminalType: "1"
-    //     }
-    //
-    //     return this.http.post('/user/login',loginParams);
-    //
-    //   }).then(res => {
-    //     /*登陆成功 保存信息*/
-    //     let tokenId = res["data"]["tokenId"];
-    //     let userId = res["data"]["userId"];
-    //
-    //     console.log('在真机中使用');
-    //     //保存 uid  和  tokenid
-    //     this.user.saveUserInfo(tokenId,userId);
-    //
-    //     //切换控制
-    //     this.navCtrl.push(TabsPage);
-    //
-    //   }).catch((error) => {
-    //     this.warnCtrl.toast('注册IM失败');
-    //     loading.dismiss();
-    //   });
-    //
-    // }).catch( error => {
-    //
-    //   loading.dismiss();
-    //   console.log('外部--失败');
-    //
-    // });
-
 
   }
+
+
+  cancle($event){
+    this.viewCtrl.dismiss({"success":false});
+  }
+
 
   backLogin(){
     this.navCtrl.pop();
   }
-
 
 }

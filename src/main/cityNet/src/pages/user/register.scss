@@ -24,6 +24,7 @@ $percentage: 85%;
     margin-bottom: 2px;
   }
 
+
   .pwdInput, .rePwdInput {
 
     margin-top: 2px;
@@ -61,8 +62,12 @@ $percentage: 85%;
     };
   }
   .capt-item button{
-    width: 6em;
-    height: 45px;
+    min-width: 6em;
+    height: 30px;
+    background-color: $navbar-color;
+    color: white;
+    border-radius: 3px;
+
   }
 
   .protocol{

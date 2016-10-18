@@ -53,9 +53,13 @@ $iconHeight: 45px;
       flex: 0 0 $iconHeight;
       //background-color: green;
       position: relative;
+      border-radius: 22.5px;
       width: $iconHeight;
       height: $iconHeight;
-
+      //overflow: hidden;
+      img{
+        border-radius: 22.5px;
+      }
       .badge{
         padding: 1px 5px;
         text-align: center;
@@ -72,17 +76,6 @@ $iconHeight: 45px;
         border-radius: 10px;
         color: white;
       }
-      //.badge{
-      //  overflow: visible;
-      //  //overflow-clip: ;
-      //  position: absolute;
-      //  top:-5px;
-      //  left: 35px;
-      //  //background-color: red;
-      //  min-width: 20px;
-      //  height: 10px;
-      //  //border-radius: 50%;
-      //}
 
     }
     .chat-item-content{
@@ -96,8 +89,9 @@ $iconHeight: 45px;
       h2{
 
         //background-color: blue;
+        line-height: 20px;
+        vertical-align: middle;
         font-size: 17px;
-        padding-bottom: 3px;
       }
       p{
         //background-color: red;

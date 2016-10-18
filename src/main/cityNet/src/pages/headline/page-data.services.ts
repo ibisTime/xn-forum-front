@@ -23,7 +23,7 @@ export class PageDataService implements OnDestroy{
 
 
 
-    refresh(){
+    refresh(success?,failure?){
 
         this.start = 1;
         this.loadMoreComp.enable(true);
@@ -31,23 +31,27 @@ export class PageDataService implements OnDestroy{
       return this.getArticle("refresh").then(res => {
 
           (typeof(this.refreshComp) != "undefined")&&(this.refreshComp.complete());
+          (typeof(success) != "undefined")&&(success(res));
 
         }).catch(error => {
 
           (typeof(this.refreshComp) != "undefined")&&(this.refreshComp.complete());
+          (typeof(failure) != "undefined")&&(failure(error));
+
         });
 
     }
 
-    loadMore() {
+    loadMore(success?,failure?) {
 
        return this.getArticle().then(res => {
 
            (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.complete());
-
+           (typeof(success) != "undefined")&&(success(res));
         }).catch(error => {
 
            (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.complete());
+           (typeof(failure) != "undefined")&&(failure(error));
 
         });
 
@@ -86,8 +90,6 @@ export class PageDataService implements OnDestroy{
 
             this.start++;
 
-        }).catch(error => {
-            console.log(error);
         });
 
     }
@@ -95,4 +97,5 @@ export class PageDataService implements OnDestroy{
     ngOnDestroy(){
         console.log('分页管理被销毁');
     }
+
 }

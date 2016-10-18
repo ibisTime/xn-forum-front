@@ -30,24 +30,29 @@
 
   <h6 *ngIf="imServe.listOfOpposite.length <= 0" style="padding-left: 40px;">暂无消息</h6>
 
+  <!--<div>最近联系人</div>-->
+  <!--<ion-item style="background-color: white">-->
+    <!--<ion-avatar item-left>-->
+      <!--<img src="assets/images/marty-avatar.png">-->
+    <!--</ion-avatar>-->
+    <!--<h2>Cher</h2>-->
+  <!--</ion-item>-->
+
   <ion-list>
     <div class="chat-list-outer"  (click)="goChatRoom(msgItem)"
             *ngFor="let msgItem of imServe.listOfOpposite" >
+
       <div class="chat-list-item" >
         <div class="headImg">
           <img src="assets/images/marty-avatar.png">
           <div class="badge" *ngIf="msgItem.showBadge">{{(msgItem.badgeCount > 99) ? '99+' : msgItem.badgeCount}}</div>
         </div>
         <div class="chat-item-content">
-
           <h2>{{msgItem.from}}</h2>
-          <p>{{msgItem.lastMsg}}</p>
-        </div>
-        <div class="chat-item-left">
-          <p>{{msgItem.time}}</p>
         </div>
       </div>
-    </div>
 
+
+    </div>
   </ion-list>
 </ion-content>

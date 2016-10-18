@@ -150,8 +150,14 @@ export class HeadlinePage implements AfterViewInit {
 
   writeArticle(){
 
-    let modelCtrl = this.mCtrl.create(SendArticlePage);
-    modelCtrl.present();
+      if(this.userService.user){
+          let modelCtrl = this.mCtrl.create(SendArticlePage);
+          modelCtrl.present();
+      } else {
+          let modelCtrl = this.mCtrl.create(SendArticlePage);
+          modelCtrl.present();
+      }
+
   }
 
   /*搜索用户或者帖子*/
