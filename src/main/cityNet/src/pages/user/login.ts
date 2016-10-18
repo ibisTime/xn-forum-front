@@ -42,7 +42,7 @@ export class LoginPage  {
       terminalType: "1"
     }
 
-    let loading = this.warnCtrl.loading('登录中');
+    let loading = this.warnCtrl.loading('登陆中');
     this.uService.login(params).then(res => {
 
       loading.dismiss();

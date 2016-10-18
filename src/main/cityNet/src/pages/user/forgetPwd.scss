@@ -35,8 +35,12 @@ $percentage: 85%;
     width: 6em;
   }
   .register-btn {
-    height: 50px;
+    height: 45px;
     width: 100%;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    background-color: $navbar-color;
     margin: 0 auto;
 
     //background-color: $theme-color;

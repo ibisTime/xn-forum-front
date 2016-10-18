@@ -29,38 +29,15 @@ $percentage: 85%;
     margin-top: 2px;
   }
 
-  .img-captcha{
-    margin: 0px auto;
-    margin-top: 2px;
-    display: block;
-
-    height: 40px;
-
-    width: $percentage;
-    input{
-      margin: 0 auto;
-      width: 70%;
-      height: 40px;
-      vertical-align: middle;
-    }
-
-    img{
-      margin-left: 1%;
-      height: 100%;
-      vertical-align: middle;
-      width: 29%;
-    }
-
-  }
-
 
   .register-btn {
-    height: 50px;
+    height: 45px;
     width: 100%;
     margin: 0 auto;
-
-    //background-color: $theme-color;
+    background-color: $navbar-color;
     color: white;
+    font-size: 16px;
+    border-radius: 5px;
   }
 
   .back-login{
@@ -71,6 +48,11 @@ $percentage: 85%;
     //justify-content: flex-end;
     align-items: center;
     height: 20px;
+    a{
+      line-height: 20px;
+      vertical-align: middle;
+      color: $navbar-color;
+    }
     button{
       background-color: $background-color;
       height: 100%;
@@ -85,7 +67,6 @@ $percentage: 85%;
 
   .protocol{
     margin: 0 auto;
-    margin-top: 20px;
     width: $percentage;
     display: flex;
     //justify-content: flex-end;

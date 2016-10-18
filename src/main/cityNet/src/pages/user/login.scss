@@ -21,6 +21,9 @@ $percentage: 85%;
   .login-div{
     padding: 16px;
   }
+  ion-list{
+    margin-top: 10px;
+  }
   ion-list > .item{
     padding-right: 16px;
   }
@@ -37,16 +40,22 @@ $percentage: 85%;
     color: #ce3f42;
   }
 
+  button{
+    font-size: 16px;
+  }
+
   .registerAndLogin{
 
      margin: 0px auto;
      text-align: right;
      padding: 16px;
      font-size: 10px;
+    padding-top: 0px;
 
     .registerBtn, .findPwdBtn {
-      color: white;
+      color: $navbar-color;
       height: 40px;
+      background-color: rgba(0,0,0,0);
       padding: 0 6px;
       margin: 0;
     }
@@ -58,13 +67,18 @@ $percentage: 85%;
 
   .loginBtn {
     //background-color: $theme-color;
-    height: 50px;
+    height: 45px;
     //width: $percentage;
     width: 100%;
     margin: 0 auto;
+    border-radius: 5px;
+    background-color: $navbar-color;
+    color: white;
   }
-  .button, .button.activated{
-    background: #ce3f42;
-  }
+  //button{}
+  //button, button.activated{
+  //  background: #ce3f42;
+  //
+  //}
 
 }

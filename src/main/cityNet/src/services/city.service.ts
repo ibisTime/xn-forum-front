@@ -221,12 +221,6 @@ export class CityService {
 
      });
 
-     /*删除已经遍历的元素*/
-     // for (let i = data.length - 1; i >= 0; i--) {
-     //
-     //   data.splice(tempIndex[i], 1);
-     //
-     // }
      this.deleteEleFromArray(data,tempIndex);
 
 
@@ -247,7 +241,7 @@ export class CityService {
 
                this.headlineData.func3.push(value_inner);
 
-             } else if (value_inner.type == "4") { //func3
+             } else if (value_inner.type == "4") { //func8
 
                this.headlineData.func8.push(value_inner);
 
@@ -270,90 +264,12 @@ export class CityService {
 
      });
 
-
-
-
-     // let data = res["data"];
-     // let tempArray = [];
-     //
-     // if(data instanceof Array){
-     //    //是否全局
-     //   data.forEach((value:navObj,index,array) => {
-     //
-     //     if(value.parentCode == "0" && value.type != "5"){
-     //
-     //       tempArray.push(value);
-     //
-     //     }
-     //
-     //     if(value.type == "5"){
-     //        this.ads.push(value);
-     //     }
-     //
-     //   });
-     //
-     //   /*排序*/
-     //   if(tempArray.length > 1){
-     //     tempArray = tempArray.sort((a,b) => {
-     //       return a.orderNo - b.orderNo;
-     //     });
-     //   }
-     //
-     //
-     // }
-
-
-      // let headline =  {
-      //   "banner": [],
-      //   "func3": [],
-      //   "func8": [],
-      //   "tabs": tempArray
-      // };
-      // let kefuData = [];
-      //
-      // if(data instanceof Array){
-      //
-      //   data.forEach((value,index,array) => {
-      //     /*首页及tab数据*/
-      //    if(value.parentCode == tempArray[0].code){
-      //
-      //      if(value.type == "2"){
-      //        headline["banner"].push(value);
-      //      } else if(value.type == "3") {
-      //        headline["func3"].push(value);
-      //      } else if(value.type == "4"){
-      //        headline["func8"].push(value);
-      //      }
-      //
-      //    }
-      //    // else if(value.parentCode == tempArray[2].code) {
-      //    //   /*客服引流的数据*/
-      //    //   kefuData.push(value);
-      //    // } else if(value.parentCode == tempArray[3].code){
-      //    //   this.videoData.push(value);
-      //    // }
-      //
-      //   });
-      //
-      //   /*排序*/
-      //   for ( let key in headline){
-      //     headline[key] = headline[key].sort((a,b) => {
-      //       return a.orderNo - b.orderNo;
-      //     });
-      //   }
-      //   this.headlineData = headline;
-      //
-      //   /*客服数据排序*/
-      //   kefuData = kefuData.sort((a,b) => {
-      //     return a.orderNo - b.orderNo;
-      //   });
-      //   this.kefuData = kefuData;
-      //   console.log(this.kefuData);
-      //
-      // }
-
       /*外界 得知 是否否有广告图*/
-      return this.ads;
+      if(this.tabbarItems.length >= 4){
+        return true;
+      } else {
+        return false;
+      };
 
     });
 

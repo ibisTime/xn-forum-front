@@ -22,8 +22,6 @@ export class TabsPage {
    tab4Root: any;
    tab5Root: any;
 
-  tabInfo = [{tabTitle:"",},{},{},{}]
-
 
   tabItems = [];
   @ViewChild(Tabs) tabs: Tabs;
@@ -34,6 +32,16 @@ export class TabsPage {
               public events: Events) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
+    this.changeTab();
+    this.events.subscribe("city:change",res => {
+
+      this.changeTab();
+
+    });
+
+  }
+
+  changeTab(){
 
     let tabDict = {
 
@@ -46,15 +54,11 @@ export class TabsPage {
     }
 
 
-    this.tab1Root = tabDict[cityS.tabbarItems[0].url];
-    this.tab2Root = tabDict[cityS.tabbarItems[1].url];
-    this.tab3Root = tabDict[cityS.tabbarItems[2].url];
-    this.tab4Root = tabDict[cityS.tabbarItems[3].url];
-    this.tab5Root = tabDict[cityS.tabbarItems[4].url];
-
-    /**/
-    /*login-t登陆*/
-
+    this.tab1Root = tabDict[this.cityS.tabbarItems[0].url];
+    this.tab2Root = tabDict[this.cityS.tabbarItems[1].url];
+    this.tab3Root = tabDict[this.cityS.tabbarItems[2].url];
+    this.tab4Root = tabDict[this.cityS.tabbarItems[3].url];
+    this.tab5Root = tabDict[this.cityS.tabbarItems[4].url];
   }
 
 

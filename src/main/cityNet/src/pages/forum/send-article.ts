@@ -188,7 +188,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     }
 
     if(this.topicCode.length <= 0){
-      this.warn.alert('请选择板块块');
+      this.warn.alert('请选择板块');
       return;
     }
 
