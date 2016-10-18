@@ -40,6 +40,7 @@ import {ResetPwdPage} from "./user/resetPwd";
 import {RelationPage} from "./mine/relationship-people/relationship";
 import {PlaceholderView} from "../components/placeholder-view/placeholder-view";
 import {SegmentView} from "../components/segment/segment";
+import {SystemMsgPage} from "./mine/im/systemMsg";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -74,7 +75,8 @@ export const pages = [ TabsPage,
   MallPage,
   GoodsDetailPage,
   ResetPwdPage,
-  RelationPage
+  RelationPage,
+  SystemMsgPage
 ];
 
 export const components = [

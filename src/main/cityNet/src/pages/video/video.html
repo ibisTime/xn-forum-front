@@ -1,12 +1,12 @@
 <ion-header>
   <ion-navbar color="navbar-color">
-    <ion-title>{{cityS.headlineData.tabs[3].name}}</ion-title>
+    <ion-title>{{cityS.customTitle}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="video">
   <div class="video-item-outer">
-    <div class="video-item" (click)="goOther(videoItem.url,videoItem.title)" *ngFor="let videoItem of cityS.videoData">
+    <div class="video-item" (click)="goOther(videoItem.url,videoItem.title)" *ngFor="let videoItem of cityS.customData">
       <img [src]="videoItem.pic" [style.height]="imgHeight">
       <div>{{videoItem.title}}</div>
     </div>

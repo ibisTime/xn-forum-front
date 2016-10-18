@@ -6,6 +6,7 @@ import {IMService} from "../../../services/im.service";
 import {WarnService} from "../../../services/warn.service";
 import {UserService} from "../../../services/user.service";
 import {FriendPage} from "../friend/friend";
+import {SystemMsgPage} from "./systemMsg";
 
 @Component({
   templateUrl: 'im.html'
@@ -60,5 +61,8 @@ export class ImPage implements AfterViewInit{
 
   goComment(){
     this.navCtrl.push(CommentPage);
+  }
+  goSystemMsg(){
+    this.navCtrl.push(SystemMsgPage);
   }
 }

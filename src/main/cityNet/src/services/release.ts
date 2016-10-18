@@ -3,19 +3,21 @@
  */
 
 export const RELEASE = false;
-export function  url(){
 
-    if(RELEASE){
-        return "http://121.43.101.148:7303/xn-forum-front";
-    } else {
-        return "http://localhost:8080/xn-forum-front";
-    }
-
-}
+// export function  url(){
+//
+//     if(RELEASE){
+//         return "http://121.43.101.148:7303/xn-forum-front";
+//     } else {
+//         return "http://localhost:8080/xn-forum-front";
+//     }
+//
+// }
 
 export namespace Release {
 
     const release = RELEASE;
+    const  test = false;
 
     export const weChat = true;
 
@@ -32,7 +34,12 @@ export namespace Release {
     export function  url(){
 
         if(RELEASE){
-            return "http://121.43.101.148:7303/xn-forum-front";
+            if(test){
+                return "http://120.26.222.73:8080/xn-forum-front";
+            } else {
+                return "//121.43.101.148:8080/xn-forum-front";
+            }
+
         } else {
             return "http://localhost:8080/xn-forum-front";
         }
@@ -42,7 +49,12 @@ export namespace Release {
     export function  kefuUrl(){
 
         if(RELEASE){
-            return "http://121.43.101.148:7303";
+            if(test){
+                return "http://120.26.222.73:8080";
+            } else  {
+                return "//121.43.101.148:8080";
+            }
+
         } else {
             return "http://localhost:8080";
         }

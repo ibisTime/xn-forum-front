@@ -1,44 +1,55 @@
 <ion-tabs>
 
+  <div class="custom-tabbar" *ngIf="cityS.tabbarItems.length > 4;">
 
-  <div class="custom-tabbar" *ngIf="cityS.headlineData.tabs.length > 4">
-    <a (tap)="goOther(0)">
+    <a (tap)="selected(i)" *ngFor="let item of cityS.tabbarItems;  let i = index;">
       <div>
-      <img class="default-img" src={{cityS.headlineData.tabs[0].pic}}>
+        <img class="default-img" [class.kf-img]="item.url == 'page:xiaomi'" [src]="item.pic">
       </div>
-      <span class="default-title">{{cityS.headlineData.tabs[0].name}}</span>
-    </a>
-    <a (tap)="goOther(1)">
-      <div>
-        <img class="default-img" src={{cityS.headlineData.tabs[1].pic}}>
-      </div>
-      <span class="default-title">{{cityS.headlineData.tabs[1].name}}</span>
+      <span class="default-title" [class.kf-title]="item.url == 'page:xiaomi'">{{item.name}}</span>
     </a>
 
-    <!---->
-    <a (tap)="goKefu()">
-      <img style="height: 49px;" class="kf-img" src="../assets/images/tab-bar-xiaomi.png">
-    </a>
+    <!--<a (tap)="goOther(0)">-->
+      <!--<div>-->
+      <!--<img class="default-img" src={{cityS.tabbarItems[0].pic}}>-->
+      <!--</div>-->
+      <!--<span class="default-title">{{cityS.tabbarItems[0].name}}</span>-->
+    <!--</a>-->
+    <!--<a (tap)="goOther(1)">-->
+      <!--<div>-->
+        <!--<img class="default-img" src={{cityS.tabbarItems[1].pic}}>-->
+      <!--</div>-->
+      <!--<span class="default-title">{{cityS.tabbarItems[1].name}}</span>-->
+    <!--</a>-->
 
-    <a (tap)="goOther(3)">
-      <div>
-        <img class="default-img" src={{cityS.headlineData.tabs[3].pic}}>
-      </div>
-      <span class="default-title">{{cityS.headlineData.tabs[3].name}}</span>
-    </a>
+    <!--<a (tap)="goKefu()">-->
+      <!--<img style="height: 49px;" class="kf-img" src={{cityS.tabbarItems[2].pic}}>-->
+    <!--</a>-->
 
-    <a (tap)="goOther(4)">
-      <div>
-        <img class="default-img" src={{cityS.headlineData.tabs[4].pic}}>
-      </div>
-      <span class="default-title">{{cityS.headlineData.tabs[4].name}}</span>
-    </a>
+    <!--<a (tap)="goOther(3)">-->
+      <!--<div>-->
+        <!--<img class="default-img" src={{cityS.tabbarItems[3].pic}}>-->
+      <!--</div>-->
+      <!--<span class="default-title">{{cityS.tabbarItems[3].name}}</span>-->
+    <!--</a>-->
+
+    <!--<a (tap)="goOther(4)">-->
+      <!--<div>-->
+        <!--<img class="default-img" src={{cityS.tabbarItems[4].pic}}>-->
+      <!--</div>-->
+      <!--<span class="default-title">{{cityS.tabbarItems[4].name}}</span>-->
+    <!--</a>-->
 
   </div>
+
+
+
 
   <ion-tab [root]="tab1Root" tabTitle="头条" tabIcon="home"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="有料" tabIcon="apps"></ion-tab>
   <ion-tab [root]="tab3Root" tabIcon="default-user"></ion-tab>
   <ion-tab [root]="tab4Root" tabTitle="视频" tabIcon="logo-youtube"></ion-tab>
   <ion-tab [root]="tab5Root" tabTitle="我的" tabIcon="contact"></ion-tab>
+
+
 </ion-tabs>

@@ -1,5 +1,5 @@
 import {
-  Component, AfterViewInit, ViewChild, Directive
+  Component, AfterViewInit
 
 } from '@angular/core';
 import {NavController, NavParams, App} from "ionic-angular";
@@ -10,8 +10,6 @@ import {HttpService} from "../../services/http.service";
 import {LoginPage} from "./login";
 
 
-@Directive({ selector: 'input' })
-export class InputItem {}
 
 @Component({
   templateUrl: "resetPwd.html"
