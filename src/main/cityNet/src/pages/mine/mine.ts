@@ -12,6 +12,7 @@ import {SettingPage} from "./setting/setting";
 import {DraftPage} from "./draft/draft";
 import {RelationPage} from "./relationship-people/relationship";
 import {RegisterPage} from "../user/register";
+import {BZPlatDetailPage} from "../forum/detail/bzPlatDetail";
 
 
 @Component({
@@ -128,7 +129,9 @@ export class MinePage implements AfterViewInit{
   goDraft(){
     this.navCtrl.push(DraftPage);
   }
-
+  goMyPlate(){
+    this.navCtrl.push(BZPlatDetailPage);
+  }
 
 }
 

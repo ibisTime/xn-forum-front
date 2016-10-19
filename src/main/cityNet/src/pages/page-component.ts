@@ -41,6 +41,7 @@ import {RelationPage} from "./mine/relationship-people/relationship";
 import {PlaceholderView} from "../components/placeholder-view/placeholder-view";
 import {SegmentView} from "../components/segment/segment";
 import {SystemMsgPage} from "./mine/im/systemMsg";
+import {BZPlatDetailPage} from "./forum/detail/bzPlatDetail";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -76,7 +77,8 @@ export const pages = [ TabsPage,
   GoodsDetailPage,
   ResetPwdPage,
   RelationPage,
-  SystemMsgPage
+  SystemMsgPage,
+  BZPlatDetailPage
 ];
 
 export const components = [

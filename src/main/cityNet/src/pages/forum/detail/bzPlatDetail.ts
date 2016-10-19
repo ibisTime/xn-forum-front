@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, Platform, Content, ModalController, Events} from 'ionic-angular';
+import {NavController, Platform, Content, ModalController} from 'ionic-angular';
 import {PlatDetailPage} from "../detail/platDetail";
 import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
@@ -15,7 +15,7 @@ import {CityService} from "../../../services/city.service";
 })
 export class BZPlatDetailPage {
 
-  segment: string = "check";
+  segment: string = "isCheck";
   isAndroid: boolean= false;
   imgHeight: string;
   pHeight: string;
@@ -38,7 +38,6 @@ export class BZPlatDetailPage {
               public uService : UserService,
               public mCtrl: ModalController,
               public http: HttpService,
-              public events: Events,
               public cityService: CityService) {
       this.nav = navCtrl;
 
@@ -46,15 +45,6 @@ export class BZPlatDetailPage {
       this.limit = 10;
       this.queryPostPage();
       this.getClass();
-      this.events.subscribe('content:delete',
-            (code) => {
-                for(let i = 0; i < this.items.length; i++){
-                    if(this.items[i].code == code){
-                        this.items.splice(i, 1);
-                        break;
-                    }
-                }
-            });
   }
   showLogin(){
     let modelCtrl = this.mCtrl.create(LoginPage);
@@ -86,6 +76,8 @@ export class BZPlatDetailPage {
                         this.start++;
                     }
                 }
+                console.log(this.items);
+                
                 this.appendCount = 0;
                 event && event.complete();
             }).catch(error => {

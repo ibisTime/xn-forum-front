@@ -5,52 +5,61 @@
 </ion-header>
 
 <ion-content class="forum forum-detail">
-    <ion-segment [(ngModel)]="segment">
-        <ion-segment-button value="check">审查</ion-segment-button>
+    <div class="p8 clearfix">
+        <table class="wp100">
+            <tr>
+                <td rowspan="2"><img class="fl" src="assets/images/marty-avatar.png"/></td>
+                <td>板块名称</td>
+                <td>置顶：44</td>
+            </tr>
+            <tr>
+                <td>帖子数：456</td>
+                <td>精华：22</td>
+            </tr>
+        </table>
+    </div>
+    <ion-segment [(ngModel)]="segment" class="p8">
+        <ion-segment-button value="isCheck">审查</ion-segment-button>
         <ion-segment-button value="management">管理</ion-segment-button>
     </ion-segment>
     <div [ngSwitch]="segment">
 
         <!--帖子相关-->
 
-        <div *ngSwitchCase="check">
+        <div *ngSwitchCase="'isCheck'">
+            <ion-list>
+                <ion-refresher (ionRefresh)="doRefresh($event)" class="no-abs">
+                    <ion-refresher-content
+                            pullingIcon="arrow-dropdown"
+                            pullingText="下拉加载"
+                            refreshingSpinner="circles"
+                            refreshingText="加载中...">
+                    </ion-refresher-content>
+                </ion-refresher>
 
+                <ion-item *ngFor="let item of items;">
+                    <forum-cell
+                            [item]="item"
+                            [navCtrl]="nav"
+                            [isHideCom]=true
+                            [isHideComBtn]=true
+                            (articleDetailEmitter)="openPage($event)"
+                    ></forum-cell>
+                    <ion-buttons class="clearfix">
+                        <button class="fr" ion-button>忽略</button>
+                        <button class="fr" ion-button>删除</button>
+                        <button class="fr" ion-button>通过</button>
+                    </ion-buttons>
+                </ion-item>
 
-        <ion-list>
-            <ion-refresher (ionRefresh)="doRefresh($event)" class="no-abs">
-                <ion-refresher-content
-                        pullingIcon="arrow-dropdown"
-                        pullingText="下拉加载"
-                        refreshingSpinner="circles"
-                        refreshingText="加载中...">
-                </ion-refresher-content>
-            </ion-refresher>
-
-            <ion-item *ngFor="let item of items;">
-                <forum-cell
-                        [item]="item"
-                        [navCtrl]="nav"
-                        [isHideCom]=true
-                        [isHideComBtn]=true
-                        (articleDetailEmitter)="openPage($event)"
-                >
-
-                </forum-cell>
-                <ion-buttons class="clearfix">
-                    <button ion-button>通过</button>
-                    <button ion-button>删除</button>
-                    <button ion-button>忽略</button>
-                </ion-buttons>
-            </ion-item>
-
-            <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
-                <ion-infinite-scroll-content></ion-infinite-scroll-content>
-            </ion-infinite-scroll>
-        </ion-list>
+                <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
+                    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                </ion-infinite-scroll>
+            </ion-list>
         </div>
 
         <!--板块选择-->
-        <div *ngSwitchCase="management">
+        <div *ngSwitchCase="'management'">
             <ion-refresher (ionRefresh)="doRefresh($event)" class="no-abs">
                 <ion-refresher-content
                         pullingIcon="arrow-dropdown"
@@ -67,15 +76,13 @@
                         [isHideCom]=true
                         [isHideComBtn]=true
                         (articleDetailEmitter)="openPage($event)"
-                >
-
-                </forum-cell>
-                <ion-buttons class="clearfix">
-                    <button ion-button>精华</button>
-                    <button ion-button>置顶</button>
-                    <button ion-button>锁帖</button>
-                    <button ion-button>删除</button>
-                </ion-buttons>
+                ></forum-cell>
+                    <ion-buttons class="clearfix">
+                        <button class="fr" ion-button>删除</button>
+                        <button class="fr" ion-button>精华</button>
+                        <button class="fr" ion-button>置顶</button>
+                        <button class="fr" ion-button>锁帖</button>
+                    </ion-buttons>
             </ion-item>
 
             <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
