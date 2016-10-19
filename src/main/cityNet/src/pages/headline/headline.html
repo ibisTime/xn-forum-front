@@ -92,7 +92,10 @@
           <div class="text-outer">
             <div class="article-title">{{article.content}}</div>
             <div class="article-date">{{article.publishDatetime | forumDate}}</div>
-            <div class="focuse-count">{{article.totalCommNum}}</div>
+            <div class="focuse-count">
+              <img src="assets/images/mine/read-times@2x.png" style="height: 10px;">
+              <span >{{article.totalReadTimes}}</span>
+            </div>
           </div>
         </div>
       </div>

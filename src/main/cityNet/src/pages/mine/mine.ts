@@ -60,7 +60,10 @@ export class MinePage implements AfterViewInit{
 
   ngAfterViewInit(){
 
-    this.getStatisticsInfo();
+    if(this.userService.user){
+      this.getStatisticsInfo();
+    }
+
 
   }
 

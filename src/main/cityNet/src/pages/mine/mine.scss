@@ -41,12 +41,10 @@
         margin: 0 20px 0 25px;
         height: 80px;
         width: 80px;
-        img{
-          max-height: 100%;
-          max-width: 100%;
-          border-radius: 50%;
-        }
+        border-radius: 50%;
+        overflow: hidden;
       }
+
       .title-outer{
         .name{
           font-size: 16px;

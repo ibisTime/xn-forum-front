@@ -2,7 +2,7 @@
  * Created by tianlei on 16/9/26.
  */
 
-export const RELEASE = false;
+// export const RELEASE = false;
 
 // export function  url(){
 //
@@ -16,7 +16,7 @@ export const RELEASE = false;
 
 export namespace Release {
 
-    const release = RELEASE;
+    const release = false;
     const  test = false;
 
     export const weChat = true;
@@ -33,7 +33,7 @@ export namespace Release {
 
     export function  url(){
 
-        if(RELEASE){
+        if(release){
             if(test){
                 return "http://120.26.222.73:8080/xn-forum-front";
             } else {
@@ -48,7 +48,7 @@ export namespace Release {
 
     export function  kefuUrl(){
 
-        if(RELEASE){
+        if(release){
             if(test){
                 return "http://120.26.222.73:8080";
             } else  {

@@ -67,6 +67,7 @@ export class HeadlinePage implements AfterViewInit {
   }
 
   ngAfterViewInit(){
+
     let w = this.platform.width();
     this.bannerHeight = `${w/2.3}px`;
     this.h8 = `${(w - 35)/4}px`;
@@ -161,26 +162,27 @@ export class HeadlinePage implements AfterViewInit {
   }
 
   /*搜索用户或者帖子*/
-  search(){
-   this.navCtrl.push(SearchUserAndArticlePage);
-  }
+    search() {
+        this.navCtrl.push(SearchUserAndArticlePage);
+    }
 
     doRefresh(refresher) {
 
         this.pageDataService.refresh();
+        this.cityS.getNavigateBySiteCode(this.cityS.currentCity.code);
 
     }
 
     doLoadMore(loadMore) {
 
-        this.pageDataService.loadMore();
+       this.pageDataService.loadMore();
 
     }
 
 
-    browserArticle(article){
+    browserArticle(article) {
 
-        this.navCtrl.push(ContentPage,article);
+        this.navCtrl.push(ContentPage, article);
     }
 
 
