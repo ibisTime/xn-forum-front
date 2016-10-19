@@ -31,11 +31,11 @@ export class UserService {
 
   tokenId: string;
   userId: string;
-
   /*取值用 .user 取值*/
   _user: User;
   followUsers = [];  //关注的所有人
 
+  registerHelper = false; //解决 注册成功返回到登录页 在退出的问题
   constructor(
               private http: HttpService,
               private storage: Storage,
@@ -94,6 +94,7 @@ export class UserService {
     this.tokenId = "";
     this.userId = "";
     this.user = "";
+    this.registerHelper = false;
     this.storage.remove("tokenId");
     this.storage.remove("userId");
     this.storage.remove("user");

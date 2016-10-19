@@ -63,10 +63,8 @@ export class ForgetPwdPage implements AfterViewInit {
     }
 
     let btn = e.target;
-    while( !/^button$/gi.test(btn.nodeName) ){
-      btn = btn.parentNode;
-    }
-    btn.setAttribute("disabled", "disabled");
+
+
 
 
 
@@ -75,6 +73,10 @@ export class ForgetPwdPage implements AfterViewInit {
     };
     this.http.post('/gene/findloginpwd/send',mobile).then((res) => {
 
+      while( !/^button$/gi.test(btn.nodeName) ){
+        btn = btn.parentNode;
+      }
+      btn.setAttribute("disabled", "disabled");
       for(var i = 0; i <= 30; i++){
         (function (i) {
           setTimeout(function(){

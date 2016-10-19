@@ -1,7 +1,7 @@
 /**
  * Created by tianlei on 2016/10/13.
  */
-import {Component, AfterViewInit,ViewChild} from '@angular/core';
+import {Component,ViewChild} from '@angular/core';
 import {NavController, Platform, NavParams,
         InfiniteScroll, Refresher, ModalController} from 'ionic-angular';
 import {WarnService} from "../../../services/warn.service";

@@ -1,11 +1,10 @@
 import {Component, AfterViewInit} from '@angular/core';
-import {NavController, Searchbar} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 import {IMService} from "../../../services/im.service";
 import {ChatRoomPage} from "../im/chat-room";
 import {AddFriendPage} from "./addFriend";
 import {WarnService} from "../../../services/warn.service";
 import {HttpService} from "../../../services/http.service";
-import {variable} from "@angular/compiler/src/output/output_ast";
 import {isUndefined} from "ionic-angular/es2015/util/util";
 import {UserService} from "../../../services/user.service";
 
@@ -15,11 +14,12 @@ import {UserService} from "../../../services/user.service";
 export class FriendPage implements AfterViewInit {
 
   users;
+  userCopy;
   constructor(public navCtrl: NavController,
               public imServe: IMService,
-              public warnServe: WarnService,
               public http: HttpService,
-              public userService: UserService) {
+              public userService: UserService,
+              public warn:WarnService) {
   }
 
 
@@ -33,6 +33,22 @@ export class FriendPage implements AfterViewInit {
       // tab.tabBadge = this.imServe.listOfFutureFriend.length;
       // tab.tabBadge = " ";
     }, 50);
+
+      let obj = {
+          "start":"1",
+          "limit":"1000"
+      }
+      let load = this.warn.loading();
+      this.http.get('/rs/follows/page',obj).then(res => {
+
+          load.dismiss();
+          this.userCopy = res.data.list;
+
+          this.users = this.userCopy;
+
+      }).catch(error => {
+          load.dismiss();
+      });
 
   }
 
@@ -49,34 +65,47 @@ export class FriendPage implements AfterViewInit {
     this.navCtrl.push(ChatRoomPage,peo);
   }
 
+
   searchAction($event) {
 
    let value = $event.target.value;
 
-    console.log(value);
 
     if(isUndefined(value) || value.length <= 0){
-      this.users = [];
-      return;
+      this.users = this.userCopy;
+
+    } else {
+        this.users = [];
+        let reg = new RegExp(value);
+      this.userCopy.forEach((value,index,array) => {
+
+          if(reg.test(value.nickname)){
+              this.users.push(value);
+          }
+
+      });
+
+
     }
 
-    console.log($event);
-    let obj = {
-      "nickname" : value
-    };
-
-    this.http.get("/user/list",obj).then(res => {
-
-
-      this.users = res.data;
-      if(this.users.length > 0 && this.users[0].userId == this.userService.userId){
-        this.users = [];
-      }
-
-    }).catch(error => {
-
-
-    });
+    //
+    // console.log($event);
+    // let obj = {
+    //   "nickname" : value
+    // };
+    //
+    // this.http.get("/user/list",obj).then(res => {
+    //
+    //
+    //   this.users = res.data;
+    //   if(this.users.length > 0 && this.users[0].userId == this.userService.userId){
+    //     this.users = [];
+    //   }
+    //
+    // }).catch(error => {
+    //
+    //
+    // });
   }
 
 

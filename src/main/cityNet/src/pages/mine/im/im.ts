@@ -51,7 +51,7 @@ export class ImPage implements AfterViewInit{
     // this.imServe.getFriendList();
   }
 
-  addFriend(){
+  searchFriend(){
     this.navCtrl.push(FriendPage);
   }
 

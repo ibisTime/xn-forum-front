@@ -30,9 +30,16 @@ export class PlatChooseView implements OnInit {
     @Input() currentPlats = [];
 
     @Input() set classification(classification){
-        this.firstClassItem.push(classification[0]);
-        this.getPlateByKind(this.firstClassItem[0].dkey);
-        this._classification = classification.slice(1,classification.length - 1);
+        if(classification.length <= 0){
+
+            this.firstClassItem = [];
+
+        } else {
+            this.firstClassItem.push(classification[0]);
+            this.getPlateByKind(this.firstClassItem[0].dkey);
+            this._classification = classification.slice(1,classification.length - 1);
+        }
+
     }
 
     ngOnInit() {

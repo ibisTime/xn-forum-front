@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Platform, Events} from 'ionic-angular';
+import {Platform, Events, App} from 'ionic-angular';
 import {TabsPage} from '../pages/tabs/tabs';
 import {UserService} from "../services/user.service";
 import {LoginPage} from "../pages/user/login";
@@ -29,6 +29,7 @@ export class MyApp {
               public http: HttpService,
               public kefuService: KefuService,
               public imServe: IMService,
+              public app: App
               ) {
     //根视图
     platform.ready().then(() => {
@@ -40,20 +41,19 @@ export class MyApp {
     /*获取导航数据*/
     this.getNav();
 
+
     /*登陆超时重新登陆*/
     this.events.subscribe('user:timeout',() => {
 
-      if(this.rootPage != LoginPage){
 
         this.warn.toast('请重新登陆');
         this.userServe.loginOut();
         this.im.close();
-
-        this.rootPage = LoginPage;
-
-      }
+        let currentNav = this.app.getActiveNav();
+        currentNav.push(LoginPage);
 
     });
+
 
     /*user-services 中发出 登陆成功*/
     this.events.subscribe("user:loginSuccess",() => {
