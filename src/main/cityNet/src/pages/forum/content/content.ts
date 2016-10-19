@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, Platform, Content, NavParams} from 'ionic-angular';
+import {NavController, Platform, Content, NavParams, Events, ActionSheetController, AlertController} from 'ionic-angular';
 import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
 import {UserService} from "../../../services/user.service";
@@ -34,7 +34,10 @@ export class ContentPage {
               public platform: Platform,
               public warnCtrl : WarnService,
               public uService : UserService,
-              public http: HttpService) {
+              public http: HttpService,
+              public actionSheetCtrl: ActionSheetController,
+              public alertCtrl: AlertController,
+              public events: Events) {
 
         this.isAndroid = platform.is('android');
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
@@ -52,6 +55,7 @@ export class ContentPage {
                 }
             }
         });
+        this.read();
   }
   //关注
   follow(publisher){
@@ -106,6 +110,7 @@ export class ContentPage {
             .then((res) => {
                 this.deleteCount = 0;
                 if(res.success){
+                    this.events.publish("content:delete", code);
                     this.navCtrl.pop();
                 }else if(res.timeout){
                     this.warnCtrl.toast("登录超时，请重新登录!");
@@ -205,24 +210,28 @@ export class ContentPage {
       }
 
   }
-  sendMsg1(msg){
-      let mObj = {
-          parentCode: this.item.code,
-          content: msg
-      }
-      this.http.post('/post/comment', mObj)
-        .then((res) => {
-            if(res.success){
-                this.item.commentList.push({
-                    nickname: this.uService.user.nickname,
-                    content: msg
-                });
-            }else{
-                this.warnCtrl.toast("评论失败，请稍后重试!");
+  sendMsg1(event, msg){
+      let code = event.charCode || event.keyCode;
+      if(code == 13 && msg != null && msg.trim() !== ""){
+           let mObj = {
+                parentCode: this.item.code,
+                content: msg
             }
-        }).catch(error => {
-            this.warnCtrl.toast("评论失败，请稍后重试!");
-        });
+            this.http.post('/post/comment', mObj)
+                .then((res) => {
+                    if(res.success){
+                        this.inputValue = "";
+                        this.item.commentList.push({
+                            nickname: this.uService.user.nickname,
+                            content: msg
+                        });
+                    }else{
+                        this.warnCtrl.toast("评论失败，请稍后重试!");
+                    }
+                }).catch(error => {
+                    this.warnCtrl.toast("评论失败，请稍后重试!");
+                });
+      }
   }
   getPostDetail(){
       this.http.get('/post/get',{
@@ -231,9 +240,6 @@ export class ContentPage {
         .then((res) => {
             if(res.success){
                 var data = res.data;
-                if(data.pic != null){
-                    data.pic = data.pic.split(/\|\|/);
-                }
                 this.item = data;
             }else{
                 this.warnCtrl.toast("帖子详情获取失败，请稍后重试!");
@@ -257,5 +263,132 @@ export class ContentPage {
       setTimeout(()=>{
           window.scrollTo(0, 1000);
       }, 1);
+  }
+  //更多
+  presentActionSheet() {
+    let scFlag = this.item.isSC == "1" ? true: false;
+    let buttons = [
+        {
+          text: '分享',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: scFlag && '取消收藏' || '收藏',
+          handler: () => {
+              this.collect(this.item.code, scFlag);
+          }
+        },{
+          text: '取消',
+          role: 'cancel'
+        }
+    ];
+    if(!this.isMe){
+        buttons.unshift({
+            text: '举报',
+            handler: () => {
+                this.report();
+            }
+        });
+        buttons.unshift({
+            text: '打赏',
+            handler: ()=>{
+                this.gratuity();
+            }
+        });
+    }
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '操作',
+      buttons: buttons
+    });
+    actionSheet.present();
+  }
+  //打赏
+  gratuity() {
+    let prompt = this.alertCtrl.create({
+      title: '打赏',
+      message: "",
+      inputs: [
+        {
+          name: 'amount',
+          type: "number",
+          placeholder: '打赏数量'
+        }
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+          }
+        },
+        {
+          text: '确认',
+          handler: (data) => {
+                if(data.amount && /^\d+(\.\d+)?$/i.test(data.amount)){
+                    this.http.post('/post/gratuity',{
+                        "postCode": this.code,
+                        "amount": +data.amount * 1000
+                    })
+                    .then((res) => {
+                        if(res.success){
+                            this.warnCtrl.toast("打赏成功!")
+                        }else{
+                            this.warnCtrl.toast("打赏失败，请稍后重试!");
+                        }
+                    }).catch(error => {
+                        this.warnCtrl.toast("打赏失败，请稍后重试!");
+                    });
+                }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+  //举报
+  report() {
+      let prompt = this.alertCtrl.create({
+      title: '举报',
+      message: "",
+      inputs: [
+        {
+          name: 'reportNote',
+          placeholder: '举报理由'
+        }
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+          }
+        },
+        {
+          text: '确认',
+          handler: (data) => {
+                this.http.post('/post/report',{
+                    "code": this.code,
+                    "reportNote": data.reportNote
+                })
+                .then((res) => {
+                    if(res.success){
+                        this.warnCtrl.toast("举报成功!");
+                    }else{
+                        this.warnCtrl.toast("举报失败，请稍后重试!");
+                    }
+                }).catch(error => {
+                    this.warnCtrl.toast("举报失败，请稍后重试!");
+                });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+  //阅读帖子
+  read(){
+       this.http.post('/post/read',{
+            "postCode": this.code
+        });
   }
 }

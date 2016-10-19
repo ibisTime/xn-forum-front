@@ -32,7 +32,11 @@ $percentage: 85%;
     padding: 16px;
   }
   .capt-item button{
-    width: 6em;
+    min-width: 6em;
+    height: 30px;
+    border-radius: 3px;
+    color: white;
+    background-color: $navbar-color;
   }
   .register-btn {
     height: 45px;

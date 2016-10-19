@@ -28,7 +28,7 @@ export class MyApp {
               public im: IMService,
               public http: HttpService,
               public kefuService: KefuService,
-              public imServe: IMService
+              public imServe: IMService,
               ) {
     //根视图
     platform.ready().then(() => {
@@ -44,15 +44,18 @@ export class MyApp {
     this.events.subscribe('user:timeout',() => {
 
       if(this.rootPage != LoginPage){
+
         this.warn.toast('请重新登陆');
         this.userServe.loginOut();
         this.im.close();
+
         this.rootPage = LoginPage;
+
       }
 
     });
 
-    /*user-services 中发出的通知*/
+    /*user-services 中发出 登陆成功*/
     this.events.subscribe("user:loginSuccess",() => {
 
       /*客服*/
@@ -97,12 +100,7 @@ export class MyApp {
     this.cityService.getNavByBaiduMap(x, y).then(res => {
 
       //有广告图进行加载
-      if(res.length > 0){
-
-      //
-      //   setTimeout(res => {
-      //     this.time --;
-      //   },1000);
+      if(this.cityService.ads.length > 0){
 
         setTimeout(res => {
 
@@ -158,7 +156,7 @@ export class MyApp {
 
 
       } else {
-        this.rootPage = LoginPage;
+        this.rootPage = TabsPage;
       }
 
     });

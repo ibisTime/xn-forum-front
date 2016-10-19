@@ -65,5 +65,4 @@ export class WarnService {
     toast.present();
   }
 
-
 }

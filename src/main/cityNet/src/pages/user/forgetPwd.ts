@@ -68,24 +68,26 @@ export class ForgetPwdPage implements AfterViewInit {
     }
     btn.setAttribute("disabled", "disabled");
 
-    for(var i = 0; i <= 30; i++){
-        (function (i) {
-            setTimeout(function(){
-                if(i < 30){
-                    btn.innerText = (30 - i) + "s";
-                }else{
-                    btn.removeAttribute("disabled");
-                    btn.innerText = "发送验证码";
-                }
-            }, 1000*i);
-        })(i);
-    }
+
 
     let mobile = {
       "mobile" : this.userNameValue
     };
     this.http.post('/gene/findloginpwd/send',mobile).then((res) => {
-      //this.captchaView.beginTime();
+
+      for(var i = 0; i <= 30; i++){
+        (function (i) {
+          setTimeout(function(){
+            if(i < 30){
+              btn.innerText = (30 - i) + "s";
+            }else{
+              btn.removeAttribute("disabled");
+              btn.innerText = "发送验证码";
+            }
+          }, 1000*i);
+        })(i);
+      }
+
     }).catch((error) => {
       this.warnCtrl.toast('验证码发送失败，请稍后重试!');
     });

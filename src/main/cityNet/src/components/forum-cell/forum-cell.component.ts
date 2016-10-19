@@ -24,6 +24,8 @@ export class ForumCell implements OnInit {
     imgHeight;
     pHeight;
     @Input() isHideCom = true;
+    @Input() isHideSC = false;
+    @Input() isHideComBtn = false;
     constructor(public platform: Platform,
                 public warnCtrl: WarnService,
                 public uService : UserService,

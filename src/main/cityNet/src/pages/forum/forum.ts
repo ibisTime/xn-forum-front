@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, Platform, Content, ModalController} from 'ionic-angular';
+import {NavController, Platform, Content, ModalController, Events} from 'ionic-angular';
 import {PlatDetailPage} from "./detail/platDetail";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
@@ -38,6 +38,7 @@ export class ForumPage {
               public uService : UserService,
               public mCtrl: ModalController,
               public http: HttpService,
+              public events: Events,
               public cityService: CityService) {
       this.nav = navCtrl;
 
@@ -45,6 +46,15 @@ export class ForumPage {
       this.limit = 10;
       this.queryPostPage();
       this.getClass();
+      this.events.subscribe('content:delete',
+            (code) => {
+                for(let i = 0; i < this.items.length; i++){
+                    if(this.items[i].code == code){
+                        this.items.splice(i, 1);
+                        break;
+                    }
+                }
+            });
   }
   showLogin(){
     let modelCtrl = this.mCtrl.create(LoginPage);
@@ -53,33 +63,35 @@ export class ForumPage {
   
   queryPostPage(event?, refresh?){
       return this.http.get('/post/page',{
-          "start": this.start,
-          "limit": this.limit
-        })
-        .then((res) => {
-            if(res.success){
-                let list = res.data.list;
-                let i = 0;
-                if(refresh){
-                    this.items = [];
+            "start": this.start,
+            "limit": this.limit
+            })
+            .then((res) => {
+                if(res.success){
+                    let list = res.data.list;
+                    let i = 0;
+                    if(refresh){
+                        this.items = [];
+                    }
+                    if(!list.length){
+                        this.isEnd = true;
+                    }
+                    for(i = 0; i < list.length; i++){
+                        list[i].commentList.splice(5);
+                        list[i].collectCount = 0;   //点击收藏次数
+                        list[i].praiseCount = 0;    //点击点赞次数
+                        this.items.push(list[i]);
+                    }
+                    if(i > 0){
+                        this.start++;
+                    }
                 }
-                if(!list.length){
-                    this.isEnd = true;
-                }
-                for(i = 0; i < list.length; i++){
-                    list[i].collectCount = 0;   //点击收藏次数
-                    list[i].praiseCount = 0;    //点击点赞次数
-                    //list[i].commentList.splice(5);
-                    this.items.push(list[i]);
-                }
-                if(i > 0){
-                    this.start++;
-                }
-            }
-            event && event.complete();
-        }).catch(error => {
-            event && event.complete();
-        });
+                this.appendCount = 0;
+                event && event.complete();
+            }).catch(error => {
+                this.appendCount = 0;
+                event && event.complete();
+            });
   }
 
   //收藏
@@ -167,9 +179,7 @@ export class ForumPage {
   doAppendData(event){
         if(!this.appendCount && !this.isEnd){
             this.appendCount = 1;
-            this.queryPostPage(event).then(()=>{
-                this.appendCount = 0;
-            });
+            this.queryPostPage(event);
         }else{
             event.complete();
         }

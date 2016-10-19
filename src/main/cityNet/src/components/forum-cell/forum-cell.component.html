@@ -15,24 +15,24 @@
                         <h2 style="margin: 6px 0;">{{_item.title}}</h2>
                         <p [innerHTML]="_item.content"></p>
                     </div>
-                    <div *ngIf="_item.picArr" [style.height]="imgHeight" class="img-cont" (click)="showImg($event)">
-                        <img class="imgs" [style.width]="imgHeight" [src]="p" *ngFor="let p of _item.picArr"/>
+                    <div *ngIf="_item.picArr" class="img-cont" (click)="showImg($event)">
+                        <img class="imgs wp30 mr2p" [src]="p" *ngFor="let p of _item.picArr"/>
                     </div>
                 </ion-card-content>
 
 
-                <div class="com-btn">
+                <div class="com-btn" [class.hidden]="isHideComBtn">
                     <ion-buttons class="clearfix">
                         <button class="fl">
                             <i class="icon iconfont">&#xe60a;</i>
                         </button>
                         <button class="sp-btn fl"
-                                [class.hidden]="_item.isSC != '0'"
+                                [class.hidden]="isHideSC||_item.isSC != '0'"
                                 (click)="collect(_item.code)">
                             <ion-icon name="star-outline"></ion-icon>
                         </button>
                         <button class="sp-btn fl "
-                                [class.hidden]="_item.isSC == '0'"
+                                [class.hidden]="isHideSC||_item.isSC == '0'"
                                 (click)="collect(_item.code,true)">
                             <ion-icon name="star" style="color:#f64444"></ion-icon>
                         </button>
@@ -57,6 +57,7 @@
                     </ion-buttons>
                 </div>
                 <div class="comment mt10" [class.hidden]="isHideCom">
+                    <img class="arrow-top" src="assets/images/arrow-top.png"/>
                     <div class="com-top clearfix">
                         <button class="fl">
                             <i class="icon iconfont">&#xe624;</i>
@@ -66,10 +67,10 @@
                             <span *ngFor="let g of _item.likeList">{{g.nickname}} </span>
                         </div>
                     </div>
-                    <div class="com-bottom">
+                    <div class="com-bottom" *ngIf="_item.commentList.length">
                         <ion-list>
                             <ion-item *ngFor="let c of _item.commentList;">
-                                <div *ngIf="indx<5"><span class="u-name"><span>{{c.nickname}}</span>：</span><span class="u-msg">{{c.content}}</span></div>
+                                <span class="u-name"><span>{{c.nickname}}</span>：</span><span class="u-msg">{{c.content}}</span>
                             </ion-item>
                         </ion-list>
                     </div>

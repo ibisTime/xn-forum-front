@@ -17,8 +17,11 @@ import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.req.XN610050Req;
 import com.xnjr.moom.front.req.XN610051Req;
+import com.xnjr.moom.front.req.XN610054Req;
 import com.xnjr.moom.front.req.XN610056Req;
 import com.xnjr.moom.front.req.XN610057Req;
+import com.xnjr.moom.front.req.XN610059Req;
+import com.xnjr.moom.front.req.XN610060Req;
 import com.xnjr.moom.front.req.XN610061Req;
 import com.xnjr.moom.front.req.XN610062Req;
 import com.xnjr.moom.front.req.XN610063Req;
@@ -225,5 +228,33 @@ public class PostAOImpl implements IPostAO {
         req.setCommentCode(commentCode);
         return BizConnecter.getBizData("610078", JsonUtils.object2Json(req),
             Object.class);
+    }
+    
+    @Override
+    public Object report(String reporter, String code, String reportNote){
+    	XN610054Req req = new XN610054Req();
+    	req.setReporter(reporter);
+    	req.setReportNote(reportNote);
+    	req.setCode(code);
+    	return BizConnecter.getBizData("610054", JsonUtils.object2Json(req),
+                Object.class);
+    }
+    @Override
+    public Object gratuity(String talker,String postCode, String amount){
+    	XN610059Req req = new XN610059Req();
+    	req.setAmount(amount);
+    	req.setPostCode(postCode);
+    	req.setTalker(talker);
+    	return BizConnecter.getBizData("610059", JsonUtils.object2Json(req),
+                Object.class);
+    }
+    
+    @Override
+    public Object read(String userId, String postCode){
+    	XN610060Req req = new XN610060Req();
+    	req.setPostCode(postCode);
+    	req.setUserId(userId);
+    	return BizConnecter.getBizData("610060", JsonUtils.object2Json(req),
+                Object.class);
     }
 }

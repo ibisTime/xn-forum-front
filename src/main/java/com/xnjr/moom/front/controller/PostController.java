@@ -190,4 +190,34 @@ public class PostController extends BaseController {
         return postAO.queryPostDetailComment(this.getSessionUser().getUserId(),
             commentCode);
     }
+    
+    // 举报帖子
+    @RequestMapping(value = "/report", method = RequestMethod.POST)
+    @ResponseBody
+    public Object report(
+            @RequestParam("code") String code,
+            @RequestParam("reportNote") String reportNote) {
+        return postAO.report(this.getSessionUser().getUserId(),
+    		code, reportNote);
+    }
+    
+    // 打赏帖子
+    @RequestMapping(value = "/gratuity", method = RequestMethod.POST)
+    @ResponseBody
+    public Object gratuity(
+            @RequestParam("postCode") String postCode,
+            @RequestParam("amount") String amount) {
+        return postAO.gratuity(this.getSessionUser().getUserId(),
+        		postCode, amount);
+    }
+    
+    // 阅读帖子
+    @RequestMapping(value = "/read", method = RequestMethod.POST)
+    @ResponseBody
+    public Object read(
+    		@RequestParam(value = "userId", required = false) String userId,
+            @RequestParam("postCode") String postCode) {
+        return postAO.read(getSessionUserId(userId), postCode);
+    }
+    
 }

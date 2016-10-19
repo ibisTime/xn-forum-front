@@ -1,4 +1,4 @@
-<ion-header >
+<ion-header [hidden]="navbarHidden">
   <ion-navbar color="navbar-color">
     <ion-title >
       注册
@@ -16,7 +16,7 @@
   <!--<div class="img-captcha">
     <input #imgCaptcha placeholder="输入图片验证码"><img (click)="refreshImg($event)" [src]="src">
   </div>-->
-
+  <div class="login-register-cancle-div" *ngIf="navbarHidden" (tap)="cancle($event)">取消</div>
   <ion-list>
 
     <ion-item>
@@ -27,7 +27,7 @@
     <ion-item class="capt-item">
       <ion-label floating>验证码</ion-label>
       <ion-input #chptcha [(ngModel)]="captchaValue" [value]="captchaValue" type="text"></ion-input>
-      <button item-right (click)="captchaClick($event)">发送验证码</button>
+      <button item-right class="captcha-btn" (click)="captchaClick($event)">发送验证码</button>
     </ion-item>
 
     <ion-item>
@@ -50,6 +50,6 @@
   <!--服务条款-->
   <div class="protocol"><input type="checkbox" checked="true">  我已经阅读并同意《forum服务协议》</div>
 
-  <div class="back-login">如果已有账户可在此 <a (click)="backLogin()" style="height: 20px" navbar-color>登录</a></div>
+  <!--<div class="back-login">如果已有账户可在此 <a (click)="backLogin()" style="height: 20px" navbar-color>登录</a></div>-->
 
 </ion-content>

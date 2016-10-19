@@ -34,11 +34,6 @@ export class ImPage implements AfterViewInit{
   goChatRoom(msgItem: any){
 
     let tab =  this.navCtrl.parent.getSelected();
-    // /*从好友列表进入,只能传用户名进入下一级*/
-    // if(typeof(msgItem) == "string" ){
-    //   this.navCtrl.push(ChatRoomPage,msgItem);
-    //   return;
-    // }
     let linkMan = msgItem.from == this.imServe.me ? msgItem.to : msgItem.from;
 
     msgItem.showBadge = false;
@@ -48,7 +43,8 @@ export class ImPage implements AfterViewInit{
     }
 
     tab.tabBadge = (this.imServe.msgTotalCount <= 0) ? null :`${this.imServe.msgTotalCount}`;
-    this.navCtrl.push(ChatRoomPage,linkMan);
+    this.navCtrl.push(ChatRoomPage,{"userId":linkMan});
+
   }
 
   getFriendList(){

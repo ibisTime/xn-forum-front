@@ -20,10 +20,10 @@ export class ForumDatePipe implements PipeTransform {
         d_days = Math.floor(d/86400);
         d_hours = Math.floor(d/3600);
         d_minutes = Math.floor(d/60);
-        if(d_days > 7){
+        if(d_days > 2){
             var s = new Date(publishTime*1000);
-            return (s.getMonth()+1)+"月"+s.getDate()+"日";
-        }else if(d_days > 1 && d_days <= 7){
+            return (s.getMonth()+1)+"月"+s.getDate()+"日 "+s.getHours()+":"+s.getMinutes();
+        }else if(d_days > 1 && d_days <= 2){
             return Math.ceil(d_days)+"天前";
         }else if(d_days < 1 && d_hours > 1){
             return Math.ceil(d_hours)+"小时前";

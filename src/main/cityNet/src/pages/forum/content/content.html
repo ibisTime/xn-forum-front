@@ -5,7 +5,11 @@
 </ion-header>
 
 <ion-content class="forum forum-detail">
-    <div *ngIf="item != null">
+    <div *ngIf="item != null" style="margin-bottom: 46px;">
+        <div class="content-head">
+            <h2 class="content-head">{{item.title}}</h2>
+            <div class="read-count"><ion-icon name="eye"></ion-icon><span>{{item.totalReadTimes}}</span></div>
+        </div>
     <div>
         <ion-list>
             <ion-item>
@@ -24,20 +28,20 @@
                                 </div>
                             </div>
                             <ion-card-content>
-                                <h2 style="margin: 6px 0;">{{item.title}}</h2>
+                                <!--<h2 style="margin: 6px 0;">{{item.title}}</h2>-->
                                 <p>{{item.content}}</p>
-                                <div [style.height]="imgHeight" *ngIf="item.pic != null" class="img-cont" (click)="showImg($event)">
-                                    <img class="imgs" [style.width]="imgHeight" src="{{p}}" *ngFor="let p of item.pic"/>
+                                <div *ngIf="item.picArr != null" class="img-cont" (click)="showImg($event)">
+                                    <img class="imgs wp30 mr2p" src="{{p}}" *ngFor="let p of item.picArr"/>
                                 </div>
                             </ion-card-content>
 
-                            <div class="com-btn">
+                            <!--<div class="com-btn">
                                 <ion-buttons class="clearfix">
                                     <button class="fl">
                                         <i class="icon iconfont">&#xe60a;</i>
                                     </button>
                                     <button class="fl {{isMe?'':'hidden'}}" (click)="deleteTz(item.code)">
-                                        <ion-icon name="trash"></ion-icon>
+                                        <ion-icon style="font-size:1.6em;" name="trash"></ion-icon>
                                     </button>
                                     <div class="inblock {{isMe?'hidden': ''}}">
                                         <button class="sp-btn fl {{item.isSC == '0'?'':'hidden'}}" (click)="collect(item.code);">
@@ -54,28 +58,9 @@
                                         <i class="icon iconfont">&#xe624;</i>
                                     </button>
                                     <button class="sp-btn fr {{item.isDZ == '0'?'hidden':''}}" (click)="praise(item.code, true)">
-                                        <!--<i class="icon iconfont">&#xe624;</i><span class="praise-total">{{item.totalDzNum}}</span>-->
                                         <ion-icon name="thumbs-up" style="color:#f64444"></ion-icon>
                                     </button>
                                 </ion-buttons>
-                            </div>
-                            <!--<div class="comment">
-                                <div class="com-top clearfix">
-                                    <button class="fl">
-                                        <i class="icon iconfont">&#xe624;</i>
-                                        <span class="va-t">{{item.totalLikeNum}}</span>
-                                    </button>
-                                    <div class="t-3dot">
-                                        <span *ngFor="let g of item.likeList">{{g.nickname}}</span>
-                                    </div>
-                                </div>
-                                <div class="com-bottom">
-                                    <ion-list>
-                                        <ion-item *ngFor="let c of item.commentList">
-                                            <span class="u-name"><span>{{c.nickname}}</span>：</span><span class="u-msg">{{c.content}}</span>
-                                        </ion-item>
-                                    </ion-list>
-                                </div>
                             </div>-->
                         </div>
                     </ion-item>
@@ -85,10 +70,10 @@
     </div>
     <ion-segment [(ngModel)]="segment">
       <ion-segment-button value="pjia">
-        评价{{item.totalCommNum}}
+        评价{{item.commentList.length}}
       </ion-segment-button>
       <ion-segment-button value="dzan">
-        点赞{{item.totalLikeNum}}
+        点赞{{item.likeList.length}}
       </ion-segment-button>
     </ion-segment>
     <div [ngSwitch]="segment" class="com-btn1">
@@ -122,9 +107,22 @@
         </div>
     </div>
 </div>
-<ion-footer class="nextpage-foot">
+<ion-footer class="nextpage-foot forum-foot" *ngIf="item != null">
     <div class="bootomInput">
-      <ion-input #msgInput1 [(ngModel)]="inputValue" (focus)="doFocus1($event)" placeholder="请输入信息"></ion-input>
-      <a (click)="sendMsg1(msgInput1.value)">发送</a>
+      <ion-input #msgInput1 [(ngModel)]="inputValue" (focus)="doFocus1($event)" (keyup)="sendMsg1($event,msgInput1.value)" placeholder="回个话鼓励下楼主"></ion-input>
+      <!--<a (click)="sendMsg1(msgInput1.value)">发送</a>-->
+      <button class="fl {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code)">
+        <i class="icon iconfont">&#xe624;</i>
+      </button>
+      <button class="fl {{item.isDZ == '0'?'hidden':''}}" (click)="praise(item.code, true)">
+        <!--<i class="icon iconfont">&#xe624;</i><span class="praise-total">{{item.totalDzNum}}</span>-->
+        <ion-icon name="thumbs-up" style="color:#f64444;font-size:1.6em;"></ion-icon>
+      </button>
+      <button class="fl {{isMe?'':'hidden'}}" (click)="deleteTz(item.code)">
+        <ion-icon style="font-size:1.6em;" name="trash"></ion-icon>
+      </button>
+      <button class="fl" (tap)="presentActionSheet()">
+        <ion-icon style="font-size:1.6em;" name="more"></ion-icon>
+      </button>
     </div>
 </ion-footer>

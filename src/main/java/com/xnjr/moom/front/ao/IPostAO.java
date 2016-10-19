@@ -123,4 +123,10 @@ public interface IPostAO {
             String limit);
 
     public Object queryPostDetailComment(String userId, String commentCode);
+    
+    public Object report(String reporter, String code, String reportNote);
+    
+    public Object gratuity(String talker,String postCode, String amount);
+    
+    public Object read(String userId, String postCode);
 }
