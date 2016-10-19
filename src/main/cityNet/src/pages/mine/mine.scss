@@ -5,8 +5,23 @@
 .mine{
 
   background-color: $background-color;
+
   *{
     color: $text-color;
+  }
+  .login-register-outer{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 50px;
+
+    button{
+      color: white;
+      border-radius: 5px;
+      font-size: 16px;
+      height: 35px;
+      background-color: $navbar-color;
+      flex: 0 0 40%;
+    }
   }
   .panel-top{
     height: 200px;
@@ -26,12 +41,10 @@
         margin: 0 20px 0 25px;
         height: 80px;
         width: 80px;
-        img{
-          max-height: 100%;
-          max-width: 100%;
-          border-radius: 50%;
-        }
+        border-radius: 50%;
+        overflow: hidden;
       }
+
       .title-outer{
         .name{
           font-size: 16px;

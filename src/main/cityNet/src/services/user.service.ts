@@ -29,12 +29,13 @@ export interface User{
 @Injectable()
 export class UserService {
 
-  tokenId: string = "";
-  userId: string = "";
+  tokenId: string;
+  userId: string;
 
   /*取值用 .user 取值*/
   _user: User;
   followUsers = [];  //关注的所有人
+
   constructor(
               private http: HttpService,
               private storage: Storage,
