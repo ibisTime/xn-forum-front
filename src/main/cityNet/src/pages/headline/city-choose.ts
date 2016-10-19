@@ -2,7 +2,7 @@
  * Created by tianlei on 16/9/17.
  */
 import {Component, OnInit, AfterViewInit} from '@angular/core';
-import {ViewController} from "ionic-angular";
+import {ViewController, NavParams} from "ionic-angular";
 import {WarnService} from "../../services/warn.service";
 import {CityService} from "../../services/city.service";
 
@@ -12,11 +12,18 @@ import {CityService} from "../../services/city.service";
 export class CityChoosePage implements OnInit,AfterViewInit {
 
    headlineData;
+  hidden = true;
   searching = false;
   constructor(public viewCtrl: ViewController,
               public cityS: CityService,
-              public warn: WarnService
-            ) {
+              public warn: WarnService,
+              public navParams: NavParams,
+
+) {
+
+    if(navParams.data.isReg){
+      this.hidden = false;
+    }
 
   }
 

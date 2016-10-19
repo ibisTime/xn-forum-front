@@ -1,12 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NavController, App, NavParams, ViewController, Events} from "ionic-angular";
-import { TabsPage} from '../tabs/tabs';
+import {NavController, App, NavParams, ViewController, Events, TextInput, ModalController} from "ionic-angular";
 import {IMService} from "../../services/im.service";
 import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.service";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
 import {HttpService} from "../../services/http.service";
 import {CityService} from "../../services/city.service";
+import {CityChoosePage} from "../headline/city-choose";
 
 
 @Component({
@@ -15,6 +15,8 @@ import {CityService} from "../../services/city.service";
 })
 export class RegisterPage implements OnInit {
 
+  cityName;
+  citycode;
   captchaValue;
   userNameValue;
   navbarHidden = false;
@@ -25,11 +27,13 @@ export class RegisterPage implements OnInit {
                  public imServe: IMService,
                  public http: HttpService,
                  public app: App,
-                 public cityService: CityService,
                  public navParams: NavParams,
                  public viewCtrl: ViewController,
-                 public events: Events
-                 ) {
+                 public events: Events,
+                 public mCtrl: ModalController,
+                 public cityS: CityService,
+                 public warn: WarnService
+  ) {
 
 
     if(navParams.data.hidden){
@@ -39,6 +43,36 @@ export class RegisterPage implements OnInit {
     }
 
   ngOnInit() {
+
+  }
+
+
+  chooseCity($event){
+
+    let load = this.warn.loading("加载站点中..");
+
+    this.cityS.getCity().then(() => {
+
+      load.dismiss().then(res => {
+
+        let model = this.mCtrl.create(CityChoosePage);
+        model.onDidDismiss((city) => {
+
+          this.cityName = city.name;
+          this.citycode = city.code;
+
+        });
+        model.present();
+
+      });
+
+    }).then((res) => {
+
+    }).catch(error => {
+
+
+    });
+
   }
 
 
@@ -51,10 +85,7 @@ export class RegisterPage implements OnInit {
     }
 
     let btn = e.target;
-    while( !/^button$/gi.test(btn.nodeName) ){
-      btn = btn.parentNode;
-    }
-    btn.setAttribute("disabled", "disabled");
+
 
 
 
@@ -63,6 +94,10 @@ export class RegisterPage implements OnInit {
     };
     this.http.post('/gene/register/send',mobile).then((res) => {
 
+      while( !/^button$/gi.test(btn.nodeName) ){
+        btn = btn.parentNode;
+      }
+      btn.setAttribute("disabled", "disabled");
       for(var i = 0; i <= 30; i++){
         (function (i) {
           setTimeout(function(){
@@ -119,11 +154,12 @@ export class RegisterPage implements OnInit {
 
       loading.dismiss().then(res =>{
 
-        this.viewCtrl.dismiss({"success":true}).then(res => {
 
-          this.events.publish("reginst：success");
-
-        });
+        // this.user.registerHelper = true;
+        // this.viewCtrl.dismiss({"success":true}).then(res => {
+        //
+        // });
+        this.navCtrl.popToRoot();
 
       });
 

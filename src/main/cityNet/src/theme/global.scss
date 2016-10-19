@@ -11,6 +11,21 @@
 //
 // App Shared Sass variables belong in app.variables.scss.
 
+.ios{
+
+  button{
+    background-color: cyan;
+  }
+
+  .navbar-default-btn{
+    color: white;
+    background-color: rgba(0,0,0,0);
+    font-size: 14px;
+  }
+
+}
+
+
 
 //头条
 //@import "../pages/headline/headline";

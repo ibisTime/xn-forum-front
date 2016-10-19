@@ -1,7 +1,11 @@
 <ion-header>
   <ion-navbar color="navbar-color">
     <ion-title>编辑</ion-title>
+      <ion-buttons end>
+          <button class="navbar-default-btn">保存</button>
+      </ion-buttons>
   </ion-navbar>
+
 </ion-header>
 
 <ion-content class="editDetail">
@@ -19,7 +23,12 @@
     </ion-item>
     <ion-item>
         <ion-label>生日</ion-label>
-        <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="param.birthday"></ion-datetime>
+        <ion-datetime displayFormat="YYYY-MM-DD "
+                      [(ngModel)]="param.birthday"
+                      cancelText="取消"
+                      doneText="确定">
+
+        </ion-datetime>
     </ion-item>
     <ion-item>
         <ion-label floating>所在地</ion-label>

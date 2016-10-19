@@ -27,9 +27,8 @@ export class SettingPage {
 
   loginOut(){
     this.userService.loginOut();
-    this.imService.clearCurrentData();
     this.imService.close();
-    this.app.getRootNav().setRoot(LoginPage);
+    this.navCtrl.pop();
   }
  
   goEdit(){

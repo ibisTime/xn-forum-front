@@ -1,5 +1,5 @@
 import {Component,AfterViewInit} from '@angular/core';
-import {NavController, Platform, App, ModalController} from 'ionic-angular';
+import {NavController, Platform, App, ModalController, Events} from 'ionic-angular';
 import {UserService} from "../../services/user.service";
 import {WarnService} from "../../services/warn.service";
 import {ImPage} from "./im/im";
@@ -12,6 +12,7 @@ import {SettingPage} from "./setting/setting";
 import {DraftPage} from "./draft/draft";
 import {RelationPage} from "./relationship-people/relationship";
 import {RegisterPage} from "../user/register";
+import {MinePlatePage} from "./mine-plate/mine-plate";
 
 
 @Component({
@@ -53,7 +54,8 @@ export class MinePage implements AfterViewInit{
               public warnCtrl: WarnService,
               public http: HttpService,
               public app :App,
-              public modelCtrl :ModalController) {
+              public modelCtrl :ModalController,
+              public events: Events) {
 
 
   }
@@ -64,26 +66,25 @@ export class MinePage implements AfterViewInit{
       this.getStatisticsInfo();
     }
 
-
   }
 
   goLogin(){
 
-   let model = this.modelCtrl.create(LoginPage);
-    model.present();
+   // let model = this.modelCtrl.create(LoginPage);
+   //  model.present();
+    this.navCtrl.push(LoginPage);
+
   }
 
   goReg(){
-    let model = this.modelCtrl.create(RegisterPage,{"hidden": true});
-    model.present();
+    // let model = this.modelCtrl.create(RegisterPage,{"hidden": true});
+    // model.present();
+    this.navCtrl.push(RegisterPage,{"hidden": true});
+
   }
 
 
-  loginOut(){
-    this.userService.loginOut();
-    this.imService.close();
-    // this.app.getRootNav().setRoot(LoginPage);
-  }
+
 
   doRefresh($event){
       this.getStatisticsInfo($event);
@@ -113,6 +114,10 @@ export class MinePage implements AfterViewInit{
   }
   goTZList(){
     this.navCtrl.push(MineDetailPage, {"tz": true});
+  }
+
+  goMinePlate(){
+    this.navCtrl.push(MinePlatePage);
   }
 
   /*跳转事件*/

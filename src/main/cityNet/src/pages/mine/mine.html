@@ -13,14 +13,15 @@
 <ion-content class="mine">
 
   <!--登陆之前-->
-  <div class="login-register-outer" *ngIf="!userService.userId">
+  <div class="login-register-outer" *ngIf="!userService.user">
      <button class="login-btn" (click)="goLogin()">登陆</button>
      <button class="register-btn" (click)="goReg()">注册</button>
   </div>
 
   <!--登陆之后显示-->
-  <div *ngIf="userService.user">
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+
+
+  <ion-refresher *ngIf="userService.user" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
             pullingIcon="arrow-dropdown"
             pullingText="下拉加载"
@@ -29,7 +30,7 @@
     </ion-refresher-content>
   </ion-refresher>
 
-
+  <div *ngIf="userService.user">
   <!--顶部-->
   <div class="panel-top">
     <div class="avatar-detail" (click)="goDetail()">
@@ -86,12 +87,15 @@
       <div class="badage" *ngIf="imService.msgTotalCount > 0"></div>
       <i class="iconfont">&#xe610;</i><span>我的消息</span>
     </button>
+    <button ion-item (click)="goMinePlate()">
+      <i class="iconfont">&#xe617;</i><span>我的板块</span>
+    </button>
     <button ion-item (click)="goSetting()">
       <i class="iconfont">&#xe603;</i><span>设置</span>
     </button>
-    <button ion-item  (click)="loginOut()">
-      <i class="iconfont">&#xe617;</i><span>退出登录</span>
-    </button>
+    <!--<button ion-item  (click)="loginOut()">-->
+      <!--<i class="iconfont">&#xe617;</i><span>退出登录</span>-->
+    <!--</button>-->
   </ion-list>
   </div>
 </ion-content>

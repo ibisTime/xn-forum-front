@@ -39,7 +39,7 @@ export class LoginPage  {
 
 
   ionViewWillEnter(){
-    if(this.fromReg ){
+    if(this.uService.registerHelper){
       this.viewCtrl.dismiss();
     }
   }
@@ -62,7 +62,8 @@ export class LoginPage  {
 
       loading.dismiss().then(res => {
 
-        this.viewCtrl.dismiss({"success":true});
+        // this.viewCtrl.dismiss({"success":true});
+        this.navCtrl.pop();
 
       });
       // let rootNav: NavController = this.app.getRootNav();

@@ -1,4 +1,3 @@
-<div>
     <div class="ltan">
 
         <div class="lt-left fl wp30 bg_f0">
@@ -14,13 +13,15 @@
         </div>
 
         <!--右侧-->
-        <div class="lt-right fl wp70 bg_fff">
+        <div class="lt-right fl wp70 bg_fff" style="background-color: #ffffff; height: 100%;">
+            <div *ngIf="currentPlats.length <= 0" style="font-size: 1px; text-align: center; font-size: 16px; padding-top: 50px;">该分类暂无板块</div>
             <div class="part1 plr10">
 
                 <!--<button (click)="goPlate('dd')">去详情</button>-->
                 <ul>
                     <li class="clearfix" *ngFor="let plate of currentPlats" (click)="goPlate(plate)">
-                        <div class="fl wp30"><img [src]="plate.pic"/>
+                        <div class="fl wp30">
+                            <img [src]="plate.pic" style="height: 65px; width: 65px;">
                         </div>
                         <div class="pl10 wp70 fl">
                             <div>{{plate.name}}</div>
@@ -43,4 +44,3 @@
             </div>
         </div>
     </div>
-</div>

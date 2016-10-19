@@ -12,7 +12,7 @@
   <ion-list *ngIf="!searching">
 
     <!--推荐站点-->
-    <ion-item-group>
+    <ion-item-group *ngIf="hidden">
       <ion-item-divider sticky *ngIf="cityS.recommendSite.length > 0">
         推荐站点
       </ion-item-divider>
@@ -20,7 +20,7 @@
     </ion-item-group>
 
     <!--当前城市-->
-    <ion-item-group>
+    <ion-item-group *ngIf="hidden">
       <ion-item-divider sticky>
         当前城市
       </ion-item-divider>
