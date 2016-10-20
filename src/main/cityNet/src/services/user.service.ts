@@ -6,7 +6,8 @@ import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 import { Storage } from '@ionic/storage';
 import {IMService} from "./im.service";
-import {Events} from "ionic-angular";
+import {Events, App} from "ionic-angular";
+import {WarnService} from "./warn.service";
 
 export interface User{
   kind?,
@@ -40,7 +41,9 @@ export class UserService {
               private http: HttpService,
               private storage: Storage,
               public imServe: IMService,
-              public events: Events
+              public events: Events,
+              public app: App,
+              public warn: WarnService
              ) {
 
   }
@@ -64,6 +67,7 @@ export class UserService {
     this.storage.set("userId", userId);
     (typeof(user) != "undefined")&&(this.storage.set("user",user));
   }
+
 
   whetherLogin(){
 
@@ -98,6 +102,7 @@ export class UserService {
     this.storage.remove("tokenId");
     this.storage.remove("userId");
     this.storage.remove("user");
+    this.events.publish("user:loginout");
   }
 
   UpdateUserInfo(){

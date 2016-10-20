@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Platform, NavController, Events, App, ModalController, ViewController} from "ionic-angular";
-import { TabsPage} from '../tabs/tabs';
+import {Component, forwardRef, Inject} from '@angular/core';
+import {Platform, NavController, Events, App, ViewController} from "ionic-angular";
 
 import { RegisterPage } from './register';
 import {WarnService} from "../../services/warn.service";
@@ -19,6 +18,7 @@ export class LoginPage  {
   fromReg = false;
   constructor(
               public uService: UserService,
+              // public uService: UserService,
               public navCtrl: NavController,
               public platform: Platform,
               public warnCtrl : WarnService,

@@ -42,7 +42,9 @@
       <ion-item *ngFor="let item of articles">
 
         <forum-cell
-                [item]="item">
+                [item]="item"
+                [navCtrl]="navCtrl"
+        >
         </forum-cell>
 
       </ion-item>

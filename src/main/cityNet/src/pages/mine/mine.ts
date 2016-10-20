@@ -59,6 +59,22 @@ export class MinePage implements AfterViewInit{
               public events: Events) {
 
 
+    this.events.subscribe('user:loginout',res => {
+
+      this.statisticsInfo = {
+
+        totalFansNum: "0",
+        totalFollowNum: "0",
+        totalPostNum:"0",
+        amount:"0"
+      };
+
+    });
+
+    this.events.subscribe('user:loginSuccess',res => {
+      this.getStatisticsInfo();
+    });
+
   }
 
   ngAfterViewInit(){

@@ -42,15 +42,21 @@ export class MyApp {
     this.getNav();
 
 
+
     /*登陆超时重新登陆*/
     this.events.subscribe('user:timeout',() => {
 
-
-        this.warn.toast('请重新登陆');
-        this.userServe.loginOut();
-        this.im.close();
         let currentNav = this.app.getActiveNav();
-        currentNav.push(LoginPage);
+        let vc =   currentNav.getActive(true);
+
+        if(!(vc.instance instanceof LoginPage)){
+
+            this.userServe.loginOut();
+            this.warn.toast('请重新登陆');
+            this.im.close();
+            currentNav.push(LoginPage);
+
+        }
 
     });
 

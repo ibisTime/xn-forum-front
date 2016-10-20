@@ -115,7 +115,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       let cxtRenderer = cxt.getContext("2d");
 
       cxtRenderer.drawImage(img, react.offsetX, react.offsetY,
-        react.height, react.width, 0, 0, cxt.width, cxt.height);
+          react.width,react.height, 0, 0, cxt.width, cxt.height);
 
       let src = cxt.toDataURL();
 
@@ -380,7 +380,8 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
         "src": encodeURIComponent(event.target.result),
         "id" : imgId
       }
-      this.uploadImages.push(img);
+      /*压缩图片 并存储 zai upLoadImg*/
+      this.zipImg(event.target.result,imgId)
 
     };
     let file = $event.target.files[0];
@@ -392,6 +393,43 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   imgTrack(index,item){
     return item.id;
   }
+
+  zipImg(src,imgId){
+
+      let img = <HTMLImageElement>document.createElement('img');
+      /*图片加载*/
+      img.src = src;
+
+      /*加载成功*/
+      img.onload = (ev:any) => {
+        console.log(ev.target.naturalHeight);
+
+        let cxt = <HTMLCanvasElement>document.createElement("canvas");
+
+
+        let imgW = ev.target.naturalWidth;
+        let imgH = ev.target.naturalHeight;
+
+        cxt.width = imgW;
+        cxt.height = imgH;
+        let cxtRenderer = cxt.getContext("2d");
+
+        // ,imgW,imgH,0,0,imgW,imgH
+        cxtRenderer.fillStyle = "#fff";
+        cxtRenderer.fillRect(0, 0, cxt.width, cxt.height);
+        cxtRenderer.drawImage(ev.target,0,0);
+
+        let src = cxt.toDataURL('image/jpeg',0.1);
+
+        let imgItem = {
+          "src": encodeURIComponent(src),
+          "id": imgId
+        }
+        this.uploadImages.push(imgItem);
+      }
+
+    }
+
 
   /*删除图片*/
   deleteImg(img){

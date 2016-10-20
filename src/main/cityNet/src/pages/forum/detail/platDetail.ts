@@ -4,6 +4,10 @@ import {ContentPage} from '../content/content';
 import {HttpService} from "../../../services/http.service";
 import {PlatService} from "./plat.services";
 import {WarnService} from "../../../services/warn.service";
+import {SearchUserAndArticlePage} from "../../headline/search-user-article";
+import {UserService} from "../../../services/user.service";
+import {SendArticlePage} from "../send-article";
+import {LoginPage} from "../../user/login";
 
 
 @Component({
@@ -34,7 +38,8 @@ export class PlatDetailPage implements AfterViewInit{
               public http: HttpService,
               public platService: PlatService,
               public navParams: NavParams,
-              public warn: WarnService
+              public warn: WarnService,
+              public userService: UserService
               ) {
       this.plat = navParams.data;
       this.platService.platCode = this.plat.code;
@@ -86,7 +91,6 @@ export class PlatDetailPage implements AfterViewInit{
 
     doLoadMore(infiniteScroll){
 
-
         this.platService.getArticleByType(this.segment).then(res => {
 
             console.log(res);
@@ -103,6 +107,21 @@ export class PlatDetailPage implements AfterViewInit{
 
         });
 
+    }
+
+    search(){
+
+        this.navCtrl.push(SearchUserAndArticlePage);
+
+    }
+
+    send(){
+
+        if(this.userService.user){
+            this.navCtrl.push(SendArticlePage);
+        } else  {
+            this.navCtrl.push(LoginPage);
+        }
 
     }
 

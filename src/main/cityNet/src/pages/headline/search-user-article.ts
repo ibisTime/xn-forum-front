@@ -57,7 +57,6 @@ export class SearchUserAndArticlePage implements AfterViewInit {
   }
 
   goUserDetail(item){
-    console.log(item);
     this.navCtrl.push(MineDetailPage,item);
   }
 

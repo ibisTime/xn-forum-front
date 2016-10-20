@@ -19,7 +19,7 @@ export class DraftPage {
 
     src:string = 'images/marty-avatar.png';
 
-
+    result = false;
     @ViewChild(InfiniteScroll)  loadMoreScroll:  InfiniteScroll;
     @ViewChild(Refresher)  refresher:  Refresher;
 
@@ -41,12 +41,14 @@ export class DraftPage {
         };
         this.pageDataService.refreshComp = this.refresher;
         this.pageDataService.loadMoreComp = this.loadMoreScroll;
-        this.pageDataService.refresh();
+        this.refresh("our");
     }
 
     refresh($event){
 
-        this.pageDataService.refresh();
+        this.pageDataService.refresh(() => {
+            this.result = this.pageDataService.items.length <= 0;
+        });
     }
 
     loadMore($event){

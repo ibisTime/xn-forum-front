@@ -38,7 +38,7 @@
       <ion-slide *ngFor="let banner of cityS.headlineData.banner" (tap)="goOther(banner.url,'')">
         <!--<div class="banner-content"></div>-->
         <img src={{banner.pic}}>
-        <div class="banner-title">{{banner.title}}</div>
+        <div class="banner-title">{{banner.name}}</div>
       </ion-slide>
     </ion-slides>
 
@@ -65,8 +65,8 @@
         <div class="outer" [style.width]="h3w" [style.height]="h3h"
              *ngIf="cityS.headlineData.func3[2]">
           <img class="func" src={{cityS.headlineData.func3[2].pic}} [style.width]="h3w" [style.height]="h3h"
-               (tap)="goOther(func.url,func.title)">
-          <div class="func3-title">{{cityS.headlineData.func3[2].title}}</div>
+               (tap)="goOther(func.url,func.name)">
+          <div class="func3-title">{{cityS.headlineData.func3[2].name}}</div>
         </div>
 
       </div>
@@ -75,9 +75,9 @@
       <div class="eight-func">
         <div class="eight-inner-div" *ngFor="let func of cityS.headlineData.func8">
           <div class="func" [style.height]="h8" [style.width]="h8"
-               (tap)="goOther(func.url,func.title)">
+               (tap)="goOther(func.url,func.name)">
             <img src={{func.pic}}>
-            <div class="func8-title">{{func.title}}</div>
+            <div class="func8-title">{{func.name}}</div>
           </div>
         </div>
       </div>

@@ -28,8 +28,11 @@ import {UserService} from "../../services/user.service";
   </ion-navbar>
 </ion-header>
 
-<ion-content style="background-color: white;">
-  <div style="border-bottom: 1px solid grey; min-height: 30px;" *ngFor="let item of userService.followUsers" (click)="choose(item)">
+<ion-content class="at" style="background-color: white;">
+  <placeholder-view (show)="userService.followUsers.length <= 0">
+  
+  </placeholder-view>
+  <div class="at-cell"  *ngFor="let item of userService.followUsers" (click)="choose(item)">
     {{item.nickname}}
   </div>
 </ion-content>

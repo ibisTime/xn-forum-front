@@ -13,6 +13,7 @@ import {ContentPage} from "../forum/content/content";
 import {DatePipe} from "@angular/common";
 import {PageDataService} from "./page-data.services";
 import {MallPage} from "./mall/mall";
+import {LoginPage} from "../user/login";
 
 @Component({
   templateUrl: 'headline.html',
@@ -129,20 +130,20 @@ export class HeadlinePage implements AfterViewInit {
   chooseCallBack(city){
 
       if (city != null && city.code != this.cityS.currentCity.code) {
-          this.cityName = city.name;
           let load = this.warn.loading('');
-          this.cityS.currentCity = city;
           this.cityS.getNavigateBySiteCode(city.code).then(msg => {
 
+
+              this.cityName = city.name;
+              this.cityS.currentCity = city;
+
               load.dismiss();
-
-
               /*切换城市成功，刷新下面头条帖子*/
               this.pageDataService.refresh();
 
           }).catch(error => {
               load.dismiss();
-              this.warn.alert('切换失败');
+              this.warn.toast('切换失败');
           });
       }
 
@@ -152,11 +153,14 @@ export class HeadlinePage implements AfterViewInit {
   writeArticle(){
 
       if(this.userService.user){
+
           let modelCtrl = this.mCtrl.create(SendArticlePage);
           modelCtrl.present();
+
       } else {
-          let modelCtrl = this.mCtrl.create(SendArticlePage);
-          modelCtrl.present();
+
+              this.navCtrl.push(LoginPage);
+
       }
 
   }

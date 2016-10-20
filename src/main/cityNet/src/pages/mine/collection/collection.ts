@@ -13,7 +13,6 @@ import {PageDataService} from "../../headline/page-data.services";
 })
 export class CollectionPage {
 
-  src:string = 'images/marty-avatar.png';
 
 
     @ViewChild(InfiniteScroll)  loadMoreScroll:  InfiniteScroll;

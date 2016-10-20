@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content class="detail">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher (ionRefresh)="doRefresh()">
         <ion-refresher-content
                 pullingIcon="arrow-dropdown"
                 pullingText="下拉加载"
@@ -52,7 +52,7 @@
         </ion-item>
     </ion-list>
 
-    <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
+    <ion-infinite-scroll (ionInfinite)="doAppendData()">
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"
                 >

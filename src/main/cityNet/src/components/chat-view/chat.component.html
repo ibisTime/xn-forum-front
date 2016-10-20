@@ -93,12 +93,12 @@
           <div class="yl-cont">
             <div class="yl-top">你可能想要了解的内容</div>
             <ul>
-              <li class="yl-li" *ngFor="let item of msgItem.cityData" (click)="goIframeCopy(item.url, item.title)">
+              <li class="yl-li" *ngFor="let item of msgItem.cityData" (click)="goIframeCopy(item.url, item.name)">
                 <div class="li-a">
                   <div class="a-div">
                     <img class="mw30p" src="assets/images/kfitem.png"/>
                   </div>
-                  <span class="a-span">{{item.title}}</span>
+                  <span class="a-span">{{item.name}}</span>
                 </div>
               </li>
             </ul>

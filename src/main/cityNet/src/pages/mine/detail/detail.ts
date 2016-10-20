@@ -8,6 +8,7 @@ import {EditDetailPage} from "./editDetail";
 import {ContentPage} from "../../forum/content/content";
 import {ChatRoomPage} from "../../mine/im/chat-room";
 import {PageDataService} from "../../headline/page-data.services";
+import {LoginPage} from "../../user/login";
 
 
 @Component({
@@ -40,40 +41,44 @@ export class MineDetailPage implements AfterViewInit{
               public warnCtrl: WarnService,
               public params: NavParams,
               public http: HttpService,
-              public pageDataService: PageDataService) {
+              public pageDataService: PageDataService,
+              public warn: WarnService) {
 
       /*@是根据    用户名称进行    查找*/
-      this.toUserId = params.data.publisher || params.data.userId || userService.userId;
-      this.watchTz = params.data.tz || false;
+      console.log(params);
 
-      this.isMe = this.toUserId == userService.userId ? true : false;
+          this.toUserId = params.data.publisher || params.data.userId || userService.userId;
+
+          this.watchTz = params.data.tz || false;
+
+          this.isMe = this.toUserId == userService.userId ? true : false;
 
 
 
-      if (!this.isMe) {
-          this.http.get("/user",{"userId":this.toUserId}).then(res => {
+          if (!this.isMe) {
+              this.http.get("/user",{"userId":this.toUserId}).then(res => {
 
-            this.user = res.data;
+                  this.user = res.data;
 
-          }).catch(error => {
+              }).catch(error => {
 
-          });
+              });
 
-          userService.queryFollowUsers().then(()=> {
-              let fUs = this.userService.followUsers;
-              for (let f of fUs) {
+              userService.queryFollowUsers().then(()=> {
+                  let fUs = this.userService.followUsers;
+                  for (let f of fUs) {
 
-                  if (this.toUserId == f.userId) {
-                      this.followFlag = true;
-                      break;
+                      if (this.toUserId == f.userId) {
+                          this.followFlag = true;
+                          break;
+                      }
                   }
-              }
-          });
+              });
 
-      } else {
-          this.user = this.userService.user;
+          } else {
+              this.user = this.userService.user;
+          }
 
-      }
 
   }
 
@@ -89,7 +94,8 @@ export class MineDetailPage implements AfterViewInit{
       this.pageDataService.loadMoreComp = this.loadMoreComp;
 
       /*获取帖子数据 自动刷新*/
-      this.refreshComp._beginRefresh();
+      // this.refreshComp._beginRefresh();
+      this.doRefresh();
 
   }
 
@@ -145,6 +151,12 @@ export class MineDetailPage implements AfterViewInit{
    //关注
 
   follow(){
+
+      if(!this.userService.user){
+          this.navCtrl.push(LoginPage);
+          return;
+      }
+
       if(!this.followCount){
             this.followCount = 1;
             this.http.post('/rs/follow',{
@@ -166,6 +178,12 @@ export class MineDetailPage implements AfterViewInit{
 
   //取消关注
   unfollow(){
+
+      if(!this.userService.user){
+          this.navCtrl.push(LoginPage);
+          return;
+      }
+
       if(!this.followCount){
             this.followCount = 1;
             this.http.post('/rs/unfollow',{
@@ -185,12 +203,12 @@ export class MineDetailPage implements AfterViewInit{
       }
   }
 
-  doRefresh(event){
+  doRefresh(){
 
      this.pageDataService.refresh();
   }
 
-  doAppendData(event){
+  doAppendData(){
      this.pageDataService.loadMore();
 
   }
@@ -199,18 +217,24 @@ export class MineDetailPage implements AfterViewInit{
   /*聊天*/
   goChat(){
 
-    this.navCtrl.push(ChatRoomPage, this.user);
+      if(this.userService.user){
+          this.navCtrl.push(ChatRoomPage, this.user);
+      } else {
+          this.navCtrl.push(LoginPage);
+      }
+
   }
 
 
-  goDetail(toId){
-    this.navCtrl.push(MineDetailPage, {toUserId: toId});
-  }
+  // goDetail(toId){
+  //
+  //   this.navCtrl.push(MineDetailPage, {toUserId: toId});
+  // }
 
-  //打开帖子详情页
-  openPage($event){
-      this.navCtrl.push(ContentPage,$event);
-  }
+  // //打开帖子详情页
+  // openPage($event){
+  //     this.navCtrl.push(ContentPage,$event);
+  // }
 
   /*自己，进行信息编辑*/
   doEdit(){

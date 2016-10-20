@@ -52,23 +52,22 @@ export class CityService {
   baiduMapAK = Release.baiduMapAK;
   baidu = Release.baiduMapUrl();
 
+  /*自定义页的title*/
+  customTitle = "";
+
   /*客服引流数据*/
   kefuData = [];
   /*视频引流数据*/
   customData = [];
-  customTitle = "";
-
+  /*首页的数据*/
   headlineData = {
     "banner": [],
     "func3": [],
     "func8": []
   };
-
   tabbarItems = [];
-  customItems = [];
 
   address;//存入省市区
-
 
   currentCity: City = {"name":"未知地点"}; //根据经纬度获得
 
@@ -76,6 +75,7 @@ export class CityService {
                public   events: Events) {
 
   }
+
 
   getCity(){
    return this.http.get('/site/list').then( res => {
@@ -206,25 +206,39 @@ export class CityService {
      /*重新整理逻辑*/
      let data = res["data"];
 
+
+     if(data.length <= 5){
+       throw new Error();
+     }
+
      /*取出 tabbar*/
-     let tempIndex = [];
+     let tabbarItemsTmp = [];
+     let adsTmp = [];
      data.forEach((value: navObj, index, array) => {
 
        if (value.type == "1") {
-         this.tabbarItems.push(value);
-         tempIndex.push(index);
+         tabbarItemsTmp.push(value);
        }
        /*取出广告图*/
        if (value.type == "5") {
 
-         this.ads.push(value);
-         tempIndex.push(index);
+         adsTmp.push(value);
        }
 
      });
+     this.tabbarItems = tabbarItemsTmp;
+     this.ads = adsTmp;
 
-     this.deleteEleFromArray(data,tempIndex);
-
+     //临时存储
+     let kefuDataTmp = [];
+     /*视频引流数据*/
+     let customDataTmp = [];
+     /*首页的数据*/
+     let headlineDataTmp = {
+       "banner": [],
+       "func3": [],
+       "func8": []
+     };
 
      /*根据tabbar 取出 子导航*/
      this.tabbarItems.forEach((value: navObj, index, array) => {
@@ -237,26 +251,26 @@ export class CityService {
 
              if (value_inner.type == "2") {//banner
 
-               this.headlineData.banner.push(value_inner);
+               headlineDataTmp.banner.push(value_inner);
 
              } else if (value_inner.type == "3") { //
 
-               this.headlineData.func3.push(value_inner);
+               headlineDataTmp.func3.push(value_inner);
 
              } else if (value_inner.type == "4") { //func8
 
-               this.headlineData.func8.push(value_inner);
+               headlineDataTmp.func8.push(value_inner);
 
              }
 
            } else if(/page:xiaomi/.test(value.url) && value_inner.type == "4"){
 
-             this.kefuData.push(value_inner);
+             kefuDataTmp.push(value_inner);
 
            } else if(/page:custom/.test(value.url) && value_inner.type == "4"){
 
              this.customTitle = value.name;
-             this.customData.push(value_inner);
+             customDataTmp.push(value_inner);
 
            }
 
@@ -265,6 +279,11 @@ export class CityService {
        });
 
      });
+
+     /*改变值*/
+     this.headlineData = headlineDataTmp;
+     this.kefuData = kefuDataTmp;
+     this.customData = customDataTmp;
 
       /*外界 得知 是否否有广告图*/
       if(this.tabbarItems.length >= 4){

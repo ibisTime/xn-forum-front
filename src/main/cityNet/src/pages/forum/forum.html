@@ -1,7 +1,7 @@
 <ion-header class="forum-head">
     <ion-navbar color="navbar-color">
     <ion-buttons start>
-        <button class="nav-bar-item-btn" color="navbar-color">
+        <button (click)="search()" class="nav-bar-item-btn" color="navbar-color">
         <!--<ion-icon name="search"></ion-icon>-->
         <i class="icon iconfont">&#xe601;</i>
         </button>
@@ -15,7 +15,7 @@
         </ion-segment-button>
     </ion-segment>
     <ion-buttons end>
-        <button class="nav-bar-item-btn">
+        <button (click)="send()" class="nav-bar-item-btn">
         <!--<ion-icon name="create"></ion-icon>-->
         <i class="icon iconfont">&#xe616;</i>
         </button>
@@ -45,10 +45,9 @@
             <ion-item *ngFor="let item of items;let idx=index;">
                 <forum-cell
                         [item]="item"
-                        [navCtrl]="nav"
+                        [navCtrl]="navCtrl"
                         [isHideCom]=false
                         [isHideSC]=true
-                        (articleDetailEmitter)="openPage($event)"
                 >
 
                 </forum-cell>
@@ -62,7 +61,14 @@
 
         <!--板块选择-->
         <div *ngSwitchCase="'ltan'">
-            <plat-choose-view
+            <div *ngIf="classification.length <= 0" style="text-align: center; padding-top: 30px; font-size:16px;">
+                <div style="padding:10px;">好像没有获取到板块</div>
+                <button (click)="getClass()" style="border: 1px solid darkgrey; padding: 10px; font-size: 16px; color:darkgrey;background-color: white;">
+                    点击重新获取
+                </button>
+            </div>
+
+            <plat-choose-view *ngIf="classification.length > 0"
                     (goPlateEmitter)="goPlateDetail($event)"
                     [classification]="classification"
                     [siteCode]="cityService.currentCity.code"

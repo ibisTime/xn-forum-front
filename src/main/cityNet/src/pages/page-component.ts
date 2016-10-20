@@ -42,6 +42,7 @@ import {PlaceholderView} from "../components/placeholder-view/placeholder-view";
 import {SegmentView} from "../components/segment/segment";
 import {SystemMsgPage} from "./mine/im/systemMsg";
 import {BZPlatDetailPage} from "./forum/detail/bzPlatDetail";
+import {MinePlatePage} from "./mine/mine-plate/mine-plate";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -76,6 +77,7 @@ export const pages = [ TabsPage,
   MallPage,
   GoodsDetailPage,
   ResetPwdPage,
+    MinePlatePage,
   RelationPage,
   SystemMsgPage,
   BZPlatDetailPage
