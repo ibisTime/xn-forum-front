@@ -70,7 +70,7 @@
                     <div class="com-bottom" *ngIf="_item.commentList.length">
                         <ion-list>
                             <ion-item *ngFor="let c of _item.commentList;">
-                                <span class="u-name"><span>{{c.nickname}}</span>：</span><span class="u-msg">{{c.content}}</span>
+                                <span class="u-name" (tap)="tapComment(c.commer, c.code)"><span>{{c.nickname}}</span>：</span><span class="u-msg">{{c.content}}</span>
                             </ion-item>
                         </ion-list>
                     </div>

@@ -2,7 +2,7 @@
  * Created by tianlei on 2016/10/11.
  */
 import {Component, OnInit, Input,Output, EventEmitter} from '@angular/core';
-import {Platform, NavController} from "ionic-angular";
+import {Platform, NavController, ActionSheetController} from "ionic-angular";
 import {WarnService} from "../../services/warn.service";
 import {HttpService} from "../../services/http.service";
 import {MineDetailPage} from "../../pages/mine/detail/detail";
@@ -29,6 +29,7 @@ export class ForumCell implements OnInit {
     constructor(public platform: Platform,
                 public warnCtrl: WarnService,
                 public uService : UserService,
+                public actionSheetCtrl: ActionSheetController,
                 public http: HttpService,) {
 
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
@@ -41,6 +42,9 @@ export class ForumCell implements OnInit {
     } 
     @Input()
     set item(item){
+        if(item.content.length > 100){
+            item.content = item.content.substr(0, 100) + "...<a class='all-cont'>全文</a>";
+        }
         item.content = item.content.replace(/(@[^\s]*)\s/ig, "<a class='people'>$1</a>");
         this._item = item;
     }
@@ -115,8 +119,6 @@ export class ForumCell implements OnInit {
                             this._item.totalLikeNum = +this._item.totalLikeNum - 1;
                             this._item.isDZ = "0";
                         }
-                    }else if(res.timeout){
-                        this.warnCtrl.toast("登录超时，请重新登录!");
                     }else{
                         if(flag){
                             this.warnCtrl.toast("取消点赞失败，请稍后重试!");
@@ -170,6 +172,38 @@ export class ForumCell implements OnInit {
         sDiv.className = sDiv.className + " hidden";
     }
 
+    tapComment(commer, code){
+        let buttons = [
+            {
+                text: '举报',
+                handler: () => {
+                    this.report(commer, code);
+                }
+            },{
+                text: '取消',
+                role: 'cancel'
+            }
+        ];
+        if(this.uService.userId == commer){
+            buttons.unshift({
+                text: '删除',
+                handler: () => {
+                    this.deleteComment(commer, code);
+                }
+            });
+        }
+        let actionSheet = this.actionSheetCtrl.create({
+        title: '操作',
+        buttons: buttons
+        });
+        actionSheet.present();
+    }
+    report(commer, code){
+
+    }
+    deleteComment(commer, code){
+        
+    }
 
 }
 

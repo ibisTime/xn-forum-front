@@ -1,8 +1,10 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, Platform, Content, NavParams, Events, ActionSheetController, AlertController} from 'ionic-angular';
+import {NavController, Platform, Content, NavParams, Events, ActionSheetController, AlertController, App} from 'ionic-angular';
 import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
+import {MineDetailPage} from "../../../pages/mine/detail/detail";
 import {UserService} from "../../../services/user.service";
+import {LoginPage} from "../../user/login";
 
 
 @Component({
@@ -26,6 +28,7 @@ export class ContentPage {
   toUser = "";
   isMe = false;
   inputValue;
+  isLogin = false;
 
   @ViewChild(Content) content: Content;
 
@@ -37,6 +40,7 @@ export class ContentPage {
               public http: HttpService,
               public actionSheetCtrl: ActionSheetController,
               public alertCtrl: AlertController,
+              public app: App,
               public events: Events) {
 
         this.isAndroid = platform.is('android');
@@ -46,16 +50,20 @@ export class ContentPage {
         this.toUser = navPara.data.publisher || "";
         this.isMe = this.toUser == uService.userId ? true: false;
         this.getPostDetail();
-        uService.queryFollowUsers().then(()=>{
-            let fUs = this.uService.followUsers;
-            for(let f of fUs){
-                if(this.toUser == f.userId){
-                    this.followFlag = true;
-                    break;
-                }
-            }
-        });
-        this.read();
+        if(uService.user && uService.user.userId){
+            this.isLogin = true;
+            uService.queryFollowUsers()
+                .then(()=>{
+                    let fUs = this.uService.followUsers;
+                    for(let f of fUs){
+                        if(this.toUser == f.userId){
+                            this.followFlag = true;
+                            break;
+                        }
+                    }
+                });
+            this.read();
+        }
   }
   //关注
   follow(publisher){
@@ -68,8 +76,6 @@ export class ContentPage {
                 this.followCount = 0;
                 if(res.success){
                     this.followFlag = true;
-                }else if(res.timeout){
-                    this.warnCtrl.toast("登录超时，请重新登录!");
                 }else{
                     this.warnCtrl.toast("关注失败，请稍后重试!");
                 }
@@ -90,8 +96,6 @@ export class ContentPage {
                     this.followCount = 0;
                     if(res.success){
                         this.followFlag = false;
-                    }else if(res.timeout){
-                        this.warnCtrl.toast("登录超时，请重新登录!");
                     }else{
                         this.warnCtrl.toast("取消关注失败，请稍后重试!");
                     }
@@ -112,8 +116,6 @@ export class ContentPage {
                 if(res.success){
                     this.events.publish("content:delete", code);
                     this.navCtrl.pop();
-                }else if(res.timeout){
-                    this.warnCtrl.toast("登录超时，请重新登录!");
                 }else{
                     this.warnCtrl.toast("删除帖子失败，请稍后重试!");
                 }
@@ -125,88 +127,91 @@ export class ContentPage {
   }
   //收藏
   collect(code, flag?){
-      if(!this.collectCount){
-          this.collectCount = 1;
-          this.http.post('/post/praise',{
-            "type": "2",
-            "postCode": code
-          })
-            .then((res) => {
-                this.collectCount = 0;
-                if(res.success){
-                    //this.item.totalDzNum = (+this.item.totalDzNum + 1) + "";
-                    if(!flag){
-                        this.item.isSC = "1";
+      if(this.isLogin){
+          if(!this.collectCount){
+            this.collectCount = 1;
+            this.http.post('/post/praise',{
+                "type": "2",
+                "postCode": code
+            })
+                .then((res) => {
+                    this.collectCount = 0;
+                    if(res.success){
+                        //this.item.totalDzNum = (+this.item.totalDzNum + 1) + "";
+                        if(!flag){
+                            this.item.isSC = "1";
+                        }else{
+                            this.item.isSC = "0";
+                        }
                     }else{
-                        this.item.isSC = "0";
+                        if(!flag){
+                            this.warnCtrl.toast("收藏失败，请稍后重试!");
+                        }else{
+                            this.warnCtrl.toast("取消收藏失败，请稍后重试!");
+                        }
                     }
-
-                }else if(res.timeout){
-                    this.warnCtrl.toast("登录超时，请重新登录!");
-                }else{
+                }).catch(error => {
+                    this.collectCount = 0;
                     if(!flag){
                         this.warnCtrl.toast("收藏失败，请稍后重试!");
                     }else{
                         this.warnCtrl.toast("取消收藏失败，请稍后重试!");
                     }
-                }
-            }).catch(error => {
-                this.collectCount = 0;
-                if(!flag){
-                    this.warnCtrl.toast("收藏失败，请稍后重试!");
-                }else{
-                    this.warnCtrl.toast("取消收藏失败，请稍后重试!");
-                }
-            });
+                });
+        }
+      }else{
+        let currentNav = this.app.getActiveNav();
+        currentNav.push(LoginPage);
       }
-
   }
   //点赞
   praise(code, flag?){
-      if(!this.praiseCount){
-          this.praiseCount = 1;
-          this.http.post('/post/praise',{
-            "type": "1",
-            "postCode": code
-          })
-            .then((res) => {
-                this.praiseCount = 0;
-                if(res.success){
-
-                    if(!flag){
-                        this.item.totalLikeNum = (+this.item.totalLikeNum + 1) + "";
-                        this.item.isDZ = "1";
-                        this.item.likeList.push({
-                            talker:this.uService.userId,
-                            nickname: this.uService.user.nickname,
-                            postCode: code
-                        });
-                    }else{
-                        this.item.totalLikeNum = (+this.item.totalLikeNum - 1) + "";
-                        this.item.isDZ = "0";
-                        for(let i = 0; i < this.item.likeList.length; i++){
-                            if(this.item.likeList[i].talker == this.uService.userId){
-                                this.item.likeList.splice(i, 1);
+      if(this.isLogin){
+        if(!this.praiseCount){
+            this.praiseCount = 1;
+            this.http.post('/post/praise',{
+                "type": "1",
+                "postCode": code
+            })
+                .then((res) => {
+                    this.praiseCount = 0;
+                    if(res.success){
+                        if(!flag){
+                            this.item.totalLikeNum = (+this.item.totalLikeNum + 1) + "";
+                            this.item.isDZ = "1";
+                            this.item.likeList.push({
+                                talker:this.uService.userId,
+                                nickname: this.uService.user.nickname,
+                                postCode: code
+                            });
+                        }else{
+                            this.item.totalLikeNum = (+this.item.totalLikeNum - 1) + "";
+                            this.item.isDZ = "0";
+                            for(let i = 0; i < this.item.likeList.length; i++){
+                                if(this.item.likeList[i].talker == this.uService.userId){
+                                    this.item.likeList.splice(i, 1);
+                                }
                             }
                         }
+                    }else{
+                        if(flag){
+                            this.warnCtrl.toast("取消点赞失败，请稍后重试!");
+                        }else{
+                            this.warnCtrl.toast("点赞失败，请稍后重试!");
+                        }
                     }
-                }else if(res.timeout){
-                    this.warnCtrl.toast("登录超时，请重新登录!");
-                }else{
+                }).catch(error => {
+                    this.praiseCount = 0;
                     if(flag){
                         this.warnCtrl.toast("取消点赞失败，请稍后重试!");
                     }else{
                         this.warnCtrl.toast("点赞失败，请稍后重试!");
                     }
-                }
-            }).catch(error => {
-                this.praiseCount = 0;
-                if(flag){
-                    this.warnCtrl.toast("取消点赞失败，请稍后重试!");
-                }else{
-                    this.warnCtrl.toast("点赞失败，请稍后重试!");
-                }
-            });
+                });
+        }
+      }else{
+            let currentNav = this.app.getActiveNav();
+            currentNav.push(LoginPage);
       }
 
   }
@@ -240,12 +245,20 @@ export class ContentPage {
         .then((res) => {
             if(res.success){
                 var data = res.data;
+                data.content = data.content.replace(/(@[^\s]*)\s/ig, "<a class='people'>$1</a>");
                 this.item = data;
             }else{
                 this.warnCtrl.toast("帖子详情获取失败，请稍后重试!");
             }
         }).catch(error => {
         });
+  }
+  goUserDetail(event){
+      if(event.target.className == "people"){
+            event.stopPropagation();
+            this.navCtrl.push(MineDetailPage,{"nickname":event.target.innerText});
+            return;
+      }
   }
   showImg(ev){
       if( ev.target.nodeName.match(/^img$/i) ){
@@ -284,7 +297,7 @@ export class ContentPage {
           role: 'cancel'
         }
     ];
-    if(!this.isMe){
+    if(this.isLogin && !this.isMe){
         buttons.unshift({
             text: '举报',
             handler: () => {
