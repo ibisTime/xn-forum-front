@@ -29,7 +29,7 @@
                             </div>
                             <ion-card-content>
                                 <!--<h2 style="margin: 6px 0;">{{item.title}}</h2>-->
-                                <p>{{item.content}}</p>
+                                <p (tap)="goUserDetail($event)" [innerHTML]="item.content"></p>
                                 <div *ngIf="item.picArr != null" class="img-cont" (click)="showImg($event)">
                                     <img class="imgs wp30 mr2p" src="{{p}}" *ngFor="let p of item.picArr"/>
                                 </div>
