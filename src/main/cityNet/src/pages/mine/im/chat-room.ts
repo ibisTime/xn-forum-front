@@ -120,5 +120,11 @@ export class ChatRoomPage implements AfterViewInit {
 
   }
 
+  doFocus($event){
+    setTimeout(()=>{
+      window.scrollTo(0, 1000);
+    }, 1);
+  }
+
 }//类的结尾
 

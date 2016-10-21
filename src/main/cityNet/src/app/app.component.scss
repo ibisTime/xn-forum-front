@@ -1,28 +1,35 @@
 app-root-comp{
 
   .ad-bg{
-    position: relative;
+    background-color: white;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+
     .time-back{
       position: fixed;
       color: white;
-      background-color: black;
-      opacity: .5;
+      background-color: rgba(0,0,0,0.3);
       top: 20px;
       right: 10px;
       min-wigth: 40px;
       border-radius: 3px;
-      padding: 5px 10px;
-      font-size: 15px;
+      padding: 5px 15px;
+      font-size: 18px;
       z-index: 10001;
+      color: white;
+      span{
+        color: white;
+      }
     }
 
     img{
-      position: fixed;
       left: 0;
       top: 0;
       width: 100%;
-      height: 100%;
-      background-color:#f1f1f1;
+      //height: 100%;
       z-index:10000
       }
   }

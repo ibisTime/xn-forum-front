@@ -50,7 +50,7 @@ export class PlatChooseView implements OnInit {
         if(typeof(this.lastSelect)=="undefined"){
             this.lastSelect = this.firstClassEle.nativeElement;
         }
-       this.lastSelect.style.backgroundColor = '#f5f5f5';
+       this.lastSelect.style.backgroundColor = 'rgb(240,240,240)';
         $event.target.style.backgroundColor = "white";
         this.lastSelect = $event.target;
 

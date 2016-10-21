@@ -1,7 +1,7 @@
 /**
  * Created by tianlei on 2016/10/8.
  */
-import {Component, OnInit,AfterViewInit} from '@angular/core';
+import {Component,AfterViewInit} from '@angular/core';
 import {NavController, Events} from "ionic-angular";
 import {UserService} from "../../services/user.service";
 import {TabsPage} from "../tabs/tabs";

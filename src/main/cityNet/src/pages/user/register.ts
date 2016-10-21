@@ -87,8 +87,6 @@ export class RegisterPage implements OnInit {
     let btn = e.target;
 
 
-
-
     let mobile = {
       "mobile" : this.userNameValue
     };
@@ -98,7 +96,7 @@ export class RegisterPage implements OnInit {
         btn = btn.parentNode;
       }
       btn.setAttribute("disabled", "disabled");
-      for(var i = 0; i <= 30; i++){
+      for(var i = 0; i <= 60; i++){
         (function (i) {
           setTimeout(function(){
             if(i < 30){

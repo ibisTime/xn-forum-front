@@ -10,21 +10,21 @@ import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 
 export class CaptchaComponent implements OnInit {
 
-  time = 10;
+  time = 60;
   disabled = false;
   btn;
   captcha: string;
-  @Output() clickCaptchaBtn = new EventEmitter();
+  @Output() captchaClick = new EventEmitter();
 
   constructor() {}
 
   ngOnInit() {}
 
-  redayEmit($event){
+  captchaClickAction($event){
 
     //发送事件默认是同步的,所以要把按钮赋值放在前面
     this.btn = $event.target;
-    this.clickCaptchaBtn.emit(null);
+    this.captchaClick.emit(null);
 
   }
 

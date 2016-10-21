@@ -20,7 +20,7 @@
 
 <ion-footer>
   <div class="bootomInput">
-    <ion-input class="imInput" type="text" #msgInput  placeholder="请输入信息" ></ion-input>
+    <ion-input class="imInput" type="text" #msgInput  placeholder="请输入信息" (focus)="doFocus($event)"></ion-input>
     <button  (click)="sendMsg(msgInput)" color="navbar-color" [disabled]="msgInput.value.length <= 0">发送</button>
   </div>
 </ion-footer>

@@ -1,0 +1,13 @@
+<ion-header>
+    <ion-navbar color="navbar-color">
+        <ion-title>物品详情</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="goods-detail">
+    <div class="goods-img-div" [style.height]="imgHeight">
+        <img [src]="item.pic" [style.height]="imgHeight" style="width:100%;">
+    </div>
+    <div class="goods-description-div" [innerHTML]="item.description">
+    </div>
+</ion-content>

@@ -1,5 +1,16 @@
 <div class="cd-captcha-view" >
-  <input [(ngModel)]="captcha" placeholder="请输入验证码" class="captcha-input">
-  <button class="captcha-btn" [disabled]="disabled" type="button"  (click)="redayEmit($event)" no-margin no-border no-padding>发送验证码</button>
+
+
+  <ion-item class="capt-item">
+    <ion-label floating>验证码</ion-label>
+    <ion-input #chptcha [(ngModel)]="captcha"  type="text"></ion-input>
+    <button item-right [disabled]="disabled" class="captcha-btn" (click)="captchaClickAction($event)">发送验证码</button>
+  </ion-item>
+
+
+  <!--<input [(ngModel)]="captcha" placeholder="请输入验证码" class="captcha-input">-->
+  <!--<button class="captcha-btn" [disabled]="disabled" type="button" (click)="redayEmit($event)" no-margin no-border-->
+          <!--no-padding>发送验证码-->
+  <!--</button>-->
 </div>
 

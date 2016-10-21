@@ -18,7 +18,7 @@ export class ForumCell implements OnInit {
     
     _item;
     /*详情事件*/
-    @Output() articleDetailEmitter = new EventEmitter();
+    // @Output() articleDetailEmitter = new EventEmitter();
     @Input() navCtrl: NavController;
 
     imgHeight;
@@ -30,7 +30,7 @@ export class ForumCell implements OnInit {
                 public warnCtrl: WarnService,
                 public uService : UserService,
                 public actionSheetCtrl: ActionSheetController,
-                public http: HttpService,) {
+                public http: HttpService) {
 
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
@@ -39,7 +39,8 @@ export class ForumCell implements OnInit {
     }
 
     ngOnInit() {
-    } 
+    }
+
     @Input()
     set item(item){
         if(item.content.length > 100){
@@ -52,6 +53,7 @@ export class ForumCell implements OnInit {
     goDetail(article){
         this.navCtrl.push(MineDetailPage, article);
     }
+
     /*收藏*/
     collect(code, flag?){
         if(!this._item.collectCount){
@@ -140,36 +142,43 @@ export class ForumCell implements OnInit {
     }
 
 
-    /*去详情页*/
-    // openPage($event, item){
-    //     item.event = $event;
-    //     this.articleDetailEmitter.emit(item);
-    // }
-    openPage($event,item) {
+    openPage($event, item) {
         let target = $event.target;
-        if(target.className == "people"){
-            //点击@
-
+        if (target.className == "people") {
+            let load = this.warnCtrl.loading();
+            let obj = {"nickname": target.innerText.substr(1, target.innerText.length - 1)};
+            this.http.get("/user/list", obj).then(res => {
+                load.dismiss();
+                let user = res.data[0];
+                this.navCtrl.push(MineDetailPage, {"userId": user.userId});
+            }).catch(error => {
+                console.log(error);
+                load.dismiss();
+                this.warnCtrl.toast('未查找到该用户');
+            });
             $event.stopPropagation();
-            this.navCtrl.push(MineDetailPage,{"nickname":target.innerText});
-            return;
-        }else{
+
+        } else {
+
             this.navCtrl.push(ContentPage, this._item);
+
         }
-        // this.navCtrl.push(ContentPage, {code: $event.code, user: $event.publisher});
     }
 
+
     showImg(ev){
-        if( ev.target.nodeName.match(/^img$/i) ){
+        if( ev.target.nodeName.match(/^img$/i)){
             let img = ev.target;
             let sDiv = document.getElementById("ylImg");
             sDiv.className = sDiv.className.replace(/\s*hidden\s*/, "");
             document.getElementById("yl-img").setAttribute("src", img.src);
         }
+        ev.stopPropagation();
     }
+
     closeImg(){
         let sDiv = document.getElementById("ylImg");
-        sDiv.className = sDiv.className + " hidden";
+        sDiv.className = sDiv.className + "hidden";
     }
 
     tapComment(commer, code){
@@ -202,7 +211,7 @@ export class ForumCell implements OnInit {
 
     }
     deleteComment(commer, code){
-        
+
     }
 
 }

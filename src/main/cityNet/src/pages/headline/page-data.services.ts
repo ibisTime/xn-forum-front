@@ -65,14 +65,16 @@ export class PageDataService implements OnDestroy{
         return this.http.get(this.url,this.reqObj).then(res => {
 
 
+            if(refresh == "refresh") {
+
+                this.articles = [];
+                this.items = []
+            }
+
             let list = res.data.list;
-            if(list.length > 0){
+            if(list.length > 0){///////////
 
-                if(refresh == "refresh") {
 
-                   this.articles = [];
-                   this.items = []
-                }
 
                 this.articles.push(...list);
                 this.items.push(...list);
@@ -80,13 +82,11 @@ export class PageDataService implements OnDestroy{
 
                 if (this.limit*this.start >= res.data.totalCount) {
                     (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.enable(false));
-
-
                 }
 
-            } else {
+            } else {//////////
                 (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.enable(false));
-            }
+            }/////////////
 
             this.start++;
 

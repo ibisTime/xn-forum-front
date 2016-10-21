@@ -18,6 +18,9 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   isEditing = false;
   height;
 
+  /*解决删除@时也会触发@事件*/
+  lastLength = 0;
+
   images:Array<any> = [];
   uploadImages = []; // 对象 id 和 src
 
@@ -25,6 +28,9 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   topicCode: string = "";
   plateName = "选择板块";
   timeNum;
+
+  //草稿箱进入的帖子编码
+  draftCode;
 
   title = "";
   content = "";
@@ -46,6 +52,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     if(navParams.data){
       this.title = navParams.data.title;
       this.content = navParams.data.content;
+      this.draftCode = navParams.data.code;
 
       if(typeof(navParams.data.pic) != "undefined"){
         navParams.data.pic.forEach((value,index,array) =>{
@@ -61,7 +68,6 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
         });
 
       }
-
 
     }
   }
@@ -165,16 +171,25 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   sendOrSave(titleIput,contentTextarea,type){
 
     let url = "/post/publish";
+
+    if(typeof(this.draftCode) != "undefined"){
+      url = "/post/craft/publish";
+    }
+
     let successStr = "发帖成功";
     let failureStr = "发帖失败";
 
     if(type == "save"){
-      url = "/post/craft/add";
+      if(typeof(this.draftCode) != "undefined"){
+        url = "/post/craft/edit";
+
+      } else {
+        url = "/post/craft/add";
+      }
+
       successStr="保存为草稿成功";
       failureStr="保存为草稿失败";
     }
-
-
 
 
     if(contentTextarea.value.length <= 0){
@@ -182,10 +197,10 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       return;
     }
 
-    if(titleIput.value.length <= 0){
-      titleIput.value = "";
-      return;
-    }
+    // if(titleIput.value.length <= 0){
+    //   titleIput.value = "";
+    //   return;
+    // }
 
     if(this.topicCode.length <= 0){
       this.warn.alert('请选择板块');
@@ -278,9 +293,12 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
           "title": titleIput.value,
           "content": contentTextarea.value,
           "plateCode": this.topicCode,
-          "pic": picStr,
-          "publisher": this.user.userId
+          "pic": picStr
         };
+        //草稿
+        if(typeof(this.draftCode) != "undefined"){
+          articleObj["code"] = this.draftCode;
+        }
 
         return this.http.post(url,articleObj);
 
@@ -305,6 +323,10 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
         "content": contentTextarea.value,
         "plateCode": this.topicCode
       };
+      //草稿
+      if(typeof(this.draftCode) != "undefined"){
+        articleObj["code"] = this.draftCode;
+      }
 
        this.http.post(url,articleObj).then(res => {
 
@@ -332,9 +354,12 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     }
     /*查询话题*/
     let load = this.warn.loading("板块获取中...");
+
+    /*改成只能在当前用户所属区域发帖*/
     let obj = {
       "siteCode": this.cityS.currentCity.code
     };
+
     this.http.get("/plate/list",obj).then(res => {
 
       console.log(res);
@@ -452,15 +477,12 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   }
 
   editing($event){
-    // console.log($event.target.style);
-    // let ele = document.getElementById("article-content");
 
-    console.log($event.target.value);
 
     let text = this.textArea.nativeElement.value;
     let len = text.length;
 
-    if (text.substr(len - 1, 1) == "@") {
+    if ((len > this.lastLength)&&(text.substr(len - 1, 1) == "@")) {
       let model = this.model.create(AtPage);
       model.onDidDismiss((res) => {
 
@@ -478,6 +500,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       });
       model.present();
     }
+    this.lastLength = len;
 
     if($event.target.value.length > 0){
       this.isEditing = true;

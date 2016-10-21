@@ -54,6 +54,13 @@ export class ForumPage {
                     }
                 }
             });
+      this.events.subscribe('user:cityChange',() => {
+
+          this.start = 1;
+          this.limit = 10;
+          this.queryPostPage();
+
+      });
   }
   showLogin(){
     let modelCtrl = this.mCtrl.create(LoginPage);

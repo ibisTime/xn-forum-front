@@ -17,8 +17,8 @@ import {KefuService} from "../services/kefu.serve";
 export class MyApp {
 
   public rootPage: any;
-  adDisplay = "inline";
-  time = 3;
+  adDisplay = "block";
+  time = 2;
 
   constructor(public platform: Platform,
               public userServe:UserService,
@@ -74,19 +74,18 @@ export class MyApp {
 
   }
 
-  loadEnd($event){
-    setTimeout(res => {
-
-      this.adDisplay = "none";
-      this.howLoad();
-
-    },2000);
-
-  }
+  // loadEnd($event){
+  //   setTimeout(res => {
+  //
+  //     this.howLoad();
+  //
+  //   },2000);
+  //
+  // }
 
   getNav(){
 
-    let loadNav = this.warn.loading();
+    let loadNav = this.warn.loading("");
     /*加载默认*/
     navigator.geolocation.getCurrentPosition((geo: any) => {
 
@@ -108,12 +107,21 @@ export class MyApp {
       //有广告图进行加载
       if(this.cityService.ads.length > 0){
 
-        setTimeout(res => {
+       let num = setInterval(() => {
 
-         return  this.howLoad();
+             if(this.time > 0){
+                 this.time --;
+             }
 
-        },2000);
+         },1200);
 
+         setTimeout(res => {
+          this.adDisplay = 'none';
+          window.clearInterval(num);
+
+         },this.time*1500);
+
+          return  this.howLoad();
 
       }  else  {
         //无图直接跳转

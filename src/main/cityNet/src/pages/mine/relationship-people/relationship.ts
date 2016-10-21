@@ -44,7 +44,7 @@ export class RelationPage implements AfterViewInit {
     }
 
     goDetail(item){
-        this.navCtrl.push(MineDetailPage,{"toUserId":item.userId});
+        this.navCtrl.push(MineDetailPage,item);
     }
 
 

@@ -25,18 +25,19 @@ export class WarnService {
     });
     alert.present();
   }
-  alert2(msg: string,confirmAction?: () => void,cancleAction?: () => void){
+
+  alert2(msg: string,confirmAction?: () => void,cancleAction?: () => void,confirmTitle?,cancleTitle?){
     let  alert = this.alertCtrl.create({
       message: msg,
       buttons: [
         {
-          text: '取消',
+          text:cancleTitle? cancleTitle : '取消',
           handler: () => {
             cancleAction ? cancleAction() : 1;
           }
         },
         {
-          text: '确定',
+          text:confirmTitle? confirmTitle : '确定',
           handler: () => {
             confirmAction ? confirmAction() : 1;
             // typeof(confirmAction) === "undefined"  ? 1>0 : confirmAction();

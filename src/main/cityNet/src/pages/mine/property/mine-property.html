@@ -1,11 +1,11 @@
-<ion-header>
+<ion-header >
     <ion-navbar color="navbar-color">
-        <ion-title>积分商城</ion-title>
+        <ion-title>我的物品</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content class="mall">
-    <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content
                 pullingIcon="arrow-dropdown"
                 pullingText="下拉加载"
@@ -13,23 +13,26 @@
                 refreshingText="加载中...">
         </ion-refresher-content>
     </ion-refresher>
+    <placeholder-view [show]="pageDataService.items.length <= 0"
+                      >
 
-    <placeholder-view
-    [text]="'暂无商品'" [show]="pageDataService.items.length <= 0"></placeholder-view>
+    </placeholder-view>
+
+
     <ion-list>
-        <div class="mall-item-outer">
-            <div class="mall-item" (tap)="goDetail(item)" *ngFor="let item of pageDataService.items"  >
-                <img [src]=item.pic [style.height]="imgHeight">
-                <div>{{item.name}}</div>
-                <div>价格: <span>{{item.price}}</span> 积分</div>
+        <ion-list>
+            <div class="mall-item-outer">
+                <div class="mall-item" (tap)="goDetail(item)" *ngFor="let item of pageDataService.items"  >
+                    <img [src]=item.pic [style.height]="imgHeight">
+                    <div>{{item.name}}</div>
+                </div>
             </div>
-        </div>
+        </ion-list>
     </ion-list>
 
     <ion-infinite-scroll (ionInfinite)="loadMore($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
-
 </ion-content>
 
 

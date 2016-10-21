@@ -1,5 +1,5 @@
 import {Component,AfterViewInit,ViewChild} from '@angular/core';
-import {NavController, Platform, ModalController, InfiniteScroll, Refresher} from 'ionic-angular';
+import {NavController, Platform, ModalController, InfiniteScroll, Refresher, Events} from 'ionic-angular';
 import {UserService} from "../../services/user.service";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
@@ -26,20 +26,6 @@ export class HeadlinePage implements AfterViewInit {
   redColor = "red";
   bannerHeight: string;
   articles = [];
-  func3 = ['images/headline/headline-mall.png',
-           'images/headline/headline-sign.png',
-           'images/headline/headline-activity.png'];
-  func8 = [
-    // headline-cz.png
-    {'name': '招聘', 'src': 'images/headline/headline-zp.png'},
-    {'name': '二手', 'src': 'images/headline/headline-es.png'},
-    {'name': '出租', 'src': 'images/headline/headline-cz.png'},
-    {'name': '求助', 'src': 'images/headline/headline-qz.png'},
-    {'name': '便民', 'src': 'images/headline/headline-bm.png'},
-    {'name': '车友', 'src': 'images/headline/headline-cy.png'},
-    {'name': '情感', 'src': 'images/headline/headline-qg.png'},
-    {'name': '吃货', 'src': 'images/headline/headline-ch.png'}
-  ];
 
   start = 1;
   @ViewChild(InfiniteScroll)  loadMoreScroll:  InfiniteScroll;
@@ -63,7 +49,8 @@ export class HeadlinePage implements AfterViewInit {
               public http: HttpService,
               public warn: WarnService,
               public cityS: CityService,
-              public pageDataService: PageDataService) {
+              public pageDataService: PageDataService,
+              public events: Events) {
 
   }
 
@@ -137,6 +124,7 @@ export class HeadlinePage implements AfterViewInit {
               this.cityName = city.name;
               this.cityS.currentCity = city;
 
+              this.events.publish("user:cityChange");
               load.dismiss();
               /*切换城市成功，刷新下面头条帖子*/
               this.pageDataService.refresh();

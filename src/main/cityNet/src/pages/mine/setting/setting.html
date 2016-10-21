@@ -7,19 +7,27 @@
 <ion-content class="mine">
   <ion-list >
     <button ion-item (click)="goEdit()">
-      <i class="iconfont">&#xe608;</i><span>个人资料</span>
+      <span>修改用户名</span>
     </button>
     <button ion-item (click)="goAccount()">
-      <i class="iconfont">&#xe60e;</i><span>账号和密码</span>
+      <span>账号和密码</span>
     </button>
+    <button ion-item (click)="goChangeMobile()">
+      <span>修改手机号</span>
+    </button>
+
+    <button ion-item (click)="goEdit()">
+      <span>个人资料</span>
+    </button>
+
     <button ion-item (click)="goUs()">
-      <i class="iconfont">&#xe613;</i><span>关于城市网</span>
+     <span>关于城市网</span>
     </button>
-    
   </ion-list>
+
   <ion-list style="margin-top: 40px;">
     <button ion-item  (click)="loginOut()">
-      <i class="iconfont">&#xe617;</i><span>退出登录</span>
+      <span>退出登录</span>
     </button>
   </ion-list>
 

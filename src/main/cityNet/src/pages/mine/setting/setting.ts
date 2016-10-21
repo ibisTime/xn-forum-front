@@ -8,6 +8,7 @@ import {HttpService} from "../../../services/http.service";
 import {EditDetailPage} from "../detail/editDetail";
 import {AccountPage} from "./account";
 import {AboutusPage} from "./aboutus";
+import {ChangeMobilePage} from "./changeMobile";
 
 
 @Component({
@@ -37,8 +38,13 @@ export class SettingPage {
   goAccount(){
     this.navCtrl.push(AccountPage);
   }
+
   goUs(){
     this.navCtrl.push(AboutusPage);
+  }
+
+  goChangeMobile(){
+    this.navCtrl.push(ChangeMobilePage);
   }
 
 }

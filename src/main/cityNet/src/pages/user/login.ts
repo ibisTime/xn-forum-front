@@ -29,19 +29,19 @@ export class LoginPage  {
 
              ) {
 
-    this.events.subscribe("reginst：success",res => {
-
-      this.fromReg = true;
-
-    });
+    // this.events.subscribe("reginst：success",res => {
+    //
+    //   this.fromReg = true;
+    //
+    // });
 
   }
 
 
   ionViewWillEnter(){
-    if(this.uService.registerHelper){
-      this.viewCtrl.dismiss();
-    }
+    // if(this.uService.registerHelper){
+    //   this.viewCtrl.dismiss();
+    // }
   }
 
 

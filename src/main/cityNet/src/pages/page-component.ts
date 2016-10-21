@@ -43,6 +43,9 @@ import {SegmentView} from "../components/segment/segment";
 import {SystemMsgPage} from "./mine/im/systemMsg";
 import {BZPlatDetailPage} from "./forum/detail/bzPlatDetail";
 import {MinePlatePage} from "./mine/mine-plate/mine-plate";
+import {MinePropertyDetail} from "./mine/property/mine-property-datail";
+import {MineProperty} from "./mine/property/mine-property";
+import {ChangeMobilePage} from "./mine/setting/changeMobile";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -80,7 +83,12 @@ export const pages = [ TabsPage,
     MinePlatePage,
   RelationPage,
   SystemMsgPage,
-  BZPlatDetailPage
+  BZPlatDetailPage,
+  MinePropertyDetail,
+  MineProperty,
+  ChangeMobilePage
+
+
 ];
 
 export const components = [

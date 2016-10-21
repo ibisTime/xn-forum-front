@@ -14,6 +14,7 @@ import {RelationPage} from "./relationship-people/relationship";
 import {RegisterPage} from "../user/register";
 import {BZPlatDetailPage} from "../forum/detail/bzPlatDetail";
 import {MinePlatePage} from "./mine-plate/mine-plate";
+import {MineProperty} from "./property/mine-property";
 
 
 @Component({
@@ -97,17 +98,13 @@ export class MinePage implements AfterViewInit{
     // let model = this.modelCtrl.create(RegisterPage,{"hidden": true});
     // model.present();
     this.navCtrl.push(RegisterPage,{"hidden": true});
-
   }
-
-
 
 
   doRefresh($event){
       this.getStatisticsInfo($event);
       this.userService.UpdateUserInfo();
   }
-
 
   getStatisticsInfo($event?){
       this.http.get("/user/stats").then(res => {
@@ -152,6 +149,9 @@ export class MinePage implements AfterViewInit{
   }
   goMyPlate(){
     this.navCtrl.push(BZPlatDetailPage);
+  }
+  goMineProperty(){
+    this.navCtrl.push(MineProperty);
   }
 
 }

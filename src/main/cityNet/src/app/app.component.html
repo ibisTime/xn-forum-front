@@ -1,12 +1,11 @@
 <ion-nav [root]="rootPage"></ion-nav>
 
-<!--<div *ngIf="cityService.ads[0]" class="ad-bg" [style.display]="adDisplay">-->
-    <!--<div class="time-back">{{time}} s</div>-->
+<div *ngIf="cityService.ads.length > 0" class="ad-bg" [style.display]="adDisplay">
+    <div class="time-back"> <span>{{time}}</span> s</div>
+    <img  [style.display]="adDisplay"
 
-    <!--<div *ngIf="cityService.ads[0].length > 0">-->
-    <!--<img  [style.display]="adDisplay"-->
+         [src]="cityService.ads[0].pic"
+    >
+</div>
 
-         <!--[src]="cityService.ads[0].pic" (load)="loadEnd($event)"-->
-    <!--&gt;-->
-    <!--</div>-->
-<!--</div>-->
+<!--(load)="loadEnd($event)"-->

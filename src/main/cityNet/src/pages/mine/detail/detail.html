@@ -47,7 +47,7 @@
         <ion-item *ngFor="let item of pageDataService.articles">
             <forum-cell
                     [item]="item"
-                    (articleDetailEmitter)="openPage($event)"
+                    [navCtrl]="navCtrl"
             ></forum-cell>
         </ion-item>
     </ion-list>
