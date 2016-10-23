@@ -37,7 +37,7 @@ export namespace Release {
             if(test){
                 return "http://120.26.222.73:8080/xn-forum-front";
             } else {
-                return "//121.43.101.148:8080/xn-forum-front";
+                return "http://121.43.101.148:8080/xn-forum-front";
             }
 
         } else {
@@ -52,7 +52,7 @@ export namespace Release {
             if(test){
                 return "http://120.26.222.73:8080";
             } else  {
-                return "//121.43.101.148:8080";
+                return "http://121.43.101.148:8080";
             }
 
         } else {

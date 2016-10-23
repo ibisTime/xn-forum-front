@@ -36,13 +36,14 @@ export class EditDetailPage implements AfterViewInit {
       this.getUserInfo();
   }
   ionViewWillLeave(){
-      if( !this.isEqual(this.orignalParam, this.param) ){
-          this.changeExt();
-      }
-      if( this.orignalNickname !== this.nickname ){
-          this.changeNickname();
-      }
+      // if( !this.isEqual(this.orignalParam, this.param) ){
+      //     this.changeExt();
+      // }
+      // if( this.orignalNickname !== this.nickname ){
+      //     this.changeNickname();
+      // }
   }
+
   isEqual(obj1: Object, obj2: Object){
       for(let i in obj1){
           if(obj1[i] != obj2[i]){
@@ -50,6 +51,7 @@ export class EditDetailPage implements AfterViewInit {
           }
       }
   }
+
   getUserInfo(){
     let data = this.uService.user;
     let userExt = data.userExt;
@@ -63,6 +65,7 @@ export class EditDetailPage implements AfterViewInit {
     this.orignalParam.birthday = this.param.birthday = userExt.birthday || "";
     this.orignalParam.introduce = this.param.introduce = userExt.introduce || "";
   }
+
   changeNickname(){
     let load = this.warnCtrl.loading("修改中");
     this.http.post('/user/nickname', {"nickname": this.nickname}).then((res)=>{
@@ -78,6 +81,7 @@ export class EditDetailPage implements AfterViewInit {
         load.dismiss();
     });
   }
+
   uploadImg(e){
         let file = e.target.files[0];
         let reader = new FileReader();
@@ -104,32 +108,13 @@ export class EditDetailPage implements AfterViewInit {
 
           }
           reader.readAsDataURL(file);//获取base64编码
-
-
-        // (function(me){
-        //     let load = this.warnCtrl.loading("修改中");
-        //     reader.onload = function (ee) {
-        //         me.http.post('/user/avatar', {"photo":encodeURIComponent(this.result)})
-        //         .then((res)=>{
-        //             if(res.success){
-        //                 me.uService.user.userExt.photo = me.src;
-        //                 me.warnCtrl.toast('头像修改成功!');
-        //             }else{
-        //                 me.warnCtrl.toast('头像修改失败!');
-        //             }
-        //             load.dismiss();
-        //         }).catch((err)=>{
-        //             me.warnCtrl.toast('err!');
-        //             load.dismiss();
-        //         });
-        //         me.src = this.result;
-        //     }
-        //     reader.readAsDataURL(file);//获取base64编码
-        // })(this);
-
   }
+
+
   changeExt(){
     let load = this.warnCtrl.loading("修改中");
+
+    this.changeNickname();
     this.http.post('/user/profile', this.param).then((res)=>{
         if(!res.success){
             this.warnCtrl.toast('用户资料修改失败，请稍后重试!');

@@ -105,8 +105,8 @@ export class HttpService {
           resolve(resObj);
         } else {//有异常
           reject('请求出现异常');
-          // this.warn.toast(resObj.msg);
-          alert(resObj.msg);
+          this.warn.toast(resObj.msg);
+          // alert(resObj.msg);
           if (resObj.timeout) {
             this.events.publish('user:timeout', "timeout");
           }

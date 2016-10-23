@@ -8,6 +8,8 @@ import {Satisfaction} from "./satisfaction";
 import {CityService} from "../../services/city.service";
 import {ChatViewComponent} from "../../components/chat-view/chat.component";
 import {IFramePage} from "../headline/iframe";
+import {UserService} from "../../services/user.service";
+import {LoginPage} from "../user/login";
 
 @Component({
     templateUrl: 'kefu.html'
@@ -29,7 +31,8 @@ export class KefuPage implements AfterViewInit {
 
   constructor(public  nav: NavController,
               public imServe: KefuService,
-              public cityServe: CityService) {
+              public cityServe: CityService,
+              public userService: UserService) {
     this.listOfChatData = this.imServe.getDataByFromName();
     this.satisfaction = new Satisfaction(this.imServe);
     this.imServe.scroll_bottom = ()=>{
@@ -59,6 +62,11 @@ export class KefuPage implements AfterViewInit {
   }
 
   sendMsg(value) {
+
+      if(!this.userService.user){
+          this.nav.push(LoginPage);
+          return;
+      }
     //this.msgPut.setFocus();
     this.imServe.handleToMsg(value);
     this.imServe.sendTextMsg(value, (id, serverMsgId) => {

@@ -46,6 +46,7 @@ import {MinePlatePage} from "./mine/mine-plate/mine-plate";
 import {MinePropertyDetail} from "./mine/property/mine-property-datail";
 import {MineProperty} from "./mine/property/mine-property";
 import {ChangeMobilePage} from "./mine/setting/changeMobile";
+import {ChangeAccountPage} from "./mine/setting/changeAccount";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -86,7 +87,8 @@ export const pages = [ TabsPage,
   BZPlatDetailPage,
   MinePropertyDetail,
   MineProperty,
-  ChangeMobilePage
+  ChangeMobilePage,
+  ChangeAccountPage
 
 
 ];

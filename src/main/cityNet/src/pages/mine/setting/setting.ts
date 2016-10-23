@@ -9,6 +9,7 @@ import {EditDetailPage} from "../detail/editDetail";
 import {AccountPage} from "./account";
 import {AboutusPage} from "./aboutus";
 import {ChangeMobilePage} from "./changeMobile";
+import {ChangeAccountPage} from "./changeAccount";
 
 
 @Component({
@@ -45,6 +46,10 @@ export class SettingPage {
 
   goChangeMobile(){
     this.navCtrl.push(ChangeMobilePage);
+  }
+
+  goChangeAccount(){
+    this.navCtrl.push(ChangeAccountPage);
   }
 
 }

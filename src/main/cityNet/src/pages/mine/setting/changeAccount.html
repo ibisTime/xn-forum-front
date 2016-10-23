@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-navbar color="navbar-color">
+        <ion-title>修改用户名</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="register">
+    <ion-list>
+
+        <ion-item>
+            <ion-label floating>新登录名</ion-label>
+            <ion-input #account [(ngModel)]="phoneNum" type="text"></ion-input>
+        </ion-item>
+
+        <captcha-view (captchaClick)="captchaClick($event)"></captcha-view>
+
+    </ion-list>
+
+    <div text-center class="register-div">
+        <button type="button" class="register-btn" (click)="change()" >修改</button>
+    </div>
+
+</ion-content>

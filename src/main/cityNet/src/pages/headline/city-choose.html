@@ -3,7 +3,7 @@
     <div class="search-input-outer">
       <i class="icon iconfont">&#xe601;</i>
     <input #search class="search-city-input" placeholder="请输入城市名称或拼音首字母" (keyup)="searchCity(search.value)" (blur)="cancleSearch()">
-      <button (click)="back()" white-them="">取消</button>
+      <a class="cancle" (click)="back()" white-them="">取消</a>
     </div>
   </ion-navbar>
 </ion-header>

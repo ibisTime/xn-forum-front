@@ -74,14 +74,7 @@ export class MyApp {
 
   }
 
-  // loadEnd($event){
-  //   setTimeout(res => {
-  //
-  //     this.howLoad();
-  //
-  //   },2000);
-  //
-  // }
+
 
   getNav(){
 

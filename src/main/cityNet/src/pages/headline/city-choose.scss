@@ -3,50 +3,54 @@
   .search-input-outer{
     position: relative;
     background-color: white;
-    padding: 0px;
     padding-bottom: 7px;
     display: flex;
-    padding-top: 20px;
+    align-items: flex-end;
+
+    i{
+      display: inline-block;
+      line-height: 30px;
+      padding-bottom: 5px;
+      left: 15px;
+      position: absolute;
+    }
+
+    input{
+      flex: 1;
+      padding-left: 20px;
+      display: inline-block;
+      margin-left: 20px;
+      font-size: 16px;
+      height: 40px;
+      border: 0;
+      border-bottom: 1px solid $line-color;
+    }
+
+    .cancle{
+
+      flex: 0 0 60px;
+      &:active{
+        background-color: gainsboro;
+      }
+      line-height: 30px;
+      text-align: center;
+      background-color: white;
+      color: black;
+      border: 1px solid $line-color;
+      border-radius: 4px;
+      display: block;
+      font-size: 16px;
+      margin: 0px 5px;
+    }
+
   }
 
-  i{
-    display: inline-block;
-    line-height: 30px;
-    left: 20px;
-    position: absolute;
-    bottom: 13px;
-  }
-  input{
-    flex: 1;
-    padding-left: 30px;
-    display: inline-block;
-    margin-left: 20px;
-    font-size: 16px;
-    height: 40px;
-    border: 0;
-    border-bottom: 1px solid $line-color;
-  }
-  button{
-    &:active{
-      background-color: gainsboro;
-    }
-    text-align: center;
-    box-sizing: border-box;
-    background-color: white;
-    color: black;
-    border: 1px solid $line-color;
-    border-radius: 4px;
-    display: inline-block;
-    //line-height: 35px;
-    width: 20%;
-    max-height: 35px;
-    flex: 0 0 55px;
-    //max-height: 80%;
-    font-size: 18px;
-    margin: 0px 10px;
-  }
+
 
 }
+
+
+
 
 
 .city-choose{

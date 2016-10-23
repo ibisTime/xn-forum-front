@@ -50,7 +50,7 @@ export class WarnService {
   loading(msg?: string){
     let loading1: Loading = this.loadingCtrl.create({
       spinner: 'ios',
-      content: msg? msg :'加载中'
+      content: msg? msg :''
     });
     loading1.present();
 
