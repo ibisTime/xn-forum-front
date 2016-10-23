@@ -58,6 +58,8 @@ $iconHeight: 45px;
       height: $iconHeight;
       //overflow: hidden;
       img{
+        height: 45px;
+        width: 45px;
         border-radius: 22.5px;
       }
       .badge{

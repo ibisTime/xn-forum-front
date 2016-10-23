@@ -64,10 +64,10 @@
 
         <!--*ngFor="let func of cityS.headlineData.func3-->
         <div class="outer" [style.width]="h3w" [style.height]="h3h"
-             *ngIf="cityS.headlineData.func3[2]">
-          <img class="func" src={{cityS.headlineData.func3[2].pic}} [style.width]="h3w" [style.height]="h3h"
-               (tap)="goOther(func.url,func.name)">
-          <div class="func3-title">{{cityS.headlineData.func3[2].name}}</div>
+             *ngFor="let item of cityS.headlineData.func3">
+          <img class="func" src={{item.pic}} [style.width]="h3w" [style.height]="h3h"
+               (tap)="goOther(item.url,item.name)">
+          <div class="func3-title">{{item.name}}</div>
         </div>
 
       </div>

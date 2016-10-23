@@ -33,8 +33,9 @@ export class ImPage implements AfterViewInit{
 
   goChatRoom(msgItem: any){
 
+    console.log(msgItem);
     let tab =  this.navCtrl.parent.getSelected();
-    let linkMan = msgItem.from == this.imServe.me ? msgItem.to : msgItem.from;
+    // let linkMan = msgItem.from == this.imServe.me ? msgItem.to : msgItem.from;
 
     msgItem.showBadge = false;
     if(this.imServe.msgTotalCount > 0 && msgItem.badgeCount > 0){
@@ -43,7 +44,7 @@ export class ImPage implements AfterViewInit{
     }
 
     tab.tabBadge = (this.imServe.msgTotalCount <= 0) ? null :`${this.imServe.msgTotalCount}`;
-    this.navCtrl.push(ChatRoomPage,{"userId":linkMan});
+    this.navCtrl.push(ChatRoomPage,msgItem);
 
   }
 

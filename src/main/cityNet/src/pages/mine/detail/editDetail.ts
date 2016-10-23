@@ -67,6 +67,11 @@ export class EditDetailPage implements AfterViewInit {
   }
 
   changeNickname(){
+
+    if(/[^\u4E00-\u9FA5a-zA-Z0-9_+-=]/ig.test(this.nickname)){
+          this.warnCtrl.toast("昵称中包含非法字符");
+    }
+
     let load = this.warnCtrl.loading("修改中");
     this.http.post('/user/nickname', {"nickname": this.nickname}).then((res)=>{
         if(!res.success){
@@ -112,9 +117,35 @@ export class EditDetailPage implements AfterViewInit {
 
 
   changeExt(){
-    let load = this.warnCtrl.loading("修改中");
+console.log(this.param);
+      if(typeof(this.param.birthday) == "undefined"){
+          this.warnCtrl.toast('请填写生日');
+          return;
+      }
+      if(typeof(this.param.region) == "undefined"){
+          this.warnCtrl.toast('请填所在地');
+          return;
+      }
+      if(typeof(this.param.gender) == "undefined"){
+          this.warnCtrl.toast('请选择性别');
+          return;
+      }
+      if(typeof(this.param.introduce) == "undefined"){
+          this.warnCtrl.toast('请填写个人简介');
+          return;
+      }
 
-    this.changeNickname();
+      if(/[^\u4E00-\u9FA5a-zA-Z0-9_+-=]/ig.test(this.param.region)){
+          this.warnCtrl.toast('地区名称中包含非法字符');
+          return;
+      }
+
+      if(/[^\u4E00-\u9FA5a-zA-Z0-9_+-=]/ig.test(this.param.introduce)){
+          this.warnCtrl.toast('个人简介中包含非法字符');
+          return;
+      }
+
+      let load = this.warnCtrl.loading("修改中");
     this.http.post('/user/profile', this.param).then((res)=>{
         if(!res.success){
             this.warnCtrl.toast('用户资料修改失败，请稍后重试!');
@@ -125,6 +156,7 @@ export class EditDetailPage implements AfterViewInit {
             this.uService.user.userExt.introduce = this.param.introduce;
         }
         load.dismiss();
+        this.navCtrl.pop();
     }).catch((err)=>{
         this.warnCtrl.toast('用户资料修改失败，请稍后重试!');
         load.dismiss();

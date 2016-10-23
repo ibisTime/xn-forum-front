@@ -18,14 +18,14 @@ export class MineDetailPage implements AfterViewInit{
   src:string = 'assets/images/marty-avatar.png';
 
   items = [];
-  start: number;
-  limit: number;
-  appendCount = 0;
+  // start: number;
+  // limit: number;
+  // appendCount = 0;
 
   toUserId = "";
   isMe = true;
   totalCount = 0;
-  watchTz = false;
+  // watchTz = false;
   followCount: number = 0;
   followFlag:boolean = false;
   user;
@@ -43,16 +43,11 @@ export class MineDetailPage implements AfterViewInit{
               public warn: WarnService) {
 
       /*@是根据    用户名称进行    查找*/
-      console.log(params);
-
-          this.toUserId = params.data.publisher || params.data.userId || userService.userId;
-
-          this.watchTz = params.data.tz || false;
-
+      //  a.从帖子界面进入    b.从搜索页面进入
+      if(userService.user){///////////////
+          //1.已经登陆
+          this.toUserId = params.data.publisher || params.data.userId ;
           this.isMe = this.toUserId == userService.userId ? true : false;
-
-
-
           if (!this.isMe) {
               this.http.get("/user",{"userId":this.toUserId}).then(res => {
 
@@ -76,6 +71,25 @@ export class MineDetailPage implements AfterViewInit{
           } else {
               this.user = this.userService.user;
           }
+
+      } else {//////////////
+
+          //2.还没有登录
+          this.toUserId = params.data.publisher || params.data.userId;
+          this.http.get("/user",{"userId":this.toUserId}).then(res => {
+
+              this.user = res.data;
+
+          }).catch(error => {
+
+          });
+
+      }
+
+
+
+
+
 
 
   }
@@ -108,45 +122,6 @@ export class MineDetailPage implements AfterViewInit{
     });
   }
 
-  // queryPostPage(event?, refresh?){
-  //     return this.http.get('/post/page',{
-  //         "start": this.start,
-  //         "limit": this.limit,
-  //         "userId": this.toUserId
-  //       })
-  //       .then((res) => {
-  //           if(res.success){
-  //               this.totalCount = res.data.totalCount;
-  //               let list = res.data.list;
-  //               let i = 0;
-  //               if(refresh){
-  //                   this.items = [];
-  //               }
-  //               for(i = 0; i < list.length; i++){
-  //                   if(list[i].pic != null){
-  //                       list[i].pic = list[i].pic.split(/\|\|/);
-  //                   }
-  //                   //list[i].publishDatetime = this.jsDateDiff( new Date(list[i].publishDatetime).getTime()/1000 );
-  //                   list[i].collectCount = 0;   //点击收藏次数
-  //                   list[i].praiseCount = 0;    //点击点赞次数
-  //                   this.items.push(list[i]);
-  //               }
-  //               if(i > 0){
-  //                   this.start++;
-  //               }
-  //           }
-  //           event && event.complete();
-  //           if(this.watchTz){
-  //               document.getElementById("totalTZ").scrollIntoView();
-  //           }
-  //       }).catch(error => {
-  //           if(this.watchTz){
-  //               document.getElementById("totalTZ").scrollIntoView();
-  //           }
-  //           event && event.complete();
-  //       });
-  // }
-   //关注
 
   follow(){
 

@@ -94,4 +94,13 @@ $percentage: 85%;
     border-bottom: 1px solid #c8c7cc;
   }
 
+  //选择站点上面遮盖
+  .city-mask{
+   position: absolute;
+    width: 100%;
+    height: 60px;
+    bottom: 0px;
+    background-color: rgba(0,0,0,0);
+  }
+
 }

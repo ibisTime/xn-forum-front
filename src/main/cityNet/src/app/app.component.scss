@@ -1,6 +1,6 @@
 app-root-comp{
 
-  .ad-bg{
+  #ad-bg{
     background-color: white;
     position: fixed;
     left: 0px;
@@ -35,3 +35,13 @@ app-root-comp{
   }
 
 }
+
+//@keyframes adbg-animaton {
+//  from{
+//    background-color: white;
+//  }
+//  to{
+//    background-color: rgba(0,0,0,0);
+//  }
+//
+//}

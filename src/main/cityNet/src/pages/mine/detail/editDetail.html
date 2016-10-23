@@ -1,9 +1,9 @@
 <ion-header>
   <ion-navbar color="navbar-color">
     <ion-title>编辑</ion-title>
-      <ion-buttons end>
-          <button class="navbar-default-btn" (click)="changeExt()">保存</button>
-      </ion-buttons>
+      <!--<ion-buttons end>-->
+          <!--<button class="navbar-default-btn" (click)="changeExt()">保存</button>-->
+      <!--</ion-buttons>-->
   </ion-navbar>
 
 </ion-header>
@@ -11,16 +11,19 @@
 <ion-content class="editDetail">
   
 
-  <ion-list>
+  <ion-list style="text-align: center">
     <ion-item>
         <a class="file clearfix">
             头像<input type="file" name="file" accept="image/*" (change)="uploadImg($event)"/><img [src]="src"/>
         </a>
     </ion-item>
+
+    <div class="chang-nickname-hint">昵称只能修改一次，请认真考虑后再做修改</div>
     <ion-item>
         <ion-label floating>昵称</ion-label>
         <ion-input type="text" [(ngModel)]="nickname" (change)="changeNickname();"></ion-input>
     </ion-item>
+      <button (click)="changeNickname()" ion-button style="width: 70%; height: 40px; margin:10px 0;" color="navbar-color">修改昵称</button>
     <ion-item>
         <ion-label>生日</ion-label>
         <ion-datetime displayFormat="YYYY-MM-DD "
@@ -45,6 +48,7 @@
         <ion-label floating>简介</ion-label>
         <ion-input type="text" [(ngModel)]="param.introduce"></ion-input>
     </ion-item>
+      <button (click)=" changeExt()" ion-button style="width: 70%; height: 40px; margin:10px 0;" color="navbar-color">保存其它信息</button>
   </ion-list>
 
 </ion-content>

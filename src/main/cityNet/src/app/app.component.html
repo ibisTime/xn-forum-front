@@ -1,6 +1,6 @@
 <ion-nav [root]="rootPage"></ion-nav>
 
-<div *ngIf="cityService.ads.length > 0" class="ad-bg" [style.display]="adDisplay">
+<div *ngIf="cityService.ads.length > 0" id="ad-bg" [style.display]="adDisplay">
     <div class="time-back"> <span>{{time}}</span> s</div>
     <img  [style.display]="adDisplay"
 

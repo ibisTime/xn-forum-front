@@ -10,6 +10,7 @@ import {ChatViewComponent} from "../../components/chat-view/chat.component";
 import {IFramePage} from "../headline/iframe";
 import {UserService} from "../../services/user.service";
 import {LoginPage} from "../user/login";
+import {NavService} from "../../services/nav.service";
 
 @Component({
     templateUrl: 'kefu.html'
@@ -24,7 +25,6 @@ export class KefuPage implements AfterViewInit {
   public timer_bottom;
   public isActive = false;
 
-
   @ViewChild(Content) content: Content;
   @ViewChild(ChatViewComponent) chatView: ChatViewComponent;
   @ViewChild(TextInput) msgPut: any;
@@ -32,7 +32,8 @@ export class KefuPage implements AfterViewInit {
   constructor(public  nav: NavController,
               public imServe: KefuService,
               public cityServe: CityService,
-              public userService: UserService) {
+              public userService: UserService,
+              public navService: NavService) {
     this.listOfChatData = this.imServe.getDataByFromName();
     this.satisfaction = new Satisfaction(this.imServe);
     this.imServe.scroll_bottom = ()=>{
@@ -127,6 +128,6 @@ export class KefuPage implements AfterViewInit {
   }
 
   goIframe(item){
-    this.nav.push(IFramePage,item);
+      this.navService.transition(item.url,item.title);
   }
 }//类的结尾

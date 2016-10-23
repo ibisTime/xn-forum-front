@@ -39,6 +39,20 @@ export class TabsPage {
 
     });
 
+    setTimeout(() => {
+
+      let ele:any = document.getElementById('signin-mask');
+      ele.style.animation = "animation01 3s";
+
+    },2000);
+
+    setTimeout(() => {
+
+      let ele:any = document.getElementById('signin-mask');
+      ele.style.display = "none";
+
+    },3000);
+
   }
 
   changeTab(){
@@ -65,6 +79,7 @@ export class TabsPage {
   selected(i){
     this.tabs.select(i);
   }
+
 
 
   goOther(index){

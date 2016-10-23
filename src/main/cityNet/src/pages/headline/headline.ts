@@ -14,6 +14,7 @@ import {DatePipe} from "@angular/common";
 import {PageDataService} from "./page-data.services";
 import {MallPage} from "./mall/mall";
 import {LoginPage} from "../user/login";
+import {NavService} from "../../services/nav.service";
 
 @Component({
   templateUrl: 'headline.html',
@@ -50,7 +51,8 @@ export class HeadlinePage implements AfterViewInit {
               public warn: WarnService,
               public cityS: CityService,
               public pageDataService: PageDataService,
-              public events: Events) {
+              public events: Events,
+              public navService: NavService) {
 
   }
 
@@ -75,18 +77,6 @@ export class HeadlinePage implements AfterViewInit {
       this.pageDataService.refresh();
 
   }
-
-  /*所有跳转事件个功能点击事件*/
-  goOther(url,title){
-
-    if(Release.weChat){
-      console.log('点击功能');
-      this.navCtrl.push(IFramePage,{"url":url,"title":title});
-    } else {
-
-    }
-
- }
 
 
   chooseCity(){
@@ -178,43 +168,12 @@ export class HeadlinePage implements AfterViewInit {
     }
 
 
-   /*获取帖子数据*/
-    // getArticle(refresh?) {
-    //     let reqObj = {
-    //         "start": this.start,
-    //         "limit": 3,
-    //         "siteCode": this.cityS.currentCity.code
-    //     };
-    //
-    //     return this.http.get('/post/page', reqObj).then(res => {
-    //
-    //         (refresh == "refresh") && (this.articles = []);
-    //         let list = res.data.list;
-    //         if (list.length > 0) {
-    //
-    //             for (let i = 0; i < list.length; i++) {
-    //                 if (list[i].pic != null) {
-    //                     list[i].pic = list[i].pic.split(/\|\|/);
-    //                 }
-    //             }
-    //             this.articles.push(...list);
-    //
-    //             if (3 * this.start >= res.data.totalCount) {
-    //                 this.loadMoreScroll.enable(false)
-    //             }
-    //
-    //         } else {
-    //             this.loadMoreScroll.enable(false);
-    //         }
-    //
-    //         this.start++;
-    //
-    //     }).catch(error => {
-    //         console.log(error);
-    //     });
-    //
-    // }
 
+
+    /*所有跳转事件个功能点击事件*/
+    goOther(url,title){
+        this.navService.transition(url,title,this.sign());
+    }
 
     /*商城*/
     goMall() {
@@ -222,11 +181,11 @@ export class HeadlinePage implements AfterViewInit {
     }
 
     /*签到*/
-    sign() {
+    //签到动画
+    sign(){
         let obj = {
             "location" : "杭州"
         }
-
         let load = this.warn.loading("");
         this.http.post("/user/signIn",obj).then(res => {
 
@@ -239,6 +198,7 @@ export class HeadlinePage implements AfterViewInit {
         });
 
     }
+
 
 }
 

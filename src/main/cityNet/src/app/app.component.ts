@@ -54,7 +54,10 @@ export class MyApp {
             this.userServe.loginOut();
             this.warn.toast('请重新登陆');
             this.im.close();
-            currentNav.push(LoginPage);
+
+            if(currentNav != null && typeof(currentNav) != "undefined"){
+                currentNav.push(LoginPage);
+            }
 
         }
 
@@ -70,6 +73,10 @@ export class MyApp {
       /*im登陆*/
       this.imServe.login(this.userServe.userId);
 
+    });
+
+    this.events.subscribe('user:nouser',() => {
+       this.userServe.loginOut();
     });
 
   }
@@ -109,6 +116,8 @@ export class MyApp {
          },1200);
 
          setTimeout(res => {
+
+          // document.getElementById('ad-bg').style.animation = "adbg-animaton 1s";
           this.adDisplay = 'none';
           window.clearInterval(num);
 
@@ -158,6 +167,10 @@ export class MyApp {
           this.http.get('/user').then(res => {
              this.userServe.user = res.data;
           });
+
+        }).catch(error => {
+
+           this.rootPage = TabsPage;
 
         });
 

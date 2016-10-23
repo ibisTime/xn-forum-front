@@ -7,6 +7,7 @@ import {IMService} from "../../../services/im.service";
 import {AfterViewInit} from "@angular/core";
 import {ChatViewComponent} from "../../../components/chat-view/chat.component";
 import {WarnService} from "../../../services/warn.service";
+import {UserService} from "../../../services/user.service";
 
 
 @Component({
@@ -32,7 +33,8 @@ export class ChatRoomPage implements AfterViewInit {
               public imServe: IMService,
               public params: NavParams,
               public platform: Platform,
-              public warn: WarnService
+              public warn: WarnService,
+              public userService: UserService
               ) {
 
     //接受参数包含     userId    nickname   photo
@@ -61,7 +63,7 @@ export class ChatRoomPage implements AfterViewInit {
   }
 
   ionViewDidEnter(){
-    this.imServe.currentLinkMan = this.params.data;
+    this.imServe.currentLinkMan = this.params.data.userId;
     /*删除当前*/
   }
   ionViewDidLeave(){
@@ -94,7 +96,11 @@ export class ChatRoomPage implements AfterViewInit {
     let success = false;
     let load = this.warn.loading("发送中");
 
-    this.imServe.sendTextMsg(msgInput.value,this.params.data.userId, (id, serverMsgId) => {
+    let ext = {
+      "nickname":this.userService.user.nickname,
+      "photo": this.userService.user.userExt.photo || ""
+    };
+    this.imServe.sendTextMsg(msgInput.value,this.params.data.userId,ext, (id, serverMsgId) => {
 
       load.dismiss();
       success = true;

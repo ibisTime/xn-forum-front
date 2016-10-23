@@ -124,7 +124,7 @@ export class MinePage implements AfterViewInit{
   }
 
   goDetail(){
-    this.navCtrl.push(MineDetailPage);
+    this.navCtrl.push(MineDetailPage,{"userId": this.userService.userId});
   }
   goTZList(){
     this.navCtrl.push(MineDetailPage, {"tz": true});

@@ -346,7 +346,6 @@ export class CityService {
 
   /*存储排序的数据*/
     let segs = [];
-    // let def = {letter: "*", data: []};
 
     /*遍历字母*/
     letters.forEach((value, indexLetter, arr) => {
@@ -382,39 +381,6 @@ export class CityService {
   }
 
 
-
-  // /*经纬度 查站点详情*/
-  // getSiteByPosition(longitude?,latitude?){
-  //
-  //   let obj;
-  //   if((longitude instanceof String) &&(latitude instanceof String)){
-  //     obj = {
-  //       "longitude":longitude,
-  //       "latitude" :latitude
-  //     }
-  //   }
-  //
-  //
-  //   return this.http.get('/site/position',obj).then( res => {
-  //
-  //     console.log(res);
-  //     this.currentCity = res["data"];
-  //
-  //     return res;
-  //   });
-  //
-  // }
-  //
-  // /*通过坐标获取详情*/
-  // getNavigateByPosition(x?,y?){
-  //
-  //   return this.getSiteByPosition(x,y).then((res) => {
-  //
-  //     return this.getNavigateBySiteCode(res['data']["code"]);
-  //
-  //   });
-  //
-  // }
 
 
 }

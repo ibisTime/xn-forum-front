@@ -28,7 +28,8 @@ export class DraftPage {
                 public warnCtrl: WarnService,
                 public params: NavParams,
                 public pageDataService:PageDataService,
-                public model: ModalController,public http: HttpService) {
+                public model: ModalController,
+                public http: HttpService) {
 
 
     }

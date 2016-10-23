@@ -34,6 +34,12 @@
             float: right;
         }
     }
+    .chang-nickname-hint{
+        text-align: left;
+        padding-top: 5px;
+        padding-left: 16px;
+        color: $navbar-color;
+    }
 }
 .clearfix:after {
     content: "";

@@ -55,11 +55,15 @@ export class RegisterPage implements OnInit {
 
       load.dismiss().then(res => {
 
-        let model = this.mCtrl.create(CityChoosePage);
+        let model = this.mCtrl.create(CityChoosePage,{"isReg":true});
         model.onDidDismiss((city) => {
 
-          this.cityName = city.name;
-          this.citycode = city.code;
+          if(typeof(city) != "undefined"){
+
+            this.cityName = city.name;
+            this.citycode = city.code;
+
+          }
 
         });
         model.present();
@@ -72,6 +76,8 @@ export class RegisterPage implements OnInit {
 
 
     });
+
+    $event.stopPropagation();
 
   }
 

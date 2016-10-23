@@ -4,6 +4,7 @@
 import {Injectable} from '@angular/core';
 import { MsgObj, IMBaseService} from './im-base.service'
 import {Events} from "ionic-angular";
+import {HttpService} from "./http.service";
 
 declare var WebIM: any;
 
@@ -16,6 +17,8 @@ export interface ListItem{
   from: string;
   to: string;
   lastMsg: string;
+  photo?;
+  nickname?;
   /*存入我国东八区时间*/
   time: string;
   showBadge: boolean;
@@ -34,7 +37,7 @@ export class IMService {
   /*存储全部聊天数据的对象*/
   listOfChatRoomData: any = {};
   /*存储聊天列表数据的对象*/
-  listOfOpposite: Array<ListItem> = [];
+  listOfOpposite: Array<any> = [];
   /*好友列表*/
   listOfFriend: any[] = [];
   /*要加好友的人*/
@@ -42,12 +45,18 @@ export class IMService {
   /*链接对象*/
   conn;
 
+  // 存入{联系人头像，昵称，userId}
+
+  linckManInfo = [];
+
   /*消息总数*/
   msgTotalCount = 0;
   imTextMessageInner;
 
   constructor(  private  imBase: IMBaseService,
-                private events: Events) {
+                private events: Events,
+                public http: HttpService
+                ) {
 
 
     this.conn = this.imBase.conn;
@@ -86,7 +95,7 @@ export class IMService {
   /*1.处理自己发送的信息*/
   handleToMsg(msg: string,to: string){
 
-    let msgItem: MsgObj = {
+    let msgItem = {
       from: `${this.me}`,
       to: `${to}`,
       data: `${msg}`
@@ -132,7 +141,9 @@ export class IMService {
   }
 
   /*4.对插入的外部列表数据进行处理*/
-  handleExternalMsgData(msg:MsgObj){
+  handleExternalMsgData(msg){
+
+       console.log(msg);
 
     let linkMan = msg.from == this.me ? msg.to : msg.from ;
 
@@ -155,8 +166,12 @@ export class IMService {
       this.events.publish(MSG_TOTAL_COUNT,this.msgTotalCount);
     }
 
-    let shortMsg: ListItem = {
-      from: linkMan,
+    //from 统一改为对方userId
+    let shortMsg = {
+      // from: linkMan,
+      userId:linkMan,
+      nickname:msg.ext.nickname,
+      photo:msg.ext.photo,
       to: msg.to,
       lastMsg: chatContent,
       time: dateStr,
@@ -164,14 +179,42 @@ export class IMService {
       badgeCount: 1
     };
 
+    //根据userID判断，并找到联系人信息
+    // let result = this.linckManInfo.filter((value,index,array) => {
+    //   return value.userId == linkMan;
+    // });
+    //
+    // if(result.length > 0){
+    //
+    //   shortMsg.nickname = result[0].nickname;
+    //   shortMsg.photo = result[0].photo;
+    //
+    // } else {
+    //
+    //   /*从服务器查询*/
+    //   this.http.get("/user",{"userId":linkMan}).then(res => {
+    //
+    //     shortMsg.nickname = res.data.nickname;
+    //     shortMsg.photo = res.data.userExt.photo || "";
+    //     this.linckManInfo.push(res.data);
+    //
+    //   }).catch(error => {
+    //
+    //
+    //   });
+    //
+    // }
+
 
     if (this.listOfOpposite.length > 0) {
 
-      let model: ListItem = this.listOfOpposite.find((value, index, obj) => {
+      let models = this.listOfOpposite.filter((value, index, obj) => {
         return value.from === linkMan;
       });
 
-      if (typeof(model) === "undefined") {//没有找到,添加
+      let model = models[0];
+
+      if (typeof(models) === "undefined") {//没有找到,添加
 
         console.log('有别人,进行添加');
         this.listOfOpposite.push(shortMsg);
@@ -194,13 +237,14 @@ export class IMService {
 
 
   /*发文本消息*/
-  sendTextMsg(message,to,successCallBack: (id, serverMsgId) => void ) {
+  sendTextMsg(message,to,extMsg,successCallBack: (id, serverMsgId) => void ) {
 
     let id = this.conn.getUniqueId();
     let msg = new WebIM.message('txt', id);//创建文本消息
     msg.set({
       msg: message,
       to: to,
+      ext:extMsg,
       success:  (id, serverMsgId) => {
         successCallBack(id, serverMsgId);
       }
@@ -226,7 +270,7 @@ export class IMService {
     //存储聊天列表数据的对象
     this.listOfOpposite = [];
     //好友列表清除
-    this.listOfFriend= [];
+    // this.listOfFriend= [];
   }
 
   close(){

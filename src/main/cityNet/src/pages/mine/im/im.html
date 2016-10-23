@@ -39,20 +39,20 @@
   <!--</ion-item>-->
 
   <ion-list>
+
     <div class="chat-list-outer"  (click)="goChatRoom(msgItem)"
             *ngFor="let msgItem of imServe.listOfOpposite" >
 
       <div class="chat-list-item" >
         <div class="headImg">
-          <img src="assets/images/marty-avatar.png">
+          <img [src]="msgItem.photo||'assets/images/marty-avatar.png'">
           <div class="badge" *ngIf="msgItem.showBadge">{{(msgItem.badgeCount > 99) ? '99+' : msgItem.badgeCount}}</div>
         </div>
         <div class="chat-item-content">
-          <h2>{{msgItem.from}}</h2>
+          <h2>{{msgItem.nickname || msgItem.userId}}</h2>
         </div>
       </div>
-
-
     </div>
+
   </ion-list>
 </ion-content>
