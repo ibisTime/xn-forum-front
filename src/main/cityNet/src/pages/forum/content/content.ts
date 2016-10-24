@@ -301,7 +301,7 @@ export class ContentPage {
         buttons.unshift({
             text: '举报',
             handler: () => {
-                this.report();
+                this.report("1");
             }
         });
         buttons.unshift({
@@ -360,7 +360,7 @@ export class ContentPage {
     prompt.present();
   }
   //举报
-  report() {
+  report(type) {
       let prompt = this.alertCtrl.create({
       title: '举报',
       message: "",
@@ -381,7 +381,8 @@ export class ContentPage {
           handler: (data) => {
                 this.http.post('/post/report',{
                     "code": this.code,
-                    "reportNote": data.reportNote
+                    "reportNote": data.reportNote,
+                    "type": type
                 })
                 .then((res) => {
                     if(res.success){

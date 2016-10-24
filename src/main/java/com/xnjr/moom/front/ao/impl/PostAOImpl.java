@@ -24,6 +24,7 @@ import com.xnjr.moom.front.req.XN610047Req;
 import com.xnjr.moom.front.req.XN610049Req;
 import com.xnjr.moom.front.req.XN610052Req;
 import com.xnjr.moom.front.req.XN610053Req;
+import com.xnjr.moom.front.req.XN610054Req;
 import com.xnjr.moom.front.req.XN610070Req;
 import com.xnjr.moom.front.req.XN610072Req;
 import com.xnjr.moom.front.req.XN610073Req;
@@ -103,7 +104,8 @@ public class PostAOImpl implements IPostAO {
     public Object queryPagePost(String title, String keyword, String status,
             String isHeadlines, String location, String plateCode,
             String siteCode, String publisher, String start, String limit,
-            String orderColumn, String orderDir, String userId) {
+            String orderColumn, String orderDir, String userId,
+            String isLock, String dateStart, String dateEnd) {
         XN610070Req req = new XN610070Req();
         req.setTitle(title);
         req.setKeyword(keyword);
@@ -117,6 +119,10 @@ public class PostAOImpl implements IPostAO {
         req.setOrderColumn(orderColumn);
         req.setOrderDir(orderDir);
         req.setUserId(userId);
+        req.setStatus(status);
+        req.setIsLock(isLock);
+        req.setDateEnd(dateEnd);
+        req.setDateStart(dateStart);
         return BizConnecter.getBizData("610070", JsonUtils.object2Json(req),
             Object.class);
     }
@@ -220,7 +226,7 @@ public class PostAOImpl implements IPostAO {
     }
 
     @Override
-    public Object report(String reporter, String code, String reportNote) {
+    public Object report(String reporter, String code, String reportNote, String type) {
         XN610043Req req = new XN610043Req();
         req.setReporter(reporter);
         req.setReportNote(reportNote);
@@ -231,13 +237,12 @@ public class PostAOImpl implements IPostAO {
 
     @Override
     public Object gratuity(String talker, String postCode, String amount) {
-        // // XN610059Req req = new XN610059Req();
-        // req.setAmount(amount);
-        // req.setPostCode(postCode);
-        // req.setTalker(talker);
-        // return BizConnecter.getBizData("610054", JsonUtils.object2Json(req),
-        // Object.class);
-        return null;
+         XN610054Req req = new XN610054Req();
+         req.setAmount(amount);
+         req.setPostCode(postCode);
+         req.setTalker(talker);
+         return BizConnecter.getBizData("610054", JsonUtils.object2Json(req),
+        	Object.class);
     }
 
     @Override

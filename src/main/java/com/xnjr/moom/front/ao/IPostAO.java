@@ -60,6 +60,9 @@ public interface IPostAO {
      * @param orderColumn
      * @param orderDir
      * @param userId
+     * @param isLock
+     * @param dateStart
+     * @param dateEnd
      * @return 
      * @create: 2016年10月16日 上午11:25:56 xieyj
      * @history:
@@ -67,7 +70,8 @@ public interface IPostAO {
     public Object queryPagePost(String title, String keyword, String status,
             String isHeadlines, String location, String plateCode,
             String siteCode, String publisher, String start, String limit,
-            String orderColumn, String orderDir, String userId);
+            String orderColumn, String orderDir, String userId,
+            String isLock, String dateStart, String dateEnd);
 
     /**
      * 获取帖子详情
@@ -132,7 +136,7 @@ public interface IPostAO {
 
     public Object queryPostDetailComment(String userId, String commentCode);
 
-    public Object report(String reporter, String code, String reportNote);
+    public Object report(String reporter, String code, String reportNote, String type);
 
     public Object gratuity(String talker, String postCode, String amount);
 

@@ -72,10 +72,14 @@ public class PostController extends BaseController {
             @RequestParam("limit") String limit,
             @RequestParam(value = "orderColumn", required = false) String orderColumn,
             @RequestParam(value = "orderDir", required = false) String orderDir,
-            @RequestParam(value = "userId", required = false) String userId) {
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "isLock", required = false) String isLock,
+            @RequestParam(value = "dateStart", required = false) String dateStart,
+            @RequestParam(value = "dateEnd", required = false) String dateEnd) {
         return postAO.queryPagePost(title, keyword, status, isHeadlines,
             location, plateCode, siteCode, publisher, start, limit,
-            orderColumn, orderDir, getSessionUserId(userId));
+            orderColumn, orderDir, getSessionUserId(userId), isLock,
+            dateStart, dateEnd);
     }
 
     // 获取帖子详情
@@ -169,13 +173,14 @@ public class PostController extends BaseController {
             commentCode);
     }
 
-    // 举报帖子
+    // 举报帖子、评论
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
     public Object report(@RequestParam("code") String code,
-            @RequestParam("reportNote") String reportNote) {
+            @RequestParam("reportNote") String reportNote,
+            @RequestParam("type") String type) {
         return postAO.report(this.getSessionUser().getUserId(), code,
-            reportNote);
+            reportNote, type);
     }
 
     // 打赏帖子
