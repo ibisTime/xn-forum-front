@@ -44,21 +44,21 @@
 
     <div class="forum-data">
       <div class="forum-data-cell" (click)="goTZList()">
-        <div class="count">{{statisticsInfo.totalPostNum}}</div>
+        <div class="count">{{userService.totalPostNum}}</div>
         <div class="name">帖子</div>
       </div>
       <div class="forum-data-cell" (click)="goRelationList('follow')">
-        <div class="count">{{statisticsInfo.totalFollowNum}}</div>
+        <div class="count">{{userService.user.totalFollowNum}}</div>
         <div class="name">关注</div>
       </div>
 
       <div class="forum-data-cell" (click)="goRelationList('fans')">
-        <div class="count">{{statisticsInfo.totalFansNum}}</div>
+        <div class="count">{{userService.user.totalFansNum}}</div>
         <div class="name">粉丝</div>
       </div>
 
       <div class="forum-data-cell">
-        <div class="count">{{statisticsInfo.amount}}</div>
+        <div class="count">{{userService.user.amount}}</div>
         <div class="name">赏金</div>
       </div>
     </div>

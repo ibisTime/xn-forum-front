@@ -135,8 +135,8 @@ console.log(this.param);
           return;
       }
 
-      if(/[^\u4E00-\u9FA5a-zA-Z0-9_+-=]/ig.test(this.param.region)){
-          this.warnCtrl.toast('地区名称中包含非法字符');
+      if(/[^\u4E00-\u9FA5a-zA-Z0-9]/ig.test(this.param.region)){
+          this.warnCtrl.toast('地区名称只能使用汉字、数字、字母的组合');
           return;
       }
 

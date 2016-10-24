@@ -2,9 +2,10 @@
  * Created by tianlei on 2016/10/17.
  */
 import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import {InfiniteScroll,Refresher} from 'ionic-angular';
+import {InfiniteScroll, Refresher, NavController} from 'ionic-angular';
 import {PageDataService} from "../../headline/page-data.services";
 import {HttpService} from "../../../services/http.service";
+import {SysMsgDetailPage} from "./sysMsgDetail";
 @Component({
     templateUrl: 'system-msg.html',
     providers:[PageDataService]
@@ -16,7 +17,8 @@ export class SystemMsgPage implements OnInit, AfterViewInit {
     @ViewChild(InfiniteScroll)  loadMoreScroll:  InfiniteScroll;
     @ViewChild(Refresher)  refresher:  Refresher;
     constructor(public pageDataService:PageDataService,
-                public http: HttpService) {
+                public http: HttpService,
+                public nav: NavController) {
     }
 
     ngAfterViewInit(){
@@ -26,8 +28,9 @@ export class SystemMsgPage implements OnInit, AfterViewInit {
         this.pageDataService.refreshComp = this.refresher;
         this.pageDataService.loadMoreComp = this.loadMoreScroll;
         this.refresher._beginRefresh();
-
     }
+
+
     ngOnInit() {
         // let params = {
         //   "smsCode" : ""
@@ -50,6 +53,10 @@ export class SystemMsgPage implements OnInit, AfterViewInit {
 
     }
 
+
+    selected(item){
+        this.nav.push(SysMsgDetailPage);
+    }
 
     refresh($event){
       this.pageDataService.refresh();

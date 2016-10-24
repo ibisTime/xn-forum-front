@@ -111,7 +111,7 @@ export class PlatService{
             plateCode: this.platCode,//板块代码
             start: this.articleStart.start,
             limit: this.lim,
-            "status" : "1"
+            "status" : "D"
         }
        return this.http.get("/post/page",obj).then(res => {
 

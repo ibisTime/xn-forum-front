@@ -45,9 +45,9 @@
                             [isHideComBtn]=true
                     ></forum-cell>
                     <ion-buttons class="clearfix">
-                        <button class="fr" (clicl)="ignore()" ion-button>忽略</button>
-                        <button class="fr" (clicl)="delete()" ion-button>删除</button>
-                        <button class="fr" (clicl)="pass()" ion-button>通过</button>
+                        <button class="fr" (clicl)="ignore(item)" ion-button>忽略</button>
+                        <button class="fr" (clicl)="delete(item)" ion-button>删除</button>
+                        <button class="fr" (clicl)="pass(item)" ion-button>通过</button>
                     </ion-buttons>
                 </ion-item>
             </ion-list>
@@ -63,10 +63,10 @@
                         [isHideComBtn]=true
                 ></forum-cell>
                     <ion-buttons class="clearfix">
-                        <button class="fr" (clicl)="delete()" ion-button>删除</button>
-                        <button class="fr" (tap)="essence()"ion-button>精华</button>
-                        <button class="fr" (tap)="top()" ion-button>置顶</button>
-                        <button class="fr" (tap)="lock()"ion-button>锁帖</button>
+                        <button class="fr" (clicl)="delete(item)" ion-button>删除</button>
+                        <button class="fr" (tap)="essence(item)"ion-button>精华</button>
+                        <button class="fr" (tap)="top(item)" ion-button>置顶</button>
+                        <button class="fr" (tap)="lock(item)"ion-button>锁帖</button>
                     </ion-buttons>
             </ion-item>
         </div>

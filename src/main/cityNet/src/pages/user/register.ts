@@ -32,7 +32,7 @@ export class RegisterPage implements OnInit {
                  public events: Events,
                  public mCtrl: ModalController,
                  public cityS: CityService,
-                 public warn: WarnService
+                 public warn: WarnService,
   ) {
 
 
@@ -145,11 +145,11 @@ export class RegisterPage implements OnInit {
     }
 
 
-    // if(typeof(this.cityService.address != "undefined")){
-    //   params["province"] = this.cityService.address.province;
-    //   params["city"] = this.cityService.address.city;
-    //   params["area"] = this.cityService.address.area;
-    // }
+    if(typeof(this.cityS.regAddress != "undefined")){
+      params["province"] = this.cityS.regAddress.province;
+      params["city"] = this.cityS.regAddress.city;
+      params["area"] = this.cityS.regAddress.area;
+    }
 
 
     /*注册*/

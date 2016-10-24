@@ -25,6 +25,7 @@ export class TabsPage {
 
   tabItems = [];
   @ViewChild(Tabs) tabs: Tabs;
+  signinDisplay = "none";
   constructor(
               public imServe: IMService,
               public cityS: CityService,
@@ -39,19 +40,33 @@ export class TabsPage {
 
     });
 
-    setTimeout(() => {
+    // setTimeout(() => {
+    //
+    //   let ele:any = document.getElementById('signin-mask');
+    //   ele.style.animation = "animation01 3s";
+    //
+    // },2000);
+    //
+    // setTimeout(() => {
+    //
+    //   let ele:any = document.getElementById('signin-mask');
+    //   ele.style.display = "none";
+    //
+    // },3000);
 
-      let ele:any = document.getElementById('signin-mask');
-      ele.style.animation = "animation01 3s";
 
-    },2000);
+    this.events.subscribe("user:signin",(res) => {
 
-    setTimeout(() => {
+      this.signinDisplay = "block";
 
-      let ele:any = document.getElementById('signin-mask');
-      ele.style.display = "none";
+      setTimeout(() => {
 
-    },3000);
+        this.signinDisplay = "none";
+
+      },2000);
+
+    });
+
 
   }
 
