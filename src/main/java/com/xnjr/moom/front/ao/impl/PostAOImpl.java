@@ -102,27 +102,27 @@ public class PostAOImpl implements IPostAO {
 
     @Override
     public Object queryPagePost(String title, String keyword, String status,
-            String isHeadlines, String location, String plateCode,
-            String siteCode, String publisher, String start, String limit,
-            String orderColumn, String orderDir, String userId,
-            String isLock, String dateStart, String dateEnd) {
+            String location, String plateCode, String siteCode,
+            String publisher, String start, String limit, String orderColumn,
+            String orderDir, String userId, String isLock, 
+            String dateStart, String dateEnd) {
         XN610070Req req = new XN610070Req();
-        req.setTitle(title);
+        req.setUserId(userId);
         req.setKeyword(keyword);
-        req.setIsHeadlines(isHeadlines);
+        req.setTitle(title);
+        req.setPublisher(publisher);
+        req.setStatus(status);
         req.setLocation(location);
+        req.setIsLock(isLock);
         req.setPlateCode(plateCode);
         req.setSiteCode(siteCode);
-        req.setPublisher(publisher);
+        req.setDateEnd(dateEnd);
+        req.setDateStart(dateStart);
         req.setStart(start);
         req.setLimit(limit);
         req.setOrderColumn(orderColumn);
         req.setOrderDir(orderDir);
-        req.setUserId(userId);
-        req.setStatus(status);
-        req.setIsLock(isLock);
-        req.setDateEnd(dateEnd);
-        req.setDateStart(dateStart);
+        
         return BizConnecter.getBizData("610070", JsonUtils.object2Json(req),
             Object.class);
     }

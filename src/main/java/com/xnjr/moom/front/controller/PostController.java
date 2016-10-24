@@ -63,7 +63,6 @@ public class PostController extends BaseController {
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "status", required = false) String status,
-            @RequestParam(value = "isHeadlines", required = false) String isHeadlines,
             @RequestParam(value = "location", required = false) String location,
             @RequestParam(value = "plateCode", required = false) String plateCode,
             @RequestParam(value = "siteCode", required = false) String siteCode,
@@ -76,10 +75,9 @@ public class PostController extends BaseController {
             @RequestParam(value = "isLock", required = false) String isLock,
             @RequestParam(value = "dateStart", required = false) String dateStart,
             @RequestParam(value = "dateEnd", required = false) String dateEnd) {
-        return postAO.queryPagePost(title, keyword, status, isHeadlines,
-            location, plateCode, siteCode, publisher, start, limit,
-            orderColumn, orderDir, getSessionUserId(userId), isLock,
-            dateStart, dateEnd);
+        return postAO.queryPagePost(title, keyword, status, location,
+        	plateCode, siteCode, publisher, start, limit, orderColumn,
+        	orderDir, getSessionUserId(userId), isLock, dateStart, dateEnd);
     }
 
     // 获取帖子详情

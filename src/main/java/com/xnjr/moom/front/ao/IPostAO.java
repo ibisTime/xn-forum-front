@@ -50,7 +50,6 @@ public interface IPostAO {
      * @param title
      * @param keyword
      * @param status
-     * @param isHeadlines
      * @param location
      * @param plateCode
      * @param siteCode
@@ -68,8 +67,8 @@ public interface IPostAO {
      * @history:
      */
     public Object queryPagePost(String title, String keyword, String status,
-            String isHeadlines, String location, String plateCode,
-            String siteCode, String publisher, String start, String limit,
+            String location, String plateCode, String siteCode,
+            String publisher, String start, String limit,
             String orderColumn, String orderDir, String userId,
             String isLock, String dateStart, String dateEnd);
 
