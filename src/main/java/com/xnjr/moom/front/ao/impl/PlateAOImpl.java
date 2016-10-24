@@ -11,7 +11,6 @@ package com.xnjr.moom.front.ao.impl;
 import org.springframework.stereotype.Service;
 
 import com.xnjr.moom.front.ao.IPlateAO;
-import com.xnjr.moom.front.enums.EBoolean;
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.req.XN610031Req;
@@ -28,12 +27,10 @@ public class PlateAOImpl implements IPlateAO {
      * @see com.xnjr.moom.front.ao.IPlateAO#queryListPlate(java.lang.String)
      */
     @Override
-    public Object queryPlateList(String kind, String userId, String siteCode) {
+    public Object queryPlateList(String kind, String userId) {
         XN610031Req req = new XN610031Req();
         req.setKind(kind);
         req.setUserId(userId);
-        req.setSiteCode(siteCode);
-        req.setStatus(EBoolean.YES.getCode());
         return BizConnecter.getBizData("610031", JsonUtils.object2Json(req),
             Object.class);
     }

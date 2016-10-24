@@ -19,10 +19,9 @@ public interface IPlateAO {
      * 根据站点,种类列表查询板块
      * @param kind
      * @param userId
-     * @param String
      * @return 
      * @create: 2016年10月24日 下午2:00:46 xieyj
      * @history:
      */
-    public Object queryPlateList(String kind, String userId, String siteCode);
+    public Object queryPlateList(String kind, String userId);
 }

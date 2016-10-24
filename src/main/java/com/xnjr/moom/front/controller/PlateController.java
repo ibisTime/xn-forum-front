@@ -35,9 +35,8 @@ public class PlateController extends BaseController {
     @ResponseBody
     public Object queryPlatePage(
             @RequestParam(value = "kind", required = false) String kind,
-            @RequestParam(value = "userId", required = false) String userId,
-            @RequestParam(value = "siteCode", required = true) String siteCode) {
-        return plateAO.queryPlateList(kind, userId, siteCode);
+            @RequestParam(value = "userId", required = false) String userId) {
+        return plateAO.queryPlateList(kind, userId);
     }
     
     // 板块分页列表
@@ -45,8 +44,7 @@ public class PlateController extends BaseController {
     @ResponseBody
     public Object queryPlateList(
             @RequestParam(value = "kind", required = false) String kind,
-            @RequestParam(value = "userId", required = false) String userId,
-            @RequestParam(value = "siteCode", required = true) String siteCode) {
-        return plateAO.queryPlateList(kind, getSessionUserId(userId), siteCode);
+            @RequestParam(value = "userId", required = false) String userId) {
+        return plateAO.queryPlateList(kind, getSessionUserId(userId));
     }
 }
