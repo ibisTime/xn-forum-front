@@ -21,12 +21,29 @@ public interface IPostAO {
      * @param pic
      * @param plateCode
      * @param publisher
+     * @param isPublish
      * @return 
-     * @create: 2016年9月27日 下午3:53:36 xieyj
+     * @create: 2016年10月24日 下午2:04:12 xieyj
      * @history:
      */
     public Object publishPost(String title, String content, String pic,
-            String plateCode, String publisher);
+            String plateCode, String publisher, String isPublish);
+
+    /**
+     * 草稿发布帖子
+     * @param code
+     * @param title
+     * @param content
+     * @param pic
+     * @param plateCode
+     * @param publisher
+     * @param isPublish
+     * @return 
+     * @create: 2016年10月24日 下午2:04:30 xieyj
+     * @history:
+     */
+    public Object draftPublishPost(String code, String title, String content,
+            String pic, String plateCode, String publisher, String isPublish);
 
     /**
      * 分页查询帖子
@@ -90,7 +107,7 @@ public interface IPostAO {
      * @param userId
      * @return
      */
-    public Object deletePost(String code, String userId);
+    public Object deletePost(String code, String userId, String type);
 
     /**
      * 我收藏的帖子分页查询
@@ -104,15 +121,6 @@ public interface IPostAO {
     public Object queryPageCollections(String talker, String start,
             String limit, String orderColumn, String orderDir);
 
-    public Object postCraftAdd(String title, String content, String pic,
-            String plateCode, String userId);
-
-    public Object postCraftEdit(String code, String title, String content,
-            String pic, String plateCode, String userId);
-
-    public Object postCraftPublish(String code, String title, String content,
-            String pic, String plateCode, String userId);
-
     public Object queryMyPostPage(String userId, String status,
             String dateStart, String dateEnd, String start, String limit,
             String orderColumn, String orderDir);
@@ -123,10 +131,10 @@ public interface IPostAO {
             String limit);
 
     public Object queryPostDetailComment(String userId, String commentCode);
-    
+
     public Object report(String reporter, String code, String reportNote);
-    
-    public Object gratuity(String talker,String postCode, String amount);
-    
+
+    public Object gratuity(String talker, String postCode, String amount);
+
     public Object read(String userId, String postCode);
 }

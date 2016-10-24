@@ -17,12 +17,12 @@ public interface IPlateAO {
 
     /**
      * 根据站点,种类列表查询板块
-     * @param siteCode
      * @param kind
+     * @param userId
+     * @param String
      * @return 
-     * @create: 2016年10月11日 下午3:46:42 xieyj
+     * @create: 2016年10月24日 下午2:00:46 xieyj
      * @history:
      */
-    public Object queryPlateList(String siteCode, String kind);
-
+    public Object queryPlateList(String kind, String userId, String siteCode);
 }

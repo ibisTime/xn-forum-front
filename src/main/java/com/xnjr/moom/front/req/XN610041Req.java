@@ -1,8 +1,17 @@
 package com.xnjr.moom.front.req;
 
-public class XN610050Req {
+/** 
+ * 发布帖子，填写帖子基本信息
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:40:29 
+ * @history:
+ */
+public class XN610041Req {
 
-    // 标题（必填）
+    // 编号（必填）
+    private String code;
+
+    // 标题（选填）
     private String title;
 
     // 内容（必填）
@@ -16,6 +25,17 @@ public class XN610050Req {
 
     // 发布人（必填）
     private String publisher;
+
+    // 是否发布
+    private String isPublish;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getTitle() {
         return title;
@@ -55,5 +75,13 @@ public class XN610050Req {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getIsPublish() {
+        return isPublish;
+    }
+
+    public void setIsPublish(String isPublish) {
+        this.isPublish = isPublish;
     }
 }

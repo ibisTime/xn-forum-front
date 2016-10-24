@@ -1,85 +1,75 @@
 package com.xnjr.moom.front.req;
 
+/** 
+ * 板块列表查询
+ * @author: xieyj 
+ * @since: 2016年8月29日 下午2:38:43 
+ * @history:
+ */
 public class XN610031Req {
-    private String code;
-    
-    private String isDqNavigate;
-
+    // 名称(选填)
     private String name;
 
+    // 大类(选填)
+    private String kind;
+
+    // 位置(选填)
+    private String location;
+
+    // 状态(选填)
     private String status;
 
-    private String type;
+    // 版主(选填)
+    private String userId;
 
-    private String isGlobal;
-    
-    private String parentCode;
-    
+    // 站点编号(选填)
     private String siteCode;
 
-	public String getCode() {
-		return code;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public String getKind() {
+        return kind;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public String getIsGlobal() {
-		return isGlobal;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setIsGlobal(String isGlobal) {
-		this.isGlobal = isGlobal;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public String getParentCode() {
-		return parentCode;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setParentCode(String parentCode) {
-		this.parentCode = parentCode;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public String getSiteCode() {
-		return siteCode;
-	}
+    public String getSiteCode() {
+        return siteCode;
+    }
 
-	public void setSiteCode(String siteCode) {
-		this.siteCode = siteCode;
-	}
-
-	public String getIsDqNavigate() {
-		return isDqNavigate;
-	}
-
-	public void setIsDqNavigate(String isDqNavigate) {
-		this.isDqNavigate = isDqNavigate;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
+    }
 }

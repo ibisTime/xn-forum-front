@@ -1,6 +1,12 @@
 package com.xnjr.moom.front.req;
 
-public class XN610057Req {
+/** 
+ *  浏览帖子，对帖子内容或其上级评论进行评论
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:43:45 
+ * @history:
+ */
+public class XN610042Req {
 
     // 内容（必填）
     private String content;

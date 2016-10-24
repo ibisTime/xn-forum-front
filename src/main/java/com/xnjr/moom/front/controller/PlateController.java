@@ -34,8 +34,9 @@ public class PlateController extends BaseController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Object queryPlatePage(
-            @RequestParam(value = "siteCode", required = true) String siteCode,
-            @RequestParam(value = "kind", required = false) String kind) {
-        return plateAO.queryPlateList(siteCode, kind);
+            @RequestParam(value = "kind", required = false) String kind,
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "siteCode", required = true) String siteCode) {
+        return plateAO.queryPlateList(kind, userId, siteCode);
     }
 }

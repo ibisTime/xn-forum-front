@@ -36,9 +36,23 @@ public class PostController extends BaseController {
             @RequestParam(value = "title", required = true) String title,
             @RequestParam(value = "content", required = true) String content,
             @RequestParam(value = "pic", required = false) String pic,
-            @RequestParam(value = "plateCode", required = true) String plateCode) {
+            @RequestParam(value = "plateCode", required = true) String plateCode,
+            @RequestParam(value = "isPublish", required = true) String isPublish) {
         return postAO.publishPost(title, content, pic, plateCode, this
-            .getSessionUser().getUserId());
+            .getSessionUser().getUserId(), isPublish);
+    }
+
+    @RequestMapping(value = "/publish", method = RequestMethod.POST)
+    @ResponseBody
+    public Object draftPublishPost(
+            @RequestParam(value = "code", required = true) String code,
+            @RequestParam(value = "title", required = true) String title,
+            @RequestParam(value = "content", required = true) String content,
+            @RequestParam(value = "pic", required = false) String pic,
+            @RequestParam(value = "plateCode", required = true) String plateCode,
+            @RequestParam(value = "isPublish", required = true) String isPublish) {
+        return postAO.draftPublishPost(code, title, content, pic, plateCode,
+            this.getSessionUser().getUserId(), isPublish);
     }
 
     // -----------------帖子列表----------------
@@ -94,8 +108,9 @@ public class PostController extends BaseController {
     // 将自己已发布的帖子删除
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public Object deletePost(@RequestParam("code") String code) {
-        return postAO.deletePost(code, getSessionUserId(""));
+    public Object deletePost(@RequestParam("code") String code,
+            @RequestParam("type") String type) {
+        return postAO.deletePost(code, getSessionUserId(""), type);
     }
 
     // 我收藏的帖子分页查询
@@ -109,44 +124,6 @@ public class PostController extends BaseController {
             @RequestParam(value = "orderDir", required = false) String orderDir) {
         return postAO.queryPageCollections(getSessionUserId(talker), start,
             limit, orderColumn, orderDir);
-    }
-
-    // 发帖保存到草稿箱
-    @RequestMapping(value = "/craft/add", method = RequestMethod.POST)
-    @ResponseBody
-    public Object postCraftAdd(
-            @RequestParam(value = "title", required = true) String title,
-            @RequestParam(value = "content", required = true) String content,
-            @RequestParam(value = "pic", required = false) String pic,
-            @RequestParam(value = "plateCode", required = true) String plateCode) {
-        return postAO.postCraftAdd(title, content, pic, plateCode, this
-            .getSessionUser().getUserId());
-    }
-
-    // 草稿编辑保存
-    @RequestMapping(value = "/craft/edit", method = RequestMethod.POST)
-    @ResponseBody
-    public Object postCraftEdit(
-            @RequestParam(value = "code", required = true) String code,
-            @RequestParam(value = "title", required = true) String title,
-            @RequestParam(value = "content", required = true) String content,
-            @RequestParam(value = "pic", required = false) String pic,
-            @RequestParam(value = "plateCode", required = true) String plateCode) {
-        return postAO.postCraftEdit(code, title, content, pic, plateCode, this
-            .getSessionUser().getUserId());
-    }
-
-    // 草稿发布帖子，根据用户的信任等级，设置状态为已发布或待审核
-    @RequestMapping(value = "/craft/publish", method = RequestMethod.POST)
-    @ResponseBody
-    public Object postCraftPublish(
-            @RequestParam(value = "code", required = true) String code,
-            @RequestParam(value = "title", required = true) String title,
-            @RequestParam(value = "content", required = true) String content,
-            @RequestParam(value = "pic", required = false) String pic,
-            @RequestParam(value = "plateCode", required = true) String plateCode) {
-        return postAO.postCraftPublish(code, title, content, pic, plateCode,
-            this.getSessionUser().getUserId());
     }
 
     // 分页查询我的帖子
@@ -190,34 +167,32 @@ public class PostController extends BaseController {
         return postAO.queryPostDetailComment(this.getSessionUser().getUserId(),
             commentCode);
     }
-    
+
     // 举报帖子
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
-    public Object report(
-            @RequestParam("code") String code,
+    public Object report(@RequestParam("code") String code,
             @RequestParam("reportNote") String reportNote) {
-        return postAO.report(this.getSessionUser().getUserId(),
-    		code, reportNote);
+        return postAO.report(this.getSessionUser().getUserId(), code,
+            reportNote);
     }
-    
+
     // 打赏帖子
     @RequestMapping(value = "/gratuity", method = RequestMethod.POST)
     @ResponseBody
-    public Object gratuity(
-            @RequestParam("postCode") String postCode,
+    public Object gratuity(@RequestParam("postCode") String postCode,
             @RequestParam("amount") String amount) {
-        return postAO.gratuity(this.getSessionUser().getUserId(),
-        		postCode, amount);
+        return postAO.gratuity(this.getSessionUser().getUserId(), postCode,
+            amount);
     }
-    
+
     // 阅读帖子
     @RequestMapping(value = "/read", method = RequestMethod.POST)
     @ResponseBody
     public Object read(
-    		@RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "userId", required = false) String userId,
             @RequestParam("postCode") String postCode) {
         return postAO.read(getSessionUserId(userId), postCode);
     }
-    
+
 }

@@ -15,16 +15,13 @@ import com.xnjr.moom.front.ao.IPostAO;
 import com.xnjr.moom.front.exception.BizException;
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
-import com.xnjr.moom.front.req.XN610050Req;
-import com.xnjr.moom.front.req.XN610051Req;
-import com.xnjr.moom.front.req.XN610054Req;
-import com.xnjr.moom.front.req.XN610056Req;
-import com.xnjr.moom.front.req.XN610057Req;
-import com.xnjr.moom.front.req.XN610059Req;
-import com.xnjr.moom.front.req.XN610060Req;
-import com.xnjr.moom.front.req.XN610061Req;
-import com.xnjr.moom.front.req.XN610062Req;
-import com.xnjr.moom.front.req.XN610063Req;
+import com.xnjr.moom.front.req.XN610040Req;
+import com.xnjr.moom.front.req.XN610041Req;
+import com.xnjr.moom.front.req.XN610042Req;
+import com.xnjr.moom.front.req.XN610043Req;
+import com.xnjr.moom.front.req.XN610047Req;
+import com.xnjr.moom.front.req.XN610052Req;
+import com.xnjr.moom.front.req.XN610053Req;
 import com.xnjr.moom.front.req.XN610070Req;
 import com.xnjr.moom.front.req.XN610072Req;
 import com.xnjr.moom.front.req.XN610073Req;
@@ -32,7 +29,6 @@ import com.xnjr.moom.front.req.XN610075Req;
 import com.xnjr.moom.front.req.XN610076Req;
 import com.xnjr.moom.front.req.XN610077Req;
 import com.xnjr.moom.front.req.XN610078Req;
-import com.xnjr.moom.front.util.UploadUtil;
 
 /** 
  * @author: xieyj 
@@ -42,12 +38,12 @@ import com.xnjr.moom.front.util.UploadUtil;
 @Service
 public class PostAOImpl implements IPostAO {
 
-    /** 
-     * @see com.xnjr.moom.front.ao.IPostAO#publishPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+    /**
+     * @see com.xnjr.moom.front.ao.IPostAO#publishPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
     public Object publishPost(String title, String content, String pic,
-            String plateCode, String publisher) {
+            String plateCode, String publisher, String isPublish) {
         if (StringUtils.isBlank(title)) {
             throw new BizException("A010001", "标题不能为空");
         }
@@ -60,13 +56,44 @@ public class PostAOImpl implements IPostAO {
         if (StringUtils.isBlank(publisher)) {
             throw new BizException("A010001", "发布人不能为空");
         }
-        XN610050Req req = new XN610050Req();
+        XN610040Req req = new XN610040Req();
         req.setTitle(title);
         req.setContent(content);
         req.setPic(pic);
         req.setPlateCode(plateCode);
         req.setPublisher(publisher);
-        return BizConnecter.getBizData("610050", JsonUtils.object2Json(req),
+        req.setIsPublish(isPublish);
+        return BizConnecter.getBizData("610040", JsonUtils.object2Json(req),
+            Object.class);
+    }
+
+    /** 
+     * @see com.xnjr.moom.front.ao.IPostAO#publishPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     */
+    @Override
+    public Object draftPublishPost(String code, String title, String content,
+            String pic, String plateCode, String publisher, String isPublish) {
+        if (StringUtils.isBlank(title)) {
+            throw new BizException("A010001", "标题不能为空");
+        }
+        if (StringUtils.isBlank(content)) {
+            throw new BizException("A010001", "发布内容不能为空");
+        }
+        if (StringUtils.isBlank(plateCode)) {
+            throw new BizException("A010001", "选择板块不能为空");
+        }
+        if (StringUtils.isBlank(publisher)) {
+            throw new BizException("A010001", "发布人不能为空");
+        }
+        XN610041Req req = new XN610041Req();
+        req.setCode(code);
+        req.setTitle(title);
+        req.setContent(content);
+        req.setPic(pic);
+        req.setPlateCode(plateCode);
+        req.setPublisher(publisher);
+        req.setIsPublish(isPublish);
+        return BizConnecter.getBizData("610041", JsonUtils.object2Json(req),
             Object.class);
     }
 
@@ -105,28 +132,29 @@ public class PostAOImpl implements IPostAO {
     }
 
     public Object praise(String type, String postCode, String talker) {
-        XN610056Req req = new XN610056Req();
+        XN610053Req req = new XN610053Req();
         req.setPostCode(postCode);
         req.setTalker(talker);
         req.setType(type);
-        return BizConnecter.getBizData("610056", JsonUtils.object2Json(req),
+        return BizConnecter.getBizData("610053", JsonUtils.object2Json(req),
             Object.class);
     }
 
     public Object comment(String content, String parentCode, String commer) {
-        XN610057Req req = new XN610057Req();
+        XN610042Req req = new XN610042Req();
         req.setCommer(commer);
         req.setContent(content);
         req.setParentCode(parentCode);
-        return BizConnecter.getBizData("610057", JsonUtils.object2Json(req),
+        return BizConnecter.getBizData("610042", JsonUtils.object2Json(req),
             Object.class);
     }
 
-    public Object deletePost(String code, String userId) {
-        XN610051Req req = new XN610051Req();
+    public Object deletePost(String code, String userId, String type) {
+        XN610047Req req = new XN610047Req();
         req.setCode(code);
         req.setUserId(userId);
-        return BizConnecter.getBizData("610051", JsonUtils.object2Json(req),
+        req.setType(type);
+        return BizConnecter.getBizData("610047", JsonUtils.object2Json(req),
             Object.class);
     }
 
@@ -139,47 +167,6 @@ public class PostAOImpl implements IPostAO {
         req.setStart(start);
         req.setTalker(talker);
         return BizConnecter.getBizData("610073", JsonUtils.object2Json(req),
-            Object.class);
-    }
-
-    @Override
-    public Object postCraftAdd(String title, String content, String pic,
-            String plateCode, String userId) {
-        XN610061Req req = new XN610061Req();
-        req.setTitle(title);
-        req.setContent(content);
-        req.setPic(UploadUtil.uploadPicture(pic));
-        req.setPlateCode(plateCode);
-        req.setPublisher(userId);
-        return BizConnecter.getBizData("610061", JsonUtils.object2Json(req),
-            Object.class);
-    }
-
-    @Override
-    public Object postCraftEdit(String code, String title, String content,
-            String pic, String plateCode, String userId) {
-        XN610062Req req = new XN610062Req();
-        req.setCode(code);
-        req.setTitle(title);
-        req.setContent(content);
-        req.setPic(UploadUtil.uploadPicture(pic));
-        req.setPlateCode(plateCode);
-        req.setPublisher(userId);
-        return BizConnecter.getBizData("610062", JsonUtils.object2Json(req),
-            Object.class);
-    }
-
-    @Override
-    public Object postCraftPublish(String code, String title, String content,
-            String pic, String plateCode, String userId) {
-        XN610063Req req = new XN610063Req();
-        req.setCode(code);
-        req.setTitle(title);
-        req.setContent(content);
-        req.setPic(UploadUtil.uploadPicture(pic));
-        req.setPlateCode(plateCode);
-        req.setPublisher(userId);
-        return BizConnecter.getBizData("610063", JsonUtils.object2Json(req),
             Object.class);
     }
 
@@ -229,32 +216,34 @@ public class PostAOImpl implements IPostAO {
         return BizConnecter.getBizData("610078", JsonUtils.object2Json(req),
             Object.class);
     }
-    
+
     @Override
-    public Object report(String reporter, String code, String reportNote){
-    	XN610054Req req = new XN610054Req();
-    	req.setReporter(reporter);
-    	req.setReportNote(reportNote);
-    	req.setCode(code);
-    	return BizConnecter.getBizData("610054", JsonUtils.object2Json(req),
-                Object.class);
+    public Object report(String reporter, String code, String reportNote) {
+        XN610043Req req = new XN610043Req();
+        req.setReporter(reporter);
+        req.setReportNote(reportNote);
+        req.setCode(code);
+        return BizConnecter.getBizData("610043", JsonUtils.object2Json(req),
+            Object.class);
     }
+
     @Override
-    public Object gratuity(String talker,String postCode, String amount){
-    	XN610059Req req = new XN610059Req();
-    	req.setAmount(amount);
-    	req.setPostCode(postCode);
-    	req.setTalker(talker);
-    	return BizConnecter.getBizData("610059", JsonUtils.object2Json(req),
-                Object.class);
+    public Object gratuity(String talker, String postCode, String amount) {
+        // // XN610059Req req = new XN610059Req();
+        // req.setAmount(amount);
+        // req.setPostCode(postCode);
+        // req.setTalker(talker);
+        // return BizConnecter.getBizData("610054", JsonUtils.object2Json(req),
+        // Object.class);
+        return null;
     }
-    
+
     @Override
-    public Object read(String userId, String postCode){
-    	XN610060Req req = new XN610060Req();
-    	req.setPostCode(postCode);
-    	req.setUserId(userId);
-    	return BizConnecter.getBizData("610060", JsonUtils.object2Json(req),
-                Object.class);
+    public Object read(String userId, String postCode) {
+        XN610052Req req = new XN610052Req();
+        req.setPostCode(postCode);
+        req.setUserId(userId);
+        return BizConnecter.getBizData("610052", JsonUtils.object2Json(req),
+            Object.class);
     }
 }
