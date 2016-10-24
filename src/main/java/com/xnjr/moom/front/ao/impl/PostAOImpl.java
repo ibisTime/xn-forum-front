@@ -19,7 +19,9 @@ import com.xnjr.moom.front.req.XN610040Req;
 import com.xnjr.moom.front.req.XN610041Req;
 import com.xnjr.moom.front.req.XN610042Req;
 import com.xnjr.moom.front.req.XN610043Req;
+import com.xnjr.moom.front.req.XN610044Req;
 import com.xnjr.moom.front.req.XN610047Req;
+import com.xnjr.moom.front.req.XN610049Req;
 import com.xnjr.moom.front.req.XN610052Req;
 import com.xnjr.moom.front.req.XN610053Req;
 import com.xnjr.moom.front.req.XN610070Req;
@@ -245,5 +247,40 @@ public class PostAOImpl implements IPostAO {
         req.setUserId(userId);
         return BizConnecter.getBizData("610052", JsonUtils.object2Json(req),
             Object.class);
+    }
+    
+    @Override
+    public Object totalPost(String userId){
+    	return BizConnecter.getBizData("610900", JsonUtils.string2Json("userId", userId),
+                Object.class);
+    }
+    
+    @Override
+    public Object checkPost(String code, String approveResult,
+    		String approver, String approveNote, String type){
+    	XN610044Req req = new XN610044Req();
+    	req.setApproveNote(approveNote);
+    	req.setApprover(approver);
+    	req.setApproveResult(approveResult);
+    	req.setCode(code);
+    	req.setType(type);
+    	return BizConnecter.getBizData("610044", JsonUtils.object2Json(req),
+                Object.class);
+    }
+    
+    @Override
+    public Object setTop(String code, String location, String endDatetime){
+    	XN610049Req req = new XN610049Req();
+    	req.setCode(code);
+    	req.setEndDatetime(endDatetime);
+    	req.setLocation(location);
+    	return BizConnecter.getBizData("610049", JsonUtils.object2Json(req),
+                Object.class);
+    }
+    
+    @Override
+    public Object lockPost(String code){
+    	return BizConnecter.getBizData("610051", JsonUtils.string2Json("code", code),
+    			Object.class);
     }
 }

@@ -137,4 +137,13 @@ public interface IPostAO {
     public Object gratuity(String talker, String postCode, String amount);
 
     public Object read(String userId, String postCode);
+    
+    public Object totalPost(String userId);
+    
+    public Object checkPost(String code, String approveResult,
+    		String approver, String approveNote, String type);
+    
+    public Object setTop(String code, String location, String endDatetime);
+    
+    public Object lockPost(String code);
 }
