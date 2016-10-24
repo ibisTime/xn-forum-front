@@ -42,7 +42,7 @@ public class PostController extends BaseController {
             .getSessionUser().getUserId(), isPublish);
     }
 
-    @RequestMapping(value = "/publish", method = RequestMethod.POST)
+    @RequestMapping(value = "/draft/publish", method = RequestMethod.POST)
     @ResponseBody
     public Object draftPublishPost(
             @RequestParam(value = "code", required = true) String code,
@@ -194,5 +194,4 @@ public class PostController extends BaseController {
             @RequestParam("postCode") String postCode) {
         return postAO.read(getSessionUserId(userId), postCode);
     }
-
 }

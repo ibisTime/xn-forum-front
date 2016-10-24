@@ -526,7 +526,7 @@ public class UserAOImpl implements IUserAO {
 
     @Override
     public Object userSTAT(String userId) {
-        return BizConnecter.getBizData("610902",
+        return BizConnecter.getBizData("610900",
             JsonUtils.string2Json("userId", userId), Object.class);
     }
 
