@@ -39,7 +39,9 @@
     </ion-item>
     <ion-item>
         <ion-label>性别</ion-label>
-        <ion-select [(ngModel)]="param.gender">
+        <ion-select [(ngModel)]="param.gender"
+                    cancelText="取消"
+                    doneText="确定">
             <ion-option value="1">男</ion-option>
             <ion-option value="0">女</ion-option>
         </ion-select>

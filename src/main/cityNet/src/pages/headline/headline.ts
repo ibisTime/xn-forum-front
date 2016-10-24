@@ -68,13 +68,14 @@ export class HeadlinePage implements AfterViewInit {
       this.pageDataService.reqObj = {
          "siteCode" : this.cityS.currentCity.code,
           "isHeadlines": "1",
-          "status" : "1"
+          "status" : "D"
       };
       this.pageDataService.refreshComp = this.refresher;
       this.pageDataService.loadMoreComp = this.loadMoreScroll;
 
 
       this.pageDataService.refresh();
+
 
   }
 
@@ -137,8 +138,7 @@ export class HeadlinePage implements AfterViewInit {
 
       } else {
 
-              this.navCtrl.push(LoginPage);
-
+          this.navCtrl.push(LoginPage);
       }
 
   }
@@ -190,11 +190,13 @@ export class HeadlinePage implements AfterViewInit {
         this.http.post("/user/signIn",obj).then(res => {
 
             load.dismiss();
-            this.warn.toast("签到成功");
+            this.events.publish("user:signin");
+            // this.warn.toast("签到成功");
 
         }).catch(error => {
 
             load.dismiss();
+            this.warn.toast("签到失败");
         });
 
     }

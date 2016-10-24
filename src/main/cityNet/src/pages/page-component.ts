@@ -47,6 +47,7 @@ import {MinePropertyDetail} from "./mine/property/mine-property-datail";
 import {MineProperty} from "./mine/property/mine-property";
 import {ChangeMobilePage} from "./mine/setting/changeMobile";
 import {ChangeAccountPage} from "./mine/setting/changeAccount";
+import {SysMsgDetailPage} from "./mine/im/sysMsgDetail";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -88,7 +89,8 @@ export const pages = [ TabsPage,
   MinePropertyDetail,
   MineProperty,
   ChangeMobilePage,
-  ChangeAccountPage
+  ChangeAccountPage,
+  SysMsgDetailPage
 
 
 ];

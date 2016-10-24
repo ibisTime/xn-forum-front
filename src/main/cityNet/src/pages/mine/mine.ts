@@ -23,12 +23,6 @@ import {MineProperty} from "./property/mine-property";
 export class MinePage implements AfterViewInit{
 
   className = 'test-class';
-  forumData = [
-    {"name": '帖子',"count":'16'},
-    {"name": '关注',"count":'26'},
-    {"name": '粉丝',"count":'36'},
-    {"name": '赏金',"count":'66'},
-  ];
 
   listItem = [
     {"name":'我的物品',"src":'iconfont icon-search'},
@@ -41,13 +35,8 @@ export class MinePage implements AfterViewInit{
 
   src:string = 'assets/images/marty-avatar.png';
   myUser;
+  // statisticsInfo = {totalPostNum: 0}
 
-  statisticsInfo = {
-    totalFansNum: "0",
-    totalFollowNum: "0",
-    totalPostNum:"0",
-    amount:"0"
-  };
 
   constructor(public navCtrl: NavController,
               public platform: Platform,
@@ -62,27 +51,19 @@ export class MinePage implements AfterViewInit{
 
     this.events.subscribe('user:loginout',res => {
 
-      this.statisticsInfo = {
-
-        totalFansNum: "0",
-        totalFollowNum: "0",
-        totalPostNum:"0",
-        amount:"0"
-      };
-
     });
 
     this.events.subscribe('user:loginSuccess',res => {
-      this.getStatisticsInfo();
+
+       this.getPostNum();
+
     });
+
 
   }
 
   ngAfterViewInit(){
 
-    if(this.userService.user){
-      this.getStatisticsInfo();
-    }
 
   }
 
@@ -102,21 +83,31 @@ export class MinePage implements AfterViewInit{
 
 
   doRefresh($event){
-      this.getStatisticsInfo($event);
-      this.userService.UpdateUserInfo();
-  }
 
-  getStatisticsInfo($event?){
-      this.http.get("/user/stats").then(res => {
+     this.getPostNum();
+      this.userService.UpdateUserInfo().then(res => {
 
-          this.statisticsInfo = res.data;
-          (typeof($event) != "undefined")&& ($event.complete());
+        $event.complete();
 
       }).catch(error => {
-          (typeof($event) != "undefined")&& ($event.complete());
+        $event.complete();
+        this.warnCtrl.toast("获取用户信息失败");
       });
+
   }
 
+
+  getPostNum(){
+
+    this.http.get("/post/total").then(res => {
+
+      this.userService.totalPostNum = res.data.totalPostNum;
+
+    }).catch(error => {
+
+    });
+
+  }
 
   /**/
   goRelationList(type){
@@ -126,6 +117,7 @@ export class MinePage implements AfterViewInit{
   goDetail(){
     this.navCtrl.push(MineDetailPage,{"userId": this.userService.userId});
   }
+
   goTZList(){
     this.navCtrl.push(MineDetailPage, {"tz": true});
   }
@@ -138,18 +130,24 @@ export class MinePage implements AfterViewInit{
   goChat(){
     this.navCtrl.push(ImPage);
   }
+
   goCollect(){
     this.navCtrl.push(CollectionPage);
   }
+
   goSetting(){
     this.navCtrl.push(SettingPage);
   }
+
   goDraft(){
     this.navCtrl.push(DraftPage);
   }
+
   goMyPlate(){
-    this.navCtrl.push(BZPlatDetailPage);
+    // this.navCtrl.push(BZPlatDetailPage);
+    this.navCtrl.push(MinePlatePage);
   }
+
   goMineProperty(){
     this.navCtrl.push(MineProperty);
   }

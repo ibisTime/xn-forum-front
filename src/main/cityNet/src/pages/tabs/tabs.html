@@ -39,10 +39,7 @@
       <!--</div>-->
       <!--<span class="default-title">{{cityS.tabbarItems[4].name}}</span>-->
     <!--</a>-->
-
   </div>
-
-
 
 
   <ion-tab [root]="tab1Root" tabTitle="头条" tabIcon="home"></ion-tab>
@@ -54,4 +51,6 @@
 </ion-tabs>
 
 
-<div id="signin-mask">签到成功</div>
+<div id="signin-mask" [style.display]="signinDisplay">
+  <img src="assets/images/headline/signin.png">
+</div>

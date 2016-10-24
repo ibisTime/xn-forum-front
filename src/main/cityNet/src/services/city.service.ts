@@ -67,7 +67,7 @@ export class CityService {
   };
   tabbarItems = [];
 
-  address;//存入省市区
+  regAddress;//存入省市区
 
   currentCity: City = {"name":"未知地点"}; //根据经纬度获得
 
@@ -78,6 +78,7 @@ export class CityService {
 
 
   getCity(){
+  // ,{"priority":"1"}
    return this.http.get('/site/list').then( res => {
 
       if(res["data"] instanceof Array ){
@@ -117,6 +118,8 @@ export class CityService {
         "city": "未知"
       }
 
+      this.regAddress = zoneObj;
+
       return this.getSiteByAddress(zoneObj).then(res => {
 
         let data = res["data"];
@@ -135,14 +138,13 @@ export class CityService {
           // "city":res.result.addressComponent.city,
           // "city":city.slice(0,city.length - 1)
 
-          "province":res.result.addressComponent.province || "未知",
+          "province":res.result.addressComponent.province.slice(0,city.length - 1) || "未知",
           "area": area || "未知",
-          "city":city || "未知"
+          "city":city.slice(0,city.length - 1) || "未知"
         }
 
 
-        this.address = zoneObj;
-        console.log(res.result.addressComponent.province);
+        this.regAddress = zoneObj;
 
 
         /*获取站点*/
@@ -207,7 +209,7 @@ export class CityService {
      let data = res["data"];
 
 
-     if(data.length <= 5){
+     if(data.length < 5){
        throw new Error();
      }
 

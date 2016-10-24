@@ -34,11 +34,12 @@ export class DraftPage {
 
     }
 
-// -1 草稿 0 待审核 1 审核通过 2 审核不通过 3 已发布
+// A 草稿中 B 已发布 C1 不信任待审批 C2 被举报待审批 D 审批通过 E 待回收 F 被过滤
+
     ngAfterViewInit(){
         this.pageDataService.url = "/post/my/page";
         this.pageDataService.reqObj = {
-            "status":"-1"
+            "status":"A"
         };
         this.pageDataService.refreshComp = this.refresher;
         this.pageDataService.loadMoreComp = this.loadMoreScroll;

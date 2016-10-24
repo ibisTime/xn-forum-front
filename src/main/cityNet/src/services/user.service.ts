@@ -35,7 +35,7 @@ export class UserService {
   /*取值用 .user 取值*/
   _user: User;
   followUsers = [];  //关注的所有人
-
+  totalPostNum = 0; //总发帖数
   registerHelper = false; //解决 注册成功返回到登录页 在退出的问题
   constructor(
               private http: HttpService,
@@ -99,6 +99,7 @@ export class UserService {
     this.userId = "";
     this.user = "";
     this.registerHelper = false;
+    this.totalPostNum = 0;
     this.storage.remove("tokenId");
     this.storage.remove("userId");
     this.storage.remove("user");
@@ -106,11 +107,9 @@ export class UserService {
   }
 
   UpdateUserInfo(){
-    this.http.get("/user").then(res => {
+   return this.http.get("/user").then(res => {
 
       this.user = res.data;
-
-    }).catch(error => {
 
     });
 
