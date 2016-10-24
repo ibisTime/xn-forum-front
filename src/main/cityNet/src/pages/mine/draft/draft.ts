@@ -78,7 +78,8 @@ export class DraftPage {
             "code":item.code,
             "title":item.title,
             "content":item.content,
-            "plateCode": item.platCode
+            "plateCode": item.platCode,
+            "isPublish":"1"
         };
 
         if (typeof(item.picArr) != "undefined") {

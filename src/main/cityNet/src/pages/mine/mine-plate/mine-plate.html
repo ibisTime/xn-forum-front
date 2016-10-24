@@ -1,0 +1,39 @@
+
+<ion-header>
+    <ion-navbar color="navbar-color">
+        <ion-title>我的板块</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="mine-plate">
+    <div class="plate-item" *ngFor="let item of items">
+        <div class="left">
+            <img [src]="item.pic">
+        </div>
+        <div class="middel">
+            <div class="plate-name">{{item.name}}</div>
+            <div>
+                <i class="icon iconfont platefont">&#xe624;</i>
+                <span>{{item.postCount}}</span>
+                <span style="padding-left: 5px">
+                <i class="icon iconfont platefont">&#xe610;</i>
+                <span>{{item.personCount}}</span>
+                    </span>
+            </div>
+        </div>
+        <div class="right">
+            <a (click)="goPlate(item)">进入</a>
+        </div>
+    </div>
+</ion-content>
+
+
+
+<!--<ion-content style="background-color: white;">-->
+    <!--<plat-choose-view-->
+            <!--(goPlateEmitter)="goPlateDetail($event)"-->
+            <!--[classification]="classification"-->
+            <!--[siteCode]="cityService.currentCity.code"-->
+    <!--&gt;-->
+    <!--</plat-choose-view>-->
+<!--</ion-content>-->

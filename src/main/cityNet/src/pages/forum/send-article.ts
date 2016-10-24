@@ -171,9 +171,9 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   sendOrSave(titleIput,contentTextarea,type){
 
     let url = "/post/publish";
-
+    let isPublish = "1";
     if(typeof(this.draftCode) != "undefined"){
-      url = "/post/craft/publish";
+      url = "/post/draft/publish";
     }
 
     let successStr = "发帖成功";
@@ -181,12 +181,12 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
     if(type == "save"){
       if(typeof(this.draftCode) != "undefined"){
-        url = "/post/craft/edit";
+        url = "/post/draft/publish"; //草稿在变为草稿
 
       } else {
-        url = "/post/craft/add";
+        url = "/post/publish";  //首次保存为草稿
       }
-
+      isPublish = "0";
       successStr="保存为草稿成功";
       failureStr="保存为草稿失败";
     }
@@ -293,8 +293,10 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
           "title": titleIput.value,
           "content": contentTextarea.value,
           "plateCode": this.topicCode,
-          "pic": picStr
+          "pic": picStr,
+          "isPublish": isPublish
         };
+
         //草稿
         if(typeof(this.draftCode) != "undefined"){
           articleObj["code"] = this.draftCode;
@@ -321,7 +323,8 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       let articleObj = {
         "title": titleIput.value,
         "content": contentTextarea.value,
-        "plateCode": this.topicCode
+        "plateCode": this.topicCode,
+        "isPublish": isPublish
       };
       //草稿
       if(typeof(this.draftCode) != "undefined"){

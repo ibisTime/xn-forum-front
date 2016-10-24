@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, Platform, Content, ModalController} from 'ionic-angular';
+import {NavController, Platform, Content, ModalController, NavParams} from 'ionic-angular';
 import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
 import {UserService} from "../../../services/user.service";
@@ -15,8 +15,7 @@ import {Http} from "@angular/http";
 export class BZPlatDetailPage {
 
   segment: string = "isCheck";
-
-
+  plate;
   items = [];
   isEnd = false;
 
@@ -33,14 +32,16 @@ export class BZPlatDetailPage {
               public uService : UserService,
               public http: HttpService,
               public cityService: CityService,
-              public pageDataService: PageDataService
+              public pageDataService: PageDataService,
+              public navParams: NavParams
   ) {
-
+      this.plate = navParams.data;
   }
 
     ngAfterViewInit(){
         this.pageDataService.url = "/post/my/page";
         this.pageDataService.reqObj = {
+            "plateCode" : this.plate.code
         };
         this.pageDataService.refreshComp = this.refresher;
         this.pageDataService.loadMoreComp = this.loadMoreScroll;

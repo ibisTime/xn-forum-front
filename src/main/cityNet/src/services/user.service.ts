@@ -51,6 +51,17 @@ export class UserService {
   /**/
   set user(user){
     this._user = user;
+
+      let leveDict = {
+          "1":"新手上路",
+          "2":"初级会员",
+          "3":"中级会员",
+          "4":"高级会员",
+          "5":"金牌会员",
+          "6":"论坛元老"
+      }
+
+    this._user["levelName"] =  leveDict[this._user.level];
     this.storage.set("user",user);
   }
 

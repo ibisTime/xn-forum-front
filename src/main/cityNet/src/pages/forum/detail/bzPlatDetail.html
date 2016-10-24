@@ -14,12 +14,12 @@
         >
         </ion-refresher-content>
     </ion-refresher>
-
+<div style="background-color: white;">
     <div class="p8 clearfix">
         <table class="wp100">
             <tr>
-                <td rowspan="2"><img class="fl" src="assets/images/marty-avatar.png"/></td>
-                <td>板块名称</td>
+                <td rowspan="2"><img class="fl" [src]="plate.pic" style="width: 80px; height: 80px; "/></td>
+                <td>{{plate.name}}</td>
                 <td>置顶：44</td>
             </tr>
             <tr>
@@ -37,7 +37,7 @@
         <!--帖子相关-->
         <div *ngSwitchCase="'isCheck'">
             <ion-list>
-                <ion-item *ngFor="let item of items;">
+                <ion-item *ngFor="let item of pageDataService.items;">
                     <forum-cell
                             [item]="item"
                             [navCtrl]="navCtrl"
@@ -55,7 +55,7 @@
 
         <!--板块选择-->
         <div *ngSwitchCase="'management'">
-            <ion-item *ngFor="let item of items;">
+            <ion-item *ngFor="let item of pageDataService.items;">
                 <forum-cell
                         [item]="item"
                         [navCtrl]="navCtrl"
@@ -71,7 +71,7 @@
             </ion-item>
         </div>
     </div>
-
+</div>
     <ion-infinite-scroll (ionInfinite)="loadMore($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>

@@ -24,7 +24,9 @@ export class SystemMsgPage implements OnInit, AfterViewInit {
     ngAfterViewInit(){
 
         this.pageDataService.url = "/msg/read/page";
-        this.pageDataService.reqObj = {};
+        this.pageDataService.reqObj = {
+
+        };
         this.pageDataService.refreshComp = this.refresher;
         this.pageDataService.loadMoreComp = this.loadMoreScroll;
         this.refresher._beginRefresh();

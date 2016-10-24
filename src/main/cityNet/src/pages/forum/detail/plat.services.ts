@@ -40,14 +40,15 @@ export class PlatService{
         this.tempArticles = this.articles;
     }
 
+    // location（选填）		A 置顶 B 精华 C 头条
     getTopArticle(){
         let lim = 3;
         let obj = {
-            isTop: "1",//置顶
             plateCode: this.platCode,//板块代码
             start: this.topStart.start,
             limit: lim,
-            "status" : "1"
+            "status" : "D",
+            "location": "A"
         }
 
         return this.http.get("/post/page",obj).then(res => {
@@ -79,7 +80,8 @@ export class PlatService{
             start: this.essenceeStart.start,
             isEssence: "1",//精华
             limit: this.lim,
-            "status" : "1"
+            "status" : "D",
+            "location": "B"
         }
         return this.http.get("/post/page",obj).then(res => {
 
@@ -96,7 +98,7 @@ export class PlatService{
             plateCode: this.platCode,//板块代码
             start: this.lastStart.start,
             limit: this.lim,
-            "status" : "1"
+            "status" : "D",
         }
         return this.http.get("/post/page",obj).then(res => {
           return  this.resolveData(res,this.lastStart,this.lim,this.lastArticles);

@@ -38,6 +38,7 @@ export class MineProperty implements OnInit,AfterViewInit {
         this.pageDataService.reqObj = {
         };
         this.pageDataService.type = "other";
+        this.pageDataService.httpMethod = "post";
         this.pageDataService.refreshComp = this.refresher;
         this.pageDataService.loadMoreComp = this.loadMoreScroll;
 

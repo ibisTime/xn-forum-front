@@ -15,8 +15,9 @@ import {CityChoosePage} from "../headline/city-choose";
 })
 export class RegisterPage implements OnInit {
 
-  cityName;
+  cityName = "";
   citycode;
+  city;
   captchaValue;
   userNameValue;
   navbarHidden = false;
@@ -62,6 +63,7 @@ export class RegisterPage implements OnInit {
 
             this.cityName = city.name;
             this.citycode = city.code;
+            this.city = city;
 
           }
 
@@ -138,18 +140,27 @@ export class RegisterPage implements OnInit {
       return;
     }
 
+    if(this.cityName.length <= 0){
+      this.warnCtrl.toast("请选择站点");
+      return;
+    }
+
     let params = {
       mobile : userName,
       loginPwd: pwd,
-      smsCaptcha: captcha
+      smsCaptcha: captcha,
+      loginPwdStrength: "2"
     }
 
+    params["province"] = this.city.province;
+    params["city"] = this.city.city;
+    params["area"] = this.city.area;
 
-    if(typeof(this.cityS.regAddress != "undefined")){
-      params["province"] = this.cityS.regAddress.province;
-      params["city"] = this.cityS.regAddress.city;
-      params["area"] = this.cityS.regAddress.area;
-    }
+    // if(typeof(this.cityS.regAddress != "undefined")){
+    //   params["province"] = this.cityS.regAddress.province;
+    //   params["city"] = this.cityS.regAddress.city;
+    //   params["area"] = this.cityS.regAddress.area;
+    // }
 
 
     /*注册*/

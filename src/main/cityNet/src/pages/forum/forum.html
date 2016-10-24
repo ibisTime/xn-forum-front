@@ -60,7 +60,7 @@
         </div>
 
         <!--板块选择-->
-        <div *ngSwitchCase="'ltan'">
+        <div *ngSwitchCase="'ltan'" >
             <div *ngIf="classification.length <= 0" style="text-align: center; padding-top: 30px; font-size:16px;">
                 <div style="padding:10px;">好像没有获取到板块</div>
                 <button (click)="getClass()" style="border: 1px solid darkgrey; padding: 10px; font-size: 16px; color:darkgrey;background-color: white;">
@@ -72,6 +72,7 @@
                     (goPlateEmitter)="goPlateDetail($event)"
                     [classification]="classification"
                     [siteCode]="cityService.currentCity.code"
+                              style="background-color: white;"
             >
             </plat-choose-view>
         </div>

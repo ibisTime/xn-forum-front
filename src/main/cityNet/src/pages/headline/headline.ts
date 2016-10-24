@@ -67,7 +67,7 @@ export class HeadlinePage implements AfterViewInit {
       this.pageDataService.url = "/post/page";
       this.pageDataService.reqObj = {
          "siteCode" : this.cityS.currentCity.code,
-          "isHeadlines": "1",
+          "location": "C",
           "status" : "D"
       };
       this.pageDataService.refreshComp = this.refresher;
@@ -172,6 +172,7 @@ export class HeadlinePage implements AfterViewInit {
 
     /*所有跳转事件个功能点击事件*/
     goOther(url,title){
+
         this.navService.transition(url,title,this.sign());
     }
 
@@ -183,6 +184,14 @@ export class HeadlinePage implements AfterViewInit {
     /*签到*/
     //签到动画
     sign(){
+
+
+        if(!this.userService.user){
+            this.navCtrl.push(LoginPage);
+            return;
+        }
+
+
         let obj = {
             "location" : "杭州"
         }
@@ -205,5 +214,8 @@ export class HeadlinePage implements AfterViewInit {
 }
 
 
+// status（选填）		A 草稿中 B 已发布 C1 不信任待审批 C2 被举报待审批 D 审批通过 E 待回收 F 被过滤
+// location（选填）		A 置顶 B 精华 C 头条
+// isLock（选填）	是否锁帖	1 是 0 否
 
 

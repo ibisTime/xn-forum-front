@@ -12,9 +12,9 @@ import {SettingPage} from "./setting/setting";
 import {DraftPage} from "./draft/draft";
 import {RelationPage} from "./relationship-people/relationship";
 import {RegisterPage} from "../user/register";
-import {BZPlatDetailPage} from "../forum/detail/bzPlatDetail";
 import {MinePlatePage} from "./mine-plate/mine-plate";
 import {MineProperty} from "./property/mine-property";
+import {MineArticlePage} from "./mine-article/mine-article";
 
 
 @Component({
@@ -35,6 +35,8 @@ export class MinePage implements AfterViewInit{
 
   src:string = 'assets/images/marty-avatar.png';
   myUser;
+  levelName = "333";
+  leveDict;
   // statisticsInfo = {totalPostNum: 0}
 
 
@@ -53,11 +55,14 @@ export class MinePage implements AfterViewInit{
 
     });
 
+
     this.events.subscribe('user:loginSuccess',res => {
 
-       this.getPostNum();
+      this.getPostNum();
 
     });
+
+
 
 
   }
@@ -119,7 +124,7 @@ export class MinePage implements AfterViewInit{
   }
 
   goTZList(){
-    this.navCtrl.push(MineDetailPage, {"tz": true});
+    this.navCtrl.push(MineArticlePage);
   }
 
   goMinePlate(){
@@ -144,8 +149,23 @@ export class MinePage implements AfterViewInit{
   }
 
   goMyPlate(){
-    // this.navCtrl.push(BZPlatDetailPage);
-    this.navCtrl.push(MinePlatePage);
+    let load = this.warnCtrl.loading();
+    this.http.get('/plate/list1').then(res => {
+
+      let array = res.data;
+      load.dismiss();
+      if(array.length > 0){
+
+        this.navCtrl.push(MinePlatePage,array);
+
+      } else {
+        this.warnCtrl.toast("您还不是版主");
+      }
+
+    }).catch(error => {
+      load.dismiss();
+    });
+
   }
 
   goMineProperty(){

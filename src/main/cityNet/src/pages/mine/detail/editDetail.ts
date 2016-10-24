@@ -14,13 +14,15 @@ export class EditDetailPage implements AfterViewInit {
       "gender": "",
       "birthday": "",
       "region": "",
-      "introduce": ""
+      "introduce": "",
+      "emial":""
   };
   orignalParam = {
       "gender": "",
       "birthday": "",
       "region": "",
-      "introduce": ""
+      "introduce": "",
+      "emial":""
   }
 
   result;
@@ -55,7 +57,7 @@ export class EditDetailPage implements AfterViewInit {
   getUserInfo(){
     let data = this.uService.user;
     let userExt = data.userExt;
-    this.nickname = data.nickname || data.mobile;
+    this.nickname = data.nickname;
     this.orignalNickname = this.nickname;
     if(userExt.photo){
         this.src = userExt.photo;
@@ -64,6 +66,7 @@ export class EditDetailPage implements AfterViewInit {
     this.orignalParam.region = this.param.region = userExt.region || "";
     this.orignalParam.birthday = this.param.birthday = userExt.birthday || "";
     this.orignalParam.introduce = this.param.introduce = userExt.introduce || "";
+    this.orignalParam.emial = this.param.emial = userExt.emial || "";
   }
 
   changeNickname(){
@@ -135,6 +138,14 @@ console.log(this.param);
           return;
       }
 
+      let  b1 = typeof(this.param.emial) != "undefined";
+      let  b2 =  /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/ig.test(this.param.emial);
+
+      if(!(b1&&b2)){
+          this.warnCtrl.toast('请填写正确的邮箱');
+          return;
+      }
+
       if(/[^\u4E00-\u9FA5a-zA-Z0-9]/ig.test(this.param.region)){
           this.warnCtrl.toast('地区名称只能使用汉字、数字、字母的组合');
           return;
@@ -154,6 +165,7 @@ console.log(this.param);
             this.uService.user.userExt.birthday = this.param.birthday;
             this.uService.user.userExt.region = this.param.region;
             this.uService.user.userExt.introduce = this.param.introduce;
+            this.uService.user.userExt.emial = this.param.emial;
         }
         load.dismiss();
         this.navCtrl.pop();

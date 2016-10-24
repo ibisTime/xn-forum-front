@@ -12,6 +12,7 @@ export class PageDataService implements OnDestroy{
     type = "article";
     reqObj;
     url;
+    httpMethod = "get";
     refreshComp;
     loadMoreComp;
     articles = [];
@@ -62,35 +63,72 @@ export class PageDataService implements OnDestroy{
 
         this.reqObj["start"] = this.start;
         this.reqObj["limit"] = this.limit;
-        return this.http.get(this.url,this.reqObj).then(res => {
+        if(this.httpMethod == "get"){
+
+            return this.http.get(this.url,this.reqObj).then(res => {
 
 
-            if(refresh == "refresh") {
+                if(refresh == "refresh") {
 
-                this.articles = [];
-                this.items = []
-            }
-
-            let list = res.data.list;
-            if(list.length > 0){///////////
-
-
-
-                this.articles.push(...list);
-                this.items.push(...list);
-
-
-                if (this.limit*this.start >= res.data.totalCount) {
-                    (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.enable(false));
+                    this.articles = [];
+                    this.items = []
                 }
 
-            } else {//////////
-                (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.enable(false));
-            }/////////////
+                let list = res.data.list;
+                if(list.length > 0){///////////
 
-            this.start++;
 
-        });
+
+                    this.articles.push(...list);
+                    this.items.push(...list);
+
+
+                    if (this.limit*this.start >= res.data.totalCount) {
+                        (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.enable(false));
+                    }
+
+                } else {//////////
+                    (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.enable(false));
+                }/////////////
+
+                this.start++;
+
+            });
+
+        } else {
+
+            return this.http.post(this.url,this.reqObj).then(res => {
+
+
+                if(refresh == "refresh") {
+
+                    this.articles = [];
+                    this.items = []
+                }
+
+                let list = res.data.list;
+                if(list.length > 0){///////////
+
+
+
+                    this.articles.push(...list);
+                    this.items.push(...list);
+
+
+                    if (this.limit*this.start >= res.data.totalCount) {
+                        (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.enable(false));
+                    }
+
+                } else {//////////
+                    (typeof(this.loadMoreComp) != "undefined")&&(this.loadMoreComp.enable(false));
+                }/////////////
+
+                this.start++;
+
+            });
+
+        }
+
 
     }
 
