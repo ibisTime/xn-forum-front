@@ -46,7 +46,6 @@ export class KefuPage implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.chatView.me = this.imServe.me;
     this.chatView.listOfChatData = this.listOfChatData;
     let data = {
       from: this.imServe.me + "1",  //不等于me就可以了
@@ -69,6 +68,7 @@ export class KefuPage implements AfterViewInit {
           return;
       }
     //this.msgPut.setFocus();
+    this.chatView.me = this.imServe.me;
     this.imServe.handleToMsg(value);
     this.imServe.sendTextMsg(value, (id, serverMsgId) => {
     }, "");

@@ -144,12 +144,12 @@ public class MemberController extends BaseController {
     @ResponseBody
     public Object setProfile(
             @RequestParam(value = "userId", required = false) String userId,
-            @RequestParam(value = "gender", required = false) String gender,
-            @RequestParam(value = "birthday", required = false) String birthday,
-            @RequestParam(value = "region", required = false) String region,
+            @RequestParam("gender") String gender,
+            @RequestParam("birthday") String birthday,
+            @RequestParam("email") String email,
             @RequestParam(value = "introduce", required = false) String introduce) {
         return userAO.setProfile(getSessionUserId(userId), gender, birthday,
-            region, introduce);
+        		email, introduce);
     }
 
     // 修改昵称

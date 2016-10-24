@@ -17,7 +17,6 @@ import com.xnjr.moom.front.req.XN602802Req;
 import com.xnjr.moom.front.req.XN602803Req;
 import com.xnjr.moom.front.req.XN602804Req;
 import com.xnjr.moom.front.req.XN602805Req;
-import com.xnjr.moom.front.req.XN610900Req;
 import com.xnjr.moom.front.req.XN610903Req;
 import com.xnjr.moom.front.req.XN805040Req;
 import com.xnjr.moom.front.req.XN805043Req;
@@ -31,6 +30,7 @@ import com.xnjr.moom.front.req.XN805057Req;
 import com.xnjr.moom.front.req.XN805073Req;
 import com.xnjr.moom.front.req.XN805074Req;
 import com.xnjr.moom.front.req.XN805075Req;
+import com.xnjr.moom.front.req.XN805076Req;
 import com.xnjr.moom.front.req.XN805101Req;
 import com.xnjr.moom.front.req.XN805102Req;
 import com.xnjr.moom.front.req.XNfd0003Req;
@@ -426,7 +426,7 @@ public class UserAOImpl implements IUserAO {
     @Override
     public Object doReg(String mobile, String loginPwd, String smsCaptcha,
             String userReferee, String province, String city, String area) {
-        XN610900Req req = new XN610900Req();
+    	XN805076Req req = new XN805076Req();
         req.setMobile(mobile);
         req.setLoginPwd(loginPwd);
         req.setLoginPwdStrength(PwdUtil.calculateSecurityLevel(loginPwd));
@@ -435,7 +435,7 @@ public class UserAOImpl implements IUserAO {
         req.setProvince(province);
         req.setCity(province);
         req.setArea(area);
-        return BizConnecter.getBizData("610900", JsonUtils.object2Json(req),
+        return BizConnecter.getBizData("805076", JsonUtils.object2Json(req),
             Object.class);
     }
 
@@ -454,12 +454,12 @@ public class UserAOImpl implements IUserAO {
 
     @Override
     public Object setProfile(String userId, String gender, String birthday,
-            String region, String introduce) {
+            String email, String introduce) {
         XN805074Req req = new XN805074Req();
         req.setUserId(userId);
         req.setGender(gender);
         req.setBirthday(birthday);
-        req.setRegion(region);
+        req.setEmail(email);
         req.setIntroduce(introduce);
         return BizConnecter.getBizData("805074", JsonUtils.object2Json(req),
             Object.class);

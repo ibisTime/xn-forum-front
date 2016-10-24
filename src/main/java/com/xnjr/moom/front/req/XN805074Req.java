@@ -8,7 +8,21 @@ public class XN805074Req {
     
     private String birthday;
     
-    private String region;
+    private String email;
+    
+    private String diploma;
+    
+    private String position;
+    
+    private String workTime;
+
+    private String province;
+    
+    private String city;
+    
+    private String area;
+    
+    private String address;
     
     private String introduce;
 
@@ -36,12 +50,68 @@ public class XN805074Req {
 		this.birthday = birthday;
 	}
 
-	public String getRegion() {
-		return region;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setRegion(String region) {
-		this.region = region;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getDiploma() {
+		return diploma;
+	}
+
+	public void setDiploma(String diploma) {
+		this.diploma = diploma;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getWorkTime() {
+		return workTime;
+	}
+
+	public void setWorkTime(String workTime) {
+		this.workTime = workTime;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getIntroduce() {
@@ -51,5 +121,4 @@ public class XN805074Req {
 	public void setIntroduce(String introduce) {
 		this.introduce = introduce;
 	}
-
 }

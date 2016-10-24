@@ -19,11 +19,8 @@ public class DictController {
     @ResponseBody
     public Object queryDictList(
             @RequestParam(value = "type", required = false) String type,
-            @RequestParam(value = "orderColumn", required = false) String orderColumn,
-            @RequestParam(value = "orderDir", required = false) String orderDir,
             @RequestParam(value = "dkey", required = false) String dkey,
             @RequestParam(value = "parentKey", required = false) String parentKey) {
-        return dictAO.queryDictList(type, parentKey, dkey, orderColumn,
-            orderDir);
+        return dictAO.queryDictList(type, parentKey, dkey);
     }
 }

@@ -286,7 +286,7 @@ public interface IUserAO {
      * @history:
      */
     public Object setProfile(String userId, String gender, String birthday,
-            String region, String introduce);
+            String email, String introduce);
 
     /**
      * 设置昵称
