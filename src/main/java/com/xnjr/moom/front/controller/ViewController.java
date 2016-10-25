@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
-import com.xnjr.moom.front.req.XN806052Req;
+import com.xnjr.moom.front.req.XN806051Req;
 
 @Controller
 @RequestMapping(value = "/view")
@@ -23,13 +23,13 @@ public class ViewController extends BaseController {
             @RequestParam(value = "type", required = false) String type,
             @RequestParam(value = "parentCode", required = false) String parentCode,
             @RequestParam(value = "siteCode", required = false) String companyCode) {
-        XN806052Req req = new XN806052Req();
+        XN806051Req req = new XN806051Req();
         req.setName(name);
         req.setStatus(status);
         req.setType(type);
         req.setParentCode(parentCode);
         req.setCompanyCode(companyCode);
-        return BizConnecter.getBizData("806052", JsonUtils.object2Json(req),
+        return BizConnecter.getBizData("806051", JsonUtils.object2Json(req),
             Object.class);
     }
 
