@@ -160,6 +160,15 @@ public class MemberController extends BaseController {
             @RequestParam(value = "nickname") String nickname) {
         return userAO.setNickName(getSessionUserId(userId), nickname);
     }
+    
+    // 修改用户名
+    @RequestMapping(value = "/username", method = RequestMethod.POST)
+    @ResponseBody
+    public Object setUserName(
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "loginName") String loginName) {
+        return userAO.setUserName(getSessionUserId(userId), loginName);
+    }
 
     // 头像修改
     @RequestMapping(value = "/avatar", method = RequestMethod.POST)

@@ -33,6 +33,7 @@ import com.xnjr.moom.front.req.XN805075Req;
 import com.xnjr.moom.front.req.XN805076Req;
 import com.xnjr.moom.front.req.XN805101Req;
 import com.xnjr.moom.front.req.XN805102Req;
+import com.xnjr.moom.front.req.XN805150Req;
 import com.xnjr.moom.front.req.XNfd0003Req;
 import com.xnjr.moom.front.req.XNfd0004Req;
 import com.xnjr.moom.front.res.XN602601Res;
@@ -472,6 +473,15 @@ public class UserAOImpl implements IUserAO {
         req.setNickname(nickname);
         return BizConnecter.getBizData("805075", JsonUtils.object2Json(req),
             Object.class);
+    }
+    
+    @Override
+    public Object setUserName(String userId, String loginName){
+    	XN805150Req req = new XN805150Req();
+    	req.setLoginName(loginName);
+    	req.setUserId(userId);
+    	return BizConnecter.getBizData("805150", JsonUtils.object2Json(req),
+                Object.class);
     }
 
     @Override

@@ -297,6 +297,14 @@ public interface IUserAO {
      * @history:
      */
     public Object setNickName(String userId, String nickname);
+    
+    /**
+     * 修改用户名
+     * @param userId
+     * @param nickname
+     * @return
+     */
+    public Object setUserName(String userId, String loginName);
 
     /**
      * 签到
