@@ -13,18 +13,9 @@ export class EditDetailPage implements AfterViewInit {
   param = {
       "gender": "",
       "birthday": "",
-      "region": "",
       "introduce": "",
-      "emial":""
+      "email":""
   };
-  orignalParam = {
-      "gender": "",
-      "birthday": "",
-      "region": "",
-      "introduce": "",
-      "emial":""
-  }
-
   result;
   nickname:string;
   orignalNickname:string;
@@ -38,20 +29,6 @@ export class EditDetailPage implements AfterViewInit {
       this.getUserInfo();
   }
   ionViewWillLeave(){
-      // if( !this.isEqual(this.orignalParam, this.param) ){
-      //     this.changeExt();
-      // }
-      // if( this.orignalNickname !== this.nickname ){
-      //     this.changeNickname();
-      // }
-  }
-
-  isEqual(obj1: Object, obj2: Object){
-      for(let i in obj1){
-          if(obj1[i] != obj2[i]){
-              return false;
-          }
-      }
   }
 
   getUserInfo(){
@@ -62,11 +39,10 @@ export class EditDetailPage implements AfterViewInit {
     if(userExt.photo){
         this.src = userExt.photo;
     }
-    this.orignalParam.gender = this.param.gender = userExt.gender || "";
-    this.orignalParam.region = this.param.region = userExt.region || "";
-    this.orignalParam.birthday = this.param.birthday = userExt.birthday || "";
-    this.orignalParam.introduce = this.param.introduce = userExt.introduce || "";
-    this.orignalParam.emial = this.param.emial = userExt.emial || "";
+    this.param.gender = userExt.gender || "";
+    this.param.birthday = userExt.birthday || "";
+    this.param.introduce = userExt.introduce || "";
+    this.param.email = userExt.email || "";
   }
 
   changeNickname(){
@@ -120,13 +96,10 @@ export class EditDetailPage implements AfterViewInit {
 
 
   changeExt(){
-console.log(this.param);
+      console.log(this.param);
+      
       if(typeof(this.param.birthday) == "undefined"){
           this.warnCtrl.toast('请填写生日');
-          return;
-      }
-      if(typeof(this.param.region) == "undefined"){
-          this.warnCtrl.toast('请填所在地');
           return;
       }
       if(typeof(this.param.gender) == "undefined"){
@@ -138,16 +111,11 @@ console.log(this.param);
           return;
       }
 
-      let  b1 = typeof(this.param.emial) != "undefined";
-      let  b2 =  /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/ig.test(this.param.emial);
+      let  b1 = typeof(this.param.email) != "undefined";
+      let  b2 =  /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/ig.test(this.param.email);
 
       if(!(b1&&b2)){
           this.warnCtrl.toast('请填写正确的邮箱');
-          return;
-      }
-
-      if(/[^\u4E00-\u9FA5a-zA-Z0-9]/ig.test(this.param.region)){
-          this.warnCtrl.toast('地区名称只能使用汉字、数字、字母的组合');
           return;
       }
 
@@ -157,22 +125,21 @@ console.log(this.param);
       }
 
       let load = this.warnCtrl.loading("修改中");
-    this.http.post('/user/profile', this.param).then((res)=>{
+      this.http.post('/user/profile', this.param).then((res)=>{
         if(!res.success){
             this.warnCtrl.toast('用户资料修改失败，请稍后重试!');
         }else{
             this.uService.user.userExt.gender = this.param.gender;
             this.uService.user.userExt.birthday = this.param.birthday;
-            this.uService.user.userExt.region = this.param.region;
             this.uService.user.userExt.introduce = this.param.introduce;
-            this.uService.user.userExt.emial = this.param.emial;
+            this.uService.user.userExt.email = this.param.email;
         }
         load.dismiss();
         this.navCtrl.pop();
-    }).catch((err)=>{
-        this.warnCtrl.toast('用户资料修改失败，请稍后重试!');
-        load.dismiss();
-    });
+      }).catch((err)=>{
+            this.warnCtrl.toast('用户资料修改失败，请稍后重试!');
+            load.dismiss();
+      });
   }
 
 }

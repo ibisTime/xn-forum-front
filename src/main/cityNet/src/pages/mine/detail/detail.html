@@ -16,7 +16,7 @@
   <!--顶部-->
   <div text-center class="p20 c_white bg_ad_d6" *ngIf="user">
       <div>
-          <img class="br50" [src]="src"/>
+          <img class="br50" style="width: 80px; height: 80px;" src="{{user.userExt.photo || 'assets/images/marty-avatar.png'}}"/>
       </div>
       <div class="lh2em">
           <span id="nickName">{{user.nickname}}</span>

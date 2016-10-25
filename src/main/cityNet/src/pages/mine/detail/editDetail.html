@@ -21,7 +21,7 @@
     <div class="chang-nickname-hint">昵称只能修改一次，请认真考虑后再做修改</div>
     <ion-item>
         <ion-label floating>昵称</ion-label>
-        <ion-input type="text" [(ngModel)]="nickname" (change)="changeNickname();"></ion-input>
+        <ion-input type="text" [(ngModel)]="nickname"></ion-input>
     </ion-item>
       <button (click)="changeNickname()" ion-button style="width: 70%; height: 40px; margin:10px 0;" color="navbar-color">修改昵称</button>
     <ion-item>
@@ -34,10 +34,6 @@
         </ion-datetime>
     </ion-item>
     <ion-item>
-        <ion-label floating>所在地</ion-label>
-        <ion-input type="text" [(ngModel)]="param.region"></ion-input>
-    </ion-item>
-    <ion-item>
         <ion-label>性别</ion-label>
         <ion-select [(ngModel)]="param.gender"
                     cancelText="取消"
@@ -47,14 +43,14 @@
         </ion-select>
     </ion-item>
       <ion-item>
-          <ion-label>邮箱</ion-label>
-          <ion-input type="text" [(ngModel)]="param.emial"></ion-input>
+          <ion-label floating>邮箱</ion-label>
+          <ion-input type="text" [(ngModel)]="param.email"></ion-input>
       </ion-item>
     <ion-item>
         <ion-label floating>简介</ion-label>
         <ion-input type="text" [(ngModel)]="param.introduce"></ion-input>
     </ion-item>
-      <button (click)=" changeExt()" ion-button style="width: 70%; height: 40px; margin:10px 0;" color="navbar-color">保存其它信息</button>
+      <button (click)=" changeExt()" ion-button style="width: 70%; height: 40px; margin:10px 0;" color="navbar-color">保存</button>
   </ion-list>
 
 </ion-content>

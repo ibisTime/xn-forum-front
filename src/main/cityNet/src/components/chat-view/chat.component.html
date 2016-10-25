@@ -89,7 +89,7 @@
           </div>
         </div>
         <!--引流-->
-        <div *ngIf="msgItem.type == 'yliu'">
+        <div *ngIf="msgItem.type == 'yliu' && msgItem.cityData && msgItem.cityData.length > 0" class="mt15">
           <div class="yl-cont">
             <div class="yl-top">你可能想要了解的内容</div>
             <ul>

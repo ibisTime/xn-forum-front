@@ -7,7 +7,7 @@
             <div>
                 <div style="position: relative;">
                     <h2>{{_item.nickname}}</h2>
-                    <!--<p style="" class="origin">来自 <span>散讲</span></p>-->
+                    <p style="" class="origin">来自 <span>{{_item.plateName}}</span></p>
                 </div>
                 <p class="time">{{_item.publishDatetime | forumDate}}</p>
                 <ion-card-content (click)="openPage($event,_item)">
