@@ -1,7 +1,7 @@
 
 <ion-header class="forum-head">
   <ion-navbar color="navbar-color">
-        <ion-title>板块名称</ion-title>
+        <ion-title>{{plat.name}}</ion-title>
         <ion-buttons end>
             <button class="nav-bar-item-btn" (click)="search()">
                 <!--<ion-icon name="search"></ion-icon>-->
@@ -35,17 +35,22 @@
             <img style="width: 60px; height: 60px;" [src]="plat.pic"/>
         </div>
         <div class="pl10 ptb10 fl wp70">
-            <div>{{plat.name}}</div>
-            <div class="dt-div">主题：<span class="pr20">??</span>今日：<span>???</span></div>
+            <div class="plat-name">{{plat.name}}</div>
+            <div class="dt-div plat-info">
+                主题：<span class="pr20">{{plat.personCount}}</span>
+                今日：<span>{{'ds'}}</span>
+            </div>
         </div>
     </div>
     <!--置顶-->
     <div>
         <ion-list class="dt-list">
-            <ion-item *ngFor="let item of platService.topArticels" (tap)="goArticleDetail(item)">
-                <button>置顶</button>
-                <div class="ml30 inblock">{{item.content}}</div>
-            </ion-item>
+            <div class="top" *ngFor="let item of platService.topArticels" (tap)="goArticleDetail(item)">
+                <div class="top-div-outer">
+                    <div class="top-div">置顶</div>
+                </div>
+                <div class="top-content">{{item.content}}</div>
+            </div>
         </ion-list>
     </div>
     <div *ngIf="topLoadMoreHidden" class="ptb10 tc bg_fff" (tap)="loadModeTopArticle()">更多</div>
@@ -71,7 +76,7 @@
             <ion-item *ngFor="let item of platService.tempArticles">
                 <forum-cell
                         [item]="item"
-                        (articleDetailEmitter)="goArticleDetail(item)"
+                        [navCtrl]="navCtrl"
                 >
                 </forum-cell>
             </ion-item>
@@ -79,7 +84,7 @@
         <ion-infinite-scroll (ionInfinite)="doLoadMore($event)">
             <ion-infinite-scroll-content
                     loadingSpinner="bubbles"
-                    loadingText="加载更多...">
+                   >
             </ion-infinite-scroll-content>
         </ion-infinite-scroll>
 

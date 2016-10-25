@@ -15,55 +15,36 @@ export class ChangeAccountPage {
 
     @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
 
-    phoneNum;
+    loginName;
+    oldLoginName
     constructor(public navCtrl: NavController,
                 public platform: Platform,
                 public userService: UserService,
                 public warnCtrl: WarnService,
                 public http: HttpService) {
 
-    }
-
-    captchaClick($event){
-
-        if (/^1[3,4,5,7,8]\d{9}$/.test(this.phoneNum) ) {
-            this.warnCtrl.toast("请输入正确的手机号码");
-            return;
-        }
-
-        this.captchaView.beginTime();
-        let mobile = {
-            "mobile" : this.phoneNum
-        };
-        this.http.post('/gene/register/send',mobile).then((res) => {
-
-            this.captchaView.beginTime();
-
-        }).catch((error) => {
-            this.warnCtrl.toast('验证码发送失败，请稍后重试!');
-        });
-
+        this.oldLoginName = this.userService.user.loginName;
 
     }
-
 
     change(){
 
-        if (/^1[3,4,5,7,8]\d{9}$/.test(this.phoneNum) ) {
-            this.warnCtrl.toast("请输入正确的手机号码");
-            return;
-        }
-
         let obj = {
-            "phone": this.phoneNum,
-            "sms":this.captchaView.captcha
+            "loginName": this.loginName,
         };
+        let load = this.warnCtrl.loading();
+
         this.http.post("/user/mobile/change",obj).then(res => {
 
+          load.dismiss();
+          this.warnCtrl.toast("修改成功");
+          this.navCtrl.pop();
+
         }).catch(error => {
+          this.warnCtrl.toast("修改失败");
+          load.dismiss();
 
         });
-
 
     }
 

@@ -239,3 +239,27 @@ ion-tabs a{
 body, pre{
   font-family: Microsoft YaHei,'宋体',Tahoma,Arial,sans-serif;
 }
+
+//segment
+.segment-ios .segment-button {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  width: 0;
+  height: 3.2rem;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $navbar-color;
+  font-size: 1.4rem ;
+
+  line-height: 3rem;
+  color: $navbar-color;
+  background-color: transparent;
+}
+
+.segment-ios .segment-button.segment-activated {
+  color: #fff;
+  background-color: $navbar-color;
+  opacity: 1;
+  transition: 100ms all linear;
+}

@@ -49,6 +49,7 @@ import {ChangeMobilePage} from "./mine/setting/changeMobile";
 import {ChangeAccountPage} from "./mine/setting/changeAccount";
 import {SysMsgDetailPage} from "./mine/im/sysMsgDetail";
 import {MineArticlePage} from "./mine/mine-article/mine-article";
+import {EndDateChoose} from "./forum/detail/end-date-choose";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -92,7 +93,8 @@ export const pages = [ TabsPage,
   ChangeMobilePage,
   ChangeAccountPage,
   SysMsgDetailPage,
-  MineArticlePage
+  MineArticlePage,
+  EndDateChoose
 
 
 ];

@@ -95,7 +95,7 @@ export class MyApp {
 
       this.getDataByPosition(0,0,loadNav);
 
-    }, {timeout: 5000});
+    }, {timeout: 10000});
 
   }
 

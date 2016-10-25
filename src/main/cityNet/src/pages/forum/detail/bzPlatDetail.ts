@@ -7,6 +7,7 @@ import {InfiniteScroll,Refresher} from "ionic-angular"
 import {CityService} from "../../../services/city.service";
 import {PageDataService} from "../../headline/page-data.services";
 import {Http} from "@angular/http";
+import {EndDateChoose} from "./end-date-choose";
 
 @Component({
   templateUrl: 'bzPlatDetail.html',
@@ -39,7 +40,7 @@ export class BZPlatDetailPage {
   }
 
     ngAfterViewInit(){
-        this.pageDataService.url = "/post/my/page";
+        this.pageDataService.url = "/post/page";
         this.pageDataService.reqObj = {
             "plateCode" : this.plate.code
         };
@@ -90,11 +91,10 @@ export class BZPlatDetailPage {
         let obj = {
             code: item.code,
             approveResult: "1",
-            approver:this.uService.userId,
             approveNote: "审核通过",
             type: "1"
         };
-        this.http.post("/past/check",obj).then(res => {
+        this.http.get("/post/check",obj).then(res => {
             load.dismiss();
             this.warnCtrl.toast('审核成功');
         }).catch(error => {
@@ -107,12 +107,25 @@ export class BZPlatDetailPage {
 
     lock(item){
 
+
+        let successMsg = "锁帖成功";
+        let failureMsg = "锁帖失败";
+        if(item.islock == "1"){
+            successMsg = "解锁成功";
+            failureMsg = "解锁失败";
+        }
+
         let load = this.warnCtrl.loading();
-       this.http.post("/post/lock",{code:item.code}).then(res => {
+       this.http.get("/post/lock",{code:item.code}).then(res => {
            load.dismiss();
-           this.warnCtrl.toast("锁帖成功");
+           this.warnCtrl.toast(successMsg);
+           if(item.isLock == "1"){
+               item.isLock = "0";
+           } else {
+               item.isLock = "1";
+           }
        }).catch(error => {
-           this.warnCtrl.toast("锁帖失败");
+           this.warnCtrl.toast(failureMsg);
        });
 
     }
@@ -120,11 +133,19 @@ export class BZPlatDetailPage {
 
     essence(item){
 
-        this.http.post("/post/setTop",{"code":item.code,location:"B",endDatetime:""}).then(res => {
+        this.navCtrl.push(EndDateChoose,{"item":item,type:"essence"});
 
-        }).catch(error => {
-
-        });
+        // let load = this.warnCtrl.loading();
+        // this.http.get("/post/setTop",{"code":item.code,location:"B",endDatetime:""}).then(res => {
+        //
+        //     load.dismiss();
+        //     this.warnCtrl.toast("精华帖设置成功");
+        //   item["location"] = "B";
+        // }).catch(error => {
+        //
+        //     this.warnCtrl.toast("精华帖设置失败");
+        //     load.dismiss();
+        // });
 
     }
 
@@ -132,12 +153,21 @@ export class BZPlatDetailPage {
     //  A置顶 B 精华 C 头条
     top(item){
 
-      this.http.post("/post/setTop",{"code":item.code,location:"A",endDatetime:""}).then(res => {
 
-      }).catch(error => {
+        this.navCtrl.push(EndDateChoose,{"item":item,type:"top"});
 
-      });
-
+    //   let load = this.warnCtrl.loading();
+    //   this.http.get("/post/setTop",{"code":item.code,location:"A",endDatetime:""}).then(res => {
+    //
+    //       load.dismiss();
+    //       this.warnCtrl.toast("置顶成功");
+    //       item["location"] = "A";
+    //
+    //   }).catch(error => {
+    //       this.warnCtrl.toast("置顶失败");
+    //       load.dismiss();
+    //   });
+    //
     }
 
 

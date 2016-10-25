@@ -40,9 +40,9 @@ export class GoodsDetailPage implements OnInit {
             load.dismiss().then(res => {
                this.nav.pop();
             });
-            this.warn.toast("购买成功");
+            this.warn.toast("兑换成功");
         }).catch(error => {
-            this.warn.toast("购买失败");
+            this.warn.toast("兑换失败");
         })
 
     }

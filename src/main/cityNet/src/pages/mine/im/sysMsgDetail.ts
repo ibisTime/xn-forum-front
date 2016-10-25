@@ -2,6 +2,7 @@
  * Created by tianlei on 2016/10/24.
  */
 import {Component, OnInit} from '@angular/core';
+import {NavParams} from "ionic-angular";
 
 @Component({
 
@@ -15,7 +16,7 @@ import {Component, OnInit} from '@angular/core';
 </ion-header>
 
 <ion-content >
- <div [innerHTML]="detail" style="background-color: white; min-height: 100px;"></div>
+ <div [innerHTML]="detail.content" style="background-color: white; min-height: 100px;"></div>
 </ion-content >
     `
 
@@ -23,7 +24,8 @@ import {Component, OnInit} from '@angular/core';
 export class SysMsgDetailPage implements OnInit {
 
     detail;
-    constructor() {
+    constructor( public navParams: NavParams) {
+        this.detail = navParams.data;
     }
 
     ngOnInit() {

@@ -25,6 +25,7 @@ export class ChatRoomPage implements AfterViewInit {
 
   bottom="250px";
 
+  otherImg;
   @ViewChild(Content) content: Content;
   @ViewChild(TextInput) msgPut: any;
   @ViewChild(ChatViewComponent) chatView: ChatViewComponent;
@@ -41,7 +42,7 @@ export class ChatRoomPage implements AfterViewInit {
 
     /*把user 对象传送过来*/
     this.listOfChatData = this.imServe.getDataByFromName(params.data.userId);
-
+    this.otherImg = params.data.photo || "assets/images/marty-avatar.png";
     //1.哪到导航数据就去获取信息
     this.imServe.imTextMessageInner = msg => {
       setTimeout(() => {

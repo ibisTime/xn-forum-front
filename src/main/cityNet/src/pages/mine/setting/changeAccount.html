@@ -5,14 +5,18 @@
 </ion-header>
 
 <ion-content class="register">
-    <ion-list>
 
+    <div style="min-height: 30px;"></div>
+    <div class="chang-nickname-hint">登陆名只能修改一次，请认真考虑后再做修改</div>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>原登录名</ion-label>
+            <ion-input  disabled="true" [(ngModel)]="oldLoginName" type="text"></ion-input>
+        </ion-item>
         <ion-item>
             <ion-label floating>新登录名</ion-label>
-            <ion-input #account [(ngModel)]="phoneNum" type="text"></ion-input>
+            <ion-input #account [(ngModel)]="loginName" type="text"></ion-input>
         </ion-item>
-
-        <captcha-view (captchaClick)="captchaClick($event)"></captcha-view>
 
     </ion-list>
 

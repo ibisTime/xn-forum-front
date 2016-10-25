@@ -31,7 +31,7 @@ export class MineArticlePage {
 
     ngAfterViewInit(){
 
-        this.pageDataService.url = "/post/page";
+        this.pageDataService.url = "/post/my/page";
         this.pageDataService.reqObj = {
             "userId":this.userService.userId
         };

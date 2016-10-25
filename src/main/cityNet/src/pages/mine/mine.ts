@@ -15,6 +15,7 @@ import {RegisterPage} from "../user/register";
 import {MinePlatePage} from "./mine-plate/mine-plate";
 import {MineProperty} from "./property/mine-property";
 import {MineArticlePage} from "./mine-article/mine-article";
+import {CityService} from "../../services/city.service";
 
 
 @Component({
@@ -34,12 +35,6 @@ export class MinePage implements AfterViewInit{
   ];
 
   src:string = 'assets/images/marty-avatar.png';
-  myUser;
-  levelName = "333";
-  leveDict;
-  // statisticsInfo = {totalPostNum: 0}
-
-
   constructor(public navCtrl: NavController,
               public platform: Platform,
               public userService: UserService,
@@ -48,13 +43,14 @@ export class MinePage implements AfterViewInit{
               public http: HttpService,
               public app :App,
               public modelCtrl :ModalController,
-              public events: Events) {
+              public events: Events,
+              public cityService: CityService) {
 
 
     this.events.subscribe('user:loginout',res => {
 
-    });
 
+    });
 
     this.events.subscribe('user:loginSuccess',res => {
 

@@ -21,6 +21,9 @@ export class ChatViewComponent implements OnInit {
       this._me = me;
     }
 
+    @Input() mineImg;
+    @Input() otherImg;
+
   // doCaidan(item.id,item.name)
   //   doCaidan(item.id,item.name)
   // doPingjia(msgItem.ext.weichat.ctrlArgs.inviteId,msgItem.ext.weichat.ctrlArgs.serviceSessionId)
