@@ -25,6 +25,9 @@ export class KefuPage implements AfterViewInit {
   public timer_bottom;
   public isActive = false;
 
+  mineImg;
+  otherImg;
+
   @ViewChild(Content) content: Content;
   @ViewChild(ChatViewComponent) chatView: ChatViewComponent;
   @ViewChild(TextInput) msgPut: any;
@@ -34,6 +37,10 @@ export class KefuPage implements AfterViewInit {
               public cityServe: CityService,
               public userService: UserService,
               public navService: NavService) {
+
+    this.mineImg = this.userService.user.userExt.photo || "assets/images/marty-avatar.png";
+    this.otherImg = "assets/images/tab-bar-xiaomi.png";
+
     this.listOfChatData = this.imServe.getDataByFromName();
     this.satisfaction = new Satisfaction(this.imServe);
     this.imServe.scroll_bottom = ()=>{

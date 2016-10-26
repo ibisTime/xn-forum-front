@@ -68,7 +68,7 @@ export class HeadlinePage implements AfterViewInit {
       this.pageDataService.reqObj = {
          "siteCode" : this.cityS.currentCity.code,
           "location": "C",
-          "status" : "D"
+          "status" : "B"
       };
       this.pageDataService.refreshComp = this.refresher;
       this.pageDataService.loadMoreComp = this.loadMoreScroll;

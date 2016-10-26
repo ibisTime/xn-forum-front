@@ -56,8 +56,8 @@ export class SystemMsgPage implements OnInit, AfterViewInit {
     }
 
 
-    selected(item){
-        this.nav.push(SysMsgDetailPage);
+    selected(detail){
+        this.nav.push(SysMsgDetailPage,detail);
     }
 
     refresh($event){
@@ -65,7 +65,26 @@ export class SystemMsgPage implements OnInit, AfterViewInit {
     }
 
     loadMore($event){
+
        this.pageDataService.loadMore();
 
     }
+
+    // b2cSms: Object
+    // code: "XX2016102514111968238"
+    // companyCode: "0"
+    // content: "<p>第一条</p>"
+    // status: "1"
+    // title: "第一条"
+    // toCompany: "0"
+    // toLevel: "0"
+    // toUser: "0"
+    // type: "1"
+    // updateDatetime: "Oct 25, 2016 2:11:24 PM"
+    // updater: "admin"
+    // __proto__: Object
+    // id:5
+    // smsCode: "XX2016102514111968238"
+    // status: "0"
+    // userId: "U2016102315460204043"
 }

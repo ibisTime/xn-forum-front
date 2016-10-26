@@ -16,6 +16,7 @@ export class PlatChooseView implements OnInit {
     firstClassItem = [];
     lastSelect;
     imgHeight;
+    rightHeight;
     @ViewChild('firstClass') firstClassEle: ElementRef;
 
     @Output() goPlateEmitter = new EventEmitter<any>();
@@ -24,7 +25,9 @@ export class PlatChooseView implements OnInit {
                 public http: HttpService,
                 public warn: WarnService) {
 
+        this.rightHeight = `${platform.height() - 49 - 44}px`
     }
+
 
     @Input() siteCode;
     @Input() currentPlats = [];

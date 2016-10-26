@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="forum forum-detail">
+<ion-content class="forum forum-detail bzPlatDetail">
     <ion-refresher (ionRefresh)="refresh($event)">
         <ion-refresher-content
                 pullingIcon="arrow-dropdown"
@@ -19,12 +19,12 @@
         <table class="wp100">
             <tr>
                 <td rowspan="2"><img class="fl" [src]="plate.pic" style="width: 80px; height: 80px; "/></td>
-                <td>{{plate.name}}</td>
-                <td>置顶：44</td>
+                <td>名称：{{plate.name}}</td>
+                <td>置顶：{{plate.zdCount}}</td>
             </tr>
             <tr>
-                <td>帖子数：456</td>
-                <td>精华：22</td>
+                <td>帖子数：{{plate.postCount}}</td>
+                <td>精华：{{plate.jhCount}}</td>
             </tr>
         </table>
     </div>
@@ -44,11 +44,11 @@
                             [isHideCom]=true
                             [isHideComBtn]=true
                     ></forum-cell>
-                    <ion-buttons class="clearfix">
-                        <button class="fr" (clicl)="ignore(item)" ion-button>忽略</button>
-                        <button class="fr" (clicl)="delete(item)" ion-button>删除</button>
-                        <button class="fr" (clicl)="pass(item)" ion-button>通过</button>
-                    </ion-buttons>
+                    <!--<ion-buttons class="clearfix">-->
+                        <button class="fr op-btn" (click)="ignore(item)" ion-button>忽略</button>
+                        <button class="fr op-btn" (click)="delete(item)" ion-button>删除</button>
+                        <button class="fr op-btn" *ngIf="item.status == 'C1' || item.status == 'C2'" (click)="pass(item)" ion-button>通过</button>
+                    <!--</ion-buttons>-->
                 </ion-item>
             </ion-list>
         </div>
@@ -62,12 +62,13 @@
                         [isHideCom]=true
                         [isHideComBtn]=true
                 ></forum-cell>
-                    <ion-buttons class="clearfix">
-                        <button class="fr" (clicl)="delete(item)" ion-button>删除</button>
-                        <button class="fr" (tap)="essence(item)"ion-button>精华</button>
-                        <button class="fr" (tap)="top(item)" ion-button>置顶</button>
-                        <button class="fr" (tap)="lock(item)"ion-button>锁帖</button>
-                    </ion-buttons>
+                    <!--<ion-buttons class="clearfix">-->
+                        <button class="fr op-btn" (click)="delete(item)" ion-button>删除</button>
+                        <button class="fr op-btn" *ngIf="item.location != 'B'"  (click)="essence(item)" ion-button>精华</button>
+                        <button class="fr op-btn" *ngIf="item.location != 'A'"  (click)="top(item)" ion-button>置顶</button>
+                        <button class="fr op-btn" *ngIf="item.isLock == '1'" (click)="lock(item)" ion-button>解锁</button>
+                        <button class="fr op-btn" *ngIf="item.isLock == '0'" (click)="lock(item)"ion-button>锁帖</button>
+                    <!--</ion-buttons>-->
             </ion-item>
         </div>
     </div>

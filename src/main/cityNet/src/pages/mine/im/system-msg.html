@@ -20,8 +20,8 @@
 
 
     <ion-list>
-        <ion-item  (click)="selected(item)" style="background-color: white;" *ngFor="let item of pageDataService.items">
-            消息名称
+        <ion-item  (click)="selected(item.b2cSms)" style="background-color: white;" *ngFor="let item of pageDataService.items">
+            {{item.b2cSms.title}}
         </ion-item>
     </ion-list>
 

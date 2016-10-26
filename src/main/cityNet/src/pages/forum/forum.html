@@ -24,24 +24,20 @@
 </ion-header>
 
 <ion-content class="forum forum-detail">
+    <!--class="no-abs"-->
+    <ion-refresher (ionRefresh)="doRefresh($event)" >
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉加载"
+                refreshingSpinner="circles"
+                refreshingText="加载中...">
+        </ion-refresher-content>
+    </ion-refresher>
 
-    <div [ngSwitch]="segment">
-
+    <div [ngSwitch]="segment" style="background-color: white;">
         <!--帖子相关-->
-
         <div *ngSwitchCase="'yliao'">
-
-
         <ion-list>
-            <ion-refresher (ionRefresh)="doRefresh($event)" class="no-abs">
-                <ion-refresher-content
-                        pullingIcon="arrow-dropdown"
-                        pullingText="下拉加载"
-                        refreshingSpinner="circles"
-                        refreshingText="加载中...">
-                </ion-refresher-content>
-            </ion-refresher>
-
             <ion-item *ngFor="let item of items;let idx=index;">
                 <forum-cell
                         [item]="item"
@@ -52,10 +48,6 @@
 
                 </forum-cell>
             </ion-item>
-
-            <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
-                <ion-infinite-scroll-content></ion-infinite-scroll-content>
-            </ion-infinite-scroll>
         </ion-list>
         </div>
 
@@ -76,8 +68,10 @@
             >
             </plat-choose-view>
         </div>
-
     </div>
+    <ion-infinite-scroll (ionInfinite)="doAppendData($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
 
 

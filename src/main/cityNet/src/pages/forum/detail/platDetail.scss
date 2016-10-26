@@ -67,4 +67,48 @@
         margin-top: 20px;
     }
 
+    //
+    .top{
+        display: flex;
+       align-content: center;
+        align-items: center;
+        background-color: white;
+        padding: 15px 5px;
+        font-size: 18px;
+        border-bottom: 1px solid $line-color;
+    }
+    .top-div-outer{
+        flex: 0 0 70px;
+    }
+    .top-div{
+        width: 80%;
+        text-align: center;
+        vertical-align: middle;
+        padding: 2px 4px;
+        color: white;
+        font-size: 13px;
+        line-height: 20px;
+        border-radius: 5px;
+        background-color: $navbar-color;
+
+    }
+    .plat-name{
+        padding: 4px 0px;
+        font-size: 18px;
+        color: $text-color;
+    }
+    .plat-info{
+        padding: 2px 0px;
+        font-size: 14px;
+
+    }
+
+    .top-content{
+        vertical-align: middle;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        text-overflow: -o-ellipsis-lastline;
+    }
+
 }

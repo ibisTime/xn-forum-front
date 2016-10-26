@@ -61,7 +61,7 @@ export class UserService {
           "6":"论坛元老"
       }
 
-    this._user["levelName"] =  leveDict[this._user.level];
+    user&&(this._user["levelName"] =  leveDict[this._user.level]);
     this.storage.set("user",user);
   }
 
@@ -106,9 +106,9 @@ export class UserService {
 
 
   loginOut() {
-    this.tokenId = "";
-    this.userId = "";
-    this.user = "";
+    this.tokenId = null;
+    this.userId = null;
+    this.user = null;
     this.registerHelper = false;
     this.totalPostNum = 0;
     this.storage.remove("tokenId");

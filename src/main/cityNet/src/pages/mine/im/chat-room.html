@@ -6,7 +6,10 @@
 
 <ion-content  class="chatroom">
 
-  <chat-view></chat-view>
+  <chat-view
+          [mineImg]="userService.user.userExt.photo || 'assets/images/marty-avatar.png'"
+          [otherImg]="otherImg"
+  ></chat-view>
 
 
 </ion-content>

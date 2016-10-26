@@ -1,6 +1,6 @@
 package com.xnjr.moom.front.req;
 
-public class XN806052Req {
+public class XN806051Req {
 
     // 名称（选填）
     private String name;

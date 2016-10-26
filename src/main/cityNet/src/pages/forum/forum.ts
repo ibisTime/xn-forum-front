@@ -72,7 +72,7 @@ export class ForumPage {
             "start": this.start,
             "limit": this.limit,
              "siteCode" : this.cityService.currentCity.code,
-             "status" : "1"
+             "status" : "B"
             })
             .then((res) => {
                 if(res.success){

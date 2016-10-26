@@ -1,4 +1,4 @@
-.editDetail{
+.editDetail {
     .file {
         position: relative;
         display: inline-block;
@@ -27,20 +27,21 @@
             top: 50%;
             font-size: 1.2rem;
         }
-        img{
+        img {
             width: 80px;
             height: 80px;
             border-radius: 50%;
             float: right;
         }
     }
+}
     .chang-nickname-hint{
         text-align: left;
         padding-top: 5px;
         padding-left: 16px;
         color: $navbar-color;
     }
-}
+
 .clearfix:after {
     content: "";
     display: block;
