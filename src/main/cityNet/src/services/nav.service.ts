@@ -19,8 +19,9 @@ export class NavService {
 
     transition(url,title,signingCallBack?){
 
-        let nav = this.app.getRootNav();
+        let nav = this.app.getActiveNav();
 
+        console.log(url);
         if(url == "page:mall"){
 
             nav.push(MallPage);

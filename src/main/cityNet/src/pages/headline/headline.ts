@@ -68,7 +68,7 @@ export class HeadlinePage implements AfterViewInit {
       this.pageDataService.reqObj = {
          "siteCode" : this.cityS.currentCity.code,
           "location": "C",
-          "status" : "B"
+          "status" : "BD"
       };
       this.pageDataService.refreshComp = this.refresher;
       this.pageDataService.loadMoreComp = this.loadMoreScroll;
@@ -173,13 +173,15 @@ export class HeadlinePage implements AfterViewInit {
     /*所有跳转事件个功能点击事件*/
     goOther(url,title){
 
-        this.navService.transition(url,title,this.sign());
+        this.navService.transition(url,title,() => {
+            this.sign();
+        });
     }
 
     /*商城*/
-    goMall() {
-     this.navCtrl.push(MallPage);
-    }
+    // goMall() {
+    //  this.navCtrl.push(MallPage);
+    // }
 
     /*签到*/
     //签到动画

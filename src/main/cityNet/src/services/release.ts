@@ -20,12 +20,14 @@ export namespace Release {
     const  test = false;
 
     export const weChat = true;
+    const  port = "8080";
 
     export const baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
     export function baiduMapUrl() {
 
         if (release) {
-            return "http://api.map.baidu.com/geocoder/v2/";
+            // return "//api.map.baidu.com/geocoder/v2/";
+            return "//121.43.101.148:" + port +"/geocoder/"
         } else {
             return "http://localhost:8080/geocoder/";
         }
@@ -37,7 +39,7 @@ export namespace Release {
             if(test){
                 return "//120.26.222.73:8080/xn-forum-front";
             } else {
-                return "http://121.43.101.148:8080/xn-forum-front";
+                return "//121.43.101.148:" + port +"/xn-forum-front";
             }
 
         } else {
@@ -52,7 +54,7 @@ export namespace Release {
             if(test){
                 return "//120.26.222.73:8080";
             } else  {
-                return "http://121.43.101.148:8080";
+                return "//121.43.101.148:" + port;
             }
 
         } else {

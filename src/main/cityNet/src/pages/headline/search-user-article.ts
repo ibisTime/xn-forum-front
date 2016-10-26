@@ -106,7 +106,7 @@ export class SearchUserAndArticlePage implements AfterViewInit {
     let obj = {
       "start":1,
       "limit": 1000,
-      "status" : "1",
+      "status" : "BD",
       "keyword":  keyword
     };
 

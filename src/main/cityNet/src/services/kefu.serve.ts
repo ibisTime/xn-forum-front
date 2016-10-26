@@ -22,7 +22,7 @@ class ListItem{
 export class KefuService {
 
 
-  private baseurl = 'http://kefu.easemob.com';
+  private baseurl = '//kefu.easemob.com';
   private tenantId = "26192";
   private to;
   private appkey;

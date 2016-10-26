@@ -100,7 +100,7 @@ export class MineDetailPage implements AfterViewInit{
       this.pageDataService.url = "/post/page";
       this.pageDataService.reqObj = {
           "publisher": this.toUserId,
-          "status" : "D"
+          "status" : "BD"
       };
       this.pageDataService.refreshComp = this.refreshComp;
       this.pageDataService.loadMoreComp = this.loadMoreComp;

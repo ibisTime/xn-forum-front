@@ -5,6 +5,8 @@ import {Component, OnInit} from '@angular/core';
 import {Platform, NavParams, NavController} from "ionic-angular";
 import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
+import {UserService} from "../../../services/user.service";
+import {LoginPage} from "../../user/login";
 
 @Component({
     templateUrl: 'goods-detail.html'
@@ -16,7 +18,8 @@ export class GoodsDetailPage implements OnInit {
                 public navParams: NavParams,
                 public http: HttpService,
                 public warn: WarnService,
-                public nav: NavController
+                public nav: NavController,
+                public userService: UserService
 
     ) {
 
@@ -29,6 +32,12 @@ export class GoodsDetailPage implements OnInit {
     }
 
     buy(){
+
+        if(!this.userService.user){
+          this.nav.push(LoginPage);
+            return;
+        };
+
 
         let load = this.warn.loading();
         let obj = {
