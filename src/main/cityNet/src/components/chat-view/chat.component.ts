@@ -12,6 +12,7 @@ export class ChatViewComponent implements OnInit {
 
   public _me;
   public _listOfChatData;
+  _mineImg
 
     @Input() set listOfChatData(listOfChatData){
       this._listOfChatData = listOfChatData;
@@ -21,7 +22,12 @@ export class ChatViewComponent implements OnInit {
       this._me = me;
     }
 
-    @Input() mineImg;
+
+    @Input() set  mineImg(imgsrc){
+
+        this._mineImg = imgsrc;
+    }
+
     @Input() otherImg;
 
   // doCaidan(item.id,item.name)

@@ -18,9 +18,8 @@
      <button class="register-btn" (click)="goReg()">注册</button>
   </div>
 
+
   <!--登陆之后显示-->
-
-
   <ion-refresher *ngIf="userService.user" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
             pullingIcon="arrow-dropdown"

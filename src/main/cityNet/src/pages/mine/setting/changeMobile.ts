@@ -36,9 +36,10 @@ export class ChangeMobilePage {
         let mobile = {
             "mobile" : this.phoneNum
         };
-        this.http.post('/gene/register/send',mobile).then((res) => {
+        this.http.post('/gene/changemobile/send',mobile).then((res) => {
 
            this.captchaView.beginTime();
+
 
         }).catch((error) => {
             this.warnCtrl.toast('验证码发送失败，请稍后重试!');
@@ -56,8 +57,8 @@ export class ChangeMobilePage {
         }
 
         let obj = {
-            "phone": this.phoneNum,
-            "sms":this.captchaView.captcha
+            "newMobile": this.phoneNum,
+            "smsCaptcha":this.captchaView.captcha
         };
         this.http.post("/user/mobile/change",obj).then(res => {
 

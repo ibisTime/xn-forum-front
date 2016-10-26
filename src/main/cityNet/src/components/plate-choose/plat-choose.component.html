@@ -24,22 +24,24 @@
                 <!--<button (click)="goPlate('dd')">去详情</button>-->
                 <ul>
                     <li class="clearfix" *ngFor="let plate of currentPlats" (click)="goPlate(plate)">
-                        <div class="fl wp30">
-                            <img [src]="plate.pic" style="height: 60px; width: 60px;">
-                        </div>
-                        <div class="pl10 wp70 fl">
-                            <div>{{plate.name}}</div>
-                            <div class="com-btn">
-                                <ion-buttons class="clearfix">
-                                    <button class="fl">
-                                        <i class="icon iconfont">&#xe624;</i>
-                                        <span>{{plate.postCount}}</span>
-                                    </button>
-                                    <button class="fl ml10">
-                                        <i class="icon iconfont">&#xe610;</i>
-                                        <span>{{plate.personCount}}</span>
-                                    </button>
-                                </ion-buttons>
+                        <div class="plate-info-outer">
+
+                            <div class="left">
+                                <img [src]="plate.pic" style="height: 60px; width: 60px;">
+                            </div>
+
+                            <div class="middle">
+                                <div class="plat-name">{{plate.name}}</div>
+                                <div class="plat-info">
+                                    <i class="icon iconfont plat-info-size">&#xe624;</i>
+                                    <span>{{plate.postCount}}</span>
+                                    <i class="icon iconfont plat-info-size">&#xe610;</i>
+                                    <span>{{plate.personCount}}</span>
+                                </div>
+                            </div>
+
+                            <div class="right">
+                               <button>进入</button>
                             </div>
                         </div>
                     </li>

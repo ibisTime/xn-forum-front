@@ -173,37 +173,11 @@ export class IMService {
       nickname:msg.ext.nickname,
       photo:msg.ext.photo,
       to: msg.to,
-      lastMsg: chatContent,
+      // lastMsg: chatContent,
       time: dateStr,
       showBadge: isShowBadge,
       badgeCount: 1
     };
-
-    //根据userID判断，并找到联系人信息
-    // let result = this.linckManInfo.filter((value,index,array) => {
-    //   return value.userId == linkMan;
-    // });
-    //
-    // if(result.length > 0){
-    //
-    //   shortMsg.nickname = result[0].nickname;
-    //   shortMsg.photo = result[0].photo;
-    //
-    // } else {
-    //
-    //   /*从服务器查询*/
-    //   this.http.get("/user",{"userId":linkMan}).then(res => {
-    //
-    //     shortMsg.nickname = res.data.nickname;
-    //     shortMsg.photo = res.data.userExt.photo || "";
-    //     this.linckManInfo.push(res.data);
-    //
-    //   }).catch(error => {
-    //
-    //
-    //   });
-    //
-    // }
 
 
     if (this.listOfOpposite.length > 0) {
@@ -222,7 +196,7 @@ export class IMService {
       } else {//找到数据进行修改
 
         console.log('有自己进行数据修改');
-        model.lastMsg = chatContent;
+        // model.lastMsg = chatContent;
         model.time = dateStr;
         model.showBadge = shortMsg.showBadge;
         model.badgeCount = model.badgeCount + 1;

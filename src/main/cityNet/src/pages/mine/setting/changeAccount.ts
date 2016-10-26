@@ -34,7 +34,7 @@ export class ChangeAccountPage {
         };
         let load = this.warnCtrl.loading();
 
-        this.http.post("/user/mobile/change",obj).then(res => {
+        this.http.post("/user/username",obj).then(res => {
 
           load.dismiss();
           this.warnCtrl.toast("修改成功");

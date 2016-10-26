@@ -105,8 +105,8 @@ export class ChatRoomPage implements AfterViewInit {
 
       load.dismiss();
       success = true;
-      this.imServe.handleToMsg(msgInput.value,this.params.data.userId);
       msgInput.value = "";
+      this.imServe.handleToMsg(msgInput.value,this.params.data.userId);
 
 
     });

@@ -6,6 +6,7 @@
         <i class="icon iconfont">&#xe601;</i>
         </button>
     </ion-buttons>
+
     <ion-segment [(ngModel)]="segment">
         <ion-segment-button value="yliao">
         有料
@@ -64,7 +65,7 @@
                     (goPlateEmitter)="goPlateDetail($event)"
                     [classification]="classification"
                     [siteCode]="cityService.currentCity.code"
-                              style="background-color: white;"
+                    style="background-color: white;"
             >
             </plat-choose-view>
         </div>

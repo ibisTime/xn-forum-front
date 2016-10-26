@@ -112,7 +112,7 @@
           <div *ngIf="msgItem.data && !msgItem.emotionFlag && msgItem.type!='satisfactionEvaluation'"
                class="easemobWidget-msg-wrapper">
             <i class="easemobWidget-corner"></i>
-            <img [src]="mineImg"/>
+            <img [src]="_mineImg"/>
             <!--assets/images/marty-avatar.png-->
             <div class="easemobWidget-msg-container">
               <pre>{{msgItem.data}}</pre>

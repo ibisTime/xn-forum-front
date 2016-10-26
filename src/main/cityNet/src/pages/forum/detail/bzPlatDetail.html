@@ -29,10 +29,13 @@
         </table>
     </div>
 
-    <ion-segment [(ngModel)]="segment" class="p8">
-        <ion-segment-button value="isCheck">审查</ion-segment-button>
-        <ion-segment-button value="management">管理</ion-segment-button>
-    </ion-segment>
+    <div class="segment-outer">
+        <ion-segment [(ngModel)]="segment" class="p8" style="margin: 0 auto;">
+            <ion-segment-button value="isCheck">审查</ion-segment-button>
+           <span>     </span>
+            <ion-segment-button value="management">管理</ion-segment-button>
+        </ion-segment>
+    </div>
     <div [ngSwitch]="segment">
         <!--帖子相关-->
         <div *ngSwitchCase="'isCheck'">

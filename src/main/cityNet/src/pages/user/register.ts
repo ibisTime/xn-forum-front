@@ -107,8 +107,8 @@ export class RegisterPage implements OnInit {
       for(var i = 0; i <= 60; i++){
         (function (i) {
           setTimeout(function(){
-            if(i < 30){
-              btn.innerText = (30 - i) + "s";
+            if(i < 60){
+              btn.innerText = (60 - i) + "s";
             }else{
               btn.removeAttribute("disabled");
               btn.innerText = "发送验证码";

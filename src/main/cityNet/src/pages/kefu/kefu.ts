@@ -2,7 +2,7 @@
  * Created by tianlei on 16/8/24.
  */
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
-import {NavController,Content, TextInput} from 'ionic-angular'
+import {NavController, Content, TextInput, Events} from 'ionic-angular'
 import {KefuService} from "../../services/kefu.serve";
 import {Satisfaction} from "./satisfaction";
 import {CityService} from "../../services/city.service";
@@ -36,9 +36,10 @@ export class KefuPage implements AfterViewInit {
               public imServe: KefuService,
               public cityServe: CityService,
               public userService: UserService,
-              public navService: NavService) {
+              public navService: NavService,
+              public events: Events) {
 
-    this.mineImg = this.userService.user.userExt.photo || "assets/images/marty-avatar.png";
+
     this.otherImg = "assets/images/tab-bar-xiaomi.png";
 
     this.listOfChatData = this.imServe.getDataByFromName();
@@ -50,6 +51,13 @@ export class KefuPage implements AfterViewInit {
       this.scrollTop();
     }
     //kefuData
+
+    this.events.subscribe("user:loginSuccess",() => {
+
+        this.mineImg = this.userService.user.userExt.photo || "assets/images/marty-avatar.png";
+
+    });
+
   }
 
   ngAfterViewInit() {
