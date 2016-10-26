@@ -51,7 +51,9 @@ export class GoodsDetailPage implements OnInit {
             });
             this.warn.toast("兑换成功");
         }).catch(error => {
-            this.warn.toast("兑换失败");
+
+            load.dismiss();
+
         })
 
     }
