@@ -73,7 +73,8 @@ public class GeneralController extends BaseController {
     @RequestMapping(value = "/changemobile/send", method = RequestMethod.POST)
     @ResponseBody
     public boolean sendChangeMobileCode(@RequestParam("mobile") String mobile) {
-        sendPhoneCode(ESmsBizType.CHANGEMOBILE.getCode(), mobile);
+        //sendPhoneCode(ESmsBizType.CHANGEMOBILE.getCode(), mobile);
+    	smsAO.sendSmsCaptcha1(mobile, ESmsBizType.CHANGEMOBILE.getCode());
         return true;
     }
 
@@ -92,7 +93,7 @@ public class GeneralController extends BaseController {
     }
 
     private void sendPhoneCode(String bizType, String mobile) {
-        smsAO.sendSmsCaptcha(mobile, bizType);
+        smsAO.sendSmsCaptcha1(mobile, bizType);
     }
 
     // 查询银行列表
