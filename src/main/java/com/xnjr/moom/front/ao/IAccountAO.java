@@ -10,6 +10,16 @@ import com.xnjr.moom.front.res.Page;
  * @history:
  */
 public interface IAccountAO {
+	
+	/**
+	 * 分页查询账户流水
+	 * @param userId
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	Object getCapitalflowPage(String userId, String start, String limit);
+	
 
     /**
      * 根据userId查询账户资金

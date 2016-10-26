@@ -142,7 +142,7 @@ public class PostAOImpl implements IPostAO {
     public Object praise(String type, String postCode, String talker) {
         XN610053Req req = new XN610053Req();
         req.setPostCode(postCode);
-        req.setTalker(talker);
+        req.setUserId(talker);
         req.setType(type);
         return BizConnecter.getBizData("610053", JsonUtils.object2Json(req),
             Object.class);
@@ -240,7 +240,7 @@ public class PostAOImpl implements IPostAO {
          XN610054Req req = new XN610054Req();
          req.setAmount(amount);
          req.setPostCode(postCode);
-         req.setTalker(talker);
+         req.setUserId(talker);
          return BizConnecter.getBizData("610054", JsonUtils.object2Json(req),
         	Object.class);
     }

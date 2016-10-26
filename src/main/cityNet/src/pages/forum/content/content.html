@@ -6,7 +6,7 @@
 
 <ion-content class="forum forum-detail article-content">
 
-    <div *ngIf="item != null" style="margin-bottom: 46px;">
+    <div *ngIf="item != null">
         <div class="content-head">
             <h2 class="content-head">{{item.title}}</h2>
             <div class="read-count">
@@ -101,7 +101,7 @@
             </ion-segment>
         </div>
 
-        <div [ngSwitch]="segment" class="com-btn1">
+        <div [ngSwitch]="segment" class="com-btn1 mb50">
             <div *ngSwitchCase="'pjia'">
                 <div class="com-bottom">
                     <ion-list>

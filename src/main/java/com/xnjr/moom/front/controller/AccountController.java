@@ -28,6 +28,16 @@ public class AccountController extends BaseController {
     @Autowired
     IUserAO userAO;
 
+    //分页查询账户流水(赏金流水)
+    @RequestMapping(value = "/capitalflow/page", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getCapitalflowPage(
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "start", required = false) String start,
+            @RequestParam(value = "limit", required = false) String limit) {
+        return accountAO.getCapitalflowPage(getSessionUserId(userId), start, limit);
+    }
+    
     // *********查询账户资产 start****
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody

@@ -33,7 +33,7 @@ public class PostController extends BaseController {
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     @ResponseBody
     public Object publishPost(
-            @RequestParam(value = "title", required = true) String title,
+            @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "content", required = true) String content,
             @RequestParam(value = "pic", required = false) String pic,
             @RequestParam(value = "plateCode", required = true) String plateCode,

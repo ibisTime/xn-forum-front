@@ -22,6 +22,7 @@ import com.xnjr.moom.front.req.XN802010Req;
 import com.xnjr.moom.front.req.XN802021Req;
 import com.xnjr.moom.front.req.XN802211Req;
 import com.xnjr.moom.front.req.XN803900Req;
+import com.xnjr.moom.front.req.XN805310Req;
 import com.xnjr.moom.front.req.XNfd0032Req;
 import com.xnjr.moom.front.req.XNfd0050Req;
 import com.xnjr.moom.front.res.Page;
@@ -33,6 +34,17 @@ import com.xnjr.moom.front.res.Page;
  */
 @Service
 public class AccountAOImpl implements IAccountAO {
+	
+	@Override
+	public Object getCapitalflowPage(String userId, String start, String limit){
+		XN805310Req req = new XN805310Req();
+		req.setLimit(limit);
+		req.setStart(start);
+		req.setUserId(userId);
+		return BizConnecter.getBizData("805310", JsonUtils.object2Json(req),
+	            Object.class);
+	}
+	
     @Override
     public Object getAccountByUserId(String userId) {
         if (StringUtils.isBlank(userId)) {
