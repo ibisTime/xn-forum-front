@@ -27,7 +27,7 @@ export class ChangeMobilePage {
 
     captchaClick($event){
 
-        if (/^1[3,4,5,7,8]\d{9}$/.test(this.phoneNum) ) {
+        if (!/^1[3,4,5,7,8]\d{9}$/.test(this.phoneNum) ) {
             this.warnCtrl.toast("请输入正确的手机号码");
             return;
         }
@@ -51,7 +51,7 @@ export class ChangeMobilePage {
 
     change(){
 
-        if (/^1[3,4,5,7,8]\d{9}$/.test(this.phoneNum) ) {
+        if (!/^1[3,4,5,7,8]\d{9}$/.test(this.phoneNum) ) {
             this.warnCtrl.toast("请输入正确的手机号码");
             return;
         }
@@ -60,10 +60,14 @@ export class ChangeMobilePage {
             "newMobile": this.phoneNum,
             "smsCaptcha":this.captchaView.captcha
         };
+        let load = this.warnCtrl.loading();
         this.http.post("/user/mobile/change",obj).then(res => {
 
+            load.dismiss();
+            this.warnCtrl.toast("修改陈宫");
+            this.navCtrl.pop();
         }).catch(error => {
-
+            load.dismiss();
         });
 
 

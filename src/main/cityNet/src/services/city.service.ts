@@ -86,7 +86,7 @@ export class CityService {
         this.recommendSite = [];
 
         res["data"].forEach((value,index,array) => {
-          if(value.priority == "2"){
+          if(value.location == "2"){
             this.recommendSite.push(value);
           }
         });

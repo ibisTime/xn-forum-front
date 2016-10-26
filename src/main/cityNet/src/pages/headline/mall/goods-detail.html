@@ -15,7 +15,7 @@
 <ion-footer>
     <div class="goods-detail-footer">
         <div class="price-div">
-            价格: <span>{{item.price}} </span> 积分
+            价格: <span>{{(+item.price)/1000}} </span> 积分
         </div>
         <div class="exchange">
             <button (tap)="buy()">

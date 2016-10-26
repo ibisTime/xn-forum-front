@@ -207,7 +207,6 @@ export class HeadlinePage implements AfterViewInit {
         }).catch(error => {
 
             load.dismiss();
-            this.warn.toast("签到失败");
         });
 
     }

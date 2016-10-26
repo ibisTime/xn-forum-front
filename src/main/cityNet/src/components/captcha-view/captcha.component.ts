@@ -41,7 +41,7 @@ export class CaptchaComponent implements OnInit {
       if (this.time == 0) {
 
         this.disabled = false;
-        this.time = 10;
+        this.time = 60;
         this.btn.innerText = "发送验证码";
         clearInterval(timer);
       }
