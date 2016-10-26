@@ -68,7 +68,7 @@ public class MemberRSController extends BaseController {
             @RequestParam(value = "userId", required = false) String userId) {
         XN805091Req req = new XN805091Req();
         req.setMobile(mobile);
-        req.setUserId(getSessionUserId(userId));
+        req.setToUser(getSessionUserId(userId));
         return BizConnecter.getBizData("805091", JsonUtils.object2Json(req),
             Object.class);
     }
@@ -98,7 +98,7 @@ public class MemberRSController extends BaseController {
             @RequestParam(value = "userId", required = false) String userId) {
         XN805091Req req = new XN805091Req();
         req.setMobile(mobile);
-        req.setToUser(getSessionUserId(userId));
+        req.setUserId(getSessionUserId(userId));
         return BizConnecter.getBizData("805091", JsonUtils.object2Json(req),
             Object.class);
     }

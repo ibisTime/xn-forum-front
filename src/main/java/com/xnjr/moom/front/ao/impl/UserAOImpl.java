@@ -17,7 +17,7 @@ import com.xnjr.moom.front.req.XN602802Req;
 import com.xnjr.moom.front.req.XN602803Req;
 import com.xnjr.moom.front.req.XN602804Req;
 import com.xnjr.moom.front.req.XN602805Req;
-import com.xnjr.moom.front.req.XN610903Req;
+import com.xnjr.moom.front.req.XN805100Req;
 import com.xnjr.moom.front.req.XN805040Req;
 import com.xnjr.moom.front.req.XN805043Req;
 import com.xnjr.moom.front.req.XN805045Req;
@@ -492,10 +492,10 @@ public class UserAOImpl implements IUserAO {
         if (StringUtils.isBlank(location)) {
             throw new BizException("A010001", "地区不能为空");
         }
-        XN610903Req req = new XN610903Req();
+        XN805100Req req = new XN805100Req();
         req.setUserId(userId);
         req.setLocation(location);
-        return BizConnecter.getBizData("610903", JsonUtils.object2Json(req),
+        return BizConnecter.getBizData("805100", JsonUtils.object2Json(req),
             Object.class);
     }
 
