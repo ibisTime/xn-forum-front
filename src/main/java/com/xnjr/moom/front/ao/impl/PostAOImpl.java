@@ -231,6 +231,7 @@ public class PostAOImpl implements IPostAO {
         req.setReporter(reporter);
         req.setReportNote(reportNote);
         req.setCode(code);
+        req.setType(type);
         return BizConnecter.getBizData("610043", JsonUtils.object2Json(req),
             Object.class);
     }

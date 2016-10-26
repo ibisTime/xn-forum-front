@@ -24,7 +24,6 @@
                             <div>
                                 <div style="position: relative;">
                                     <h2>{{item.nickname}}</h2>
-                                    <p style="" class="origin">来自 <span>{{item.plateName}}</span></p>
                                     <p class="time">{{item.publishDatetime | forumDate}}</p>
                                     <div class="inblock" *ngIf="!isMe">
                                         <button outline small class="origin content-btn {{followFlag?'hidden':''}}"
