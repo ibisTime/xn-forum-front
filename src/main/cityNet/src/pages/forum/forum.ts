@@ -58,6 +58,7 @@ export class ForumPage {
 
           this.start = 1;
           this.limit = 10;
+          this.items = [];
           this.queryPostPage();
 
       });
