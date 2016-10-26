@@ -43,11 +43,14 @@ export class ChatRoomPage implements AfterViewInit {
     /*把user 对象传送过来*/
     this.listOfChatData = this.imServe.getDataByFromName(params.data.userId);
     this.otherImg = params.data.photo || "assets/images/marty-avatar.png";
+
     //1.哪到导航数据就去获取信息
     this.imServe.imTextMessageInner = msg => {
+
       setTimeout(() => {
         this.content.scrollToBottom();
       },300)
+
     };
 
     setTimeout(() => {
@@ -94,21 +97,22 @@ export class ChatRoomPage implements AfterViewInit {
 
   sendMsg(msgInput) {
 
+    console.log(msgInput.value);
+
     let success = false;
     let load = this.warn.loading("发送中");
 
+    let msg = msgInput.value;
     let ext = {
       "nickname":this.userService.user.nickname,
       "photo": this.userService.user.userExt.photo || ""
     };
-    this.imServe.sendTextMsg(msgInput.value,this.params.data.userId,ext, (id, serverMsgId) => {
+    this.imServe.sendTextMsg(msg,this.params.data.userId,ext, (id, serverMsgId) => {
 
       load.dismiss();
       success = true;
+      this.imServe.handleToMsg(msg,this.params.data.userId,ext);
       msgInput.value = "";
-      this.imServe.handleToMsg(msgInput.value,this.params.data.userId);
-
-
     });
 
     // setTimeout(() => {

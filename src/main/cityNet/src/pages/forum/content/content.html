@@ -6,79 +6,89 @@
 
 <ion-content class="forum forum-detail article-content">
 
-        <div *ngIf="item != null" style="margin-bottom: 46px;">
-            <div class="content-head">
-                <h2 class="content-head">{{item.title}}</h2>
-                <div class="read-count">
-                    <ion-icon name="eye"></ion-icon>
-                    <span>{{item.totalReadTimes}}</span></div>
-            </div>
-            <div>
-                <ion-list>
-                    <ion-item>
-                        <ion-card>
-                            <ion-item>
-                                <ion-avatar item-left>
-                                    <img src="{{item.photo || 'assets/images/marty-avatar.png'}}">
-                                </ion-avatar>
-                                <div>
-                                    <div style="position: relative;">
-                                        <h2>{{item.nickname}}</h2>
-                                        <p style="" class="origin">来自 <span>{{item.plateName}}</span></p>
-                                        <p class="time">{{item.publishDatetime | forumDate}}</p>
-                                        <div class="inblock" *ngIf="!isMe">
-                                            <button outline small class="origin content-btn {{followFlag?'hidden':''}}"
-                                                    (click)="follow(item.publisher)">+关注
-                                            </button>
-                                            <button outline small class="origin content-btn {{followFlag?'':'hidden'}}"
-                                                    (click)="unfollow(item.publisher)">取消关注
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <ion-card-content>
-                                        <!--<h2 style="margin: 6px 0;">{{item.title}}</h2>-->
-                                        <p (tap)="goUserDetail($event)" [innerHTML]="item.content"></p>
-                                        <div *ngIf="item.picArr != null" class="img-cont" (click)="showImg($event)">
-                                            <img class="imgs wp30 mr2p" src="{{p}}" *ngFor="let p of item.picArr"/>
-                                        </div>
-                                    </ion-card-content>
-
-                                    <!--<div class="com-btn">
-                                        <ion-buttons class="clearfix">
-                                            <button class="fl">
-                                                <i class="icon iconfont">&#xe60a;</i>
-                                            </button>
-                                            <button class="fl {{isMe?'':'hidden'}}" (click)="deleteTz(item.code)">
-                                                <ion-icon style="font-size:1.6em;" name="trash"></ion-icon>
-                                            </button>
-                                            <div class="inblock {{isMe?'hidden': ''}}">
-                                                <button class="sp-btn fl {{item.isSC == '0'?'':'hidden'}}" (click)="collect(item.code);">
-                                                    <ion-icon name="star-outline"></ion-icon>
-                                                </button>
-                                                <button class="sp-btn fl {{item.isSC == '0'?'hidden':''}}" (click)="collect(item.code, true);">
-                                                    <ion-icon name="star" style="color:#f64444"></ion-icon>
-                                                </button>
-                                            </div>
-                                            <button class="fr">
-                                                <i class="icon iconfont">&#xe610;</i>
-                                            </button>
-                                            <button class="sp-btn fr {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code)">
-                                                <i class="icon iconfont">&#xe624;</i>
-                                            </button>
-                                            <button class="sp-btn fr {{item.isDZ == '0'?'hidden':''}}" (click)="praise(item.code, true)">
-                                                <ion-icon name="thumbs-up" style="color:#f64444"></ion-icon>
-                                            </button>
-                                        </ion-buttons>
-                                    </div>-->
-                                </div>
-                            </ion-item>
-                        </ion-card>
-                    </ion-item>
-                </ion-list>
+        <!--<div *ngIf="item != null" style="margin-bottom: 46px;">-->
+            <!--<div class="content-head">-->
+                <!--<h2 class="content-head">{{item.title}}</h2>-->
+                <!--<div class="read-count">-->
+                    <!--<ion-icon name="eye"></ion-icon>-->
+                    <!--<span>{{item.totalReadTimes}}</span></div>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<ion-list>-->
+                    <!--<ion-item>-->
+                        <!--<ion-card>-->
+                            <!--<ion-item>-->
+                                <!--<ion-avatar item-left>-->
+                                    <!--<img src="{{item.photo || 'assets/images/marty-avatar.png'}}">-->
+                                <!--</ion-avatar>-->
+                                <!--<div>-->
+                                    <!--<div style="position: relative;">-->
+                                        <!--<h2>{{item.nickname}}</h2>-->
+                                        <!--<p style="" class="origin">来自 <span>{{item.plateName}}</span></p>-->
+                                        <!--<p class="time">{{item.publishDatetime | forumDate}}</p>-->
+                                        <!--<div class="inblock" *ngIf="!isMe">-->
+                                            <!--<button outline small class="origin content-btn {{followFlag?'hidden':''}}"-->
+                                                    <!--(click)="follow(item.publisher)">+关注-->
+                                            <!--</button>-->
+                                            <!--<button outline small class="origin content-btn {{followFlag?'':'hidden'}}"-->
+                                                    <!--(click)="unfollow(item.publisher)">取消关注-->
+                                            <!--</button>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<ion-card-content>-->
+                                        <!--&lt;!&ndash;<h2 style="margin: 6px 0;">{{item.title}}</h2>&ndash;&gt;-->
+                                        <!--<p (tap)="goUserDetail($event)" [innerHTML]="item.content"></p>-->
+                                        <!--<div *ngIf="item.picArr != null" class="img-cont" (click)="showImg($event)">-->
+                                            <!--<img class="imgs wp30 mr2p" src="{{p}}" *ngFor="let p of item.picArr"/>-->
+                                        <!--</div>-->
+                                    <!--</ion-card-content>-->
+                                <!--</div>-->
+                            <!--</ion-item>-->
+                        <!--</ion-card>-->
+                    <!--</ion-item>-->
+                <!--</ion-list>-->
+            <!--</div>-->
+    <div *ngIf="item != null" style="border-bottom: 10px solid rgb(240,240,240)">
+        <div class="detail-outer">
+            <!--标题-->
+            <div class="top">
+                <div>{{item.title}}</div>
             </div>
 
+            <!--头像 昵称-->
+            <div class="middle">
+                <div class="avatar">
+                    <img src="{{item.photo || 'assets/images/marty-avatar.png'}}">
+                </div>
+                <div class="user-info">
+                    <div class="nickname">{{item.nickname}}</div>
+                    <div class="time">{{item.publishDatetime | forumDate}}</div>
+                </div>
+                <div class="focuse" *ngIf="!isMe">
+                    <button outline small class="origin content-btn {{followFlag?'hidden':''}}"
+                            (click)="follow(item.publisher)">+关注
+                    </button>
+                    <button outline small class="origin content-btn {{followFlag?'':'hidden'}}"
+                            (click)="unfollow(item.publisher)">取消关注
+                    </button>
+                </div>
+            </div>
 
+            <!--正文图片 和文字-->
+            <div class="bottom">
+                <div class="article-content">
+                    <div (tap)="goUserDetail($event)" [innerHTML]="item.content"></div>
+                </div>
+                <div *ngFor="let src of item.picArr">
+                    <img [src]="src">
+                </div>
+            </div>
 
+            <div style="text-align: right; padding-right: 3px;">
+                <img src="assets/images/mine/read-times@2x.png" style="height: 10px;">
+                <span>{{item.totalReadTimes}}</span>
+            </div>
+        </div>
 
         <div style="background-color: white">
             <ion-segment [(ngModel)]="segment">
@@ -92,26 +102,28 @@
         </div>
 
         <div [ngSwitch]="segment" class="com-btn1">
-        <div *ngSwitchCase="'pjia'">
-            <div class="com-bottom">
-                <ion-list>
-                    <ion-item *ngFor="let c of item.commentList">
-                        <span class="u-name"><span>{{c.nickname}}</span>：</span><span class="u-msg">{{c.content}}</span>
-                    </ion-item>
-                </ion-list>
+            <div *ngSwitchCase="'pjia'">
+                <div class="com-bottom">
+                    <ion-list>
+                        <ion-item *ngFor="let c of item.commentList">
+                            <span class="u-name"><span>{{c.nickname}}</span>：</span><span
+                                class="u-msg">{{c.content}}</span>
+                        </ion-item>
+                    </ion-list>
+                </div>
             </div>
-        </div>
-        <div *ngSwitchCase="'dzan'">
-            <div class="com-top clearfix">
-                <ion-list>
-                    <ion-item *ngFor="let g of item.likeList">
-                        <span class="t-3dot">{{g.nickname}}</span>
-                    </ion-item>
-                </ion-list>
+            <div *ngSwitchCase="'dzan'">
+                <div class="com-top clearfix">
+                    <ion-list>
+                        <ion-item *ngFor="let g of item.likeList">
+                            <span class="t-3dot">{{g.nickname}}</span>
+                        </ion-item>
+                    </ion-list>
+                </div>
             </div>
         </div>
     </div>
-    </div>
+
 </ion-content>
 <div id="ylImg2" class="mask hidden" (click)="closeImg();">
     <div>

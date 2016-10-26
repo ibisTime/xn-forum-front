@@ -93,12 +93,17 @@ export class IMService {
   }
 
   /*1.处理自己发送的信息*/
-  handleToMsg(msg: string,to: string){
+  handleToMsg(msg: string,to: string,ext){
 
+    // let ext = {
+    //   "nickname":this.userService.user.nickname,
+    //   "photo": this.userService.user.userExt.photo || ""
+    // };
     let msgItem = {
       from: `${this.me}`,
       to: `${to}`,
-      data: `${msg}`
+      data: `${msg}`,
+      "ext":ext
     };
 
     this.handleMsgData(msgItem,true);
@@ -183,7 +188,7 @@ export class IMService {
     if (this.listOfOpposite.length > 0) {
 
       let models = this.listOfOpposite.filter((value, index, obj) => {
-        return value.from === linkMan;
+        return value.userId === linkMan;
       });
 
       let model = models[0];

@@ -447,7 +447,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
         cxtRenderer.fillRect(0, 0, cxt.width, cxt.height);
         cxtRenderer.drawImage(ev.target,0,0);
 
-        let src = cxt.toDataURL('image/jpeg',0.1);
+        let src = cxt.toDataURL('image/jpeg',0.3);
 
         let imgItem = {
           "src": encodeURIComponent(src),
