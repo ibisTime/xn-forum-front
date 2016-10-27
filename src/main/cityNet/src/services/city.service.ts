@@ -5,6 +5,7 @@ import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 import {Release} from "./release";
 import {Events} from "ionic-angular";
+import {Storage} from "@ionic/storage";
 
 export interface City{
   address?;
@@ -67,12 +68,12 @@ export class CityService {
   };
   tabbarItems = [];
 
-  regAddress;//存入省市区
-
+  // regAddress;//存入省市区
   currentCity: City = {"name":"未知地点"}; //根据经纬度获得
 
   constructor( private  http: HttpService,
-               public   events: Events) {
+               public   events: Events,
+               public  storage: Storage) {
 
   }
 
@@ -118,14 +119,9 @@ export class CityService {
         "city": "未知"
       }
 
-      this.regAddress = zoneObj;
+      // this.regAddress = zoneObj;
 
-      return this.getSiteByAddress(zoneObj).then(res => {
-
-        let data = res["data"];
-        return this.getNavigateBySiteCode(data["code"]);
-
-      });
+      return this.getSiteByAddress(zoneObj);
 
     } else {
 
@@ -137,26 +133,57 @@ export class CityService {
           // "province":res.result.addressComponent.province,
           // "city":res.result.addressComponent.city,
           // "city":city.slice(0,city.length - 1)
-
           "province":res.result.addressComponent.province.slice(0,city.length - 1) || "未知",
           "area": area || "未知",
           "city":city.slice(0,city.length - 1) || "未知"
         }
 
 
-        this.regAddress = zoneObj;
+
+        this.cityChanged(zoneObj);
+        // this.regAddress = zoneObj;
 
 
         /*获取站点*/
         return this.getSiteByAddress(zoneObj);
-      }).then(res => {
-        let data = res["data"];
-        return this.getNavigateBySiteCode(data["code"]);
 
       });
     }
 
 
+  }
+
+  /*城市改变 进行更新*/
+  cityChanged(zoneObj){
+
+    //如果数据库中有的话进行比对
+    this.storage.get("zoneObj").then(res => {
+
+      if(res != null){
+
+        if(res.area != zoneObj.area){
+          this.storage.set("zoneObj",zoneObj);
+        }
+
+      } else {
+
+        //如果没有的话添加进数据库
+        this.storage.set("zoneObj",zoneObj);
+
+      }
+
+    });
+
+  }
+
+  /*获取已经存储的城市 进行更新*/
+  checkedCity(){
+    //如果数据库中有的话进行比对
+   return this.storage.get("zoneObj").then(res => {
+
+     return res;
+
+    });
   }
 
   /*百度地图 根据经纬度查询地理位置*/
@@ -177,8 +204,11 @@ export class CityService {
     return this.http.get('/site/fetchone',zoneObj).then(res => {
 
       this.currentCity = res["data"];
-      return res;
+
+      let data = res["data"];
+      return this.getNavigateBySiteCode(data["code"]);
     });
+
   }
 
 

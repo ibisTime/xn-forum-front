@@ -15,8 +15,8 @@ import {NavParams} from "ionic-angular";
   </ion-navbar>
 </ion-header>
 
-<ion-content >
- <div [innerHTML]="detail.content" style="background-color: white; min-height: 100px;"></div>
+<ion-content style="background-color: white;">
+ <div [innerHTML]="detail.content"></div>
 </ion-content >
     `
 

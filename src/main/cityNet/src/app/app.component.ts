@@ -38,10 +38,25 @@ export class MyApp {
       // Keyboard.disableScroll(true);
     });
 
+      //判断是否有城市存储
+      // this.cityService.checkedCity().then(res => {
+      //
+      //     if (res != null) {
+      //
+      //         this.cityService.getSiteByAddress(res);
+      //
+      //     } else {
+      //
+      //         this.getNav();
+      //
+      //     }
+      //
+      // }).catch(error => {
+      //     this.getNav();
+      // });
+
     /*获取导航数据*/
     this.getNav();
-
-
 
     /*登陆超时重新登陆*/
     this.events.subscribe('user:timeout',() => {
@@ -89,6 +104,7 @@ export class MyApp {
     /*加载默认*/
     navigator.geolocation.getCurrentPosition((geo: any) => {
 
+      /*在这里定位成功的将站点进行存储*/
       this.getDataByPosition(geo.coords.longitude, geo.coords.latitude,loadNav);
 
     }, error => {
@@ -96,6 +112,7 @@ export class MyApp {
       this.getDataByPosition(0,0,loadNav);
 
     }, {timeout: 10000});
+  // , {timeout: 10000}
 
   }
 
@@ -166,6 +183,7 @@ export class MyApp {
          /*异步更新用户数据*/
           this.http.get('/user').then(res => {
              this.userServe.user = res.data;
+
           });
 
         }).catch(error => {

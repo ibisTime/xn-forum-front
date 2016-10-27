@@ -60,8 +60,10 @@ export class BZPlatDetailPage {
     }
 
 
-    ignore(){
+    ignore(item){
 
+        let index =  this.pageDataService.items.indexOf(item);
+        this.pageDataService.items.splice(index,1);
 
     }
 
@@ -99,7 +101,6 @@ export class BZPlatDetailPage {
             this.warnCtrl.toast('审核成功');
         }).catch(error => {
             load.dismiss();
-            this.warnCtrl.toast('审核失败');
         });
 
     }
@@ -125,7 +126,7 @@ export class BZPlatDetailPage {
                item.isLock = "1";
            }
        }).catch(error => {
-           this.warnCtrl.toast(failureMsg);
+           load.dismiss();
        });
 
     }

@@ -12,7 +12,6 @@ import {LoginPage} from "../../user/login";
 })
 export class ContentPage {
 
-  isAndroid: boolean = false;
   imgHeight: string;
   pHeight: string;
   code: string;
@@ -43,7 +42,8 @@ export class ContentPage {
               public app: App,
               public events: Events) {
 
-        this.isAndroid = platform.is('android');
+      this.read();
+
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.pHeight = `${this.platform.height()}px`;
         this.code = navPara.data.code;
@@ -62,7 +62,7 @@ export class ContentPage {
                         }
                     }
                 });
-            this.read();
+
         }
   }
   //关注
@@ -109,19 +109,17 @@ export class ContentPage {
       if(!this.deleteCount){
           this.deleteCount = 1;
           this.http.post('/post/delete',{
-            "code": code
+            "code": code,
+              "type": "1"
           })
             .then((res) => {
                 this.deleteCount = 0;
-                if(res.success){
+
                     this.events.publish("content:delete", code);
                     this.navCtrl.pop();
-                }else{
-                    this.warnCtrl.toast("删除帖子失败，请稍后重试!");
-                }
+
             }).catch(error => {
                 this.deleteCount = 0;
-                this.warnCtrl.toast("删除帖子失败，请稍后重试!");
             });
       }
   }
@@ -136,27 +134,20 @@ export class ContentPage {
             })
                 .then((res) => {
                     this.collectCount = 0;
-                    if(res.success){
                         //this.item.totalDzNum = (+this.item.totalDzNum + 1) + "";
                         if(!flag){
                             this.item.isSC = "1";
                         }else{
                             this.item.isSC = "0";
                         }
-                    }else{
-                        if(!flag){
-                            this.warnCtrl.toast("收藏失败，请稍后重试!");
-                        }else{
-                            this.warnCtrl.toast("取消收藏失败，请稍后重试!");
-                        }
-                    }
+
                 }).catch(error => {
                     this.collectCount = 0;
-                    if(!flag){
-                        this.warnCtrl.toast("收藏失败，请稍后重试!");
-                    }else{
-                        this.warnCtrl.toast("取消收藏失败，请稍后重试!");
-                    }
+                    // if(!flag){
+                    //     this.warnCtrl.toast("收藏失败，请稍后重试!");
+                    // }else{
+                    //     this.warnCtrl.toast("取消收藏失败，请稍后重试!");
+                    // }
                 });
         }
       }else{
@@ -175,7 +166,7 @@ export class ContentPage {
             })
                 .then((res) => {
                     this.praiseCount = 0;
-                    if(res.success){
+
                         if(!flag){
                             this.item.totalLikeNum = (+this.item.totalLikeNum + 1) + "";
                             this.item.isDZ = "1";
@@ -193,20 +184,14 @@ export class ContentPage {
                                 }
                             }
                         }
-                    }else{
-                        if(flag){
-                            this.warnCtrl.toast("取消点赞失败，请稍后重试!");
-                        }else{
-                            this.warnCtrl.toast("点赞失败，请稍后重试!");
-                        }
-                    }
+
                 }).catch(error => {
                     this.praiseCount = 0;
-                    if(flag){
-                        this.warnCtrl.toast("取消点赞失败，请稍后重试!");
-                    }else{
-                        this.warnCtrl.toast("点赞失败，请稍后重试!");
-                    }
+                    // if(flag){
+                    //     this.warnCtrl.toast("取消点赞失败，请稍后重试!");
+                    // }else{
+                    //     this.warnCtrl.toast("点赞失败，请稍后重试!");
+                    // }
                 });
         }
       }else{
@@ -224,17 +209,15 @@ export class ContentPage {
             }
             this.http.post('/post/comment', mObj)
                 .then((res) => {
-                    if(res.success){
+
                         this.inputValue = "";
                         this.item.commentList.push({
                             nickname: this.uService.user.nickname,
                             content: msg
                         });
-                    }else{
-                        this.warnCtrl.toast("评论失败，请稍后重试!");
-                    }
+
                 }).catch(error => {
-                    this.warnCtrl.toast("评论失败，请稍后重试!");
+
                 });
       }
   }
@@ -243,13 +226,10 @@ export class ContentPage {
           "postCode": this.code
         })
         .then((res) => {
-            if(res.success){
                 var data = res.data;
                 data.content = data.content.replace(/(@[^\s]*)\s/ig, "<a class='people'>$1</a>");
                 this.item = data;
-            }else{
-                this.warnCtrl.toast("帖子详情获取失败，请稍后重试!");
-            }
+
         }).catch(error => {
         });
   }
@@ -344,13 +324,11 @@ export class ContentPage {
                         "amount": +data.amount * 1000
                     })
                     .then((res) => {
-                        if(res.success){
-                            this.warnCtrl.toast("打赏成功!")
-                        }else{
-                            this.warnCtrl.toast("打赏失败，请稍后重试!");
-                        }
+
+                       this.warnCtrl.toast("打赏成功!")
+
                     }).catch(error => {
-                        this.warnCtrl.toast("打赏失败，请稍后重试!");
+
                     });
                 }
           }
@@ -379,19 +357,23 @@ export class ContentPage {
         {
           text: '确认',
           handler: (data) => {
+
+               if(!(typeof(data.reportNote) != "undefined" && data.reportNote.length >0 )){
+                   this.warnCtrl.toast("请填写举报理由");
+                   return;
+               }
+
                 this.http.post('/post/report',{
                     "code": this.code,
                     "reportNote": data.reportNote,
                     "type": type
                 })
                 .then((res) => {
-                    if(res.success){
+
                         this.warnCtrl.toast("举报成功!");
-                    }else{
-                        this.warnCtrl.toast("举报失败，请稍后重试!");
-                    }
+
                 }).catch(error => {
-                    this.warnCtrl.toast("举报失败，请稍后重试!");
+
                 });
           }
         }

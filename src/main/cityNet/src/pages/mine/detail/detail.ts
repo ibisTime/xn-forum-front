@@ -118,7 +118,7 @@ export class MineDetailPage implements AfterViewInit{
       document.getElementById("nickName").innerText = res.data.nickname || res.data.mobile;
       document.getElementById("introduce").innerText = userExt.introduce || "还没有个人介绍哦";
     }).catch((error) => {
-      this.warnCtrl.toast('用户信息获取失败，请稍后重试!');
+
     });
   }
 
@@ -136,15 +136,12 @@ export class MineDetailPage implements AfterViewInit{
                 "toUser": this.toUserId
             })
             .then((res) => {
+
                 this.followCount = 0;
-                if(res.success){
-                    this.followFlag = true;
-                }else{
-                    this.warnCtrl.toast("关注失败，请稍后重试!");
-                }
+                this.followFlag = true;
+
             }).catch(error => {
                 this.followCount = 0;
-                this.warnCtrl.toast("关注失败，请稍后重试!");
             });
       }
   }
@@ -164,14 +161,10 @@ export class MineDetailPage implements AfterViewInit{
                 })
                 .then((res) => {
                     this.followCount = 0;
-                    if(res.success){
                         this.followFlag = false;
-                    }else{
-                        this.warnCtrl.toast("取消关注失败，请稍后重试!");
-                    }
+
                 }).catch(error => {
                     this.followCount = 0;
-                    this.warnCtrl.toast("取消关注失败，请稍后重试!");
                 });
       }
   }

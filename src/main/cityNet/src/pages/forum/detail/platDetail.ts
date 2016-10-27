@@ -41,8 +41,20 @@ export class PlatDetailPage implements AfterViewInit{
               public warn: WarnService,
               public userService: UserService
               ) {
-      this.plat = navParams.data;
-      this.platService.platCode = this.plat.code;
+
+      /*根据plateCode 获取详情*/
+      // this.plat = navParams.data;
+
+      this.platService.platCode = navParams.data.code;
+      /*有可能只传过来一个code 根据code查询详情*/
+      this.http.get("/plate/info",{"code":navParams.data.code}).then(res => {
+
+          this.plat = res.data;
+
+      }).catch(error => {
+
+      });
+
   }
 
 
@@ -61,6 +73,7 @@ export class PlatDetailPage implements AfterViewInit{
     loadModeTopArticle() {
         let load = this.warn.loading("");
         this.platService.getTopArticle().then(res => {
+
             load.dismiss();
             console.log(res);
             this.topLoadMoreHidden = res;

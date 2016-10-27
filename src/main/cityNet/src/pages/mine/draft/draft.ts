@@ -65,6 +65,18 @@ export class DraftPage {
     goSendArticle(item){
 
        let model = this.model.create(SendArticlePage,item);
+
+        model.onDidDismiss(res => {
+
+            if(res == true){
+
+                console.log(res);
+                this.refresh("back");
+
+            };
+
+        });
+
        model.present();
 
     }
@@ -88,7 +100,7 @@ export class DraftPage {
 
         }
 
-        this.http.post("/post/craft/publish",obj).then(res => {
+        this.http.post("/post/draft/publish",obj).then(res => {
 
             load.dismiss();
             this.warnCtrl.toast("重新发布成功");
@@ -97,7 +109,6 @@ export class DraftPage {
         }).catch(error => {
 
             load.dismiss();
-            this.warnCtrl.toast("重新发布失败");
 
         });
 

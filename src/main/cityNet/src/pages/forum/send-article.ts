@@ -50,12 +50,31 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
     //从草稿箱中读取
     if(navParams.data){
+
       this.title = navParams.data.title;
       this.content = navParams.data.content;
       this.draftCode = navParams.data.code;
+      this.topicCode = navParams.data.plateCode;
 
-      if(typeof(navParams.data.pic) != "undefined"){
-        navParams.data.pic.forEach((value,index,array) =>{
+      let obj = {
+        "siteCode": this.cityS.currentCity.code
+      };
+      this.http.get("/plate/list",obj).then(res => {
+
+        this.topicItems = res.data;
+        this.topicItems.forEach((value,index,array) => {
+          if(value.code == this.topicCode){
+            this.plateName = value.name;
+          }
+
+        });
+
+      }).catch(error => {
+
+      });
+
+      if(typeof(navParams.data.picArr) != "undefined"){
+        navParams.data.picArr.forEach((value,index,array) =>{
           let date = new Date();
 
           let img = {
@@ -139,8 +158,6 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   cancle(titleIput,contentTextarea){
 
     if(
-        (typeof(this.title) != "undefined" && this.title.length > 0)
-        ||
         (typeof(this.content) != "undefined" && this.content.length > 0)
         ||
         this.uploadImages.length > 0
@@ -152,12 +169,12 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
       },()=> {
 
-        this.viewCtrl.dismiss();
+        this.viewCtrl.dismiss(false);
 
       })
 
     } else{
-      this.viewCtrl.dismiss();
+      this.viewCtrl.dismiss(false);
     }
 
   }
@@ -197,10 +214,6 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       return;
     }
 
-    // if(titleIput.value.length <= 0){
-    //   titleIput.value = "";
-    //   return;
-    // }
 
     if(this.topicCode.length <= 0){
       this.warn.alert('请选择板块');
@@ -290,12 +303,14 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
         /*2. 发帖*/
         let articleObj = {
-          "title": titleIput.value,
           "content": contentTextarea.value,
           "plateCode": this.topicCode,
           "pic": picStr,
           "isPublish": isPublish
         };
+        if((typeof (titleIput.value) != "undefined") &&(titleIput.value.length > 0)){
+          articleObj["title"] = titleIput.value;
+        }
 
         //草稿
         if(typeof(this.draftCode) != "undefined"){
@@ -307,10 +322,11 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       }).then(res => {
         load.dismiss().then(()=> {
 
-          this.viewCtrl.dismiss();
+          this.viewCtrl.dismiss(true);
 
         });
         this.warn.toast(successStr);
+
       }).catch(error => {
         load.dismiss();
         this.warn.toast(failureStr);
@@ -321,11 +337,13 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     } else {
       /*2. 发帖无图片*/
       let articleObj = {
-        "title": titleIput.value,
         "content": contentTextarea.value,
         "plateCode": this.topicCode,
         "isPublish": isPublish
       };
+      if((typeof (titleIput.value) != "undefined") &&(titleIput.value.length > 0)){
+        articleObj["title"] = titleIput.value;
+      }
       //草稿
       if(typeof(this.draftCode) != "undefined"){
         articleObj["code"] = this.draftCode;
@@ -335,7 +353,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
          this.warn.toast(successStr);
          load.dismiss().then(res => {
-           this.viewCtrl.dismiss();
+           this.viewCtrl.dismiss(true);
          })
 
 
@@ -374,7 +392,6 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     }).catch(error => {
 
       load.dismiss().then(res => {
-        this.warn.toast("获取模块失败");
       });
 
     });
@@ -418,9 +435,6 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     // $event.target.files[0] = null;
   }
 
-  imgTrack(index,item){
-    return item.id;
-  }
 
   zipImg(src,imgId){
 

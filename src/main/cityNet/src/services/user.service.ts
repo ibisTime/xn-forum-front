@@ -175,9 +175,7 @@ export class UserService {
 
   //查询所有关注的人
   queryFollowUsers(){
-    return this.http.get('/rs/follows/list',{
-              "userId": this.userId
-            }).then((res) => {
+    return this.http.get('/rs/follows/list').then((res) => {
                 if(res.success){
                     this.followUsers = res.data;
                 }

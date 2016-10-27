@@ -31,8 +31,9 @@
 
   .price-div{
 
-    flex: 0 0 70%;
+
     display: flex;
+    flex: 1;
     align-items: center;
     padding-left: 20px;
     span{
@@ -41,7 +42,7 @@
     }
   }
   .exchange{
-    flex: 0 0 30%;
+    flex: 0 0 130px;
     display: flex;
     align-items: center;
     justify-content: center;

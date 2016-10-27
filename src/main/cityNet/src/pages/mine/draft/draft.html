@@ -23,8 +23,9 @@
            *ngFor="let item of pageDataService.articles; let i = index;"
            (click)="goSendArticle(item)">
           <div class="left">
-              <div class="title">{{item.title}}</div>
-              <div class="content">{{item.content}}</div>
+              <div class="title">存稿时间：{{item.publishDatetime|forumDate}}</div>
+              <div class="title">标题：  {{item.title|| ""}}</div>
+              <div class="content">内容：  {{item.content}}</div>
           </div>
           <div class="right">
               <button (click)="reSend($event,item,i)">重发</button>
