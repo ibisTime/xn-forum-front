@@ -24,4 +24,11 @@ public interface IPlateAO {
      * @history:
      */
     public Object queryPlateList(String kind, String userId);
+    
+    /**
+     * 详情查询板块
+     * @param code
+     * @return
+     */
+    public Object queryPlateInfo(String code);
 }

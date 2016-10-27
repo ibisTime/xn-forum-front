@@ -47,4 +47,12 @@ public class PlateController extends BaseController {
             @RequestParam(value = "userId", required = false) String userId) {
         return plateAO.queryPlateList(kind, getSessionUserId(userId));
     }
+    
+    // 详情查询板块
+    @RequestMapping(value = "/info", method = RequestMethod.GET) 
+    @ResponseBody
+    public Object queryPlateInfo(
+            @RequestParam(value = "code", required = true) String code) {
+        return plateAO.queryPlateInfo(code);
+    }
 }

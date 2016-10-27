@@ -34,4 +34,10 @@ public class PlateAOImpl implements IPlateAO {
         return BizConnecter.getBizData("610031", JsonUtils.object2Json(req),
             Object.class);
     }
+
+	@Override
+	public Object queryPlateInfo(String code) {
+		return BizConnecter.getBizData("610032", JsonUtils.string2Json("code", code),
+	            Object.class);
+	}
 }
