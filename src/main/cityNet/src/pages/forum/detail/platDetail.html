@@ -1,7 +1,7 @@
 
 <ion-header class="forum-head">
   <ion-navbar color="navbar-color">
-        <ion-title>{{plat.name}}</ion-title>
+        <ion-title>{{plat?.name||""}}</ion-title>
         <ion-buttons end>
             <button class="nav-bar-item-btn" (click)="search()">
                 <!--<ion-icon name="search"></ion-icon>-->
@@ -29,7 +29,7 @@
         <!--</div>-->
 
     <!--</div>-->
-
+    <div *ngIf="plat">
     <div class="clearfix bg_fff">
         <div class="plr10 ptb10 fl"style="width: 80px; height: 80px;">
             <img style="width: 60px; height: 60px;" [src]="plat.pic"/>
@@ -37,7 +37,7 @@
         <div class="pl10 ptb10 fl wp70">
             <div class="plat-name">{{plat.name}}</div>
             <div class="dt-div plat-info">
-                主题：<span class="pr20">{{plat.personCount}}</span>
+                主题：<span class="pr20">{{plat.postCount}}</span>
                 今日：<span>{{'ds'}}</span>
             </div>
         </div>
@@ -81,6 +81,8 @@
                 </forum-cell>
             </ion-item>
         </ion-list>
+
+    </div> 
         <ion-infinite-scroll (ionInfinite)="doLoadMore($event)">
             <ion-infinite-scroll-content
                     loadingSpinner="bubbles"

@@ -76,7 +76,6 @@ export class PlatChooseView implements OnInit {
             load.dismiss();
         }).catch(error => {
             load.dismiss().then(() => {
-                this.warn.toast('获取失败');
             });
         });
     }

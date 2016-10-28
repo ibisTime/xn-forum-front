@@ -7,12 +7,17 @@ import {Release} from './release'
 import {MallPage} from "../pages/headline/mall/mall";
 import {IFramePage} from "../pages/headline/iframe";
 import {InAppBrowser} from 'ionic-native';
+import {JsonPipe} from "@angular/common";
+import {HttpService} from "./http.service";
+import {PlatDetailPage} from "../pages/forum/detail/platDetail";
 
 @Injectable()
 export class NavService {
 
 
-    constructor(public app: App) {
+    constructor(public app: App,
+                public http: HttpService
+    ) {
 
 
     }
@@ -29,6 +34,12 @@ export class NavService {
         } else if(url == "page:signin"){
 
             (typeof(signingCallBack) != "undefined")&&(signingCallBack())
+
+        } else if(/page:board/ig.test(url)){
+
+
+            let bkCode = url.replace("page:board,param:","");
+            nav.push(PlatDetailPage,{"code":bkCode});
 
         } else {
 

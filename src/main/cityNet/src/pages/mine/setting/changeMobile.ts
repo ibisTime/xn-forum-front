@@ -42,7 +42,6 @@ export class ChangeMobilePage {
 
 
         }).catch((error) => {
-            this.warnCtrl.toast('验证码发送失败，请稍后重试!');
         });
 
 

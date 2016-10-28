@@ -129,19 +129,6 @@ export class ForumPage {
 
 
     /*帖子详情*/
-    openPage($event) {
-
-        let target = $event.event.target;
-        if(target.className == "people"){
-            //点击@
-
-            $event.event.stopPropagation();
-            return;
-        }else{
-            this.navCtrl.push(ContentPage, $event);
-        }
-
-    }
 
     search(){
         this.navCtrl.push(SearchUserAndArticlePage);
@@ -160,15 +147,6 @@ export class ForumPage {
 
         }
     }
-
-    /*聊天*/
-    // goChat(userId) {
-    //     this.navCtrl.push(ChatRoomPage, userId);
-    // }
-    //
-    // goDetail(toId) {
-    //     this.navCtrl.push(MineDetailPage, {toUserId: toId});
-    // }
 
 
   /*分类数据*/
@@ -200,84 +178,5 @@ export class ForumPage {
         this.navCtrl.push(PlatDetailPage,$event);
 
     }
-
-
-
-
-    // //收藏
-    // collect(code, index, flag?){
-    //     if(!this.items[index].collectCount){
-    //         this.items[index].collectCount = 1;
-    //         this.http.post('/post/praise',{
-    //               "type": "2",
-    //               "postCode": code
-    //           }).then((res) => {
-    //                   this.items[index].collectCount = 0;
-    //                   if(res.success){
-    //                       if(!flag){
-    //                           this.items[index].isSC = "1";
-    //                       }else{
-    //                           this.items[index].isSC = "0";
-    //                       }
-    //                   }else if(res.timeout){
-    //                       this.warnCtrl.toast("登录超时，请重新登录!");
-    //                   }else{
-    //                       if(!flag){
-    //                           this.warnCtrl.toast("收藏失败，请稍后重试!");
-    //                       }else{
-    //                           this.warnCtrl.toast("取消收藏失败，请稍后重试!");
-    //                       }
-    //                   }
-    //               }).catch(error => {
-    //                   this.items[index].collectCount = 0;
-    //                   if(!flag){
-    //                       this.warnCtrl.toast("收藏失败，请稍后重试!");
-    //                   }else{
-    //                       this.warnCtrl.toast("取消收藏失败，请稍后重试!");
-    //                   }
-    //               });
-    //     }else{
-    //         this.warnCtrl.toast("请勿重复点击!");
-    //     }
-    // }
-    //
-    // //点赞
-    // praise(code, index, flag?){
-    //     if(!this.items[index].praiseCount){
-    //           this.items[index].praiseCount = 1;
-    //           this.http.post('/post/praise',{
-    //               "type": "1",
-    //               "postCode": code
-    //               })
-    //               .then((res) => {
-    //                   this.items[index].praiseCount = 0;
-    //                   if(res.success){
-    //                       if(!flag){
-    //                           this.items[index].totalLikeNum = +this.items[index].totalLikeNum + 1;
-    //                           this.items[index].isDZ = "1";
-    //                       }else{
-    //                           this.items[index].totalLikeNum = +this.items[index].totalLikeNum - 1;
-    //                           this.items[index].isDZ = "0";
-    //                       }
-    //                   }else{
-    //                       if(flag){
-    //                           this.warnCtrl.toast("取消点赞失败，请稍后重试!");
-    //                       }else{
-    //                           this.warnCtrl.toast("点赞失败，请稍后重试!");
-    //                       }
-    //                   }
-    //               }).catch(error => {
-    //                   this.items[index].praiseCount = 0;
-    //                   if(flag){
-    //                       this.warnCtrl.toast("取消点赞失败，请稍后重试!");
-    //                   }else{
-    //                       this.warnCtrl.toast("点赞失败，请稍后重试!");
-    //                   }
-    //               });
-    //     }else{
-    //         this.warnCtrl.toast("请勿重复点击!");
-    //     }
-    // }
-
 
 }

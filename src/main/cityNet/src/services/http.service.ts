@@ -86,7 +86,6 @@ export class HttpService {
   }
 
   handleRes(res, resolve, reject, url1) {
-
     if (url1.indexOf("webimplugin/welcome?") != -1) {/////////
 
       resolve(res._body);

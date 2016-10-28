@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content class="forum forum-detail bzPlatDetail">
-    <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher (ionRefresh)="refresh()">
         <ion-refresher-content
                 pullingIcon="arrow-dropdown"
                 pullingText="下拉加载"
@@ -76,7 +76,7 @@
         </div>
     </div>
 </div>
-    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll (ionInfinite)="loadMore()">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 </ion-content>

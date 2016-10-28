@@ -53,15 +53,12 @@ export class EditDetailPage implements AfterViewInit {
 
     let load = this.warnCtrl.loading("修改中");
     this.http.post('/user/nickname', {"nickname": this.nickname}).then((res)=>{
-        if(!res.success){
-            this.warnCtrl.toast('用户昵称修改失败，请稍后重试!');
-        }else{
+
             this.orignalNickname = this.nickname;
             this.uService.user.nickname = this.nickname;
-        }
+
         load.dismiss();
     }).catch((err)=>{
-        this.warnCtrl.toast('用户昵称修改失败，请稍后重试!');
         load.dismiss();
     });
   }
@@ -77,12 +74,10 @@ export class EditDetailPage implements AfterViewInit {
 
               this.http.post('/user/avatar', {"photo":encodeURIComponent(event.target.result)})
                   .then((res)=>{
-                      if(res.success){
+
                           this.uService.user.userExt.photo = this.src;
                           this.warnCtrl.toast('头像修改成功!');
-                      }else{
-                          this.warnCtrl.toast('头像修改失败!');
-                      }
+
                       load.dismiss();
                   }).catch((err)=>{
                   this.warnCtrl.toast('err!');
@@ -98,15 +93,15 @@ export class EditDetailPage implements AfterViewInit {
   changeExt(){
       console.log(this.param);
       
-      if(typeof(this.param.birthday) == "undefined"){
+      if(typeof(this.param.birthday) == "undefined" || this.param.birthday.length <= 0){
           this.warnCtrl.toast('请填写生日');
           return;
       }
-      if(typeof(this.param.gender) == "undefined"){
+      if(typeof(this.param.gender) == "undefined" || this.param.gender.length  <= 0){
           this.warnCtrl.toast('请选择性别');
           return;
       }
-      if(typeof(this.param.introduce) == "undefined"){
+      if(typeof(this.param.introduce) == "undefined" || this.param.introduce.length  <= 0){
           this.warnCtrl.toast('请填写个人简介');
           return;
       }
@@ -126,18 +121,15 @@ export class EditDetailPage implements AfterViewInit {
 
       let load = this.warnCtrl.loading("修改中");
       this.http.post('/user/profile', this.param).then((res)=>{
-        if(!res.success){
-            this.warnCtrl.toast('用户资料修改失败，请稍后重试!');
-        }else{
+
             this.uService.user.userExt.gender = this.param.gender;
             this.uService.user.userExt.birthday = this.param.birthday;
             this.uService.user.userExt.introduce = this.param.introduce;
             this.uService.user.userExt.email = this.param.email;
-        }
         load.dismiss();
+
         this.navCtrl.pop();
       }).catch((err)=>{
-            this.warnCtrl.toast('用户资料修改失败，请稍后重试!');
             load.dismiss();
       });
   }

@@ -21,7 +21,8 @@
 
     <ion-list>
         <ion-item  (click)="selected(item.b2cSms)" style="background-color: white;" *ngFor="let item of pageDataService.items">
-            {{item.b2cSms.title}}
+            <div style="overflow: hidden; width: 70%; padding: 5px 0;">标题：{{item.b2cSms.title}}</div>
+            <div>发布时间：{{item.b2cSms.updateDateTime|forumDate}}</div>
         </ion-item>
     </ion-list>
 

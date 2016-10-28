@@ -2,48 +2,93 @@
  * Created by tianlei on 16/9/26.
  */
 
-// export const RELEASE = false;
+enum  environment{
 
-// export function  url(){
-//
-//     if(RELEASE){
-//         return "http://121.43.101.148:7303/xn-forum-front";
-//     } else {
-//         return "http://localhost:8080/xn-forum-front";
-//     }
-//
-// }
+    test = 0,
+    develop,
+    develop_local,
+}
 
 export namespace Release {
 
     const release = false;
-    const  test = false;
 
+    //release false才有效
+     const  run_environment = environment.develop_local ;
     export const weChat = true;
-    const  port = "8080";
 
+    const  port = "8080";
     export const baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
+
     export function baiduMapUrl() {
 
         if (release) {
-            // return "//api.map.baidu.com/geocoder/v2/";
-            return "//121.43.101.148:" + port +"/geocoder/"
+
+            if(weChat) {
+
+                return "";
+
+            } else {
+                return "//api.map.baidu.com/geocoder/v2/";
+            }
+
+
         } else {
-            return "http://localhost:8080/geocoder/";
+
+            if(weChat){
+
+                switch (run_environment){
+
+                    case environment.test: return "//120.26.222.73:" + port +"/geocoder/";
+                    case environment.develop: return "//121.43.101.148:" + port +"/geocoder/";
+                    case environment.develop_local:  return "http://localhost:8080/geocoder/";
+
+                }
+
+            } else {
+
+                return "//api.map.baidu.com/geocoder/v2/";
+
+            }
+            // if(weChat){
+            //
+            //     if(test){
+            //         return "//120.26.222.73:" + port +"/geocoder/"
+            //     } else {
+            //         return "//121.43.101.148:" + port +"/geocoder/"
+            //     }
+            //
+            // } else {
+            //
+            //     return "//api.map.baidu.com/geocoder/v2/";
+            //
+            // }
+            // return "http://localhost:8080/geocoder/";
         }
     }
 
     export function  url(){
 
         if(release){
-            if(test){
-                return "//120.26.222.73:8080/xn-forum-front";
+
+            if(weChat){
+
+                return "";
             } else {
-                return "//121.43.101.148:" + port +"/xn-forum-front";
+                return "";
             }
 
         } else {
-            return "http://localhost:8080/xn-forum-front";
+
+            switch (run_environment){
+
+                case environment.test: return "//120.26.222.73:8080/xn-forum-front";
+                case environment.develop: return "//121.43.101.148:" + port +"/xn-forum-front";
+                case environment.develop_local:  return "http://localhost:8080/xn-forum-front";
+
+            }
+
+
         }
 
     }
@@ -51,14 +96,25 @@ export namespace Release {
     export function  kefuUrl(){
 
         if(release){
-            if(test){
-                return "//120.26.222.73:8080";
-            } else  {
-                return "//121.43.101.148:" + port;
+
+            if(weChat){
+
+                return "";
+
+            } else {
+
+                return "";
             }
 
+
         } else {
-            return "http://localhost:8080";
+
+            switch (run_environment){
+                case environment.test: return "//120.26.222.73:8080";
+                case environment.develop:  return "//121.43.101.148:" + port;
+                case environment.develop_local:   return "http://localhost:8080";
+            }
+
         }
 
     }

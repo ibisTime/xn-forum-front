@@ -38,7 +38,7 @@
   </div>
 
   <!--发送界面-->
-  <input class="article-title" #titleIput [(ngModel)]="title"  placeholder="标题">
+  <input class="article-title" #titleIput [(ngModel)]="title"  placeholder="标题(选填)">
 
   <!--正文内容-->
   <!--<div *ngIf="!isEditing" class="article-content-placeholder" (input)="editing($event)">分享新鲜事...</div>-->
@@ -49,8 +49,8 @@
 
   <div class="img-list">
 
-    <div class="img-outer" *ngFor="let img of images; let i=index; trackBy:imgTrack;" [style.height]="height" [style.width]="height">
-      <img src={{img.src}}>
+    <div class="img-outer" *ngFor="let img of images;" [style.height]="height" [style.width]="height">
+      <img [src]="img.src">
       <div class="img-delete" (tap)="deleteImg(img)">删 除</div>
     </div>
 
