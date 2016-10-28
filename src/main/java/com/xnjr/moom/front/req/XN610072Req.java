@@ -7,6 +7,8 @@ public class XN610072Req {
 
     // 用户编号(选填)
     private String userId;
+    
+    private String commStatus;
 
     public String getUserId() {
         return userId;
@@ -23,4 +25,13 @@ public class XN610072Req {
     public void setCode(String code) {
         this.code = code;
     }
+
+	public String getCommStatus() {
+		return commStatus;
+	}
+
+	public void setCommStatus(String commStatus) {
+		this.commStatus = commStatus;
+	}
+    
 }

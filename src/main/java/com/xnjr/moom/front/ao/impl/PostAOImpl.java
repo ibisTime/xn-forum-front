@@ -131,10 +131,11 @@ public class PostAOImpl implements IPostAO {
      * @see com.xnjr.moom.front.ao.IPostAO#getPost(java.lang.String)
      */
     @Override
-    public Object getPost(String postCode, String userId) {
+    public Object getPost(String postCode, String userId, String commStatus) {
         XN610072Req req = new XN610072Req();
         req.setCode(postCode);
         req.setUserId(userId);
+        req.setCommStatus(commStatus);
         return BizConnecter.getBizData("610072", JsonUtils.object2Json(req),
             Object.class);
     }

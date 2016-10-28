@@ -76,11 +76,12 @@ public interface IPostAO {
      * 获取帖子详情
      * @param postCode
      * @param userId
+     * @param commStatus
      * @return 
      * @create: 2016年9月27日 下午3:54:58 xieyj
      * @history:
      */
-    public Object getPost(String postCode, String userId);
+    public Object getPost(String postCode, String userId, String commStatus);
 
     /**
      * 点赞
