@@ -426,16 +426,14 @@ public class UserAOImpl implements IUserAO {
 
     @Override
     public Object doReg(String mobile, String loginPwd, String smsCaptcha,
-            String userReferee, String province, String city, String area) {
+            String userReferee, String companyCode) {
     	XN805076Req req = new XN805076Req();
         req.setMobile(mobile);
         req.setLoginPwd(loginPwd);
         req.setLoginPwdStrength(PwdUtil.calculateSecurityLevel(loginPwd));
         req.setSmsCaptcha(smsCaptcha);
         req.setUserReferee(userReferee);
-        req.setProvince(province);
-        req.setCity(province);
-        req.setArea(area);
+        req.setCompanyCode(companyCode);
         return BizConnecter.getBizData("805076", JsonUtils.object2Json(req),
             Object.class);
     }

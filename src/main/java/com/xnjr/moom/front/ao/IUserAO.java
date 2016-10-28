@@ -253,7 +253,7 @@ public interface IUserAO {
     public Object getHpsList();
 
     public Object doReg(String mobile, String loginPwd, String smsCaptcha,
-            String userReferee, String province, String city, String area);
+            String userReferee, String companyCode);
 
     /**
      * 修改头像
