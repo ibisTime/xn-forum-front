@@ -56,6 +56,8 @@ export class CityService {
   /*自定义页的title*/
   customTitle = "";
 
+  locationSuccessAddress;
+
   /*客服引流数据*/
   kefuData = [];
   /*视频引流数据*/
@@ -138,10 +140,10 @@ export class CityService {
           "city":city.slice(0,city.length - 1) || "未知"
         }
 
-
-
         this.cityChanged(zoneObj);
-        // this.regAddress = zoneObj;
+
+        /*定位成功 存储地理位置*/
+        this.locationSuccessAddress = zoneObj;
 
 
         /*获取站点*/
@@ -211,16 +213,6 @@ export class CityService {
 
   }
 
-
-  deleteEleFromArray(datas,indexs){
-
-    /*删除已经遍历的元素*/
-    for(let i = datas.length - 1; i >= 0; i --){
-
-      datas.splice(indexs[i],1);
-
-    }
-  }
 
 
   /*code 查询导航详情*/

@@ -62,4 +62,6 @@ export class ImPage implements AfterViewInit{
   goSystemMsg(){
     this.navCtrl.push(SystemMsgPage);
   }
+
+
 }

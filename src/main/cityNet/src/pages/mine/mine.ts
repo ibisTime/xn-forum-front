@@ -16,6 +16,7 @@ import {MinePlatePage} from "./mine-plate/mine-plate";
 import {MineProperty} from "./property/mine-property";
 import {MineArticlePage} from "./mine-article/mine-article";
 import {CityService} from "../../services/city.service";
+import {ForgetPwdPage} from "../user/forgetPwd";
 
 
 @Component({
@@ -58,8 +59,7 @@ export class MinePage implements AfterViewInit{
 
     });
 
-
-
+    this.getPostNum();
 
   }
 
@@ -167,6 +167,47 @@ export class MinePage implements AfterViewInit{
   goMineProperty(){
     this.navCtrl.push(MineProperty);
   }
+
+
+
+  /*登陆注册相关*/
+  login(userName,pwd) {
+    if (userName.length <= 0) {
+      this.warnCtrl.toast("请输入登陆名");
+      return;
+    }
+
+    let params = {
+      loginName: userName,
+      loginPwd: pwd,
+      terminalType: "1"
+    }
+
+    let loading = this.warnCtrl.loading('登陆中');
+    this.userService.login(params).then(res => {
+
+      loading.dismiss().then(res => {
+
+      });
+
+    }).catch(error => {
+
+      loading.dismiss();
+
+    });
+
+  }
+
+
+  register($event) {
+    this.navCtrl.push(RegisterPage)
+  }
+
+
+  findPwd($event){
+    this.navCtrl.push(ForgetPwdPage);
+  }
+
 
 }
 

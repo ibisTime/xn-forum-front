@@ -2,22 +2,19 @@
  * Created by tianlei on 2016/10/23.
  */
 import {Injectable} from '@angular/core';
-import {App} from "ionic-angular";
+import {App, Events} from "ionic-angular";
 import {Release} from './release'
 import {MallPage} from "../pages/headline/mall/mall";
 import {IFramePage} from "../pages/headline/iframe";
 import {InAppBrowser} from 'ionic-native';
-import {JsonPipe} from "@angular/common";
-import {HttpService} from "./http.service";
 import {PlatDetailPage} from "../pages/forum/detail/platDetail";
-
 @Injectable()
 export class NavService {
 
 
     constructor(public app: App,
-                public http: HttpService
-    ) {
+                public events: Events
+               ) {
 
 
     }
@@ -35,11 +32,19 @@ export class NavService {
 
             (typeof(signingCallBack) != "undefined")&&(signingCallBack())
 
-        } else if(/page:board/ig.test(url)){
+        } else if(/page:board/ig.test(url)){//跳板块
 
 
             let bkCode = url.replace("page:board,param:","");
             nav.push(PlatDetailPage,{"code":bkCode});
+
+
+        } else if(/page:/ig.test(url)){
+
+
+            //循环引用无法跳转，发送到tabs里进行跳转
+
+            this.events.publish("transtion",url);
 
         } else {
 

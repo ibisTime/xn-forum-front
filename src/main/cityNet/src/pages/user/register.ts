@@ -140,7 +140,7 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    if(this.cityName.length <= 0){
+    if((typeof(this.cityS.locationSuccessAddress) == "undefined") && this.cityName.length <= 0){
       this.warnCtrl.toast("请选择站点");
       return;
     }
@@ -150,6 +150,11 @@ export class RegisterPage implements OnInit {
       loginPwd: pwd,
       smsCaptcha: captcha,
       loginPwdStrength: "2"
+    }
+
+    if(typeof(this.cityS.locationSuccessAddress) != "undefined"){
+      this.city = this.cityS.locationSuccessAddress;
+
     }
 
     params["province"] = this.city.province;

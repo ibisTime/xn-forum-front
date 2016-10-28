@@ -30,6 +30,8 @@ export class MineDetailPage implements AfterViewInit{
   followFlag:boolean = false;
   user;
 
+  totalPostNum = "0";
+
   @ViewChild(InfiniteScroll)  loadMoreComp:  InfiniteScroll;
   @ViewChild(Refresher)  refreshComp:  Refresher;
 
@@ -47,11 +49,21 @@ export class MineDetailPage implements AfterViewInit{
       if(userService.user){///////////////
           //1.已经登陆
           this.toUserId = params.data.publisher || params.data.userId ;
+
           this.isMe = this.toUserId == userService.userId ? true : false;
           if (!this.isMe) {
+
               this.http.get("/user",{"userId":this.toUserId}).then(res => {
 
                   this.user = res.data;
+
+              }).catch(error => {
+
+              });
+
+              this.http.get("/post/total",{"userId":this.toUserId}).then(res => {
+
+                  this.totalPostNum = res.data.totalPostNum;
 
               }).catch(error => {
 
@@ -70,6 +82,7 @@ export class MineDetailPage implements AfterViewInit{
 
           } else {
               this.user = this.userService.user;
+              this.totalPostNum = this.userService.user.totalFansNum;
           }
 
       } else {//////////////
@@ -79,6 +92,13 @@ export class MineDetailPage implements AfterViewInit{
           this.http.get("/user",{"userId":this.toUserId}).then(res => {
 
               this.user = res.data;
+
+          }).catch(error => {
+
+          });
+          this.http.get("/post/total",{"userId":this.toUserId}).then(res => {
+
+              this.totalPostNum = res.data.totalPostNum;
 
           }).catch(error => {
 
@@ -183,8 +203,16 @@ export class MineDetailPage implements AfterViewInit{
   /*聊天*/
   goChat(){
 
+      console.log(this.user);
+
       if(this.userService.user){
-          this.navCtrl.push(ChatRoomPage, this.user);
+          let user = {
+              "userId": this.user.userId,
+              "nickname": this.user.nickname,
+              "photo": this.user.userExt.photo || ""
+
+          };
+          this.navCtrl.push(ChatRoomPage, user);
       } else {
           this.navCtrl.push(LoginPage);
       }

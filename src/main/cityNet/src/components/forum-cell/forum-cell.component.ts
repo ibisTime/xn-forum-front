@@ -2,12 +2,13 @@
  * Created by tianlei on 2016/10/11.
  */
 import {Component, OnInit, Input,Output, EventEmitter} from '@angular/core';
-import {Platform, NavController, ActionSheetController} from "ionic-angular";
+import {Platform, NavController, ActionSheetController, Events, App} from "ionic-angular";
 import {WarnService} from "../../services/warn.service";
 import {HttpService} from "../../services/http.service";
 import {MineDetailPage} from "../../pages/mine/detail/detail";
 import {UserService} from "../../services/user.service";
 import {ContentPage} from "../../pages/forum/content/content";
+import {LoginPage} from "../../pages/user/login";
 
 @Component({
     selector: 'forum-cell',
@@ -30,7 +31,9 @@ export class ForumCell implements OnInit {
                 public warnCtrl: WarnService,
                 public uService : UserService,
                 public actionSheetCtrl: ActionSheetController,
-                public http: HttpService) {
+                public http: HttpService,
+                public events: Events,
+                public app: App) {
 
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
@@ -49,13 +52,29 @@ export class ForumCell implements OnInit {
         item.content = item.content.replace(/(@[^\s]*)\s/ig, "<a class='people'>$1</a>");
         this._item = item;
     }
+
     /*点击头像去详情页*/
     goDetail(article){
         this.navCtrl.push(MineDetailPage, article);
     }
 
+    /*没登录 让登陆*/
+    wetherGoLogin(){
+        if(!this.uService.user){
+           let nav = this.app.getActiveNav();
+            nav.push(LoginPage);
+            return false;
+        };
+        return true;
+    }
+
     /*收藏*/
     collect(code, flag?){
+
+        if(!this.wetherGoLogin()){
+          return;
+        };
+
         if(!this._item.collectCount){
             this._item.collectCount = 1;
             this.http.post('/post/praise',{
@@ -91,6 +110,11 @@ export class ForumCell implements OnInit {
 
     /*点赞*/
     praise(code, flag?){
+
+        if(!this.wetherGoLogin()){
+            return;
+        };
+
         if(!this._item.praiseCount){
             this._item.praiseCount = 1;
             this.http.post('/post/praise',{
@@ -168,20 +192,30 @@ export class ForumCell implements OnInit {
 
     showImg(ev){
         if( ev.target.nodeName.match(/^img$/i)){
+
+
             let img = ev.target;
-            let sDiv = document.getElementById("ylImg");
-            sDiv.className = sDiv.className.replace(/\s*hidden\s*/, "");
-            document.getElementById("yl-img").setAttribute("src", img.src);
+            // let sDiv = document.getElementById("ylImg");
+            // sDiv.className = sDiv.className.replace(/\s*hidden\s*/, "");
+            // document.getElementById("yl-img").setAttribute("src", img.src);
+
+            //把图片发送出去
+            this.events.publish("displayImg",img.src);
         }
         ev.stopPropagation();
     }
-
-    closeImg(){
-        let sDiv = document.getElementById("ylImg");
-        sDiv.className = sDiv.className + "hidden";
-    }
+    //
+    // closeImg(){
+    //     let sDiv = document.getElementById("ylImg");
+    //     sDiv.className = sDiv.className + "hidden";
+    // }
 
     tapComment(commer, code){
+
+        if(!this.wetherGoLogin()){
+            return;
+        };
+
         let buttons = [
             {
                 text: '举报',

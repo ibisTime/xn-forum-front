@@ -109,6 +109,7 @@ export class MyApp {
 
     }, error => {
 
+        this.warn.toast("定位失败，将切换到默认站点");
       this.getDataByPosition(0,0,loadNav);
 
     }, {timeout: 10000});

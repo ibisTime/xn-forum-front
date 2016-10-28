@@ -57,6 +57,11 @@ export class SearchUserAndArticlePage implements AfterViewInit {
   }
 
   goUserDetail(item){
+    // let user = {
+    //   "userName": item.userName,
+    //   "userId": item.uesrId,
+    //   "photo":item.userExt.photo || ""
+    // };
     this.navCtrl.push(MineDetailPage,item);
   }
 

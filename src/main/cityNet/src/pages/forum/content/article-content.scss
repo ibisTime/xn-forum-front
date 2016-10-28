@@ -88,7 +88,38 @@
 
   }
 
+}
+
+.forum-foot button{
+  color: #464646;
+  background: #fff;
+  border: none;
+  border-radius: 4px;
+  margin: 0 0.4rem;
+  flex: none;
+}
+.forum-foot .bootomInput{
+
+  padding: 3px;
+  button{
+    color: #464646;
+    background: #fff;
+    border: none;
+    border-radius: 4px;
+    margin: 0 0.4rem;
+    flex: none;
+  }
+  a{
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin-left: 5px;
+    background-color: $navbar-color;
+    color: white;
+  }
 
 }
 
+//.content-bottom{
+//
+//}
 

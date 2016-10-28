@@ -43,7 +43,7 @@ export class ChatRoomPage implements AfterViewInit {
     /*把user 对象传送过来*/
     this.listOfChatData = this.imServe.getDataByFromName(params.data.userId);
     this.otherImg = params.data.photo || "assets/images/marty-avatar.png";
-
+   console.log( params.data.photo );
     //1.哪到导航数据就去获取信息
     this.imServe.imTextMessageInner = msg => {
 
@@ -107,6 +107,7 @@ export class ChatRoomPage implements AfterViewInit {
       "nickname":this.userService.user.nickname,
       "photo": this.userService.user.userExt.photo || ""
     };
+    console.log(ext);
     this.imServe.sendTextMsg(msg,this.params.data.userId,ext, (id, serverMsgId) => {
 
       load.dismiss();

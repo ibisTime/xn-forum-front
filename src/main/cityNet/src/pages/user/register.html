@@ -40,7 +40,7 @@
       <ion-input #rePwd type="password"></ion-input>
     </ion-item>
 
-    <div style="position: relative;">
+    <div style="position: relative;" *ngIf="cityS.locationSuccessAddress == null">
       <ion-item >
       <ion-label floating>选择站点</ion-label>
       <ion-input  [(ngModel)]="cityName"></ion-input>
@@ -51,6 +51,11 @@
   </ion-list>
 
 
+  <div class="hint">
+    注册成功后将生成一个登录名，格式为
+    <span>CSW + 手机号</span>
+    您可以使用这个登录名进行登录
+  </div>
 
   <div text-center class="register-div">
     <button type="button" class="register-btn" (click)="register(account.value,chptcha.value,pwd.value,rePwd.value)" >注册</button>

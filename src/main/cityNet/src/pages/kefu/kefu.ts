@@ -1,7 +1,7 @@
 /**
  * Created by tianlei on 16/8/24.
  */
-import {Component, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, ViewChild, AfterViewInit, SkipSelf} from '@angular/core';
 import {NavController, Content, TextInput, Events} from 'ionic-angular'
 import {KefuService} from "../../services/kefu.serve";
 import {Satisfaction} from "./satisfaction";

@@ -4,7 +4,6 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../../../services/http.service";
 
-
 export class Start {
     start;
     constructor(start){

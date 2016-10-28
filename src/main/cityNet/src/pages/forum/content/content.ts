@@ -47,13 +47,17 @@ export class ContentPage {
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.pHeight = `${this.platform.height()}px`;
         this.code = navPara.data.code;
-        this.toUser = navPara.data.publisher || "";
+        this.toUser = navPara.data.publisher;
         this.isMe = this.toUser == uService.userId ? true: false;
-        this.getPostDetail();
+        // this.getPostDetail();
+
+        /*列表帖子数据与详情没有区别*/
+        this.item = navPara.data;
+
         if(uService.user && uService.user.userId){
             this.isLogin = true;
-            uService.queryFollowUsers()
-                .then(()=>{
+            uService.queryFollowUsers().then(()=>{
+
                     let fUs = this.uService.followUsers;
                     for(let f of fUs){
                         if(this.toUser == f.userId){
@@ -61,12 +65,19 @@ export class ContentPage {
                             break;
                         }
                     }
-                });
 
+                });
         }
+
   }
   //关注
   follow(publisher){
+
+      if(!this.uService.user){
+          this.navCtrl.push(LoginPage);
+          return;
+      }
+
       if(!this.followCount){
             this.followCount = 1;
             this.http.post('/rs/follow',{
@@ -74,11 +85,8 @@ export class ContentPage {
             })
             .then((res) => {
                 this.followCount = 0;
-                if(res.success){
-                    this.followFlag = true;
-                }else{
-                    this.warnCtrl.toast("关注失败，请稍后重试!");
-                }
+                this.followFlag = true;
+
             }).catch(error => {
                 this.followCount = 0;
                 this.warnCtrl.toast("关注失败，请稍后重试!");
@@ -87,18 +95,22 @@ export class ContentPage {
   }
   //取消关注
   unfollow(publisher){
+
+      if(!this.uService.user){
+          this.navCtrl.push(LoginPage);
+          return;
+      }
+
       if(!this.followCount){
             this.followCount = 1;
             this.http.post('/rs/unfollow',{
                 "toUser": publisher
                 })
                 .then((res) => {
+
                     this.followCount = 0;
-                    if(res.success){
-                        this.followFlag = false;
-                    }else{
-                        this.warnCtrl.toast("取消关注失败，请稍后重试!");
-                    }
+                    this.followFlag = false;
+
                 }).catch(error => {
                     this.followCount = 0;
                     this.warnCtrl.toast("取消关注失败，请稍后重试!");
@@ -106,6 +118,7 @@ export class ContentPage {
       }
   }
   deleteTz(code){
+
       if(!this.deleteCount){
           this.deleteCount = 1;
           this.http.post('/post/delete',{
@@ -125,6 +138,12 @@ export class ContentPage {
   }
   //收藏
   collect(code, flag?){
+
+      if(!this.uService.user){
+          this.navCtrl.push(LoginPage);
+          return;
+      }
+
       if(this.isLogin){
           if(!this.collectCount){
             this.collectCount = 1;
@@ -157,7 +176,12 @@ export class ContentPage {
   }
   //点赞
   praise(code, flag?){
-      if(this.isLogin){
+
+      if(!this.uService.user){
+          this.navCtrl.push(LoginPage);
+          return;
+      }
+
         if(!this.praiseCount){
             this.praiseCount = 1;
             this.http.post('/post/praise',{
@@ -194,15 +218,21 @@ export class ContentPage {
                     // }
                 });
         }
-      }else{
-            let currentNav = this.app.getActiveNav();
-            currentNav.push(LoginPage);
-      }
+
 
   }
-  sendMsg1(event, msg){
-      let code = event.charCode || event.keyCode;
-      if(code == 13 && msg != null && msg.trim() !== ""){
+  sendMsg1(msg){
+
+      if(!this.uService.user){
+
+          this.navCtrl.push(LoginPage);
+          return;
+
+      };
+      console.log(msg);
+
+      // let code = event.charCode || event.keyCode;
+      if(msg != null && msg.trim() !== ""){
            let mObj = {
                 parentCode: this.item.code,
                 content: msg
@@ -220,7 +250,10 @@ export class ContentPage {
 
                 });
       }
+
   }
+
+
   getPostDetail(){
       this.http.get('/post/get',{
           "postCode": this.code
@@ -231,7 +264,9 @@ export class ContentPage {
                 this.item = data;
 
         }).catch(error => {
+
         });
+
   }
   goUserDetail(event){
       if(event.target.className == "people"){
@@ -243,15 +278,13 @@ export class ContentPage {
   showImg(ev){
       if( ev.target.nodeName.match(/^img$/i) ){
           let img = ev.target;
-          let sDiv = document.getElementById("ylImg2");
-          sDiv.className = sDiv.className.replace(/\s*hidden\s*/, "");
-          document.getElementById("yl-img2").setAttribute("src", img.src);
+          // let sDiv = document.getElementById("ylImg2");
+          // sDiv.className = sDiv.className.replace(/\s*hidden\s*/, "");
+          // document.getElementById("yl-img2").setAttribute("src", img.src);
+          this.events.publish("displayImg",img.src);
       }
   }
-  closeImg(){
-      let sDiv = document.getElementById("ylImg2");
-      sDiv.className = sDiv.className + " hidden";
-  }
+
   doFocus1(e){
       setTimeout(()=>{
           window.scrollTo(0, 1000);
@@ -259,7 +292,13 @@ export class ContentPage {
   }
   //更多
   presentActionSheet() {
-    let scFlag = this.item.isSC == "1" ? true: false;
+
+      if (!this.uService.user) {
+          this.navCtrl.push(LoginPage);
+          return;
+      }
+
+      let scFlag = this.item.isSC == "1" ? true : false;
     let buttons = [
         {
           text: '分享',
@@ -297,8 +336,11 @@ export class ContentPage {
     });
     actionSheet.present();
   }
+
   //打赏
   gratuity() {
+
+
     let prompt = this.alertCtrl.create({
       title: '打赏',
       message: "",
@@ -381,6 +423,7 @@ export class ContentPage {
     });
     prompt.present();
   }
+
   //阅读帖子
   read(){
        this.http.post('/post/read',{

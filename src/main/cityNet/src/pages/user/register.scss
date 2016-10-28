@@ -102,5 +102,12 @@ $percentage: 85%;
     bottom: 0px;
     background-color: rgba(0,0,0,0);
   }
+  
+  .hint{
+    padding: 0 14px;
+    span{
+      color: $navbar-color;
+    }
+  }
 
 }

@@ -26,12 +26,15 @@
                                     <h2>{{item.nickname}}</h2>
                                     <p class="time">{{item.publishDatetime | forumDate}}</p>
                                     <div class="inblock" *ngIf="!isMe">
+                                        <!--{{followFlag?'hidden':''}}-->
                                         <button outline small class="origin content-btn {{followFlag?'hidden':''}}"
                                                 (click)="follow(item.publisher)">+关注
                                         </button>
-                                        <button outline small class="origin content-btn {{followFlag?'':'hidden'}}"
+
+                                        <button outline small class="origin content-btn" [class.hidden]="followFlag"
                                                 (click)="unfollow(item.publisher)">取消关注
                                         </button>
+
                                     </div>
                                 </div>
                                 <ion-card-content>
@@ -124,19 +127,12 @@
     </div>
 
 </ion-content>
-<div id="ylImg2" class="mask hidden" (click)="closeImg();">
-    <div>
-        <div class="wrapper">
-            <div class="scroller" [style.line-height]="pHeight">
-                <img id="yl-img2"/>
-            </div>
-        </div>
-    </div>
-</div>
-<ion-footer class="nextpage-foot forum-foot" *ngIf="item != null">
-    <div class="bootomInput">
-      <ion-input #msgInput1 [(ngModel)]="inputValue" (focus)="doFocus1($event)" (keyup)="sendMsg1($event,msgInput1.value)" placeholder="回个话鼓励下楼主"></ion-input>
-      <!--<a (click)="sendMsg1(msgInput1.value)">发送</a>-->
+
+<ion-footer class="forum-foot" *ngIf="item != null">
+    <!--class="bootomInput"-->
+    <div class="bootomInput ">
+      <ion-input #msgInput1 [(ngModel)]="inputValue" (focus)="doFocus1($event)" placeholder="回个话鼓励下楼主"></ion-input>
+      <a (click)="sendMsg1(msgInput1.value)">发送</a>
       <button class="fl {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code)">
         <i class="icon iconfont">&#xe624;</i>
       </button>

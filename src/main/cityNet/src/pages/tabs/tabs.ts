@@ -5,7 +5,7 @@ import {MinePage} from "../mine/mine";
 import {KefuPage} from "../kefu/kefu";
 import {VideoPage} from "../video/video";
 
-import {Tabs, Events} from 'ionic-angular';
+import {Tabs, Events, Platform, App} from 'ionic-angular';
 import {IMService} from "../../services/im.service";
 import {CityService} from "../../services/city.service";
 import {HttpService} from "../../services/http.service";
@@ -26,14 +26,18 @@ export class TabsPage {
   tabItems = [];
   @ViewChild(Tabs) tabs: Tabs;
   signinDisplay = "none";
+  pHeight;
   constructor(
               public imServe: IMService,
               public cityS: CityService,
               public http: HttpService,
-              public events: Events) {
+              public events: Events,
+              public  platform: Platform,
+              public app: App) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
     this.changeTab();
+    this.pHeight = `${this.platform.height()}px`;
     this.events.subscribe("city:change",res => {
 
       this.changeTab();
@@ -64,6 +68,32 @@ export class TabsPage {
         this.signinDisplay = "none";
 
       },2000);
+
+    });
+
+    /*展示图片*/
+    this.events.subscribe("displayImg",res => {
+
+      let sDiv = document.getElementById("ylImg");
+      sDiv.className = sDiv.className.replace(/\s*hidden\s*/, "");
+      document.getElementById("yl-img").setAttribute("src", res);
+
+    });
+
+
+    this.events.subscribe("transtion",res => {
+
+      let tabDict = {
+        "page:headline" : HeadlinePage,
+        "page:forum" : ForumPage,
+        "page:xiaomi" : KefuPage,
+        "page:custom" : VideoPage,
+        "page:mine" : MinePage
+      }
+
+      let page = tabDict[res];
+      let nav = this.app.getActiveNav();
+      nav.push(page);
 
     });
 
@@ -106,6 +136,14 @@ export class TabsPage {
     }
 
   }
+
+
+
+  closeImg(){
+    let sDiv = document.getElementById("ylImg");
+    sDiv.className = sDiv.className + "hidden";
+  }
+
 
 }
 

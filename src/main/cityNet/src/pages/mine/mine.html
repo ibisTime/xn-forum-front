@@ -13,9 +13,28 @@
 <ion-content class="mine">
 
   <!--登陆之前-->
-  <div class="login-register-outer" *ngIf="!userService.user">
-     <button class="login-btn" (click)="goLogin()">登录</button>
-     <button class="register-btn" (click)="goReg()">注册</button>
+  <!--<div class="login-register-outer" *ngIf="!userService.user">-->
+     <!--<button class="login-btn" (click)="goLogin()">登录</button>-->
+     <!--<button class="register-btn" (click)="goReg()">注册</button>-->
+  <!--</div>-->
+  <div class="login" *ngIf="!userService.user">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>账号</ion-label>
+        <ion-input #userName type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>密码</ion-label>
+        <ion-input #pwd type="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div text-center class="login-div">
+      <button class="loginBtn" (click)="login(userName.value,pwd.value)">登录</button>
+    </div>
+    <div class="registerAndLogin">
+      <button class="registerBtn" (click)="register($event)">注册</button>
+      <button class="findPwdBtn" (click)="findPwd($event)" no-padding>找回密码</button>
+    </div>
   </div>
 
 

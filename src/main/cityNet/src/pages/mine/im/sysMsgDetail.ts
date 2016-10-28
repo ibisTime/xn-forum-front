@@ -16,11 +16,11 @@ import {NavParams} from "ionic-angular";
 </ion-header>
 
 <ion-content style="background-color: white;">
- <div [innerHTML]="detail.content"></div>
+ <div [innerHTML]="detail.content" style="padding: 0px 10px;"></div>
 </ion-content >
     `
-
 })
+
 export class SysMsgDetailPage implements OnInit {
 
     detail;
