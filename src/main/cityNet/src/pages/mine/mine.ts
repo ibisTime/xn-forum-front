@@ -59,7 +59,10 @@ export class MinePage implements AfterViewInit{
 
     });
 
-    this.getPostNum();
+
+    if(this.userService.user){
+      this.getPostNum();
+    }
 
   }
 
@@ -70,15 +73,12 @@ export class MinePage implements AfterViewInit{
 
   goLogin(){
 
-   // let model = this.modelCtrl.create(LoginPage);
-   //  model.present();
     this.navCtrl.push(LoginPage);
 
   }
 
   goReg(){
-    // let model = this.modelCtrl.create(RegisterPage,{"hidden": true});
-    // model.present();
+
     this.navCtrl.push(RegisterPage,{"hidden": true});
   }
 
@@ -173,7 +173,7 @@ export class MinePage implements AfterViewInit{
   /*登陆注册相关*/
   login(userName,pwd) {
     if (userName.length <= 0) {
-      this.warnCtrl.toast("请输入登陆名");
+      this.warnCtrl.toast("请输入登录名");
       return;
     }
 
@@ -183,7 +183,7 @@ export class MinePage implements AfterViewInit{
       terminalType: "1"
     }
 
-    let loading = this.warnCtrl.loading('登陆中');
+    let loading = this.warnCtrl.loading('登录中');
     this.userService.login(params).then(res => {
 
       loading.dismiss().then(res => {

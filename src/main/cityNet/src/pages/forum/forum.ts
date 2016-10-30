@@ -54,6 +54,7 @@ export class ForumPage {
                     }
                 }
             });
+      /*城市变更刷新*/
       this.events.subscribe('user:cityChange',() => {
 
           this.start = 1;
@@ -62,6 +63,20 @@ export class ForumPage {
           this.queryPostPage();
 
       });
+
+      /*发帖陈功刷新*/
+      this.events.subscribe("user:postSuccess",() => {
+          //是用户所属当前区域
+          if(this.cityService.currentCity.code == this.userService.user.companyCode){
+
+              this.start = 1;
+              this.limit = 10;
+              this.items = [];
+              this.queryPostPage();
+          };
+
+      });
+
   }
   showLogin(){
     let modelCtrl = this.mCtrl.create(LoginPage);

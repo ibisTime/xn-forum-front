@@ -73,14 +73,11 @@ export class EndDateChoose implements OnInit {
         if(this.endDate.length > 0){
 
             let array = this.endDate.split("-");
-            console.log(array);
             let year = +array[0];
             let month = +array[1];
             let day = +array[2];
             let date =new Date(year,month,day);
-            console.log(date);
             let sec = date.getTime()/1000;
-            console.log(sec);
             if(this.navParams.data.type == "top"){
                 this.top(sec);
             } else {

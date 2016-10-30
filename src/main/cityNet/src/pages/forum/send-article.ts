@@ -2,7 +2,7 @@
  * Created by tianlei on 16/9/22.
  */
 import {Component, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
-import {ViewController, Platform, ModalController, NavParams} from "ionic-angular";
+import {ViewController, Platform, ModalController, NavParams, Events} from "ionic-angular";
 import {HttpService} from "../../services/http.service";
 import {UserService} from "../../services/user.service";
 import {WarnService} from "../../services/warn.service";
@@ -40,11 +40,12 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   constructor(public viewCtrl: ViewController,
               public platform: Platform,
               public http: HttpService,
-              public user: UserService,
+              public userS: UserService,
               public warn: WarnService,
               public cityS: CityService,
               public model: ModalController,
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              public events: Events) {
 
     this.height = `${(this.platform.width() - 10)/4.0}px`;
 
@@ -57,7 +58,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       this.topicCode = navParams.data.plateCode;
 
       let obj = {
-        "siteCode": this.cityS.currentCity.code
+        "siteCode": this.userS.user.companyCode
       };
       this.http.get("/plate/list",obj).then(res => {
 
@@ -215,7 +216,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     }
 
 
-    if(this.topicCode.length <= 0){
+    if(!((typeof(this.topicCode) != "undefined") && this.topicCode.length > 0)){
       this.warn.alert('请选择板块');
       return;
     }
@@ -329,7 +330,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
       }).catch(error => {
         load.dismiss();
-        this.warn.toast(failureStr);
+        // this.warn.toast(failureStr);
 
       });
 
@@ -344,6 +345,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       if((typeof (titleIput.value) != "undefined") &&(titleIput.value.length > 0)){
         articleObj["title"] = titleIput.value;
       }
+
       //草稿
       if(typeof(this.draftCode) != "undefined"){
         articleObj["code"] = this.draftCode;
@@ -356,10 +358,12 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
            this.viewCtrl.dismiss(true);
          })
 
+         this.events.publish("user:postSuccess");
+
 
        }).catch(error => {
          load.dismiss();
-         this.warn.toast(failureStr);
+         // this.warn.toast(failureStr);
        });
     }
   }
@@ -378,12 +382,11 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
     /*改成只能在当前用户所属区域发帖*/
     let obj = {
-      "siteCode": this.cityS.currentCity.code
+      "siteCode": this.userS.user.companyCode
     };
 
     this.http.get("/plate/list",obj).then(res => {
 
-      console.log(res);
       this.topicItems = res.data;
       load.dismiss().then(res => {
         this.showTopicDashboard = !this.showTopicDashboard;

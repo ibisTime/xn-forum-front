@@ -38,7 +38,6 @@ interface navObj{
   url?;
 }
 
-
 @Injectable()
 export class CityService {
 
@@ -57,6 +56,7 @@ export class CityService {
   customTitle = "";
 
   locationSuccessAddress;
+  locationSuccessAddressCode;
 
   /*客服引流数据*/
   kefuData = [];
@@ -81,7 +81,7 @@ export class CityService {
 
 
   getCity(){
-  // ,{"priority":"1"}
+
    return this.http.get('/site/list').then( res => {
 
       if(res["data"] instanceof Array ){
@@ -100,15 +100,13 @@ export class CityService {
     });
   }
 
-  getDetail(code){
-
-    this.http.get('/site/detail',{"code":code}).then( res => {
-      console.log(res);
-    }).catch(() => {
-
-    });
-
-  }
+  // getDetail(code){
+  //
+  //   this.http.get('/site/detail',{"code":code}).then( res => {
+  //
+  //   });
+  //
+  // }
 
   /*通过经纬度直接获取导航*/
   getNavByBaiduMap(longitude, latitude){
@@ -121,7 +119,6 @@ export class CityService {
         "city": "未知"
       }
 
-      // this.regAddress = zoneObj;
 
       return this.getSiteByAddress(zoneObj);
 
@@ -145,17 +142,17 @@ export class CityService {
         /*定位成功 存储地理位置*/
         this.locationSuccessAddress = zoneObj;
 
-
         /*获取站点*/
         return this.getSiteByAddress(zoneObj);
 
       });
+
     }
 
 
   }
 
-  /*城市改变 进行更新*/
+  /*城市改变 进行更新存储*/
   cityChanged(zoneObj){
 
     //如果数据库中有的话进行比对
@@ -171,7 +168,6 @@ export class CityService {
 
         //如果没有的话添加进数据库
         this.storage.set("zoneObj",zoneObj);
-
       }
 
     });
@@ -208,12 +204,28 @@ export class CityService {
       this.currentCity = res["data"];
 
       let data = res["data"];
+
+      /*定位成功 存储code*/
+      if(typeof(this.locationSuccessAddress) != "undefined"){
+        this.locationSuccessAddressCode = data["code"];
+      }
+
       return this.getNavigateBySiteCode(data["code"]);
     });
 
   }
 
+  /*code查询站点详情*/
+  getSiteInfo(siteCode){
 
+   return this.http.get("/site/detail",{"code":siteCode}).then(res => {
+
+     this.currentCity = res.data;
+     return this.currentCity;
+
+    });
+
+  }
 
   /*code 查询导航详情*/
   getNavigateBySiteCode(siteCode){

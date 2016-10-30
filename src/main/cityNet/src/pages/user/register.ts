@@ -16,7 +16,7 @@ import {CityChoosePage} from "../headline/city-choose";
 export class RegisterPage implements OnInit {
 
   cityName = "";
-  citycode;
+  citycode = "";
   city;
   captchaValue;
   userNameValue;
@@ -118,7 +118,7 @@ export class RegisterPage implements OnInit {
       }
 
     }).catch((error) => {
-      this.warnCtrl.toast('验证码发送失败，请稍后重试!');
+
     });
 
   }
@@ -140,7 +140,7 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    if((typeof(this.cityS.locationSuccessAddress) == "undefined") && this.cityName.length <= 0){
+    if((typeof(this.cityS.locationSuccessAddressCode) == "undefined") && this.citycode.length <= 0){
       this.warnCtrl.toast("请选择站点");
       return;
     }
@@ -148,24 +148,17 @@ export class RegisterPage implements OnInit {
     let params = {
       mobile : userName,
       loginPwd: pwd,
-      smsCaptcha: captcha,
-      loginPwdStrength: "2"
+      smsCaptcha: captcha
     }
 
-    if(typeof(this.cityS.locationSuccessAddress) != "undefined"){
-      this.city = this.cityS.locationSuccessAddress;
+    if(typeof(this.cityS.locationSuccessAddressCode) != "undefined" && this.cityS.locationSuccessAddressCode.length > 0){
+
+      this.citycode = this.cityS.locationSuccessAddressCode;
 
     }
 
-    params["province"] = this.city.province;
-    params["city"] = this.city.city;
-    params["area"] = this.city.area;
+    params["companyCode"] = this.citycode;
 
-    // if(typeof(this.cityS.regAddress != "undefined")){
-    //   params["province"] = this.cityS.regAddress.province;
-    //   params["city"] = this.cityS.regAddress.city;
-    //   params["area"] = this.cityS.regAddress.area;
-    // }
 
 
     /*注册*/
@@ -174,11 +167,6 @@ export class RegisterPage implements OnInit {
 
       loading.dismiss().then(res =>{
 
-
-        // this.user.registerHelper = true;
-        // this.viewCtrl.dismiss({"success":true}).then(res => {
-        //
-        // });
         this.navCtrl.popToRoot();
 
       });

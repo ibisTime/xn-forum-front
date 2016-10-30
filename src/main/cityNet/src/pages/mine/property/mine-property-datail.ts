@@ -9,11 +9,11 @@ import {NavParams, Platform} from "ionic-angular";
 })
 export class MinePropertyDetail implements OnInit {
 
-    item;
+    product;
     imgHeight;
     constructor(public navParams: NavParams,
                 public platform: Platform) {
-        this.item = navParams.data;
+        this.product = navParams.data;
         this.imgHeight = `${this.platform.width()*2/4.0}px`;
     }
 

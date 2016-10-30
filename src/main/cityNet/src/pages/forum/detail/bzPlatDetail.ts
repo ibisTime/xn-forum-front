@@ -51,6 +51,11 @@ export class BZPlatDetailPage {
 
     refresh(){
 
+        this.http.get("/plate/info",{"code":this.plate.code}).then(res => {
+            this.plate = res.data;
+        }).catch(error => {
+
+        });
         this.pageDataService.refresh(() => {
         });
     }

@@ -18,7 +18,6 @@ export class LoginPage  {
   fromReg = false;
   constructor(
               public uService: UserService,
-              // public uService: UserService,
               public navCtrl: NavController,
               public platform: Platform,
               public warnCtrl : WarnService,
@@ -47,7 +46,7 @@ export class LoginPage  {
 
   login(userName,pwd) {
     if (userName.length <= 0) {
-      this.warnCtrl.toast("请输入登陆名");
+      this.warnCtrl.toast("请输入登录名");
       return;
     }
 
@@ -57,7 +56,7 @@ export class LoginPage  {
       terminalType: "1"
     }
 
-    let loading = this.warnCtrl.loading('登陆中');
+    let loading = this.warnCtrl.loading('登录中');
     this.uService.login(params).then(res => {
 
       loading.dismiss().then(res => {
@@ -73,7 +72,6 @@ export class LoginPage  {
     }).catch(error => {
 
       loading.dismiss();
-      //this.warnCtrl.toast('登陆失败');
 
     });
 

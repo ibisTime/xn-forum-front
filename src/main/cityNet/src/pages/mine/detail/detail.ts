@@ -23,7 +23,7 @@ export class MineDetailPage implements AfterViewInit{
   // appendCount = 0;
 
   toUserId = "";
-  isMe = true;
+  isMe = false;
   totalCount = 0;
   // watchTz = false;
   followCount: number = 0;
@@ -53,13 +53,7 @@ export class MineDetailPage implements AfterViewInit{
           this.isMe = this.toUserId == userService.userId ? true : false;
           if (!this.isMe) {
 
-              this.http.get("/user",{"userId":this.toUserId}).then(res => {
-
-                  this.user = res.data;
-
-              }).catch(error => {
-
-              });
+              this.getUserInfoButMe();
 
               this.http.get("/post/total",{"userId":this.toUserId}).then(res => {
 
@@ -89,13 +83,9 @@ export class MineDetailPage implements AfterViewInit{
 
           //2.还没有登录
           this.toUserId = params.data.publisher || params.data.userId;
-          this.http.get("/user",{"userId":this.toUserId}).then(res => {
 
-              this.user = res.data;
+          this.getUserInfoButMe();
 
-          }).catch(error => {
-
-          });
           this.http.get("/post/total",{"userId":this.toUserId}).then(res => {
 
               this.totalPostNum = res.data.totalPostNum;
@@ -106,13 +96,21 @@ export class MineDetailPage implements AfterViewInit{
 
       }
 
+  }
 
 
+  getUserInfoButMe(){
 
+      this.http.get("/user",{"userId":this.toUserId}).then(res => {
 
+          this.user = res.data;
 
+      }).catch(error => {
+
+      });
 
   }
+
 
   ngAfterViewInit(){
 
@@ -154,8 +152,10 @@ export class MineDetailPage implements AfterViewInit{
             this.followCount = 1;
             this.http.post('/rs/follow',{
                 "toUser": this.toUserId
-            })
-            .then((res) => {
+            }).then((res) => {
+
+                //关注陈功粉丝加  1
+                this.user.totalFansNum = `${(+this.user.totalFansNum) + 1}`;
 
                 this.followCount = 0;
                 this.followFlag = true;
@@ -178,10 +178,12 @@ export class MineDetailPage implements AfterViewInit{
             this.followCount = 1;
             this.http.post('/rs/unfollow',{
                 "toUser": this.toUserId
-                })
-                .then((res) => {
+                }).then((res) => {
+
+                this.user.totalFansNum = `${(+this.user.totalFansNum) - 1}`;
+
                     this.followCount = 0;
-                        this.followFlag = false;
+                    this.followFlag = false;
 
                 }).catch(error => {
                     this.followCount = 0;
@@ -192,6 +194,7 @@ export class MineDetailPage implements AfterViewInit{
   doRefresh(){
 
      this.pageDataService.refresh();
+     this.getUserInfoButMe();
   }
 
   doAppendData(){
@@ -203,19 +206,21 @@ export class MineDetailPage implements AfterViewInit{
   /*聊天*/
   goChat(){
 
-      console.log(this.user);
 
-      if(this.userService.user){
-          let user = {
-              "userId": this.user.userId,
-              "nickname": this.user.nickname,
-              "photo": this.user.userExt.photo || ""
+      if(!this.userService.user){
 
-          };
-          this.navCtrl.push(ChatRoomPage, user);
-      } else {
           this.navCtrl.push(LoginPage);
+          return;
       }
+
+      let user = {
+          "userId": this.user.userId,
+          "nickname": this.user.nickname,
+          "photo": this.user.userExt.photo || ""
+
+      };
+      this.navCtrl.push(ChatRoomPage, user);
+
 
   }
 

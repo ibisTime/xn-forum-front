@@ -42,7 +42,7 @@ export class ContentPage {
               public app: App,
               public events: Events) {
 
-      this.read();
+        this.read();
 
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.pHeight = `${this.platform.height()}px`;
@@ -54,7 +54,7 @@ export class ContentPage {
         /*列表帖子数据与详情没有区别*/
         this.item = navPara.data;
 
-        if(uService.user && uService.user.userId){
+        if(uService.user){
             this.isLogin = true;
             uService.queryFollowUsers().then(()=>{
 
@@ -89,7 +89,6 @@ export class ContentPage {
 
             }).catch(error => {
                 this.followCount = 0;
-                this.warnCtrl.toast("关注失败，请稍后重试!");
             });
       }
   }
@@ -113,7 +112,6 @@ export class ContentPage {
 
                 }).catch(error => {
                     this.followCount = 0;
-                    this.warnCtrl.toast("取消关注失败，请稍后重试!");
                 });
       }
   }

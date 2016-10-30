@@ -23,7 +23,8 @@ export interface User{
   status?,
   totalFansNum?,
   totalFollowNum?,
-  userExt?
+  userExt?,
+  companyCode?
 
 }
 

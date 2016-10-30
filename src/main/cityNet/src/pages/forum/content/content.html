@@ -31,7 +31,7 @@
                                                 (click)="follow(item.publisher)">+关注
                                         </button>
 
-                                        <button outline small class="origin content-btn" [class.hidden]="followFlag"
+                                        <button outline small class="origin content-btn {{followFlag? '':'hidden'}}"
                                                 (click)="unfollow(item.publisher)">取消关注
                                         </button>
 

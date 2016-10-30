@@ -98,6 +98,7 @@ export class SearchUserAndArticlePage implements AfterViewInit {
 
     }).catch(error => {
 
+      load.dismiss();
 
     });
 

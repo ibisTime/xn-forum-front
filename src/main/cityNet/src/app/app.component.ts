@@ -55,8 +55,25 @@ export class MyApp {
       //     this.getNav();
       // });
 
-    /*获取导航数据*/
-    this.getNav();
+    /*判断是否已经登陆*/
+    this.userServe.whetherLogin().then(res => {
+
+        if (res != null) {////////////////////
+
+           this.getInfoAlreadyLogin();
+
+        } else  {////////////////////////////
+
+            /*获取导航数据*/
+            this.getNav();
+
+        }////////////////////////////
+
+
+    }).catch(error => {
+
+
+    });
 
     /*登陆超时重新登陆*/
     this.events.subscribe('user:timeout',() => {
@@ -67,15 +84,13 @@ export class MyApp {
         if(!(vc.instance instanceof LoginPage)){
 
             this.userServe.loginOut();
-            this.warn.toast('请重新登陆');
+            this.warn.toast('请重新登录');
             this.im.close();
 
             if(currentNav != null && typeof(currentNav) != "undefined"){
                 currentNav.push(LoginPage);
             }
-
         }
-
     });
 
 
@@ -90,14 +105,92 @@ export class MyApp {
 
     });
 
+
     this.events.subscribe('user:nouser',() => {
+
        this.userServe.loginOut();
+       this.imServe.close();
+
     });
+
+
+  }
+
+  getInfoAlreadyLogin(){
+
+      let load = this.warn.loading();
+      /*获取站点详情*/
+      this.cityService.getSiteInfo(this.userServe.user.companyCode).then(res => {
+
+          //获取导航信息
+          return this.cityService.getNavigateBySiteCode(this.userServe.user.companyCode);
+
+
+      }).then(res => {
+
+          /*客服*/
+          this.kefuService.me = this.userServe.userId;
+
+          /*im登陆*/
+          this.imServe.login(this.userServe.userId);
+
+          /*类 session 登陆*/
+          return this.http.post('/user/login-t', {"tokenId": this.userServe.tokenId});
+
+
+      }).then(res => {
+
+          load.dismiss();
+
+          if(this.cityService.ads.length > 0){
+
+              let num = setInterval(() => {
+
+                  if(this.time > 0){
+                      this.time --;
+                  }
+
+              },1200);
+
+              setTimeout(res => {
+
+                  this.adDisplay = 'none';
+                  window.clearInterval(num);
+
+                  this.rootPage = TabsPage;
+
+
+              },this.time*1500);
+
+
+          }  else  {
+
+              //无图直接跳转
+              this.rootPage = TabsPage;
+          }
+
+          /*异步更新用户数据*/
+          this.http.get('/user').then(res => {
+              this.userServe.user = res.data;
+          }).catch(error => {
+
+          });
+
+
+      }).catch(error => {
+
+          load.dismiss();
+          this.warn.alert("加载失败，请重新加载",() => {
+              this.getInfoAlreadyLogin();
+          });
+
+      });
+
 
   }
 
 
-
+  /*用户还未登陆*/
   getNav(){
 
     let loadNav = this.warn.loading("");
@@ -109,11 +202,10 @@ export class MyApp {
 
     }, error => {
 
-        this.warn.toast("定位失败，将切换到默认站点");
+      this.warn.toast("定位失败，将切换到默认站点");
       this.getDataByPosition(0,0,loadNav);
 
     }, {timeout: 10000});
-  // , {timeout: 10000}
 
   }
 
@@ -135,17 +227,19 @@ export class MyApp {
 
          setTimeout(res => {
 
-          // document.getElementById('ad-bg').style.animation = "adbg-animaton 1s";
           this.adDisplay = 'none';
           window.clearInterval(num);
 
+          this.rootPage = TabsPage;
+
+
          },this.time*1500);
 
-          return  this.howLoad();
 
       }  else  {
+
         //无图直接跳转
-         return this.howLoad();
+          this.rootPage = TabsPage;
       }
 
 
@@ -165,63 +259,48 @@ export class MyApp {
   }
 
 
-  howLoad(){
-
-  return  this.userServe.whetherLogin().then((msg) => {
-
-      if (msg != null) {
-
-        /*客服*/
-        this.kefuService.me = this.userServe.userId;
-
-        /*im登陆*/
-        this.imServe.login(this.userServe.userId);
-
-        /*类 session 登陆*/
-       return  this.http.post('/user/login-t',{"tokenId":this.userServe.tokenId}).then(res => {
-
-          this.rootPage = TabsPage;
-         /*异步更新用户数据*/
-          this.http.get('/user').then(res => {
-             this.userServe.user = res.data;
-
-          });
-
-        }).catch(error => {
-
-           this.rootPage = TabsPage;
-
-        });
-
-
-      } else {
-        this.rootPage = TabsPage;
-      }
-
-    });
-
-  }
 
 
 
-  // login(){
-  //   this.http.post('/user/login-t',{"tokenId":this.userServe.tokenId}).then(res => {
-  //     console.log('login-t登陆成功 ');
+  // howLoad(){
   //
-  //     this.userServe.saveUserInfo(res.data.tokenId,this.userServe.userId);
+  // return  this.userServe.whetherLogin().then((msg) => {
   //
-  //     return this.http.get('/user');
+  //     if (msg != null) {
   //
-  //   }).then(res => {
+  //       /*客服*/
+  //       this.kefuService.me = this.userServe.userId;
   //
-  //     this.userServe.user = res.data;
+  //       /*im登陆*/
+  //       this.imServe.login(this.userServe.userId);
   //
-  //   }).catch(error => {
+  //       /*类 session 登陆*/
+  //      return  this.http.post('/user/login-t',{"tokenId":this.userServe.tokenId}).then(res => {
   //
-  //     console.log("登陆失败");
+  //         this.rootPage = TabsPage;
+  //        /*异步更新用户数据*/
+  //         this.http.get('/user').then(res => {
+  //            this.userServe.user = res.data;
+  //
+  //         });
+  //
+  //       }).catch(error => {
+  //
+  //          this.rootPage = TabsPage;
+  //
+  //       });
+  //
+  //
+  //     } else {
+  //       this.rootPage = TabsPage;
+  //     }
   //
   //   });
   //
   // }
+
+
+
+
 
 }

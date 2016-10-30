@@ -7,6 +7,7 @@ import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
 import {UserService} from "../../../services/user.service";
 import {LoginPage} from "../../user/login";
+import {CityService} from "../../../../.tmp/services/city.service";
 
 @Component({
     templateUrl: 'goods-detail.html'
@@ -19,7 +20,8 @@ export class GoodsDetailPage implements OnInit {
                 public http: HttpService,
                 public warn: WarnService,
                 public nav: NavController,
-                public userService: UserService
+                public userService: UserService,
+                public cityService: CityService
 
     ) {
 
@@ -37,6 +39,11 @@ export class GoodsDetailPage implements OnInit {
           this.nav.push(LoginPage);
             return;
         };
+
+        if(this.userService.user.companyCode != this.cityService.currentCity.code){
+            this.warn.alert("您不是该商城所属地区用户，不能进行商品兑换");
+            return;
+        }
 
 
         let load = this.warn.loading();

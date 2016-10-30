@@ -7,12 +7,9 @@ import {CityService} from "../../services/city.service";
 import {SearchUserAndArticlePage} from "./search-user-article";
 import {SendArticlePage} from "../forum/send-article";
 import {CityChoosePage} from "./city-choose";
-import {IFramePage} from "./iframe";
-import {Release} from "../../services/release";
 import {ContentPage} from "../forum/content/content";
 import {DatePipe} from "@angular/common";
 import {PageDataService} from "./page-data.services";
-import {MallPage} from "./mall/mall";
 import {LoginPage} from "../user/login";
 import {NavService} from "../../services/nav.service";
 
