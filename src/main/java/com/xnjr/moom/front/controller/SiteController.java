@@ -21,7 +21,6 @@ public class SiteController extends BaseController {
             @RequestParam(value = "code", required = false) String code,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "userId", required = false) String userId,
-            @RequestParam(value = "priority", required = false) String priority,
             @RequestParam(value = "city", required = false) String city,
             @RequestParam(value = "area", required = false) String area,
             @RequestParam(value = "isDefault", required = false) String isDefault) {
@@ -31,7 +30,7 @@ public class SiteController extends BaseController {
         req.setCity(city);
         req.setArea(area);
         req.setUserId(userId);
-        req.setLocation(priority);
+        req.setLocation("12");// 启用和推荐
         req.setIsDefault(isDefault);
         return BizConnecter.getBizData("806013", JsonUtils.object2Json(req),
             Object.class);
