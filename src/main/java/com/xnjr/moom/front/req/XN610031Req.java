@@ -13,6 +13,9 @@ public class XN610031Req {
     // 版主(选填)
     private String userId;
 
+    // 站点(选填)
+    private String siteCode;
+
     public String getKind() {
         return kind;
     }
@@ -29,4 +32,11 @@ public class XN610031Req {
         this.userId = userId;
     }
 
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
+    }
 }
