@@ -108,8 +108,10 @@
                 <div class="com-bottom">
                     <ion-list>
                         <ion-item *ngFor="let c of item.commentList">
-                            <div><span class="u-name"><span>{{c.nickname}}</span>：</span>
-                            <span class="u-msg">{{c.content}}</span></div>
+                            <div (click)="tapComment($event,c.commer, c.code)">
+                                <span class="u-name" (click)="goDetail($event,c.commer)"><span>{{c.nickname}}</span>：</span>
+                                <span class="u-msg">{{c.content}}</span>
+                            </div>
                         </ion-item>
                     </ion-list>
                 </div>
@@ -118,7 +120,7 @@
                 <div class="com-top clearfix">
                     <ion-list>
                         <ion-item *ngFor="let g of item.likeList">
-                            <span class="t-3dot">{{g.nickname}}</span>
+                            <span class="t-3dot" (click)="goDetail($event,g.talker)">{{g.nickname}}</span>
                         </ion-item>
                     </ion-list>
                 </div>

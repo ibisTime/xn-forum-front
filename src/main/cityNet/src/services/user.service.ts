@@ -161,7 +161,7 @@ export class UserService {
       this.tokenId = tokenId;
       this.userId = userId;
       /*登陆之后获取用户信息*/
-      return this.http.get("/user");
+      return this.http.get("/user/info");
     }).then(res => {
 
       this.user = res.data;

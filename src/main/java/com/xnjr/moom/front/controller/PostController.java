@@ -87,7 +87,7 @@ public class PostController extends BaseController {
     }
 
     // @我的帖子分页列表
-    @RequestMapping(value = "/post/talkMe/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/talkMe/page", method = RequestMethod.GET)
     @ResponseBody
     public Object queryPostTalkMePage(
             @RequestParam("start") String start,

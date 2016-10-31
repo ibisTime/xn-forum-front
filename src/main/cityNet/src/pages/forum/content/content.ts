@@ -437,6 +437,62 @@ export class ContentPage {
     });
     prompt.present();
   }
+  //举报评论
+    reportPL(commer, code) {
+        let prompt = this.alertCtrl.create({
+            title: '举报',
+            message: "",
+            inputs: [
+                {
+                    name: 'reportNote',
+                    placeholder: '举报理由'
+                }
+            ],
+            buttons: [
+                {
+                    text: '取消',
+                    handler: data => {
+                    }
+                },
+                {
+                    text: '确认',
+                    handler: (data) => {
+                        if(!(typeof(data.reportNote) != "undefined" && data.reportNote.length >0 )){
+                            this.warnCtrl.toast("请填写举报理由");
+                            return;
+                        }
+                        this.http.post('/post/report',{
+                            "code": code,
+                            "reportNote": data.reportNote,
+                            "type": "2"
+                        })
+                        .then((res) => {
+                            this.warnCtrl.toast("举报成功!");
+                        }).catch(error => {
+
+                        });
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    }
+    //删除评论
+    deleteComment(commer, code){
+        this.http.post('/post/delete',{
+            "code": code,
+            "type": "2"
+        }).then((res) => {
+            for(let i = 0; i < this.item.commentList.length; i++){
+                if(this.item.commentList[i].code == code){
+                    this.item.commentList.splice(i, 1);
+                    this.item.totalCommNum = +this.item.totalCommNum - 1;
+                    break;
+                }
+            }
+            this.warnCtrl.toast('删除评论成功！');
+        }).catch(error => {});
+    }
 
   //阅读帖子
   read(){
@@ -444,4 +500,39 @@ export class ContentPage {
             "postCode": this.code
         });
   }
+  /*点击去用户详情页*/
+    goDetail(event, article){
+        event.stopPropagation();
+        this.navCtrl.push(MineDetailPage, {publisher: article});
+    }
+    tapComment(ev, commer, code){
+        ev.stopPropagation();
+        if(!this.isLogin){
+            return;
+        };
+        let buttons = [
+            {
+                text: '举报',
+                handler: () => {
+                    this.reportPL(commer, code);
+                }
+            },{
+                text: '取消',
+                role: 'cancel'
+            }
+        ];
+        if(this.uService.userId == commer){
+            buttons.unshift({
+                text: '删除',
+                handler: () => {
+                    this.deleteComment(commer, code);
+                }
+            });
+        }
+        let actionSheet = this.actionSheetCtrl.create({
+        title: '操作',
+        buttons: buttons
+        });
+        actionSheet.present();
+    }
 }
