@@ -32,6 +32,7 @@ import com.xnjr.moom.front.req.XN610075Req;
 import com.xnjr.moom.front.req.XN610076Req;
 import com.xnjr.moom.front.req.XN610077Req;
 import com.xnjr.moom.front.req.XN610078Req;
+import com.xnjr.moom.front.req.XN610900Req;
 
 /** 
  * @author: xieyj 
@@ -252,9 +253,12 @@ public class PostAOImpl implements IPostAO {
     }
 
     @Override
-    public Object totalPost(String userId) {
-        return BizConnecter.getBizData("610900",
-            JsonUtils.string2Json("userId", userId), Object.class);
+    public Object totalPost(String userId, String status) {
+        XN610900Req req = new XN610900Req();
+        req.setUserId(userId);
+        req.setStatus(status);
+        return BizConnecter.getBizData("610900", JsonUtils.object2Json(req),
+            Object.class);
     }
 
     @Override

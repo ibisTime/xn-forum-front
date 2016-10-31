@@ -143,7 +143,7 @@ public interface IPostAO {
 
     public Object read(String userId, String postCode);
 
-    public Object totalPost(String userId);
+    public Object totalPost(String userId, String status);
 
     public Object checkPost(String code, String approveResult, String approver,
             String approveNote, String type);

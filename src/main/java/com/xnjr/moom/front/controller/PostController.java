@@ -204,8 +204,9 @@ public class PostController extends BaseController {
     @RequestMapping(value = "/total", method = RequestMethod.GET)
     @ResponseBody
     public Object totalPost(
-            @RequestParam(value = "userId", required = false) String userId) {
-        return postAO.totalPost(getSessionUserId(userId));
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "status", required = false) String status) {
+        return postAO.totalPost(getSessionUserId(userId), status);
     }
 
     // 审核帖子/评论
