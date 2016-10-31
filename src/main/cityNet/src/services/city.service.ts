@@ -7,7 +7,7 @@ import {Release} from "./release";
 import {Events} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 
-interface City{
+export interface City{
   address?;
   code?;
   description?;
@@ -37,6 +37,9 @@ interface navObj{
   type?;
   url?;
 }
+
+declare let BMap: any;
+declare let BMAP_STATUS_SUCCESS: any;
 
 @Injectable()
 export class CityService {
@@ -108,6 +111,45 @@ export class CityService {
   //   });
   //
   // }
+
+  getAdressObjByBaiduApi(){
+
+    // return new new Promise((resolve, reject) => {
+    //
+    //   var geolocation = new BMap.Geolocation();
+    //   geolocation.getCurrentPosition( r => {
+    //
+    //     if(r.getStatus() == BMAP_STATUS_SUCCESS){
+    //       //成功加载站点
+    //
+    //       let province = r.address.province.slice(0,r.address.province.length - 1);
+    //       let city = r.address.city.slice(0,r.address.city.length - 1);
+    //       let area = r.address.district.slice(0,r.address.district.length - 1);
+    //
+    //       let zoneObj = {
+    //         "province": province,
+    //         "area":  city,
+    //         "city": area
+    //       }
+    //
+    //       this.getSiteByAddress(zoneObj);
+    //
+    //
+    //       resolve();
+    //
+    //
+    //     } else {
+    //
+    //       reject();
+    //
+    //     }
+    //
+    //   },{enableHighAccuracy: true});
+    //
+    //
+    // });
+
+  }
 
   /*通过经纬度直接获取导航*/
   getNavByBaiduMap(longitude, latitude){
