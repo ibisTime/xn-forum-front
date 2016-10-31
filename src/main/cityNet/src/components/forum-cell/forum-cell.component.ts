@@ -2,7 +2,7 @@
  * Created by tianlei on 2016/10/11.
  */
 import {Component, OnInit, Input,Output, EventEmitter} from '@angular/core';
-import {Platform, NavController, ActionSheetController, Events, App} from "ionic-angular";
+import {Platform, NavController, ActionSheetController, Events, App, AlertController} from "ionic-angular";
 import {WarnService} from "../../services/warn.service";
 import {HttpService} from "../../services/http.service";
 import {MineDetailPage} from "../../pages/mine/detail/detail";
@@ -31,6 +31,7 @@ export class ForumCell implements OnInit {
                 public warnCtrl: WarnService,
                 public uService : UserService,
                 public actionSheetCtrl: ActionSheetController,
+                public alertCtrl: AlertController,
                 public http: HttpService,
                 public events: Events,
                 public app: App) {
@@ -83,26 +84,13 @@ export class ForumCell implements OnInit {
                 "postCode": code
             }).then((res) => {
                 this._item.collectCount = 0;
-                if(res.success){
-                    if(!flag){
-                        this._item.isSC = "1";
-                    }else{
-                        this._item.isSC = "0";
-                    }
+                if(!flag){
+                    this._item.isSC = "1";
                 }else{
-                    if(!flag){
-                        this.warnCtrl.toast("收藏失败，请稍后重试!");
-                    }else{
-                        this.warnCtrl.toast("取消收藏失败，请稍后重试!");
-                    }
+                    this._item.isSC = "0";
                 }
             }).catch(error => {
                 this._item.collectCount = 0;
-                if(!flag){
-                    this.warnCtrl.toast("收藏失败，请稍后重试!");
-                }else{
-                    this.warnCtrl.toast("取消收藏失败，请稍后重试!");
-                }
             });
         }else{
             this.warnCtrl.toast("请勿重复点击!");
@@ -123,43 +111,30 @@ export class ForumCell implements OnInit {
             })
                 .then((res) => {
                     this._item.praiseCount = 0;
-                    if(res.success){
-                        if(!flag){
-                            this._item.totalLikeNum = +this._item.totalLikeNum + 1;
-                            this._item.isDZ = "1";
-                            if(!this.isHideCom){
-                                this._item.likeList.push({
-                                    talker:this.uService.userId,
-                                    nickname: this.uService.user.nickname,
-                                    postCode: code
-                                });
-                            }
-                        }else{
-                            if(!this.isHideCom){
-                                for(let i = 0; i < this._item.likeList.length; i++){
-                                    if(this._item.likeList[i].talker == this.uService.userId){
-                                        this._item.likeList.splice(i, 1);
-                                    }
-                                }
-                            }
-                            this._item.totalLikeNum = +this._item.totalLikeNum - 1;
-                            this._item.isDZ = "0";
+                    if(!flag){
+                        this._item.totalLikeNum = +this._item.totalLikeNum + 1;
+                        this._item.isDZ = "1";
+                        if(!this.isHideCom){
+                            this._item.likeList.push({
+                                talker:this.uService.userId,
+                                nickname: this.uService.user.nickname,
+                                postCode: code
+                            });
                         }
                     }else{
-                        if(flag){
-                            this.warnCtrl.toast("取消点赞失败，请稍后重试!");
-                        }else{
-                            this.warnCtrl.toast("点赞失败，请稍后重试!");
+                        if(!this.isHideCom){
+                            for(let i = 0; i < this._item.likeList.length; i++){
+                                if(this._item.likeList[i].talker == this.uService.userId){
+                                    this._item.likeList.splice(i, 1);
+                                }
+                            }
                         }
+                        this._item.totalLikeNum = +this._item.totalLikeNum - 1;
+                        this._item.isDZ = "0";
                     }
                 }).catch(error => {
-                this._item.praiseCount = 0;
-                if(flag){
-                    this.warnCtrl.toast("取消点赞失败，请稍后重试!");
-                }else{
-                    this.warnCtrl.toast("点赞失败，请稍后重试!");
-                }
-            });
+                    this._item.praiseCount = 0;
+                });
         }else{
             this.warnCtrl.toast("请勿重复点击!");
         }
@@ -241,11 +216,61 @@ export class ForumCell implements OnInit {
         });
         actionSheet.present();
     }
-    report(commer, code){
+    //举报
+    report(commer, code) {
+        let prompt = this.alertCtrl.create({
+            title: '举报',
+            message: "",
+            inputs: [
+                {
+                    name: 'reportNote',
+                    placeholder: '举报理由'
+                }
+            ],
+            buttons: [
+                {
+                    text: '取消',
+                    handler: data => {
+                    }
+                },
+                {
+                    text: '确认',
+                    handler: (data) => {
+                        if(!(typeof(data.reportNote) != "undefined" && data.reportNote.length >0 )){
+                            this.warnCtrl.toast("请填写举报理由");
+                            return;
+                        }
+                        this.http.post('/post/report',{
+                            "code": code,
+                            "reportNote": data.reportNote,
+                            "type": "2"
+                        })
+                        .then((res) => {
+                            this.warnCtrl.toast("举报成功!");
+                        }).catch(error => {
 
+                        });
+                    }
+                }
+            ]
+        });
+        prompt.present();
     }
     deleteComment(commer, code){
-
+        
+        this.http.post('/post/delete',{
+            "code": code,
+            "type": "2"
+        }).then((res) => {
+            for(let i = 0; i < this._item.commentList.length; i++){
+                if(this._item.commentList[i].code == code){
+                    this._item.commentList.splice(i, 1);
+                    this._item.totalCommNum = +this._item.totalCommNum - 1;
+                    break;
+                }
+            }
+            this.warnCtrl.toast('删除评论成功！');
+        }).catch(error => {});
     }
 
 }

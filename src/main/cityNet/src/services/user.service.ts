@@ -119,7 +119,7 @@ export class UserService {
   }
 
   UpdateUserInfo(){
-   return this.http.get("/user").then(res => {
+   return this.http.get("/user/info").then(res => {
 
       this.user = res.data;
 

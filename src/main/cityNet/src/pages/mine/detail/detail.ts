@@ -101,7 +101,7 @@ export class MineDetailPage implements AfterViewInit{
 
   getUserInfoButMe(){
 
-      this.http.get("/user",{"userId":this.toUserId}).then(res => {
+      this.http.get("/user/info",{"userId":this.toUserId}).then(res => {
 
           this.user = res.data;
 
