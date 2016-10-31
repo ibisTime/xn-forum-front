@@ -246,8 +246,8 @@ public class PostAOImpl implements IPostAO {
     @Override
     public Object read(String userId, String postCode) {
         XN610052Req req = new XN610052Req();
-        req.setPostCode(postCode);
         req.setUserId(userId);
+        req.setPostCode(postCode);
         return BizConnecter.getBizData("610052", JsonUtils.object2Json(req),
             Object.class);
     }
