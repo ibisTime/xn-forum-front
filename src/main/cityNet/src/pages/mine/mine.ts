@@ -36,6 +36,8 @@ export class MinePage implements AfterViewInit{
   ];
 
   src:string = 'assets/images/marty-avatar.png';
+  sMobile: "";
+  sTime: "";
   constructor(public navCtrl: NavController,
               public platform: Platform,
               public userService: UserService,
@@ -63,12 +65,24 @@ export class MinePage implements AfterViewInit{
     if(this.userService.user){
       this.getPostNum();
     }
+    this.getMobileAndTime();
 
   }
 
   ngAfterViewInit(){
 
 
+  }
+
+  getMobileAndTime(){
+    this.http.get("/sconfig/info", {ckey: "sysMobile"})
+        .then((res)=>{
+          this.sMobile = res.data.cvalue;
+        });
+    this.http.get("/sconfig/info",{ckey: "serviceTime"})
+        .then((res)=>{
+          this.sTime = res.data.cvalue;
+        })
   }
 
   goLogin(){

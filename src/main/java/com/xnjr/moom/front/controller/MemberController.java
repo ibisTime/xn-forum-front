@@ -130,7 +130,7 @@ public class MemberController extends BaseController {
     }
 
     // 获取用户信息
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
     public Map doGetUser(
             @RequestParam(value = "userId", required = false) String userId) {

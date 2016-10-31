@@ -7,7 +7,7 @@ import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
 import {UserService} from "../../../services/user.service";
 import {LoginPage} from "../../user/login";
-import {CityService} from "../../../../.tmp/services/city.service";
+import {CityService} from "../../../services/city.service";
 
 @Component({
     templateUrl: 'goods-detail.html'

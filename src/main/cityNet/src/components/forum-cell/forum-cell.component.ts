@@ -54,8 +54,9 @@ export class ForumCell implements OnInit {
     }
 
     /*点击头像去详情页*/
-    goDetail(article){
-        this.navCtrl.push(MineDetailPage, article);
+    goDetail(event, article){
+        event.stopPropagation();
+        this.navCtrl.push(MineDetailPage, {publisher: article});
     }
 
     /*没登录 让登陆*/
@@ -69,8 +70,8 @@ export class ForumCell implements OnInit {
     }
 
     /*收藏*/
-    collect(code, flag?){
-
+    collect(ev, code, flag?){
+        ev.stopPropagation();
         if(!this.wetherGoLogin()){
           return;
         };
@@ -109,12 +110,11 @@ export class ForumCell implements OnInit {
     }
 
     /*点赞*/
-    praise(code, flag?){
-
+    praise(ev, code, flag?){
+        ev.stopPropagation();
         if(!this.wetherGoLogin()){
             return;
         };
-
         if(!this._item.praiseCount){
             this._item.praiseCount = 1;
             this.http.post('/post/praise',{
@@ -210,8 +210,8 @@ export class ForumCell implements OnInit {
     //     sDiv.className = sDiv.className + "hidden";
     // }
 
-    tapComment(commer, code){
-
+    tapComment(ev, commer, code){
+        ev.stopPropagation();
         if(!this.wetherGoLogin()){
             return;
         };

@@ -116,22 +116,36 @@ export class ContentPage {
       }
   }
   deleteTz(code){
-
       if(!this.deleteCount){
           this.deleteCount = 1;
-          this.http.post('/post/delete',{
-            "code": code,
-              "type": "1"
-          })
-            .then((res) => {
-                this.deleteCount = 0;
-
-                    this.events.publish("content:delete", code);
-                    this.navCtrl.pop();
-
-            }).catch(error => {
-                this.deleteCount = 0;
+          let confirm = this.alertCtrl.create({
+                title: '删除帖子',
+                message: '确定删除帖子吗?',
+                buttons: [
+                    {
+                        text: '取消',
+                        handler: () => {
+                            this.deleteCount = 0;
+                        }
+                    },
+                    {
+                        text: '确定',
+                        handler: () => {
+                            this.http.post('/post/delete',{
+                                "code": code,
+                                "type": "1"
+                            }).then((res) => {
+                                    this.deleteCount = 0;
+                                    this.events.publish("content:delete", code);
+                                    this.navCtrl.pop();
+                                }).catch(error => {
+                                    this.deleteCount = 0;
+                                });
+                        }
+                    }
+                ]
             });
+        confirm.present();
       }
   }
   //收藏
@@ -365,11 +379,13 @@ export class ContentPage {
                     })
                     .then((res) => {
 
-                       this.warnCtrl.toast("打赏成功!")
+                       this.warnCtrl.toast("打赏成功!");
 
                     }).catch(error => {
 
                     });
+                }else{
+                    this.warnCtrl.toast("打赏失败!");
                 }
           }
         }

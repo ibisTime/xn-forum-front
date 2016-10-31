@@ -67,27 +67,42 @@ export class EditDetailPage implements AfterViewInit {
         let file = e.target.files[0];
         let reader = new FileReader();
 
-          let load = this.warnCtrl.loading("修改中");
-          reader.onload = (event: any) => {
-
-              this.src = event.target.result;
-
-              this.http.post('/user/avatar', {"photo":encodeURIComponent(event.target.result)})
-                  .then((res)=>{
-
-                          this.uService.user.userExt.photo = this.src;
-                          this.warnCtrl.toast('头像修改成功!');
-
-                      load.dismiss();
-                  }).catch((err)=>{
-                  this.warnCtrl.toast('err!');
-                  load.dismiss();
-              });
-
-
-          }
-          reader.readAsDataURL(file);//获取base64编码
+        reader.onload = (event: any) => {
+            this.zipImg(event.target.result);
+        }
+        reader.readAsDataURL(file);//获取base64编码
   }
+
+  zipImg(src1){
+      let img = <HTMLImageElement>document.createElement('img');
+      /*图片加载*/
+      img.src = src1;
+      /*加载成功*/
+      img.onload = (ev:any) => {
+        let cxt = <HTMLCanvasElement>document.createElement("canvas");
+        let imgW = ev.target.naturalWidth;
+        let imgH = ev.target.naturalHeight;
+        cxt.width = imgW;
+        cxt.height = imgH;
+        let cxtRenderer = cxt.getContext("2d");
+        // ,imgW,imgH,0,0,imgW,imgH
+        cxtRenderer.fillStyle = "#fff";
+        cxtRenderer.fillRect(0, 0, cxt.width, cxt.height);
+        cxtRenderer.drawImage(ev.target,0,0);
+        let url = cxt.toDataURL('image/jpeg',0.3);
+        this.src = url;
+        let load = this.warnCtrl.loading("修改中");
+        this.http.post('/user/avatar', {"photo": encodeURIComponent(url)})
+            .then((res)=>{
+                this.uService.user.userExt.photo = this.src;
+                this.warnCtrl.toast('头像修改成功!');
+                load.dismiss();
+            }).catch((err)=>{
+                this.warnCtrl.toast('头像修改失败!');
+                load.dismiss();
+            });
+        }
+    }
 
 
   changeExt(){
