@@ -68,9 +68,9 @@ public interface IPostAO {
      */
     public Object queryPagePost(String title, String keyword, String status,
             String location, String plateCode, String siteCode,
-            String publisher, String start, String limit,
-            String orderColumn, String orderDir, String userId,
-            String isLock, String dateStart, String dateEnd);
+            String publisher, String start, String limit, String orderColumn,
+            String orderDir, String userId, String isLock, String dateStart,
+            String dateEnd);
 
     /**
      * 获取帖子详情
@@ -136,18 +136,19 @@ public interface IPostAO {
 
     public Object queryPostDetailComment(String userId, String commentCode);
 
-    public Object report(String reporter, String code, String reportNote, String type);
+    public Object report(String reporter, String code, String reportNote,
+            String type);
 
     public Object gratuity(String talker, String postCode, String amount);
 
     public Object read(String userId, String postCode);
-    
+
     public Object totalPost(String userId);
-    
-    public Object checkPost(String code, String approveResult,
-    		String approver, String approveNote, String type);
-    
+
+    public Object checkPost(String code, String approveResult, String approver,
+            String approveNote, String type);
+
     public Object setTop(String code, String location, String endDatetime);
-    
+
     public Object lockPost(String code);
 }

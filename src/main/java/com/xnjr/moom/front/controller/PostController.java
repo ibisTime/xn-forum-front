@@ -46,7 +46,7 @@ public class PostController extends BaseController {
     @ResponseBody
     public Object draftPublishPost(
             @RequestParam(value = "code", required = true) String code,
-            @RequestParam(value = "title", required = true) String title,
+            @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "content", required = true) String content,
             @RequestParam(value = "pic", required = false) String pic,
             @RequestParam(value = "plateCode", required = true) String plateCode,
@@ -76,8 +76,8 @@ public class PostController extends BaseController {
             @RequestParam(value = "dateStart", required = false) String dateStart,
             @RequestParam(value = "dateEnd", required = false) String dateEnd) {
         return postAO.queryPagePost(title, keyword, status, location,
-        	plateCode, siteCode, publisher, start, limit, orderColumn,
-        	orderDir, getSessionUserId(userId), isLock, dateStart, dateEnd);
+            plateCode, siteCode, publisher, start, limit, orderColumn,
+            orderDir, getSessionUserId(userId), isLock, dateStart, dateEnd);
     }
 
     // 获取帖子详情
@@ -112,7 +112,7 @@ public class PostController extends BaseController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public Object deletePost(@RequestParam("code") String code,
-    		@RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "userId", required = false) String userId,
             @RequestParam("type") String type) {
         return postAO.deletePost(code, getSessionUserId(userId), type);
     }
@@ -199,7 +199,7 @@ public class PostController extends BaseController {
             @RequestParam("postCode") String postCode) {
         return postAO.read(getSessionUserId(userId), postCode);
     }
-    
+
     // 详情查询用户发帖数
     @RequestMapping(value = "/total", method = RequestMethod.GET)
     @ResponseBody
@@ -207,8 +207,8 @@ public class PostController extends BaseController {
             @RequestParam(value = "userId", required = false) String userId) {
         return postAO.totalPost(getSessionUserId(userId));
     }
-    
-    //审核帖子/评论
+
+    // 审核帖子/评论
     @RequestMapping(value = "/check", method = RequestMethod.GET)
     @ResponseBody
     public Object checkPost(
@@ -218,24 +218,22 @@ public class PostController extends BaseController {
             @RequestParam("approveNote") String approveNote,
             @RequestParam("type") String type) {
         return postAO.checkPost(code, approveResult,
-        		getSessionUserId(approver), approveNote, type);
+            getSessionUserId(approver), approveNote, type);
     }
-    
-    //设置/取消帖子置顶/精华/头条
+
+    // 设置/取消帖子置顶/精华/头条
     @RequestMapping(value = "/setTop", method = RequestMethod.GET)
     @ResponseBody
-    public Object setTop(
-            @RequestParam("code") String code,
+    public Object setTop(@RequestParam("code") String code,
             @RequestParam("location") String location,
             @RequestParam("endDatetime") String endDatetime) {
         return postAO.setTop(code, location, endDatetime);
     }
-    
-    //锁帖/取消锁帖
+
+    // 锁帖/取消锁帖
     @RequestMapping(value = "/lock", method = RequestMethod.GET)
     @ResponseBody
-    public Object lockPost(
-            @RequestParam("code") String code) {
+    public Object lockPost(@RequestParam("code") String code) {
         return postAO.lockPost(code);
     }
 }
