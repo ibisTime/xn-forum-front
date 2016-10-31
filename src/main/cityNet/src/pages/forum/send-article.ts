@@ -58,7 +58,9 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       this.topicCode = navParams.data.plateCode;
 
       let obj = {
+        // "siteCode": this.cityS.currentCity.code
         "siteCode": this.userS.user.companyCode
+
       };
       this.http.get("/plate/list",obj).then(res => {
 
@@ -382,7 +384,9 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
     /*改成只能在当前用户所属区域发帖*/
     let obj = {
+      // "siteCode": this.cityS.currentCity.code
       "siteCode": this.userS.user.companyCode
+
     };
 
     this.http.get("/plate/list",obj).then(res => {

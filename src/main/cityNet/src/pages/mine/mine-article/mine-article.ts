@@ -33,7 +33,8 @@ export class MineArticlePage {
 
         this.pageDataService.url = "/post/my/page";
         this.pageDataService.reqObj = {
-            "userId":this.userService.userId
+            "userId":this.userService.userId,
+            "status":"NO_A"
         };
         this.pageDataService.refreshComp = this.refresher;
         this.pageDataService.loadMoreComp = this.loadMoreScroll;

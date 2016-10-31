@@ -63,7 +63,7 @@ export class ChangeMobilePage {
         this.http.post("/user/mobile/change",obj).then(res => {
 
             load.dismiss();
-            this.warnCtrl.toast("修改陈宫");
+            this.warnCtrl.toast("修改成功");
             this.navCtrl.pop();
         }).catch(error => {
             load.dismiss();

@@ -19,6 +19,7 @@ export class MyApp {
   public rootPage: any;
   adDisplay = "block";
   time = 2;
+  logningFlag = false;
 
   constructor(public platform: Platform,
               public userServe:UserService,
@@ -72,6 +73,7 @@ export class MyApp {
 
     }).catch(error => {
 
+        this.getNav();
 
     });
 
@@ -79,10 +81,11 @@ export class MyApp {
     this.events.subscribe('user:timeout',() => {
 
         let currentNav = this.app.getActiveNav();
-        let vc =   currentNav.getActive(true);
+        let vc = currentNav.getActive(true);
 
-        if(!(vc.instance instanceof LoginPage)){
+        if(!(vc.instance instanceof LoginPage) && !this.logningFlag){
 
+            this.logningFlag = true;
             this.userServe.loginOut();
             this.warn.toast('请重新登录');
             this.im.close();
@@ -97,6 +100,7 @@ export class MyApp {
     /*user-services 中发出 登陆成功*/
     this.events.subscribe("user:loginSuccess",() => {
 
+        this.logningFlag = false;
       /*客服*/
       this.kefuService.me = this.userServe.userId;
 
@@ -170,7 +174,7 @@ export class MyApp {
           }
 
           /*异步更新用户数据*/
-          this.http.get('/user').then(res => {
+          this.http.get('/user/info').then(res => {
               this.userServe.user = res.data;
           }).catch(error => {
 
@@ -205,7 +209,7 @@ export class MyApp {
       this.warn.toast("定位失败，将切换到默认站点");
       this.getDataByPosition(0,0,loadNav);
 
-    }, {timeout: 10000});
+    }, {timeout: 60000});
 
   }
 
@@ -224,6 +228,7 @@ export class MyApp {
              }
 
          },1200);
+
 
          setTimeout(res => {
 

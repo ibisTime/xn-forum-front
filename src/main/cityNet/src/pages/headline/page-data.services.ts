@@ -8,7 +8,7 @@ import { Injectable,OnDestroy} from '@angular/core';
 export class PageDataService implements OnDestroy{
 
     start = 1;
-    limit = 10;
+    limit = 15;
     type = "article";
     reqObj;
     url;

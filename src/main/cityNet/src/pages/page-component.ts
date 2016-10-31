@@ -50,6 +50,7 @@ import {ChangeAccountPage} from "./mine/setting/changeAccount";
 import {SysMsgDetailPage} from "./mine/im/sysMsgDetail";
 import {MineArticlePage} from "./mine/mine-article/mine-article";
 import {EndDateChoose} from "./forum/detail/end-date-choose";
+import {AtMePage} from "./mine/im/atMe";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -94,7 +95,8 @@ export const pages = [ TabsPage,
   ChangeAccountPage,
   SysMsgDetailPage,
   MineArticlePage,
-  EndDateChoose
+  EndDateChoose,
+    AtMePage
 
 
 ];
