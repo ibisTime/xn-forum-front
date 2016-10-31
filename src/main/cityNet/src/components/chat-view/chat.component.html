@@ -96,7 +96,7 @@
               <li class="yl-li" *ngFor="let item of msgItem.cityData" (click)="goIframeCopy(item.url, item.name)">
                 <div class="li-a">
                   <div class="a-div">
-                    <img class="mw30p" [src]="otherImg"/>
+                    <img class="mw30p" src="{{item.pic}}"/>
                   </div>
                   <span class="a-span">{{item.name}}</span>
                 </div>
