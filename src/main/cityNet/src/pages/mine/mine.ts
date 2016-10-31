@@ -106,7 +106,6 @@ export class MinePage implements AfterViewInit{
 
       }).catch(error => {
         $event.complete();
-        this.warnCtrl.toast("获取用户信息失败");
       });
 
   }

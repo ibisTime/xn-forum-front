@@ -98,7 +98,6 @@ export class EditDetailPage implements AfterViewInit {
                 this.warnCtrl.toast('头像修改成功!');
                 load.dismiss();
             }).catch((err)=>{
-                this.warnCtrl.toast('头像修改失败!');
                 load.dismiss();
             });
         }
