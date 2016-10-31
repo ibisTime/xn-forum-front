@@ -194,10 +194,8 @@ public class PostController extends BaseController {
     // 阅读帖子
     @RequestMapping(value = "/read", method = RequestMethod.POST)
     @ResponseBody
-    public Object read(
-            @RequestParam(value = "userId", required = false) String userId,
-            @RequestParam("postCode") String postCode) {
-        return postAO.read(getSessionUserId(userId), postCode);
+    public Object read(@RequestParam("postCode") String postCode) {
+        return postAO.read(null, postCode);
     }
 
     // 详情查询用户发帖数
