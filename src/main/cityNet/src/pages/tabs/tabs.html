@@ -6,8 +6,10 @@
       <div>
         <img class="default-img" [class.kf-img]="item.url == 'page:xiaomi'" [src]="item.pic">
       </div>
-      <span class="default-title" [class.kf-title]="item.url == 'page:xiaomi'">{{item.name}}</span>
+      <span class="default-title"  [class.kf-title]="item.url == 'page:xiaomi'">{{item.name}}</span>
     </a>
+    <!--[class.selected-title]="i == 0"-->
+
 
     <!--<a (tap)="goOther(0)">-->
       <!--<div>-->

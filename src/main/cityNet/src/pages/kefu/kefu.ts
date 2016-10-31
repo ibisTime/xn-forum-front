@@ -40,7 +40,7 @@ export class KefuPage implements AfterViewInit {
               public events: Events) {
 
 
-    this.otherImg = "assets/images/tab-bar-xiaomi.png";
+
 
     this.listOfChatData = this.imServe.getDataByFromName();
     this.satisfaction = new Satisfaction(this.imServe);
@@ -68,6 +68,14 @@ export class KefuPage implements AfterViewInit {
       type: "yliu"
     }
     this.imServe.getCompanyWelcome(data) ;
+
+      this.otherImg = "assets/images/tab-bar-xiaomi.png";
+
+      if(this.userService.user)  {
+          this.mineImg =  this.userService.user.userExt.photo;
+      } else {
+          this.mineImg = "assets/images/marty-avatar.png";
+      }
   }
 
   doFocus(e){

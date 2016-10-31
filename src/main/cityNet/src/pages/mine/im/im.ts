@@ -7,6 +7,7 @@ import {WarnService} from "../../../services/warn.service";
 import {UserService} from "../../../services/user.service";
 import {FriendPage} from "../friend/friend";
 import {SystemMsgPage} from "./systemMsg";
+import {AtMePage} from "./atMe";
 
 @Component({
   templateUrl: 'im.html'
@@ -47,6 +48,12 @@ export class ImPage implements AfterViewInit{
     this.navCtrl.push(ChatRoomPage,msgItem);
 
   }
+
+
+  at(){
+    this.navCtrl.push(AtMePage);
+  }
+
 
   getFriendList(){
     // this.imServe.getFriendList();

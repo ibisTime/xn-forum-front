@@ -7,7 +7,7 @@ import {Release} from "./release";
 import {Events} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 
-export interface City{
+interface City{
   address?;
   code?;
   description?;
@@ -49,10 +49,11 @@ export class CityService {
   /*推荐站点*/
   recommendSite = [];
   searchCitys = [];
+
   baiduMapAK = Release.baiduMapAK;
   baidu = Release.baiduMapUrl();
 
-  /*自定义页的title*/
+  /*自定义页的  title*/
   customTitle = "";
 
   locationSuccessAddress;
@@ -118,7 +119,6 @@ export class CityService {
         "area":  "未知",
         "city": "未知"
       }
-
 
       return this.getSiteByAddress(zoneObj);
 
@@ -191,8 +191,13 @@ export class CityService {
       if(res.status == "0"){
 
         return res;
+
+      } else {
+
+        throw new Error("定位失败");
+
       }
-     throw new Error("定位失败")
+
     });
   }
 
@@ -211,6 +216,7 @@ export class CityService {
       }
 
       return this.getNavigateBySiteCode(data["code"]);
+
     });
 
   }
@@ -318,20 +324,23 @@ export class CityService {
 
      /*改变值*/
      this.headlineData = headlineDataTmp;
+     console.log(this.headlineData);
      this.kefuData = kefuDataTmp;
      this.customData = customDataTmp;
 
-      /*外界 得知 是否否有广告图*/
-      if(this.tabbarItems.length >= 4){
+     //返回值外界  是否  成功
+     if (this.tabbarItems.length >= 4) {
 
-        this.events.publish("city:change");
-        return true;
+       this.events.publish("city:change");
+       return true;
 
-      } else {
-        return false;
-      };
+     } else {
 
-    });
+       return false;
+
+     };
+
+   });
 
   }
 

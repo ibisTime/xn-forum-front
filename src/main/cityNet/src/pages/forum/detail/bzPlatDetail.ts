@@ -6,7 +6,6 @@ import {UserService} from "../../../services/user.service";
 import {InfiniteScroll,Refresher} from "ionic-angular"
 import {CityService} from "../../../services/city.service";
 import {PageDataService} from "../../headline/page-data.services";
-import {Http} from "@angular/http";
 import {EndDateChoose} from "./end-date-choose";
 
 @Component({

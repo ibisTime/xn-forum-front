@@ -59,14 +59,14 @@ export class ResetPwdPage implements AfterViewInit {
 
     //let load = this.warnCtrl.loading("");
       this.http.post('/user/loginpwd/reset',find).then((res) => {
-        if(res.success){
+
 
           this.warnCtrl.toast('修改成功');
-          this.app.getRootNav().setRoot(LoginPage);
 
-        }else{
-            this.warnCtrl.toast('修改失败');
-        }
+          this.imServe.close();
+          this.user.loginOut();
+          this.navCtrl.popToRoot();
+
         
 
         //保存用户信息
@@ -74,7 +74,6 @@ export class ResetPwdPage implements AfterViewInit {
         // this.imServe.login(this.user.user.mobile);
         // load.dismiss();
         // this.navCtrl.push(TabsPage,null,{animate: false});
-
 
         // setTimeout(() => {
         //   this.navCtrl.pop();
@@ -84,7 +83,6 @@ export class ResetPwdPage implements AfterViewInit {
 
       }).catch((error) => {
 
-        this.warnCtrl.toast('修改失败');
 
       });
 

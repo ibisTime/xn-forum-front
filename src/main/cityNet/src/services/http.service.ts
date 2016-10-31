@@ -107,7 +107,7 @@ export class HttpService {
 
           // alert(resObj.msg);
           if (resObj.timeout) {
-            this.warn.toast(resObj.msg);
+            // this.warn.toast(resObj.msg);
             this.events.publish('user:timeout', "timeout");
 
           } else if(resObj.msg == "用户不存在"){
@@ -118,6 +118,7 @@ export class HttpService {
 
             this.warn.toast(resObj.msg);
           }
+          console.log("异常");
 
         }
 

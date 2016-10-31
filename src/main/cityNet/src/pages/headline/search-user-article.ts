@@ -7,6 +7,7 @@ import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
 import {MineDetailPage} from "../mine/detail/detail";
 import {UserService} from "../../services/user.service";
+import {CityService} from "../../services/city.service";
 
 @Component({
 
@@ -32,7 +33,8 @@ export class SearchUserAndArticlePage implements AfterViewInit {
   constructor(public  navCtrl: NavController,
               public  http: HttpService,
               public  warn: WarnService,
-              public  userService: UserService
+              public  userService: UserService,
+              public cityServices: CityService
          ) {
 
   }
@@ -113,7 +115,8 @@ export class SearchUserAndArticlePage implements AfterViewInit {
       "start":1,
       "limit": 1000,
       "status" : "BD",
-      "keyword":  keyword
+      "keyword":  keyword,
+      "siteCode": this.cityServices.currentCity.code
     };
 
     this.http.get("/post/page",obj).then(res => {

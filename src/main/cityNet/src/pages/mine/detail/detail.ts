@@ -55,13 +55,7 @@ export class MineDetailPage implements AfterViewInit{
 
               this.getUserInfoButMe();
 
-              this.http.get("/post/total",{"userId":this.toUserId}).then(res => {
 
-                  this.totalPostNum = res.data.totalPostNum;
-
-              }).catch(error => {
-
-              });
 
               userService.queryFollowUsers().then(()=> {
                   let fUs = this.userService.followUsers;
@@ -78,6 +72,14 @@ export class MineDetailPage implements AfterViewInit{
               this.user = this.userService.user;
               this.totalPostNum = this.userService.user.totalFansNum;
           }
+
+          this.http.get("/post/total",{"userId":this.toUserId}).then(res => {
+
+              this.totalPostNum = res.data.totalPostNum;
+
+          }).catch(error => {
+
+          });
 
       } else {//////////////
 
