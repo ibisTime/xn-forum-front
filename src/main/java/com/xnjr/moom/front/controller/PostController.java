@@ -8,6 +8,8 @@
  */
 package com.xnjr.moom.front.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xnjr.moom.front.ao.IPostAO;
+import com.xnjr.moom.front.ao.IUserAO;
 
 /** 
  * @author: xieyj 
@@ -28,6 +31,9 @@ public class PostController extends BaseController {
 
     @Autowired
     IPostAO postAO;
+
+    @Autowired
+    IUserAO userAO;
 
     // -----------------帖子操作----------------
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
@@ -78,6 +84,25 @@ public class PostController extends BaseController {
         return postAO.queryPagePost(title, keyword, status, location,
             plateCode, siteCode, publisher, start, limit, orderColumn,
             orderDir, getSessionUserId(userId), isLock, dateStart, dateEnd);
+    }
+
+    // @我的帖子分页列表
+    @RequestMapping(value = "/post/talkMe/page", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryPostTalkMePage(
+            @RequestParam("start") String start,
+            @RequestParam("limit") String limit,
+            @RequestParam(value = "orderColumn", required = false) String orderColumn,
+            @RequestParam(value = "orderDir", required = false) String orderDir,
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "isLock", required = false) String isLock,
+            @RequestParam(value = "dateStart", required = false) String dateStart,
+            @RequestParam(value = "dateEnd", required = false) String dateEnd) {
+        Map map = userAO.doGetUser(this.getSessionUserId(null));
+        String keyword = "@" + map.get("nickname");
+        return postAO.queryPagePost(null, keyword, null, null, null, null,
+            null, start, limit, orderColumn, orderDir,
+            getSessionUserId(userId), isLock, dateStart, dateEnd);
     }
 
     // 获取帖子详情
