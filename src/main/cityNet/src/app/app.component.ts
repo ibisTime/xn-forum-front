@@ -10,7 +10,6 @@ import {IMService} from "../services/im.service";
 import {HttpService} from "../services/http.service";
 import {KefuService} from "../services/kefu.serve";
 
-
 declare let BMap: any;
 declare let BMAP_STATUS_SUCCESS: any;
 @Component({
@@ -43,6 +42,10 @@ export class MyApp implements AfterViewInit{
       // Here you can do any higher level native things you might need.
       // Keyboard.disableScroll(true);
     });
+
+
+
+
 
       //判断是否有城市存储
       // this.cityService.checkedCity().then(res => {

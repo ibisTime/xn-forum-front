@@ -10,7 +10,7 @@ import {AccountPage} from "./account";
 import {AboutusPage} from "./aboutus";
 import {ChangeMobilePage} from "./changeMobile";
 import {ChangeAccountPage} from "./changeAccount";
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'setting.html'
@@ -23,7 +23,8 @@ export class SettingPage {
               public imService: IMService,
               public warnCtrl: WarnService,
               public http: HttpService,
-              public app :App) {
+              public app :App,
+              public storage: Storage) {
     
   }
 
@@ -50,6 +51,14 @@ export class SettingPage {
 
   goChangeAccount(){
     this.navCtrl.push(ChangeAccountPage);
+  }
+
+
+  clear(){
+
+    this.storage.clear();
+    this.loginOut();
+
   }
 
 }

@@ -2,7 +2,6 @@ import {Component,ViewChild} from '@angular/core';
 import {NavController, Platform, NavParams,InfiniteScroll,Refresher} from 'ionic-angular';
 import {WarnService} from "../../../services/warn.service";
 
-import {ContentPage} from "../../forum/content/content";
 import {PageDataService} from "../../headline/page-data.services";
 import {UserService} from "../../../services/user.service";
 
@@ -24,7 +23,8 @@ export class MineArticlePage {
                 public warnCtrl: WarnService,
                 public params: NavParams,
                 public pageDataService:PageDataService,
-                public userService: UserService) {
+                public userService: UserService
+                ) {
 
 
     }
