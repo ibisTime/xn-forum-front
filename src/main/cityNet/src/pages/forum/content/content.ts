@@ -4,6 +4,7 @@ import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
 import {MineDetailPage} from "../../../pages/mine/detail/detail";
 import {UserService} from "../../../services/user.service";
+import {Release} from "../../../services/release";
 import {LoginPage} from "../../user/login";
 import {ReplyCommentPage} from "./reply-comment";
 
@@ -29,6 +30,7 @@ export class ContentPage {
   isMe = false;
   inputValue;
   isLogin = false;
+  weichat;
 
   @ViewChild(Content) content: Content;
 
@@ -44,18 +46,15 @@ export class ContentPage {
               public app: App,
               public events: Events) {
 
-        this.read();
-
-        this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
-        this.pHeight = `${this.platform.height()}px`;
         this.code = navPara.data.code;
         this.toUser = navPara.data.publisher;
         this.isMe = this.toUser == uService.userId ? true: false;
+        this.weichat = Release.weChat;
         // this.getPostDetail();
 
         /*列表帖子数据与详情没有区别*/
         this.item = navPara.data;
-
+        this.read();
         if(uService.user){
             this.isLogin = true;
             uService.queryFollowUsers().then(()=>{
@@ -74,6 +73,7 @@ export class ContentPage {
         /*回复某条评论成功后刷新*/
         this.events
             .subscribe("user:replyCommentSuccess",(obj) => {
+                obj = obj[0];
                 this.item.commentList.push({
                     nickname: this.uService.user.nickname,
                     content: obj.msg,
@@ -336,12 +336,6 @@ export class ContentPage {
       let scFlag = this.item.isSC == "1" ? true : false;
     let buttons = [
         {
-          text: '分享',
-          handler: () => {
-            
-          }
-        },
-        {
           text: scFlag && '取消收藏' || '收藏',
           handler: () => {
               this.collect(this.item.code, scFlag);
@@ -351,6 +345,14 @@ export class ContentPage {
           role: 'cancel'
         }
     ];
+    if(!this.weichat){
+        buttons.unshift({
+          text: '分享',
+          handler: () => {
+            
+          }
+        });
+    }
     if(this.isLogin && !this.isMe){
         buttons.unshift({
             text: '举报',
@@ -521,7 +523,9 @@ export class ContentPage {
   read(){
        this.http.post('/post/read',{
             "postCode": this.code
-        });
+        }).then((res)=>{
+            this.item.totalReadTimes = +this.item.totalReadTimes + 1;
+        }).catch(error => {});
   }
   /*点击去用户详情页*/
     goDetail(event, article){
@@ -533,17 +537,11 @@ export class ContentPage {
         if(!this.isLogin){
             return;
         };
-        let buttons = [
-            {
-                text: '举报',
-                handler: () => {
-                    this.reportPL(commer, code);
-                }
-            },{
+        let buttons = [];
+        buttons.push({
                 text: '取消',
                 role: 'cancel'
-            }
-        ];
+        });
         if(this.uService.userId == commer){
             buttons.unshift({
                 text: '删除',
@@ -552,6 +550,12 @@ export class ContentPage {
                 }
             });
         }else{
+            buttons.unshift({
+                text: '举报',
+                handler: () => {
+                    this.reportPL(commer, code);
+                }
+            });
             buttons.unshift({
                 text: "回复",
                 handler: ()=>{

@@ -16,13 +16,18 @@
   <!--顶部-->
   <div text-center class="p20 c_white bg_ad_d6" *ngIf="user">
       <div>
-          <img class="br50" style="width: 80px; height: 80px;" src="{{user.userExt?.photo || 'assets/images/marty-avatar.png'}}"/>
+          <img class="br50" *ngIf="!isMe" style="width: 80px; height: 80px;" (click)="doEdit()" src="{{user.userExt?.photo || 'assets/images/marty-avatar.png'}}"/>
+          <img class="br50" *ngIf="isMe" style="width: 80px; height: 80px;" (click)="doEdit()" src="{{userService.user.userExt?.photo || 'assets/images/marty-avatar.png'}}"/>
       </div>
       <div class="lh2em">
-          <span id="nickName">{{user.nickname}}</span>
-          <span class="br50 bg_e66c61 xb">
+          <span id="nickName">{{isMe?userService.user.nickname:user.nickname}}</span>
+          <span class="br50 bg_e66c61 xb" *ngIf="!isMe">
               <ion-icon *ngIf="user.userExt.gender=='0'" name="female"></ion-icon>
               <ion-icon *ngIf="user.userExt.gender=='1'" name="male"></ion-icon>
+          </span>
+          <span class="br50 bg_e66c61 xb" *ngIf="isMe">
+              <ion-icon *ngIf="userService.user.userExt.gender=='0'" name="female"></ion-icon>
+              <ion-icon *ngIf="userService.user.userExt.gender=='1'" name="male"></ion-icon>
           </span>
           <!--<ion-icon name="male"></ion-icon>-->
           <span class="inblock bg_43a8e8 dj">V{{user.level}}</span>
@@ -35,7 +40,9 @@
       </div>
 
       <div id="introduce">
-          <span>自我介绍：</span><span>{{user.userExt.introduce||'还没有介绍'}}</span>
+          <span>自我介绍：</span>
+          <span *ngIf="!isMe">{{user.userExt.introduce||'还没有介绍'}}</span>
+          <span *ngIf="isMe">{{userService.user.userExt.introduce||'还没有介绍'}}</span>
       </div>
   </div>
 

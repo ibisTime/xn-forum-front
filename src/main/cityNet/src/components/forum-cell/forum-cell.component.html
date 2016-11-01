@@ -23,7 +23,7 @@
 
                 <div class="com-btn" [class.hidden]="isHideComBtn">
                     <ion-buttons class="clearfix">
-                        <button class="fl">
+                        <button class="fl" [class.hidden]="weichat">
                             <i class="icon iconfont">&#xe60a;</i>
                         </button>
                         <button class="sp-btn fl"
@@ -75,7 +75,7 @@
                                     <span class="u-name" (click)="goDetail($event,c.commer)">
                                         <span>{{c.nickname}}</span>
                                     </span>
-                                    <span *ngIf="c.parentNickname">回复<span class="plr10" (click)="goDetail($event,c.parentCommer)">{{c.parentNickname}}</span></span>：
+                                    <span class="u-name" *ngIf="c.parentNickname"><span class="plr4">回复</span><span (click)="goDetail($event,c.parentCommer)">{{c.parentNickname}}</span></span>：
                                     <span class="u-msg">{{c.content}}</span>
                                 </div>
                             </ion-item>

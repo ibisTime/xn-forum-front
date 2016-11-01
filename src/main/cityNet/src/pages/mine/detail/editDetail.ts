@@ -43,6 +43,10 @@ export class EditDetailPage implements AfterViewInit {
     this.param.birthday = userExt.birthday || "";
     this.param.introduce = userExt.introduce || "";
     this.param.email = userExt.email || "";
+    if(this.param.introduce != ""){
+        let areaItem = document.getElementById("areaItem");
+        areaItem.className += " input-has-value";
+    }
   }
 
   changeNickname(){
@@ -71,6 +75,19 @@ export class EditDetailPage implements AfterViewInit {
             this.zipImg(event.target.result);
         }
         reader.readAsDataURL(file);//获取base64编码
+  }
+
+  areaFocus(ev){
+      let areaItem = document.getElementById("areaItem");
+      areaItem.className = areaItem.className.replace(/\s*input-has-value\s*/g,"");
+      areaItem.className += " input-has-value";
+  }
+
+  areaBlur(ev){
+      let areaItem = document.getElementById("areaItem");
+      if(this.param.introduce == ""){
+          areaItem.className = areaItem.className.replace(/\s*input-has-value\s*/g,"");
+      }
   }
 
   zipImg(src1){

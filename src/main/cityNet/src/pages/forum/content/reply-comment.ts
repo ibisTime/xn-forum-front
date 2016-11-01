@@ -40,6 +40,7 @@ export class ReplyCommentPage implements AfterViewInit,OnDestroy {
       this.parentCommer = navParams.data.commer;
       this.parentNickname = navParams.data.nickname;
     }
+    console.log(this.parentNickname);
   }
 
   ngOnDestroy(){
@@ -56,9 +57,7 @@ export class ReplyCommentPage implements AfterViewInit,OnDestroy {
   }
 
   send(contentTextarea){
-
     let url = "/post/comment";
-
     let successStr = "评论成功";
 
     if(contentTextarea.value.length <= 0){
@@ -66,7 +65,7 @@ export class ReplyCommentPage implements AfterViewInit,OnDestroy {
       return;
     }
 
-    let load = this.warn.loading("");
+    let load = this.warn.loading("发布中");
     let articleObj = {
       parentCode: this.commentCode,
       content: contentTextarea.value
@@ -82,12 +81,13 @@ export class ReplyCommentPage implements AfterViewInit,OnDestroy {
             if(/\;filter:true$/.test(rCode)){
                 this.warn.toast("评论中含有敏感词汇!");
             }else{
-                this.events.publish("user:replyCommentSuccess", {
+              let obj = {
                   msg: contentTextarea.value,
                   parentCommer: this.parentCommer,
                   parentNickname: this.parentNickname,
                   code: rCode
-                });                        
+                };
+                this.events.publish("user:replyCommentSuccess", obj);                        
             }
         }).catch(error => {
             load.dismiss();

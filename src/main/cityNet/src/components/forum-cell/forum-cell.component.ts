@@ -9,6 +9,7 @@ import {MineDetailPage} from "../../pages/mine/detail/detail";
 import {UserService} from "../../services/user.service";
 import {ContentPage} from "../../pages/forum/content/content";
 import {LoginPage} from "../../pages/user/login";
+import {Release} from "../../services/release";
 
 @Component({
     selector: 'forum-cell',
@@ -24,6 +25,7 @@ export class ForumCell implements OnInit {
 
     imgHeight;
     pHeight;
+    weichat = true;
     @Input() isHideCom = true;
     @Input() isHideSC = false;
     @Input() isHideComBtn = false;
@@ -39,7 +41,7 @@ export class ForumCell implements OnInit {
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.pHeight = `${this.platform.height()}px`;
-
+        this.weichat = Release.weChat;
     }
 
     ngOnInit() {

@@ -46,9 +46,13 @@
           <ion-label floating>邮箱</ion-label>
           <ion-input type="text" [(ngModel)]="param.email"></ion-input>
       </ion-item>
-    <ion-item>
+    <ion-item id="areaItem" class="areaItem">
+        <!--<ion-label floating></ion-label>-->
+        <!--<ion-input type="text" [(ngModel)]="param.introduce"></ion-input>-->
         <ion-label floating>简介</ion-label>
-        <ion-input type="text" [(ngModel)]="param.introduce"></ion-input>
+        <ion-label class="area-lable">
+            <textarea class="" [(ngModel)]="param.introduce" (focus)="areaFocus($event)" (blur)="areaBlur($event)"></textarea>
+        </ion-label>
     </ion-item>
       <button (click)=" changeExt()" ion-button style="width: 70%; height: 40px; margin:10px 0;" color="navbar-color">保存</button>
   </ion-list>

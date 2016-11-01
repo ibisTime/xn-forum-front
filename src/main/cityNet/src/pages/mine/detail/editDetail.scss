@@ -34,6 +34,19 @@
             float: right;
         }
     }
+    textarea{
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: transparent;
+    }
+    .area-lable{
+        height: 6em;
+        flex: 2;
+    }
+    .areaItem{
+        align-self: flex-start;
+    }
 }
     .chang-nickname-hint{
         text-align: left;
