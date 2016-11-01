@@ -423,6 +423,8 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     let fileReader = new FileReader();
     fileReader.onload = (event: any)=> {
 
+      console.log(event);
+
       let d = new Date();
       let imgId =  d.toString();
       this.handleImg(event.target.result,imgId);

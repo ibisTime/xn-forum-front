@@ -20,7 +20,7 @@
         <placeholder-view [show]="result"></placeholder-view>
 
         <div class="draft-item"
-           *ngFor="let item of pageDataService.articles; let i = index;"
+           *ngFor="let item of pageDataService.items; let i = index;"
            (click)="goSendArticle(item)">
           <div class="left">
               <div class="title">存稿时间：{{item.publishDatetime|forumDate}}</div>

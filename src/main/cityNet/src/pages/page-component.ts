@@ -52,6 +52,7 @@ import {MineArticlePage} from "./mine/mine-article/mine-article";
 import {EndDateChoose} from "./forum/detail/end-date-choose";
 import {AtMePage} from "./mine/im/atMe";
 import {ReplyCommentPage} from "./forum/content/reply-comment";
+import {JFPage} from "./mine/jfDetail/jfDetail";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -98,7 +99,8 @@ export const pages = [ TabsPage,
   MineArticlePage,
   EndDateChoose,
   AtMePage,
-  ReplyCommentPage
+  ReplyCommentPage,
+    JFPage
 
 ];
 

@@ -60,7 +60,7 @@ export class CityService {
   customTitle = "";
 
   locationSuccessAddress;
-  locationSuccessAddressCode;
+  locationSuccessAddressCode: string = "";
 
   /*客服引流数据*/
   kefuData = [];

@@ -4,34 +4,26 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content class="draft">
+<ion-content class="jfDetail">
 
-    <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher (ionRefresh)="refresh()">
         <ion-refresher-content
                 pullingIcon="arrow-dropdown"
-                pullingText="下拉加载"
+                pullingText="下拉刷新"
                 refreshingSpinner="circles"
-                refreshingText="加载中..."
+                refreshingText="正在刷新..."
         >
         </ion-refresher-content>
     </ion-refresher>
-    <ion-list>
 
-        <placeholder-view [show]="result"></placeholder-view>
-        <ion-list>
-            <ion-item *ngFor="let item of pageDataService.items;let idx=index;">
-                <forum-cell
-                        [item]="item"
-                        [navCtrl]="navCtrl"
-                        [isHideSC]=true
-                >
-                </forum-cell>
-            </ion-item>
-        </ion-list>
+    <div *ngFor="let item of pageDataService.items" class="jf-detail-outer">
+        <div style="text-align: left;">{{item.remark}}</div>
+        <div style="text-align: center;"><span class="add-jf">{{item.transAmount  > 0 ? '+' + item.transAmount/1000 : item.transAmount/1000}}</span> 赏金</div>
+        <div style="text-align: right;">{{item.createDatetime|forumDate}}</div>
+    </div>
 
-    </ion-list>
 
-    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll (ionInfinite)="loadMore()">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 </ion-content>

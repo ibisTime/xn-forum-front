@@ -35,7 +35,8 @@ export class NavService {
         } else if(/page:board/ig.test(url)){//跳板块
 
 
-            let bkCode = url.replace("page:board,param:","");
+            let bkCode = url.replace("page:board,code:","");
+            console.log(bkCode);
             nav.push(PlatDetailPage,{"code":bkCode});
 
 

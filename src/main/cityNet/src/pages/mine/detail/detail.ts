@@ -216,13 +216,14 @@ export class MineDetailPage implements AfterViewInit{
       }
 
       let user = {
+
           "userId": this.user.userId,
           "nickname": this.user.nickname,
           "photo": this.user.userExt.photo || ""
 
       };
-      this.navCtrl.push(ChatRoomPage, user);
 
+      this.navCtrl.push(ChatRoomPage, user);
 
   }
 

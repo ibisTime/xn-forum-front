@@ -88,23 +88,28 @@ export class DraftPage {
        let load = this.warnCtrl.loading();
         let obj = {
             "code":item.code,
-            "title":item.title,
             "content":item.content,
-            "plateCode": item.platCode,
+            "plateCode": item.plateCode,
             "isPublish":"1"
         };
+        if(typeof(item.title) != "undefined"){
+
+            obj["title"] = item.title || "";
+
+        }
 
         if (typeof(item.picArr) != "undefined") {
 
             obj["pic"] = item.picArr.join("||");
 
         }
+        console.log(obj);
 
         this.http.post("/post/draft/publish",obj).then(res => {
 
             load.dismiss();
             this.warnCtrl.toast("重新发布成功");
-            this.pageDataService.articles.splice(index,1);
+            this.pageDataService.items.splice(index,1);
 
         }).catch(error => {
 

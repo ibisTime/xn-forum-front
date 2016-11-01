@@ -54,7 +54,6 @@ export class ContentPage {
 
         /*列表帖子数据与详情没有区别*/
         this.item = navPara.data;
-        this.read();
         if(uService.user){
             this.isLogin = true;
             uService.queryFollowUsers().then(()=>{
@@ -69,8 +68,10 @@ export class ContentPage {
 
                 });
         }
+      this.read();
 
-        /*回复某条评论成功后刷新*/
+
+      /*回复某条评论成功后刷新*/
         this.events
             .subscribe("user:replyCommentSuccess",(obj) => {
                 obj = obj[0];

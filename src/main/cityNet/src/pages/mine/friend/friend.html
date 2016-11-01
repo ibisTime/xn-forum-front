@@ -15,7 +15,7 @@
   <ion-list>
     <button ion-item *ngFor="let item of users" style="background-color: white;" (click)="goChat(item)">
       <ion-avatar item-left>
-        <img src="{{item.pic||'assets/images/marty-avatar.png'}}">
+        <img src="{{item.photo||'assets/images/marty-avatar.png'}}">
       </ion-avatar>
       <span>{{item.nickname}}</span>
     </button>

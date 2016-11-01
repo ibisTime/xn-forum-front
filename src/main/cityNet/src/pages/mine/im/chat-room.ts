@@ -42,8 +42,13 @@ export class ChatRoomPage implements AfterViewInit {
 
     /*把user 对象传送过来*/
     this.listOfChatData = this.imServe.getDataByFromName(params.data.userId);
-    this.otherImg = params.data.photo || "assets/images/marty-avatar.png";
-   console.log( params.data.photo );
+
+    this.otherImg = this.params.data.photo || "assets/images/marty-avatar.png";
+
+
+    console.log(this.otherImg);
+    console.log(params);
+
     //1.哪到导航数据就去获取信息
     this.imServe.imTextMessageInner = msg => {
 
@@ -65,6 +70,7 @@ export class ChatRoomPage implements AfterViewInit {
 
     //
   }
+
 
   ionViewDidEnter(){
     this.imServe.currentLinkMan = this.params.data.userId;
@@ -97,7 +103,6 @@ export class ChatRoomPage implements AfterViewInit {
 
   sendMsg(msgInput) {
 
-    console.log(msgInput.value);
 
     let success = false;
     let load = this.warn.loading("发送中");
@@ -105,9 +110,11 @@ export class ChatRoomPage implements AfterViewInit {
     let msg = msgInput.value;
     let ext = {
       "nickname":this.userService.user.nickname,
-      "photo": this.userService.user.userExt.photo || ""
+      "photo": this.userService.user.userExt.photo || "",
+      "nicknameOther": this.params.data.nickname,
+      "photoOther": this.params.data.photo || ""
     };
-    console.log(ext);
+
     this.imServe.sendTextMsg(msg,this.params.data.userId,ext, (id, serverMsgId) => {
 
       load.dismiss();
@@ -128,7 +135,7 @@ export class ChatRoomPage implements AfterViewInit {
         this.warn.toast('发送失败');
       }
 
-    },5000)
+    },10000);
 
   }
 

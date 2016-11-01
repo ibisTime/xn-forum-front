@@ -17,6 +17,7 @@ import {MineProperty} from "./property/mine-property";
 import {MineArticlePage} from "./mine-article/mine-article";
 import {CityService} from "../../services/city.service";
 import {ForgetPwdPage} from "../user/forgetPwd";
+import {JFPage} from "./jfDetail/jfDetail";
 
 
 @Component({
@@ -219,6 +220,10 @@ export class MinePage implements AfterViewInit{
 
   findPwd($event){
     this.navCtrl.push(ForgetPwdPage);
+  }
+
+  goJFList(){
+    this.navCtrl.push(JFPage);
   }
 
 

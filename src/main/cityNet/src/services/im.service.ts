@@ -84,7 +84,7 @@ export class IMService {
   /*0.根据聊天人获取聊天数据*/
   getDataByFromName( from) : Array<MsgObj>{
     //1.不存在数据
-    if ( typeof(this.listOfChatRoomData[from]) === "undefined"){
+    if ( typeof(this.listOfChatRoomData[from]) == "undefined"){
       this.listOfChatRoomData[from] = [];
       return this.listOfChatRoomData[from];
     }
@@ -125,12 +125,15 @@ export class IMService {
   /*3.对插入数据对象的聊天数据进行处理*/
   handleMsgData(msg:MsgObj,isMe: boolean) {
 
-    let from = isMe?  msg.to : msg.from;
+    let from = msg.from == this.me ? msg.to : msg.from ;
+    // let from = isMe?  msg.to : msg.from;
     //1.查找已经存在的列表
     //2.列表中无任何数据
     //2.1有数据,不是该条
     //3.有该数据
-    if (typeof(this.listOfChatRoomData[from]) === "undefined" || this.listOfChatRoomData[from] === null) {
+    console.log(from);
+    console.log(this.listOfChatRoomData[from]);
+    if (typeof(this.listOfChatRoomData[from]) == "undefined" || this.listOfChatRoomData[from] === null) {
 
       console.log('未定义');
       this.listOfChatRoomData[from] = [];
@@ -148,18 +151,17 @@ export class IMService {
   /*4.对插入的外部列表数据进行处理*/
   handleExternalMsgData(msg){
 
-       console.log(msg);
+  console.log(msg);
 
     let linkMan = msg.from == this.me ? msg.to : msg.from ;
 
-    let chatContent = msg.data;
-    let date = new Date(); //收到时间
-    if (typeof(msg.delay) != "undefined"){
-      date = new Date(msg.delay);
-
-    }
-    // date = new Date('2015-09-08T14:12:23.509Z');
-    let dateStr = this.dateStr(date);
+    // let date = new Date(); //收到时间
+    // if (typeof(msg.delay) != "undefined"){
+    //   date = new Date(msg.delay);
+    //
+    // }
+    // // date = new Date('2015-09-08T14:12:23.509Z');
+    // let dateStr = this.dateStr(date);
 
     /*注意判断显示badage*/
     // let shortMsg = new ListItem(linkMan,msg.to, chatContent,dateStr,(msg.from != this.me)&&(msg.from != this.currentLinkMan));
@@ -172,37 +174,59 @@ export class IMService {
     }
 
     //from 统一改为对方userId
-    let shortMsg = {
-      // from: linkMan,
-      userId:linkMan,
-      nickname:msg.ext.nickname,
-      photo:msg.ext.photo,
-      to: msg.to,
-      // lastMsg: chatContent,
-      time: dateStr,
-      showBadge: isShowBadge,
-      badgeCount: 1
-    };
+    let shortMsg;
+
+    if(msg.from == this.me){//我发送的
+
+      shortMsg = {
+        // from: linkMan,
+        userId:linkMan,
+        nickname:msg.ext.nicknameOther,
+        photo:msg.ext.photoOther,
+        to: msg.to,
+        // lastMsg: chatContent,
+        // time: dateStr,
+        showBadge: isShowBadge,
+        badgeCount: 1
+      }
+
+    } else {//我接受的
+      shortMsg = {
+        // from: linkMan,
+        userId:linkMan,
+        nickname:msg.ext.nickname,
+        photo:msg.ext.photo,
+        to: msg.to,
+        // lastMsg: chatContent,
+        // time: dateStr,
+        showBadge: isShowBadge,
+        badgeCount: 1
+      };
+      console.log(shortMsg);
+
+    }
 
 
     if (this.listOfOpposite.length > 0) {
 
       let models = this.listOfOpposite.filter((value, index, obj) => {
-        return value.userId === linkMan;
+        return value.userId == linkMan;
       });
 
       let model = models[0];
+      console.log("外部列表数据 ");
+      console.log(model);
 
-      if (typeof(models) === "undefined") {//没有找到,添加
+      if (typeof(model) == "undefined") {//没有找到,添加
 
         console.log('有别人,进行添加');
         this.listOfOpposite.push(shortMsg);
 
       } else {//找到数据进行修改
 
-        console.log('有自己进行数据修改');
+        console.log('有记录进行修改进行数据修改');
         // model.lastMsg = chatContent;
-        model.time = dateStr;
+        // model.time = dateStr;
         model.showBadge = shortMsg.showBadge;
         model.badgeCount = model.badgeCount + 1;
 
@@ -232,11 +256,11 @@ export class IMService {
   }
 
   /*登陆*/
-  login(userName){
-    this.me = userName;//保存用户信息
+  login(userId){
+    this.me = userId;//保存用户信息
     let loginOptions = {
       apiUrl: this.imBase.apiUrl,
-      user: userName,
+      user: userId,
       pwd: IM_PASSWORD,
       appKey: this.imBase.appKey
     };

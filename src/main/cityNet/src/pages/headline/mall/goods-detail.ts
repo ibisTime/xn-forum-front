@@ -54,9 +54,17 @@ export class GoodsDetailPage implements OnInit {
 
         this.http.post("/commodity/buyProduct",obj).then(res => {
             load.dismiss().then(res => {
-               this.nav.pop();
+
             });
+
             this.warn.toast("兑换成功");
+
+            this.warn.alert(`提货地址：${res.data.takeAddress}`,() => {
+
+                this.nav.pop();
+
+            });
+
         }).catch(error => {
 
             load.dismiss();

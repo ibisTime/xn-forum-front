@@ -102,7 +102,6 @@ export class EndDateChoose implements OnInit {
             this.navCtrl.pop();
         }).catch(error => {
 
-            this.warnCtrl.toast("精华帖设置失败");
             load.dismiss();
         });
 
@@ -122,7 +121,6 @@ export class EndDateChoose implements OnInit {
               this.navCtrl.pop();
 
           }).catch(error => {
-              this.warnCtrl.toast("置顶失败");
               load.dismiss();
           });
 

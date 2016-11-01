@@ -40,7 +40,7 @@
       <ion-input #rePwd type="password"></ion-input>
     </ion-item>
 
-    <div style="position: relative;" *ngIf="cityS.locationSuccessAddressCode == null">
+    <div style="position: relative;" *ngIf="!locationSuccess">
       <ion-item >
       <ion-label floating>选择站点</ion-label>
       <ion-input  [(ngModel)]="cityName"></ion-input>

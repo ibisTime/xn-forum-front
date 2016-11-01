@@ -2,7 +2,7 @@
  * Created by tianlei on 2016/10/11.
  */
 import {Component, OnInit, Input,Output, EventEmitter,ViewChild, ElementRef} from '@angular/core';
-import {Platform} from "ionic-angular";
+import {Platform, Events} from "ionic-angular";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
 
@@ -17,15 +17,32 @@ export class PlatChooseView implements OnInit {
     lastSelect;
     imgHeight;
     rightHeight;
+    currentdKey;
     @ViewChild('firstClass') firstClassEle: ElementRef;
 
     @Output() goPlateEmitter = new EventEmitter<any>();
 
     constructor(public platform: Platform,
                 public http: HttpService,
-                public warn: WarnService) {
+                public warn: WarnService,
+                public events: Events) {
 
-        this.rightHeight = `${platform.height() - 49 - 44}px`
+        this.rightHeight = `${platform.height() - 49 - 44}px`;
+        this.events.subscribe('user:cityChange',() => {
+
+            this.getPlateByKind(this.currentdKey);
+
+        });
+
+        this.events.subscribe('forum:refresh',() => {
+
+            this.getPlateByKind(this.currentdKey);
+
+
+        });
+
+
+
     }
 
 
@@ -39,8 +56,12 @@ export class PlatChooseView implements OnInit {
 
         } else {
             this.firstClassItem.push(classification[0]);
+            this.currentdKey = this.firstClassItem[0].dkey;
             this.getPlateByKind(this.firstClassItem[0].dkey);
-            this._classification = classification.slice(1,classification.length - 1);
+
+            let len = classification.length;
+            this._classification = classification.slice(1, len);
+            console.log(this._classification);
         }
 
     }
@@ -70,9 +91,11 @@ export class PlatChooseView implements OnInit {
         this.http.get('/plate/list',obj).then(res => {
              // = res.data;
 
-            this.currentPlats = res.data.sort((a,b) => {
-                return (+a.orderNo) - (+b.orderNo);
-            })
+            this.currentdKey = dkey;
+            this.currentPlats = res.data;
+            // sort((a,b) => {
+            //     return (+a.orderNo) - (+b.orderNo);
+            // })
             load.dismiss();
         }).catch(error => {
             load.dismiss().then(() => {

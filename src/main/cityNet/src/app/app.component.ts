@@ -13,7 +13,6 @@ import {KefuService} from "../services/kefu.serve";
 
 declare let BMap: any;
 declare let BMAP_STATUS_SUCCESS: any;
-
 @Component({
   selector:"app-root-comp",
   templateUrl:"app.component.html"
@@ -24,8 +23,10 @@ export class MyApp implements AfterViewInit{
   adDisplay = "block";
   time = 2;
   logningFlag = false;
+    contentUrl;
 
-  constructor(public platform: Platform,
+
+    constructor(public platform: Platform,
               public userServe:UserService,
               public cityService: CityService,
               public warnService: WarnService,
@@ -179,6 +180,8 @@ export class MyApp implements AfterViewInit{
 
               },1200);
 
+              this.contentUrl =`url('${this.cityService.ads[0]}')`;
+
               setTimeout(res => {
 
                   this.adDisplay = 'none';
@@ -241,7 +244,15 @@ export class MyApp implements AfterViewInit{
                   "city":  city
               }
 
-              this.cityService.locationSuccessAddress = zoneObj;
+              if(typeof(area) == "undefined" || area.length <= 0){
+                  this.warnService.toast("不能确定您的准确位置，将进入默认站点");
+
+              } else {
+
+                  this.cityService.locationSuccessAddress = zoneObj;
+
+              }
+
               this.cityService.getSiteByAddress(zoneObj).then(res => {
 
 

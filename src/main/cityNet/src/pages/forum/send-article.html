@@ -27,7 +27,7 @@
 
   <div class="choose-topic-outer" *ngIf="showTopicDashboard">
     <div class="choose-topic">
-      <div class="topic-item" (click)="clickTopic(item.code,item.name)" *ngFor="let item of topicItems">
+      <div class="topic-item" (tap)="clickTopic(item.code,item.name)" *ngFor="let item of topicItems">
         <img src={{item.pic}}>
         <div>{{item.name}}</div>
       </div>

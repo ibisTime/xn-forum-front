@@ -13,7 +13,7 @@ export class CommentPage implements AfterViewInit{
   start1 = 1;
   start2 = 1;
 
-  limit = 3;
+  limit = 15;
 
   fromMe = [];
   toMe = [];

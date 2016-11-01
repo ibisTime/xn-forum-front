@@ -1,4 +1,4 @@
-import {Component, forwardRef, Inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {Platform, NavController, Events, App, ViewController} from "ionic-angular";
 
 import { RegisterPage } from './register';

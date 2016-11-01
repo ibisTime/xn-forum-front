@@ -8,6 +8,7 @@
     <div class="goods-img-div" [style.height]="imgHeight">
         <img [src]="product.pic" [style.height]="imgHeight" style="width:100%;">
     </div>
+    <div class="tip">{{navParams.data.remark}}</div>
     <div class="goods-description-div" [innerHTML]="product.description">
     </div>
 </ion-content>

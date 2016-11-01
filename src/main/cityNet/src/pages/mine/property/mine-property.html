@@ -22,7 +22,7 @@
     <ion-list>
         <ion-list>
             <div class="mall-item-outer">
-                <div class="mall-item" (tap)="goDetail(item.product)" *ngFor="let item of pageDataService.items"  >
+                <div class="mall-item" (tap)="goDetail(item)" *ngFor="let item of pageDataService.items"  >
                     <img [src]=item.product.pic [style.height]="imgHeight">
                     <div>{{item.product.name}}</div>
                 </div>

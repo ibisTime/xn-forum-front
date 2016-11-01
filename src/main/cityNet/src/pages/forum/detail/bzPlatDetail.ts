@@ -85,7 +85,6 @@ export class BZPlatDetailPage {
             this.pageDataService.items.splice(index,1);
 
         }).catch(error => {
-            this.warnCtrl.toast("删帖失败");
         });
 
     }

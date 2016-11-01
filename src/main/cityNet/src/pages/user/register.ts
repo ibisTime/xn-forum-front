@@ -21,6 +21,7 @@ export class RegisterPage implements OnInit {
   captchaValue;
   userNameValue;
   navbarHidden = false;
+  locationSuccess;
   @ViewChild(CaptchaComponent) captchaView: CaptchaComponent;
   constructor(   public navCtrl: NavController,
                  public warnCtrl: WarnService,
@@ -36,6 +37,8 @@ export class RegisterPage implements OnInit {
                  public warn: WarnService,
   ) {
 
+    console.log(this.cityS.locationSuccessAddressCode);
+    this.locationSuccess = typeof(this.cityS.locationSuccessAddressCode) != "undefined" && this.cityS.locationSuccessAddressCode.length > 0;
 
     if(navParams.data.hidden){
       this.navbarHidden = navParams.data.hidden;
