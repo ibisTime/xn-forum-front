@@ -70,8 +70,14 @@
 
                     <div class="com-bottom" *ngIf="_item.commentList.length">
                         <ion-list>
-                            <ion-item *ngFor="let c of _item.commentList;">
-                                <div (click)="tapComment($event,c.commer, c.code)"><span class="u-name" (click)="goDetail($event,g.commer)"><span>{{c.nickname}}</span>：</span><span class="u-msg">{{c.content}}</span></div>
+                            <ion-item *ngFor="let c of _item.commentList1;">
+                                <div>
+                                    <span class="u-name" (click)="goDetail($event,c.commer)">
+                                        <span>{{c.nickname}}</span>
+                                    </span>
+                                    <span *ngIf="c.parentNickname">回复<span class="plr10" (click)="goDetail($event,c.parentCommer)">{{c.parentNickname}}</span></span>：
+                                    <span class="u-msg">{{c.content}}</span>
+                                </div>
                             </ion-item>
                         </ion-list>
                     </div>

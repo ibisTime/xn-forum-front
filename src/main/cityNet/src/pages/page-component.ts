@@ -51,6 +51,7 @@ import {SysMsgDetailPage} from "./mine/im/sysMsgDetail";
 import {MineArticlePage} from "./mine/mine-article/mine-article";
 import {EndDateChoose} from "./forum/detail/end-date-choose";
 import {AtMePage} from "./mine/im/atMe";
+import {ReplyCommentPage} from "./forum/content/reply-comment";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -96,8 +97,8 @@ export const pages = [ TabsPage,
   SysMsgDetailPage,
   MineArticlePage,
   EndDateChoose,
-    AtMePage
-
+  AtMePage,
+  ReplyCommentPage
 
 ];
 

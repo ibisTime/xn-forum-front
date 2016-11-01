@@ -101,7 +101,6 @@ export class ForumPage {
                         this.isEnd = true;
                     }
                     for(i = 0; i < list.length; i++){
-                        list[i].commentList.splice(5);
                         list[i].collectCount = 0;   //点击收藏次数
                         list[i].praiseCount = 0;    //点击点赞次数
                         this.items.push(list[i]);

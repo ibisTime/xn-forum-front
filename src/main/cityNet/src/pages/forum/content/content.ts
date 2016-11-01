@@ -1,10 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, Platform, Content, NavParams, Events, ActionSheetController, AlertController, App} from 'ionic-angular';
+import {NavController, Platform, Content, NavParams, Events, ActionSheetController, AlertController, App, ModalController} from 'ionic-angular';
 import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
 import {MineDetailPage} from "../../../pages/mine/detail/detail";
 import {UserService} from "../../../services/user.service";
 import {LoginPage} from "../../user/login";
+import {ReplyCommentPage} from "./reply-comment";
 
 
 @Component({
@@ -39,6 +40,7 @@ export class ContentPage {
               public http: HttpService,
               public actionSheetCtrl: ActionSheetController,
               public alertCtrl: AlertController,
+              public mCtrl: ModalController,
               public app: App,
               public events: Events) {
 
@@ -69,6 +71,19 @@ export class ContentPage {
                 });
         }
 
+        /*回复某条评论成功后刷新*/
+        this.events
+            .subscribe("user:replyCommentSuccess",(obj) => {
+                this.item.commentList.push({
+                    nickname: this.uService.user.nickname,
+                    content: obj.msg,
+                    code: obj.code,
+                    commer: this.uService.user.userId,
+                    parentCommer: obj.parentCommer,
+                    parentNickname: obj.parentNickname
+                });
+                this.item.commentList1 = this.item.commentList.slice(0,5);
+            });
   }
   //关注
   follow(publisher){
@@ -251,12 +266,20 @@ export class ContentPage {
             }
             this.http.post('/post/comment', mObj)
                 .then((res) => {
-
+                    let rCode = res.data.code;
+                    if(/\;filter:true$/.test(rCode)){
+                        this.warnCtrl.toast("评论中含有敏感词汇!");
+                    }else{
                         this.inputValue = "";
                         this.item.commentList.push({
                             nickname: this.uService.user.nickname,
-                            content: msg
+                            content: msg,
+                            code: rCode,
+                            commer: this.uService.user.userId
                         });
+                        this.item.commentList1 = this.item.commentList.slice(0,5);
+                    }
+                    
 
                 }).catch(error => {
 
@@ -505,7 +528,7 @@ export class ContentPage {
         event.stopPropagation();
         this.navCtrl.push(MineDetailPage, {publisher: article});
     }
-    tapComment(ev, commer, code){
+    tapComment(ev, commer, code, nickname){
         ev.stopPropagation();
         if(!this.isLogin){
             return;
@@ -526,6 +549,18 @@ export class ContentPage {
                 text: '删除',
                 handler: () => {
                     this.deleteComment(commer, code);
+                }
+            });
+        }else{
+            buttons.unshift({
+                text: "回复",
+                handler: ()=>{
+                    let modelCtrl = this.mCtrl.create(ReplyCommentPage, {
+                        code: code,
+                        commer: commer,
+                        nickname: nickname
+                    });
+                    modelCtrl.present();
                 }
             });
         }

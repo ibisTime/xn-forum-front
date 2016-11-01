@@ -152,7 +152,6 @@
                         }
                     }
                     button{
-                        padding: 0.6em .6em;
                         height: 1.4em;
                         color: #464646;
                         background: #fff;
@@ -216,6 +215,9 @@
                     h2{
                         color: #7E0001;
                     }
+                }
+                ion-card>.item:last-child{
+                    border-bottom: none;
                 }
             }
         }

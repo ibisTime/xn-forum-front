@@ -51,6 +51,7 @@ export class ForumCell implements OnInit {
             item.content = item.content.substr(0, 100) + "...<a class='all-cont'>全文</a>";
         }
         item.content = item.content.replace(/(@[^\s]*)\s/ig, "<a class='people'>$1</a>");
+        item.commentList1 = item.commentList.slice(0,5);
         this._item = item;
     }
 
