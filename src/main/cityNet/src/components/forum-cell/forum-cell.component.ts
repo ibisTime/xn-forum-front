@@ -145,25 +145,25 @@ export class ForumCell implements OnInit {
 
 
     openPage($event, item) {
+        $event.stopPropagation();
         let target = $event.target;
         if (target.className == "people") {
             let load = this.warnCtrl.loading();
             let obj = {"nickname": target.innerText.substr(1, target.innerText.length - 1)};
             this.http.get("/user/list", obj).then(res => {
                 load.dismiss();
-                let user = res.data[0];
-                this.navCtrl.push(MineDetailPage, {"userId": user.userId});
+                if(res.data.length){
+                    let user = res.data[0];
+                    this.navCtrl.push(MineDetailPage, {"userId": user.userId});
+                }else{
+                    this.warnCtrl.toast('未查找到该用户');
+                }
             }).catch(error => {
                 console.log(error);
                 load.dismiss();
-                this.warnCtrl.toast('未查找到该用户');
             });
-            $event.stopPropagation();
-
         } else {
-
             this.navCtrl.push(ContentPage, this._item);
-
         }
     }
 

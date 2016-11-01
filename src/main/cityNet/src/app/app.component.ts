@@ -63,7 +63,6 @@ export class MyApp implements AfterViewInit{
   }
 
   ngAfterViewInit(){
-
         /*判断是否已经登陆*/
         this.userServe.whetherLogin().then(res => {
 

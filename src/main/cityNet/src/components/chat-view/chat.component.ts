@@ -50,7 +50,6 @@ export class ChatViewComponent implements OnInit {
   }
 
   doPingjiaCopy(inviteId,serviceSessionId){
-
     let item = {
       "inviteId" : inviteId,
       "serviceSessionId" : serviceSessionId

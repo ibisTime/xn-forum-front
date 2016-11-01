@@ -69,6 +69,8 @@ export class Satisfaction {
   doCancelSatis(){
     this.dom.className = (this.dom.className.replace('em-hide', "")).trim();
     this.dom.className = this.dom.className + ' ' +'em-hide';
+    let sCont = document.getElementById("nextpage").getElementsByClassName("scroll-content")[0];
+    sCont.className = sCont.className.replace(/\s*transnone\s*/g, "");
   }
   doSubmitSatis(){
     var level = this.getStarLevel();
@@ -82,14 +84,16 @@ export class Satisfaction {
     this.msg.blur();
     (function(that){
       setTimeout(function(){
-      that.msg.value = '';
-      that.clearStars();
-      that.success.className = that.success.className.replace("em-hide", "").trim();
-      setTimeout(function(){
-        that.dom.className = (that.dom.className + ' ' + 'em-hide').trim();
-        that.success.className = that.success.className + " " + "em-hide";
-      }, 1500);
-    }, 1500)
+        that.msg.value = '';
+        that.clearStars();
+        that.success.className = that.success.className.replace("em-hide", "").trim();
+        setTimeout(function(){
+          that.dom.className = (that.dom.className + ' ' + 'em-hide').trim();
+          that.success.className = that.success.className + " " + "em-hide";
+          let sCont = document.getElementById("nextpage").getElementsByClassName("scroll-content")[0];
+          sCont.className = sCont.className.replace(/\s*transnone\s*/g, "");
+        }, 1500);
+      }, 1500)
     })(this);
   }
   doPingjia(inviteId:string, serviceSessionId:string){

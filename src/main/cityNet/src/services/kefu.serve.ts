@@ -105,6 +105,8 @@ export class KefuService {
     if(this.chatGroupId === "0"){
       this.getChatGroupId().then(()=>{
         this.getMyHistory(refresh);
+      }).catch(()=>{
+        refresh && refresh.complete();
       });
     }else{
       this.getMyHistory(refresh);
@@ -120,6 +122,8 @@ export class KefuService {
           this.getCompanyWelcome();
         }
         this.handleHistoryData(msg, refresh);
+      }).catch(()=>{
+        refresh && refresh.complete();
       });
   }
   //获取当前聊天记录
@@ -145,7 +149,7 @@ export class KefuService {
           msgItem.date = this.format(now, "M月d日 hh:mm");
         }
         this.handleMsgData(msgItem);
-      });
+      }).catch(()=>{});
   }
 
   //获取机器人欢迎语
@@ -199,7 +203,7 @@ export class KefuService {
           default: break;
         }
         this.listOfChatRoomData.from.push(msdData);
-      });
+      }).catch(()=>{});
   }
 
   //处理自己发送的信息

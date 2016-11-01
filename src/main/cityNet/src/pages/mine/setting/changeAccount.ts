@@ -28,24 +28,23 @@ export class ChangeAccountPage {
     }
 
     change(){
+        if(this.loginName && this.loginName.trim() !== ""){
+            let obj = {
+                "loginName": this.loginName,
+            };
+            let load = this.warnCtrl.loading();
 
-        let obj = {
-            "loginName": this.loginName,
-        };
-        let load = this.warnCtrl.loading();
-
-        this.http.post("/user/username",obj).then(res => {
-
-          load.dismiss();
-          this.warnCtrl.toast("修改成功");
-          this.navCtrl.pop();
-
-        }).catch(error => {
-          this.warnCtrl.toast("修改失败");
-          load.dismiss();
-
-        });
-
+            this.http.post("/user/username",obj).then(res => {
+                load.dismiss();
+                this.warnCtrl.toast("修改成功");
+                this.navCtrl.pop();
+                this.userService.user.loginName = obj.loginName;
+            }).catch(error => {
+                load.dismiss();
+            });
+        }else{
+            this.warnCtrl.toast("登录名不能为空!");
+        }
     }
 
 }

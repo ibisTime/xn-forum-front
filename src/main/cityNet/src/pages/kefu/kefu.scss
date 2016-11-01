@@ -1,5 +1,8 @@
 .nextpage{
   background-color: #F4F7FA;
+  .scroll-content.transnone{
+    transform: none;
+  }
   .imContent {
     max-width: 100%;
     div{
@@ -143,6 +146,7 @@
     font-size: 13px;
     cursor: pointer;
     float: right;
+    background: #d04042;
   }
   .easemobWidget-dialog .easemobWidget-cancel {
     background-color: #fff;
@@ -263,7 +267,7 @@
     position: relative;
     border-radius: 6px;
     background-color: #e4e9f2;
-    margin: 0 0 20px 12px;
+    margin: 0 0 20px 66px;
     padding: 1px 5px 5px;
     float: left;
     top: 10px;

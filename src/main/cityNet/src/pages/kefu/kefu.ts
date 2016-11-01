@@ -145,9 +145,10 @@ export class KefuPage implements AfterViewInit {
   }
 
   doPingjia(item){
+    let sCont = document.getElementById("nextpage").getElementsByClassName("scroll-content")[0];
+    sCont.className += " transnone";
     this.satisfaction.initArgs();
     this.satisfaction.doPingjia(item.inviteId, item.serviceSessionId);
-
   }
 
   goIframe(item){
