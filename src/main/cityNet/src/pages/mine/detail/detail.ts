@@ -55,8 +55,6 @@ export class MineDetailPage implements AfterViewInit{
 
               this.getUserInfoButMe();
 
-
-
               userService.queryFollowUsers().then(()=> {
                   let fUs = this.userService.followUsers;
                   for (let f of fUs) {
