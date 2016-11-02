@@ -13,7 +13,7 @@
                 <ion-card-content>
                     <div >
                         <h2 style="margin: 6px 0;">{{_item.title}}</h2>
-                        <p [innerHTML]="_item.content"></p>
+                        <p [innerHTML]="_item.content1"></p>
                     </div>
                     <div *ngIf="_item.picArr" class="img-cont" (click)="showImg($event)">
                         <img class="imgs wp30 mr2p" [src]="p" *ngFor="let p of _item.picArr"/>

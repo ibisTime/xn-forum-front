@@ -98,6 +98,9 @@
             border-bottom: 1px solid #e6e6e6;
         }
     }
+    a.people{
+        padding: 0 4px;
+    }
     .item{
         padding-left: 0;
         background-color: #fff;
@@ -124,7 +127,7 @@
                         white-space: normal;
                         padding: 0;
                         p {
-                            font-size: 1.4rem;
+                            font-size: 1.5rem;
                         }
                         .imgs{
                             display: inline-block;
