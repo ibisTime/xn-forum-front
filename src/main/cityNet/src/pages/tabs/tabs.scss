@@ -25,6 +25,7 @@
       width: 100%;
     }
     .default-img{
+      padding-top: 3px;
        height: 30px;
       width: auto;
        margin: 0 auto;
@@ -62,9 +63,9 @@
     }
 
   }
-  .selectedTitle{
-    color: $navbar-color;
-  }
+  //.selectedTitle{
+  //  color: $navbar-color;
+  //}
 
 }
 
@@ -77,7 +78,7 @@
   bottom: 0px;
   right: 0px;
   color: white;
-  font-size: 30px;
+  font-weight: 400;
   text-align: center;
   z-index: 1000;
   background-color: rgba(0,0,0,0.5);
@@ -87,6 +88,14 @@
     opacity: 0;
   }
 
+  div{
+    font-size: 17px;
+  }
+
+  span{
+    font-size: 21px;
+    color: $navbar-color;
+  }
   img{
     max-width: 70%;
     margin-top: 40%;

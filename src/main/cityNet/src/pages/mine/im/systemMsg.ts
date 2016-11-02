@@ -14,6 +14,7 @@ import {SysMsgDetailPage} from "./sysMsgDetail";
 })
 export class SystemMsgPage implements OnInit, AfterViewInit {
 
+    result = false;
     @ViewChild(InfiniteScroll)  loadMoreScroll:  InfiniteScroll;
     @ViewChild(Refresher)  refresher:  Refresher;
     constructor(public pageDataService:PageDataService,
@@ -61,7 +62,12 @@ export class SystemMsgPage implements OnInit, AfterViewInit {
     }
 
     refresh($event){
-      this.pageDataService.refresh();
+
+      this.pageDataService.refresh(() => {
+
+          this.result = this.pageDataService.items.length <= 0;
+      });
+
     }
 
     loadMore($event){

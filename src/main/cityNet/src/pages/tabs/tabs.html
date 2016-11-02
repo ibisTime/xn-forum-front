@@ -2,13 +2,13 @@
 
   <div class="custom-tabbar" *ngIf="cityS.tabbarItems.length > 4;">
 
-    <a (tap)="selected(i)" *ngFor="let item of cityS.tabbarItems;  let i = index;">
+    <a (tap)="selected(i,tabTitleSpan)" *ngFor="let item of cityS.tabbarItems;  let i = index;">
       <div>
         <img class="default-img" [class.kf-img]="item.url == 'page:xiaomi'" [src]="item.pic">
       </div>
-      <span class="default-title"  [class.kf-title]="item.url == 'page:xiaomi'">{{item.name}}</span>
+      <span class="default-title"  #tabTitleSpan  [class.kf-title]="item.url == 'page:xiaomi'"  [class.selected-title]=" i==0" >{{item.name}}</span>
     </a>
-    <!--[class.selected-title]="i == 0"-->
+    <!---->
 
 
     <!--<a (tap)="goOther(0)">-->
@@ -55,6 +55,8 @@
 
 <div id="signin-mask" [style.display]="signinDisplay">
   <img src="assets/images/headline/signin.png">
+  <div>恭喜你今天获得了</div>
+  <div><span>{{addNum}}</span>赏金</div>
 </div>
 
 <div id="ylImg" class="mask hidden" (click)="closeImg()">

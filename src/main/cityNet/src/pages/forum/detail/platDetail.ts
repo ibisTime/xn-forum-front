@@ -1,5 +1,5 @@
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
-import {NavController, Platform, Content, NavParams, InfiniteScroll} from 'ionic-angular';
+import {NavController, Platform, Content, NavParams, InfiniteScroll, ModalController} from 'ionic-angular';
 import {ContentPage} from '../content/content';
 import {HttpService} from "../../../services/http.service";
 import {PlatService} from "./plat.services";
@@ -39,7 +39,8 @@ export class PlatDetailPage implements AfterViewInit{
               public platService: PlatService,
               public navParams: NavParams,
               public warn: WarnService,
-              public userService: UserService
+              public userService: UserService,
+              public modelCtrl: ModalController
               ) {
 
       /*根据plateCode 获取详情*/
@@ -131,7 +132,8 @@ export class PlatDetailPage implements AfterViewInit{
     send(){
 
         if(this.userService.user){
-            this.navCtrl.push(SendArticlePage);
+            let model = this.modelCtrl.create(SendArticlePage);
+            model.present();
         } else  {
             this.navCtrl.push(LoginPage);
         }

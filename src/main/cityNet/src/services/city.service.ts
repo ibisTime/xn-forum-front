@@ -72,6 +72,8 @@ export class CityService {
     "func3": [],
     "func8": []
   };
+  banner = [];
+
   tabbarItems = [];
 
   // regAddress;//存入省市区
@@ -323,6 +325,9 @@ export class CityService {
        "func3": [],
        "func8": []
      };
+     /*实验*/
+     let banner = [];
+
 
      /*根据tabbar 取出 子导航*/
      this.tabbarItems.forEach((value: navObj, index, array) => {
@@ -335,7 +340,9 @@ export class CityService {
 
              if (value_inner.type == "2") {//banner
 
+
                headlineDataTmp.banner.push(value_inner);
+               banner.push(value_inner);
 
              } else if (value_inner.type == "3") { //
 
@@ -365,10 +372,11 @@ export class CityService {
      });
 
      /*改变值*/
+     this.headlineData.banner = [];
      this.headlineData = headlineDataTmp;
-     console.log(this.headlineData);
      this.kefuData = kefuDataTmp;
      this.customData = customDataTmp;
+     this.banner = banner;
 
      //返回值外界  是否  成功
      if (this.tabbarItems.length >= 4) {
