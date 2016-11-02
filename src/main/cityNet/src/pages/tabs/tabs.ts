@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
 import {HeadlinePage} from "../headline/headline";
 import {ForumPage} from "../forum/forum";
 import {MinePage} from "../mine/mine";
@@ -14,7 +14,7 @@ import {HttpService} from "../../services/http.service";
 @Component({
   templateUrl: 'tabs.html'
 })
-export class TabsPage {
+export class TabsPage implements AfterViewInit{
 
    tab1Root: any;
    tab2Root: any;
@@ -22,9 +22,12 @@ export class TabsPage {
    tab4Root: any;
    tab5Root: any;
 
+  lastSelected;
 
+  addNum;
   tabItems = [];
   @ViewChild(Tabs) tabs: Tabs;
+  @ViewChildren("tabTitleSpan") titleItems: QueryList<any>;
   signinDisplay = "none";
   pHeight;
   constructor(
@@ -44,30 +47,18 @@ export class TabsPage {
 
     });
 
-    // setTimeout(() => {
-    //
-    //   let ele:any = document.getElementById('signin-mask');
-    //   ele.style.animation = "animation01 3s";
-    //
-    // },2000);
-    //
-    // setTimeout(() => {
-    //
-    //   let ele:any = document.getElementById('signin-mask');
-    //   ele.style.display = "none";
-    //
-    // },3000);
 
 
     this.events.subscribe("user:signin",(res) => {
 
+      this.addNum = res;
       this.signinDisplay = "block";
 
       setTimeout(() => {
 
         this.signinDisplay = "none";
 
-      },2000);
+      },3500);
 
     });
 
@@ -100,6 +91,18 @@ export class TabsPage {
 
   }
 
+  ngAfterViewInit(){
+
+    console.log(this.titleItems);
+
+    let items = <any>this.titleItems;
+    let arr = items._results;
+
+    arr[0].nativeElement.style.color = "rgb(208,64,66)";
+    this.lastSelected = arr[0].nativeElement;
+
+  }
+
   changeTab(){
 
     let tabDict = {
@@ -121,8 +124,15 @@ export class TabsPage {
   }
 
 
-  selected(i){
-    this.tabs.select(i);
+  selected(i,tabTitleSpan){
+
+      if(typeof(this.lastSelected) != "undefined"){
+        this.lastSelected.style.color = "#4b4c4d";
+      }
+
+      tabTitleSpan.style.color = "rgb(208,64,66)";
+      this.lastSelected = tabTitleSpan;
+      this.tabs.select(i);
   }
 
 

@@ -70,14 +70,17 @@ export class EndDateChoose implements OnInit {
 
     confirm(){
 
-        if(this.endDate.length > 0){
+        if((typeof(this.endDate) != "undefined") && this.endDate.length > 0){
 
-            let array = this.endDate.split("-");
-            let year = +array[0];
-            let month = +array[1];
-            let day = +array[2];
-            let date =new Date(year,month,day);
-            let sec = date.getTime()/1000;
+            // let array = this.endDate.split("-");
+            // let year = +array[0];
+            // let month = +array[1];
+            // let day = +array[2];
+            // let date =new Date(year,month,day);
+            // let sec = date.getTime()/1000;
+
+
+            let sec = this.endDate;
             if(this.navParams.data.type == "top"){
                 this.top(sec);
             } else {

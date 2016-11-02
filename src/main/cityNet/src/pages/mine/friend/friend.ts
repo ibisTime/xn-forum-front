@@ -5,7 +5,6 @@ import {ChatRoomPage} from "../im/chat-room";
 import {AddFriendPage} from "./addFriend";
 import {WarnService} from "../../../services/warn.service";
 import {HttpService} from "../../../services/http.service";
-import {isUndefined} from "ionic-angular/es2015/util/util";
 import {UserService} from "../../../services/user.service";
 
 @Component({
@@ -71,7 +70,7 @@ export class FriendPage implements AfterViewInit {
    let value = $event.target.value;
 
 
-    if(isUndefined(value) || value.length <= 0){
+    if(typeof(value) == "undefined" || value.length <= 0){
       this.users = this.userCopy;
 
     } else {

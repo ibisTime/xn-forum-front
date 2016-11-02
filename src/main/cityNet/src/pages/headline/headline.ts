@@ -111,6 +111,7 @@ export class HeadlinePage implements AfterViewInit {
 
               this.cityName = city.name;
               this.cityS.currentCity = city;
+              this.pageDataService.reqObj["siteCode"] = this.cityS.currentCity.code;
 
               this.events.publish("user:cityChange");
               load.dismiss();
@@ -185,6 +186,7 @@ export class HeadlinePage implements AfterViewInit {
     sign(){
 
 
+        //
         if(!this.userService.user){
             this.navCtrl.push(LoginPage);
             return;
@@ -192,14 +194,17 @@ export class HeadlinePage implements AfterViewInit {
 
 
         let obj = {
-            "location" : "杭州"
+            "location" : "CSW"
         }
         let load = this.warn.loading("");
         this.http.post("/user/signIn",obj).then(res => {
 
-            load.dismiss();
-            this.events.publish("user:signin");
-            // this.warn.toast("签到成功");
+            console.log(res);
+            load.dismiss().then(msg => {
+
+                this.events.publish("user:signin",res.data.amount/1000);
+
+            });
 
         }).catch(error => {
 

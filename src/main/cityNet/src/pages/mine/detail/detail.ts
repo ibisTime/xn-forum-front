@@ -73,7 +73,7 @@ export class MineDetailPage implements AfterViewInit{
               this.totalPostNum = this.userService.user.totalFansNum;
           }
 
-          this.http.get("/post/total",{"userId":this.toUserId}).then(res => {
+          this.http.get("/post/total",{"userId":this.toUserId,"status": this.isMe ?"NO_A" : "BD" }).then(res => {
 
               this.totalPostNum = res.data.totalPostNum;
 
@@ -88,7 +88,7 @@ export class MineDetailPage implements AfterViewInit{
 
           this.getUserInfoButMe();
 
-          this.http.get("/post/total",{"userId":this.toUserId}).then(res => {
+          this.http.get("/post/total",{"userId":this.toUserId,"status":"BD"}).then(res => {
 
               this.totalPostNum = res.data.totalPostNum;
 
@@ -120,7 +120,7 @@ export class MineDetailPage implements AfterViewInit{
       this.pageDataService.url = "/post/page";
       this.pageDataService.reqObj = {
           "publisher": this.toUserId,
-          "status" : "BD"
+          "status" : this.isMe ? "NO_A" :"BD"
       };
       this.pageDataService.refreshComp = this.refreshComp;
       this.pageDataService.loadMoreComp = this.loadMoreComp;

@@ -114,7 +114,7 @@ export class MinePage implements AfterViewInit{
 
   getPostNum(){
 
-    this.http.get("/post/total").then(res => {
+    this.http.get("/post/total",{"status":"NO_A"}).then(res => {
 
       this.userService.totalPostNum = res.data.totalPostNum;
 

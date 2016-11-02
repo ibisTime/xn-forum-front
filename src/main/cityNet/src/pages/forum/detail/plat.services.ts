@@ -26,7 +26,7 @@ export class PlatService{
 
     platCode;
 
-    lim = 3;
+    lim = 10;
 
     topStart = new Start(1);
     articleStart = new Start(1);
@@ -41,7 +41,7 @@ export class PlatService{
 
     // location（选填）		A 置顶 B 精华 C 头条
     getTopArticle(){
-        let lim = 3;
+        let lim = 4;
         let obj = {
             plateCode: this.platCode,//板块代码
             start: this.topStart.start,

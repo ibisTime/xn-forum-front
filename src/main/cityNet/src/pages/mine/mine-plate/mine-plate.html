@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content class="mine-plate">
-    <div class="plate-item" *ngFor="let item of items">
+    <div class="plate-item" *ngFor="let item of items" (click)="goPlate(item)">
         <div class="left">
             <img [src]="item.pic">
         </div>
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="right">
-            <a (click)="goPlate(item)">进入</a>
+            <a >进入</a>
         </div>
     </div>
 </ion-content>

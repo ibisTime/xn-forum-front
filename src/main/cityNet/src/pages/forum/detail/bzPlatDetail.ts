@@ -18,6 +18,7 @@ export class BZPlatDetailPage {
   plate;
   items = [];
   isEnd = false;
+  firstLogin = true;
 
 
     @ViewChild(InfiniteScroll)  loadMoreScroll:  InfiniteScroll;
@@ -45,17 +46,33 @@ export class BZPlatDetailPage {
         };
         this.pageDataService.refreshComp = this.refresher;
         this.pageDataService.loadMoreComp = this.loadMoreScroll;
-        this.refresh();
+
+    }
+
+    ionViewDidEnter(){
+
+        if(this.firstLogin){
+
+            this.refresh();
+            this.firstLogin = false;
+        }
+
     }
 
     refresh(){
 
+        let  load = this.warnCtrl.loading("");
+
         this.http.get("/plate/info",{"code":this.plate.code}).then(res => {
+            load.dismiss();
             this.plate = res.data;
         }).catch(error => {
-
+            load.dismiss();
         });
         this.pageDataService.refresh(() => {
+
+            load.dismiss();
+
         });
     }
 
@@ -74,21 +91,56 @@ export class BZPlatDetailPage {
 
     delete(item){
 
-        //1 帖子 2 评论
+        this.warnCtrl.alert2("你确定删除吗？",() => {
+
+            //1 帖子 2 评论
         let load = this.warnCtrl.loading();
         this.http.post("/post/delete",{code:item.code,type:"1"}).then(res => {
 
-            load.dismiss();
-            this.warnCtrl.toast("删帖成功");
+                load.dismiss();
+                this.warnCtrl.toast("删帖成功");
 
-            let index =  this.pageDataService.items.indexOf(item);
-            this.pageDataService.items.splice(index,1);
+                let index =  this.pageDataService.items.indexOf(item);
+                this.pageDataService.items.splice(index,1);
+
+            }).catch(error => {
+                load.dismiss();
+            });
+
+        });
+
+
+    }
+
+    unEssence(item){
+
+        let load = this.warnCtrl.loading();
+        this.http.get("/post/setTop",{"code":item.code,location:"B"}).then(res => {
+
+            load.dismiss();
+            this.warnCtrl.toast("取消精华帖成功");
+            item["location"] = "Z";
 
         }).catch(error => {
+            load.dismiss();
         });
 
     }
 
+    unTop(item){
+
+        let load = this.warnCtrl.loading();
+        this.http.get("/post/setTop",{"code":item.code,location:"A"}).then(res => {
+
+            load.dismiss();
+            this.warnCtrl.toast("取消置顶成功");
+           item["location"] = "Z";
+
+        }).catch(error => {
+            load.dismiss();
+        });
+
+    }
 
     pass(item){
 
