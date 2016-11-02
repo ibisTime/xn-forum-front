@@ -16,6 +16,7 @@ export class CommentPage implements AfterViewInit{
   start2 = 1;
 
   limit = 15;
+  first = true;
 
   fromMe = [];
   toMe = [];
@@ -86,9 +87,10 @@ openPage($event, code, publisher) {
           this.refreshCmp.complete();
           this.loadMoreComp.complete();
 
-          if (this.limit*this.start2 >= res.data.totalCount) {
+          if (!this.first && this.limit*this.start2 >= res.data.totalCount) {
               this.loadMoreComp.enable(false);
           }
+          this.first = false;
       }).catch(error => {
 
           this.refreshCmp.complete();
@@ -138,7 +140,7 @@ openPage($event, code, publisher) {
         this.start2 = 1;
         this.getCommentToMe();
     }
-
+    this.loadMoreComp.enable(true);
   }
 
   loadMore($event){
