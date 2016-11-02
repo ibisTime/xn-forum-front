@@ -26,10 +26,14 @@ export class ForumDatePipe implements PipeTransform {
         }else if(d_days >= 1){
             return Math.ceil(d_days)+"天前";
         }else if(d_days < 1 && d_hours >= 1){
+
             return Math.ceil(d_hours)+"小时前";
+
         }else if(d_hours < 1 && d_minutes > 10){
+
             return Math.ceil(d_minutes)+"分钟前";
-        }else{
+
+        } else {
             return "刚刚";
         }
   }

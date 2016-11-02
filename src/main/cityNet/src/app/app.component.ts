@@ -246,8 +246,8 @@ export class MyApp implements AfterViewInit{
 
               let zoneObj = {
                   "province": province || "未知",
-                  "area":  area || "未知",
-                  "city":  city
+                  "area":  area ,
+                  "city":  city || "未知"
               }
 
               if(typeof(area) == "undefined" || area.length <= 0){

@@ -14,7 +14,7 @@ export namespace Release {
     const release = false;
 
     //release false才有效
-     const  run_environment = environment.develop_local;
+     const  run_environment = environment.test;
     export const weChat = true;
     const  port = "8080";
     export const baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
@@ -24,7 +24,7 @@ export namespace Release {
 
             if(weChat) {
 
-                return "";
+                return "//114.55.179.135:8080/geocoder/";
 
             } else {
                 return "//api.map.baidu.com/geocoder/v2/";
@@ -55,12 +55,7 @@ export namespace Release {
 
         if(release){
 
-            if(weChat){
-
-                return "";
-            } else {
-                return "";
-            }
+            return "//114.55.179.135:8080";
 
         } else {
 
@@ -81,14 +76,8 @@ export namespace Release {
 
         if(release){
 
-            if(weChat){
 
-                return "";
-
-            } else {
-
-                return "";
-            }
+          return "//114.55.179.135:8080";
 
 
         } else {
