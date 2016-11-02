@@ -52,6 +52,13 @@ export class ResetPwdPage implements AfterViewInit {
       this.warnCtrl.toast('两次密码输入不一致');
       return;
     }
+
+    if(!/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]{6,16})$/.test(newPwd)){
+
+      this.warnCtrl.toast("密码必须为6~16位,同时包含数字和字母");
+      return;
+    }
+
     let find = {
       "oldLoginPwd" : oriPwd,
       "newLoginPwd":newPwd

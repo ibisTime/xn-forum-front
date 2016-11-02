@@ -55,9 +55,9 @@
         <!--板块选择-->
         <div *ngSwitchCase="'ltan'" >
 
-            <div *ngIf="classification.length <= 0" style="text-align: center; padding-top: 30px; font-size:16px; background-color: rgb(0, 0, 0, 0);">
+            <div *ngIf="classification.length <= 0" style="text-align: center; padding-top: 30px; font-size:16px; background-color: rgba(0, 0, 0, 0);">
                 <div style="padding:10px;">好像没有获取到板块</div>
-                <button (click)="getClass()" style="border: 1px solid darkgrey; padding: 10px; font-size: 16px; color:darkgrey;background-color: white;">
+                <button (click)="getClass()" style="border: 1px solid darkgrey; padding: 10px; font-size: 16px; color:darkgrey;">
                     点击重新获取
                 </button>
             </div>

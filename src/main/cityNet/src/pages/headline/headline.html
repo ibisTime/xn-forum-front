@@ -36,7 +36,7 @@
   </ion-refresher>
   <div style="background-color: white">
     <!--cityS.headlineData.banner-->
-    <ion-slides [style.height]="bannerHeight" [options]="mySlideOptions">
+    <ion-slides  [style.height]="bannerHeight" [options]="mySlideOptions">
       <ion-slide *ngFor="let banner of cityS.headlineData.banner" (tap)="goOther(banner.url,'')">
         <!--<div class="banner-content"></div>-->
         <img src={{banner.pic}}>

@@ -33,6 +33,17 @@
     </ion-refresher>
 
     <ion-list *ngIf="type =='left'">
+        <ion-item *ngFor="let item of fromMe">
+            <forum-cell
+                    [item]="item.post"
+                    [navCtrl]="navCtrl"
+                    [isHideCom]=true
+                    [isHideSC]=true
+            >
+
+            </forum-cell>
+        </ion-item>
+
         <ion-item class="b-lable" *ngFor="let item of fromMe">
             <ion-card>
                 <ion-item>

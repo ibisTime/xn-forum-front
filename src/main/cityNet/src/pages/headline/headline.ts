@@ -1,5 +1,5 @@
 import {Component,AfterViewInit,ViewChild} from '@angular/core';
-import {NavController, Platform, ModalController, InfiniteScroll, Refresher, Events} from 'ionic-angular';
+import {NavController, Platform, ModalController, InfiniteScroll, Refresher, Events,Slides} from 'ionic-angular';
 import {UserService} from "../../services/user.service";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
@@ -33,9 +33,11 @@ export class HeadlinePage implements AfterViewInit {
   h8: string;
   h3h;
   h3w;
+  adsDisplay = "block";
+    changeAds = true;
 
   mySlideOptions = {
-    loop: true,
+    loop: false,
     pager: true,
     autoplay: 2000
   };
@@ -115,6 +117,15 @@ export class HeadlinePage implements AfterViewInit {
 
               this.events.publish("user:cityChange");
               load.dismiss();
+
+              this.changeAds = false;
+              setTimeout(res => {
+
+                  this.changeAds = true;
+
+              },0);
+
+
               /*切换城市成功，刷新下面头条帖子*/
               this.pageDataService.refresh();
 

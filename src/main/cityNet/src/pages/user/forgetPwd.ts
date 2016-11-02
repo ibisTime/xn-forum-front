@@ -107,6 +107,12 @@ export class ForgetPwdPage implements AfterViewInit {
       return;
     }
 
+    if(!/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]{6,16})$/.test(pwd)){
+
+      this.warnCtrl.toast("密码必须为6~16位,同时包含数字和字母");
+      return;
+    }
+
     if(!captcha || captcha.length < 4){
       this.warnCtrl.toast('请输入正确的验证码');
       return;
