@@ -33,29 +33,21 @@
     </ion-refresher>
 
     <ion-list *ngIf="type =='left'">
-        <ion-item *ngFor="let item of fromMe">
-            <forum-cell
-                    [item]="item.post"
-                    [navCtrl]="navCtrl"
-                    [isHideCom]=true
-                    [isHideSC]=true
-            >
-
-            </forum-cell>
-        </ion-item>
 
         <ion-item class="b-lable" *ngFor="let item of fromMe">
             <ion-card>
                 <ion-item>
-                    <ion-avatar item-left>
-                        <img src="{{item.photo||'assets/images/marty-avatar.png'}}">
+                    <ion-avatar item-left (click)="goDetail($event, uService.user.userId)">
+                        <img src="{{uService.user.userExt.photo||'assets/images/marty-avatar.png'}}">
                     </ion-avatar>
-                    <div>
+                    <div (click)="openPage($event,item.postCode, item.publisher)">
                         <div style="position: relative;">
                             <h2>{{item.nickname}}</h2>
                         </div>
                         <p class="time">{{item.commDatetime|forumDate}}</p>
                         <ion-card-content>
+                            <div class="comment-div" *ngIf="item.parentComment">@{{item.parentComment.nickname}}:{{item.parentComment.content}}</div>
+                            <div class="comment-div" *ngIf="item.parentComment == null">@{{item.post.nickname}}:{{item.post.content}}</div>
                             <div class="comment-div1">{{item.content}}</div>
                         </ion-card-content>
                     </div>
@@ -68,19 +60,25 @@
     <ion-list *ngIf="type =='right'">
         <ion-item class="b-lable" *ngFor="let item of toMe">
             <ion-card>
-                <ion-item>
-                    <ion-avatar item-left>
+                <ion-item class="no-bottom">
+                    <ion-avatar item-left (click)="goDetail($event, uService.user.userId)">
                         <!--<img (src)="assets/images/marty-avatar.png">-->
-                        <img [src]="item.post.pic">
+                        <img src="{{uService.user.userExt.photo||'assets/images/marty-avatar.png'}}">
                     </ion-avatar>
-                    <div>
+                    <div (click)="openPage($event,item.postCode, item.publisher)">
                         <div style="position: relative;">
-                            <h2>{{item.post.nickname}}</h2>
+                            <h2>{{item.nickname}}</h2>
                         </div>
                         <p class="time">{{item.post.commDatetime|forumDate}}</p>
                         <ion-card-content>
                             <!--<div class="comment-div"><span>@asss</span>:改革春风吹满地，啦啦啦啦啦啦啦</div>-->
-                            <div class="comment-div1">{{item.post.content}}</div>
+                            <!--<div class="comment-div">@{{item.parentComment.nickname}}:{{item.parentComment.content}}</div>-->
+                            <div class="comment-div">{{item.post.content}}</div>
+                            <div class="comment-div1">
+                                <div *ngFor="let comment of item.nextCommentList">
+                                    <div class="t-3dot">{{comment.nickname}}：{{comment.content}}</div>
+                                </div>
+                            </div>
                         </ion-card-content>
                     </div>
                 </ion-item>

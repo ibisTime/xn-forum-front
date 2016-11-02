@@ -3,6 +3,8 @@ import {NavController, Platform, Content, ModalController, InfiniteScroll,Refres
 import {HttpService} from "../../../services/http.service";
 import {WarnService} from "../../../services/warn.service";
 import {UserService} from "../../../services/user.service";
+import {MineDetailPage} from "../../../pages/mine/detail/detail";
+import {ContentPage} from "../../../pages/forum/content/content";
 
 @Component({
   templateUrl: 'comment.html'
@@ -37,6 +39,7 @@ export class CommentPage implements AfterViewInit{
 
   ngAfterViewInit(){
       this.getCommentFromMe();
+      this.getCommentToMe();
   }
 
   changType($event){
@@ -55,9 +58,17 @@ export class CommentPage implements AfterViewInit{
       }
 
   }
+/*点击头像去详情页*/
+goDetail(event, article){
+    event.stopPropagation();
+    this.navCtrl.push(MineDetailPage, {publisher: article});
+}
+openPage($event, code, publisher) {
+    this.navCtrl.push(ContentPage, {code: code, openType: 1, publisher: publisher});
+}
 
-  /*我发出的评论*/
-  getCommentFromMe() {
+  /*我收到的评论*/
+  getCommentToMe() {
 
       let obj = {
           "start": this.start1,
@@ -66,9 +77,9 @@ export class CommentPage implements AfterViewInit{
       this.http.get("/post/myfromcomment/page",obj).then(res => {
 
           if(this.start1 == 1){
-              this.fromMe = [];
+              this.toMe = [];
           }
-          this.fromMe.push(...res.data.list);
+          this.toMe.push(...res.data.list);
           this.start1 ++;
 
 
@@ -86,8 +97,8 @@ export class CommentPage implements AfterViewInit{
       
   }
 
-  /*我收到的评论*/
-  getCommentToMe(){
+  /*我发出的评论*/
+  getCommentFromMe(){
 
       let obj = {
           "start": this.start2,
@@ -97,9 +108,9 @@ export class CommentPage implements AfterViewInit{
       this.http.get("/post/mytocomment/page",obj).then(res => {
 
           if(this.start2 == 1){
-              this.toMe = [];
+              this.fromMe = [];
           }
-          this.toMe.push(...res.data.list);
+          this.fromMe.push(...res.data.list);
           this.start2 ++;
 
           this.refreshCmp.complete();

@@ -50,10 +50,13 @@ export class ContentPage {
         this.toUser = navPara.data.publisher;
         this.isMe = this.toUser == uService.userId ? true: false;
         this.weichat = Release.weChat;
-        // this.getPostDetail();
 
-        /*列表帖子数据与详情没有区别*/
-        this.item = navPara.data;
+        if(navPara.data.openType == "1"){
+            this.getPostDetail();
+        }else{
+            /*列表帖子数据与详情没有区别*/
+            this.item = navPara.data;
+        }
         if(uService.user){
             this.isLogin = true;
             uService.queryFollowUsers().then(()=>{
@@ -86,6 +89,7 @@ export class ContentPage {
                 this.item.commentList1 = this.item.commentList.slice(0,5);
             });
   }
+
   //关注
   follow(publisher){
 
@@ -279,6 +283,7 @@ export class ContentPage {
                             commer: this.uService.user.userId
                         });
                         this.item.commentList1 = this.item.commentList.slice(0,5);
+                        this.item.totalCommNum = +this.item.totalCommNum + 1;
                     }
                     
 
