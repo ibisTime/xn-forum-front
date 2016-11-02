@@ -2,13 +2,14 @@
  * Created by tianlei on 16/9/9.
  */
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Events} from "ionic-angular";
 
 @Component({
    templateUrl: "chat.component.html",
     selector: 'chat-view'
 })
 export class ChatViewComponent implements OnInit {
-    constructor() { }
+    constructor(public events: Events) { }
 
   public _me;
   public _listOfChatData;
@@ -61,7 +62,16 @@ export class ChatViewComponent implements OnInit {
   /*所有跳转事件个功能点击事件*/
   goIframeCopy(url,title){
     this.goIframe.emit({"url":url,"title":title});
- }
+  }
+
+  showImg(ev){
+      if( ev.target.nodeName.match(/^img$/i)){
+          let img = ev.target;
+          //把图片发送出去
+          this.events.publish("displayImg",img.src);
+      }
+      ev.stopPropagation();
+  }
 
   ngOnInit() { }
 

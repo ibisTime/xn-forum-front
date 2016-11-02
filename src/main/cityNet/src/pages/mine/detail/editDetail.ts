@@ -50,9 +50,9 @@ export class EditDetailPage implements AfterViewInit {
   }
 
   changeNickname(){
-
     if(/[^\u4E00-\u9FA5a-zA-Z0-9_+-=]/ig.test(this.nickname)){
           this.warnCtrl.toast("昵称中包含非法字符");
+          return;
     }
 
     let load = this.warnCtrl.loading("修改中");
@@ -132,27 +132,26 @@ export class EditDetailPage implements AfterViewInit {
           this.warnCtrl.toast('请选择性别');
           return;
       }
-      if(typeof(this.param.introduce) == "undefined" || this.param.introduce.length  <= 0){
+      if(typeof(this.param.introduce) == "undefined" || this.param.introduce.trim() === ""){
           this.warnCtrl.toast('请填写个人简介');
           return;
       }
 
       let  b1 = typeof(this.param.email) != "undefined";
-      let  b2 =  /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/ig.test(this.param.email);
+      let  b2 =   /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/g.test(this.param.email);
 
       if(!(b1&&b2)){
           this.warnCtrl.toast('请填写正确的邮箱');
           return;
       }
 
-      if(/[^\u4E00-\u9FA5a-zA-Z0-9_+-=]/ig.test(this.param.introduce)){
+      if(/[^\u4E00-\u9FA5a-zA-Z0-9_+-=\（\）\(\)\《\》\——\；\，\。\“\”\<\>\！\!\~\@\*\&\^\%\#\\\|\[\]\{\}\：\'\、\……]/g.test(this.param.introduce)){
           this.warnCtrl.toast('个人简介中包含非法字符');
           return;
       }
-
+      this.param.introduce = this.param.introduce.trim();
       let load = this.warnCtrl.loading("修改中");
       this.http.post('/user/profile', this.param).then((res)=>{
-
             this.uService.user.userExt.gender = this.param.gender;
             this.uService.user.userExt.birthday = this.param.birthday;
             this.uService.user.userExt.introduce = this.param.introduce;

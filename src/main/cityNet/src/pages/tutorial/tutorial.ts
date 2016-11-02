@@ -132,7 +132,7 @@ export class TutorialPage implements AfterViewInit {
     },100);
 
     this.events.subscribe("user:timeout",()=> {
-      this.warn.toast('为了账户安全，请重新登陆');
+      this.warn.toast('为了账户安全，请重新登录');
       this.userServe.loginOut();
       this.im.close();
       this.nav.push(LoginPage);

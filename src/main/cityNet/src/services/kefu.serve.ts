@@ -4,6 +4,7 @@
 import {Injectable} from '@angular/core';
 import {IMBaseService,MsgObj} from "./im-base.service";
 import {HttpService} from "./http.service";
+import {UserService} from "./user.service";
 import {Release} from "./release";
 
 declare var WebIM: any;
@@ -79,8 +80,9 @@ export class KefuService {
   addr = Release.kefuUrl();
   conn;
 
-  constructor(private imBase: IMBaseService,
-              private ajax: HttpService) {
+  constructor(public imBase: IMBaseService,
+              public uService: UserService,
+              public ajax: HttpService) {
     this.conn = imBase.conn;
     this.to = imBase.to;
     this.tenantId = imBase.tenantId;
@@ -93,7 +95,7 @@ export class KefuService {
     this.listOfChatRoomData.from = [];
   }
   getChatGroupId() {
-    return this.ajax.get(null, null, this.baseurl + '/v1/webimplugin/visitors/' + this.me +
+    return this.ajax.get(null, null, this.baseurl + '/v1/webimplugin/visitors/' + this.uService.userId +
       '/ChatGroupId?techChannelInfo=' + encodeURIComponent(this.appkey) + '%23' + this.to + '&tenantId=' + this.tenantId)
       .then((msg)=>{
         this.chatGroupId = msg;
@@ -102,7 +104,7 @@ export class KefuService {
   //获取历史消息（refresh表示是否是上滑加载历史消息）
   getHistory(refresh?) {
     //如果没有chatGroupId，则先获取
-    if(this.chatGroupId === "0"){
+    if(this.chatGroupId === "0" || this.chatGroupId === "-1"){
       this.getChatGroupId().then(()=>{
         this.getMyHistory(refresh);
       }).catch(()=>{
@@ -321,16 +323,13 @@ export class KefuService {
   };
   //处理历史消息
   handleHistoryData(chatHistory, refresh?){
-    var me = this;
-
     if ( chatHistory.length > 0 ) {
       for(let i = 0; i < chatHistory.length; i++){
         let chat = chatHistory[i],
-          msgBody =chat.body,
-          msg,
-          isSelf = msgBody.from === this.me;
-
-        if ( msgBody && msgBody.bodies.length > 0 ) {
+            msgBody =chat.body,
+            msg,
+            isSelf = msgBody.from === this.me;
+        if ( msgBody && msgBody.bodies.length > 0 ) { 
           msg = msgBody.bodies[0];
           //如果是自己发出的消息
           if ( isSelf ) {
@@ -350,7 +349,7 @@ export class KefuService {
             }else if(msg.type == "file"){
               msg.url = /^http/.test(msg.url) ? msg.url : this.baseurl + msg.url;
               this.handleFileData(msg, true, refresh);
-            }else{
+            }else if(msg.type == "txt"){
               if(msgBody.ext){
                 msg.ext = msgBody.ext;
               }

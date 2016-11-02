@@ -80,6 +80,15 @@
                                 </div>
                             </ion-item>
                         </ion-list>
+                        <ion-list *ngIf="_item.commentList.length > 5">
+                            <ion-item>
+                                <div>
+                                    <span class="u-name more-comment" (click)="goDetail($event,_item.commentList[5].commer)">{{_item.commentList[5].nickname}}</span>
+                                    <span class="plr4">等人</span>
+                                    <span class="more-comment">共{{_item.totalCommNum}}条回复 ></span>
+                                </div>
+                            </ion-item>
+                        </ion-list>
                     </div>
                 </div>
             </div>

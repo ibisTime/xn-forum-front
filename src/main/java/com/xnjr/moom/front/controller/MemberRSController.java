@@ -51,9 +51,12 @@ public class MemberRSController extends BaseController {
             @RequestParam(value = "userId", required = false) String userId,
             @RequestParam(value = "start", required = false) String start,
             @RequestParam(value = "limit", required = false) String limit) {
+    	if(userId == null || userId == ""){
+    		userId = getSessionUserId(userId);
+    	}
         XN805090Req req = new XN805090Req();
         req.setMobile(mobile);
-        req.setUserId(getSessionUserId(userId));
+        req.setUserId(userId);
         req.setStart(start);
         req.setLimit(limit);
         return BizConnecter.getBizData("805090", JsonUtils.object2Json(req),
@@ -81,9 +84,12 @@ public class MemberRSController extends BaseController {
             @RequestParam(value = "userId", required = false) String userId,
             @RequestParam(value = "start", required = false) String start,
             @RequestParam(value = "limit", required = false) String limit) {
+    	if(userId == null || userId == ""){
+    		userId = getSessionUserId(userId);
+    	}
         XN805090Req req = new XN805090Req();
         req.setMobile(mobile);
-        req.setToUser(getSessionUserId(userId));
+        req.setToUser(userId);
         req.setStart(start);
         req.setLimit(limit);
         return BizConnecter.getBizData("805090", JsonUtils.object2Json(req),

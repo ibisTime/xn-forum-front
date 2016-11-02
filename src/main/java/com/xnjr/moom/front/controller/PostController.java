@@ -250,7 +250,7 @@ public class PostController extends BaseController {
     @ResponseBody
     public Object setTop(@RequestParam("code") String code,
             @RequestParam("location") String location,
-            @RequestParam("endDatetime") String endDatetime) {
+            @RequestParam(value = "endDatetime", required = false) String endDatetime) {
         return postAO.setTop(code, location, endDatetime);
     }
 

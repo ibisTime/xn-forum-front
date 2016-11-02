@@ -60,6 +60,11 @@ export class IMBaseService {
   imPresence;
 
   impFunction(imFunc,kefuFunc,msg, type?){
+    console.log("impFunction");
+    console.log(msg.from);
+    console.log(this.to);
+    
+    
     if(msg.from == this.to){
       (typeof(kefuFunc) =="function")&&(kefuFunc(msg, type));
     }else{
@@ -91,7 +96,7 @@ export class IMBaseService {
         (typeof(this.imRoster) =="function")&&(this.imRoster(msg));
       },
       onOpened: (msg) => {
-        console.log("登陆成功");
+        console.log("登录成功");
         console.log(msg);
         (typeof(this.imOpened) =="function")&&(this.imOpened(msg));
         this.conn.setPresence();

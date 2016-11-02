@@ -240,7 +240,9 @@ export class MineDetailPage implements AfterViewInit{
 
   /*自己，进行信息编辑*/
   doEdit(){
-      this.navCtrl.push(EditDetailPage);
+      if(this.isMe){
+          this.navCtrl.push(EditDetailPage);
+      }
   }
 
 }

@@ -109,7 +109,8 @@ export class MyApp implements AfterViewInit{
 
         /*user-services 中发出 登陆成功*/
         this.events.subscribe("user:loginSuccess",() => {
-
+            console.log("loginSUccess");
+            
             this.logningFlag = false;
             /*客服*/
             this.kefuService.me = this.userServe.userId;

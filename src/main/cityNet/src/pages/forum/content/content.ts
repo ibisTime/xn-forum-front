@@ -439,7 +439,6 @@ export class ContentPage {
         {
           text: '确认',
           handler: (data) => {
-
                if(!(typeof(data.reportNote) != "undefined" && data.reportNote.length >0 )){
                    this.warnCtrl.toast("请填写举报理由");
                    return;
@@ -451,7 +450,7 @@ export class ContentPage {
                     "type": type
                 })
                 .then((res) => {
-
+                        
                         this.warnCtrl.toast("举报成功!");
 
                 }).catch(error => {

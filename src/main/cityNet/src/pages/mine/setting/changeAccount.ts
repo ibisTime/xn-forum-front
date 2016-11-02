@@ -30,7 +30,7 @@ export class ChangeAccountPage {
     change(){
         if(this.loginName && this.loginName.trim() !== ""){
             let obj = {
-                "loginName": this.loginName,
+                "loginName": this.loginName.trim(),
             };
             let load = this.warnCtrl.loading();
 

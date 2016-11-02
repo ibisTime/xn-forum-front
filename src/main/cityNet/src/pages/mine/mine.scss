@@ -6,6 +6,11 @@
   *{
     color: $text-color;
   }
+  .acc-mobile{
+    .item-inner{
+      background-image: none;
+    }
+  }
   .login-register-outer{
     display: flex;
     justify-content: space-around;
@@ -107,6 +112,7 @@
       display: inline-block;
       vertical-align: middle;
       padding: 0 10px 0 5px;
+      font-style: normal;
     }
     span{
       //background-color: red;

@@ -141,7 +141,7 @@ export class TabsPage {
 
   closeImg(){
     let sDiv = document.getElementById("ylImg");
-    sDiv.className = sDiv.className + "hidden";
+    sDiv.className = sDiv.className + " hidden";
   }
 
 

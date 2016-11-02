@@ -85,12 +85,10 @@ export class KefuPage implements AfterViewInit {
   }
 
   sendMsg(value) {
-
-      if(!this.userService.user){
-          this.nav.push(LoginPage);
-          return;
-      }
-    //this.msgPut.setFocus();
+    if(!this.userService.user){
+        this.nav.push(LoginPage);
+        return;
+    }
     this.chatView.me = this.imServe.me;
     this.imServe.handleToMsg(value);
     this.imServe.sendTextMsg(value, (id, serverMsgId) => {
@@ -115,6 +113,11 @@ export class KefuPage implements AfterViewInit {
     this.isActive = false;
   }
   doRefresh(event){
+    if(!this.userService.user){
+        this.nav.push(LoginPage);
+        return;
+    }
+    this.chatView.me = this.imServe.me;
     this.imServe.getHistory(event);
   }
   scrollBottom() {
