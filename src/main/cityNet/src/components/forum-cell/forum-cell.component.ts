@@ -51,8 +51,10 @@ export class ForumCell implements OnInit {
     set item(item){
         if(item.content.length > 100){
             item.content1 = item.content.substr(0, 100) + "...<a class='all-cont'>全文</a>";
-            item.content1 = item.content1.replace(/(@[^\s]*)\s/ig, "<a class='people'>$1</a>");
+        }else{
+            item.content1 = item.content;
         }
+        item.content1 = item.content1.replace(/(@[^\s]*)\s/ig, "<a class='people'>$1</a>");
         item.content = item.content.replace(/(@[^\s]*)\s/ig, "<a class='people'>$1</a>");
         if(item.commentList && item.commentList.length){
             item.commentList1 = item.commentList.slice(0,5);

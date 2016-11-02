@@ -3,13 +3,15 @@
  */
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Events} from "ionic-angular";
+import {UserService} from "../../services/user.service";
 
 @Component({
    templateUrl: "chat.component.html",
     selector: 'chat-view'
 })
 export class ChatViewComponent implements OnInit {
-    constructor(public events: Events) { }
+    constructor(public events: Events,
+    public uService : UserService) { }
 
   public _me;
   public _listOfChatData;

@@ -79,6 +79,7 @@ export class KefuService {
   scroll_top;
   addr = Release.kefuUrl();
   conn;
+  rFlag = true;
 
   constructor(public imBase: IMBaseService,
               public uService: UserService,
@@ -116,17 +117,21 @@ export class KefuService {
   }
   //获取历史消息
   getMyHistory(refresh?) {
-    this.ajax.get(null, null,
-      this.baseurl + '/v1/webimplugin/visitors/msgHistory?fromSeqId='+(this.chatGroupSeqId || 0)+'&size=10&chatGroupId='+this.chatGroupId+'&tenantId='+this.tenantId)
-      .then((msg)=>{
-        //第一次打开页面的时候去获取
-        if(!refresh){
-          this.getCompanyWelcome();
-        }
-        this.handleHistoryData(msg, refresh);
-      }).catch(()=>{
-        refresh && refresh.complete();
-      });
+    if(this.rFlag){
+      this.ajax.get(null, null,
+        this.baseurl + '/v1/webimplugin/visitors/msgHistory?fromSeqId='+(this.chatGroupSeqId || 0)+'&size=10&chatGroupId='+this.chatGroupId+'&tenantId='+this.tenantId)
+        .then((msg)=>{
+          //第一次打开页面的时候去获取
+          if(!refresh){
+            this.getCompanyWelcome();
+          }
+          this.handleHistoryData(msg, refresh);
+        }).catch(()=>{
+          refresh && refresh.complete();
+        });
+    }else{
+      refresh && refresh.complete();
+    }
   }
   //获取当前聊天记录
   getDataByFromName() : Array<MsgObj>{
@@ -323,8 +328,10 @@ export class KefuService {
   };
   //处理历史消息
   handleHistoryData(chatHistory, refresh?){
+    let flag = true;
     if ( chatHistory.length > 0 ) {
       for(let i = 0; i < chatHistory.length; i++){
+        
         let chat = chatHistory[i],
             msgBody =chat.body,
             msg,
@@ -359,9 +366,21 @@ export class KefuService {
           }
         }
       }
-      this.chatGroupSeqId = +chatHistory[chatHistory.length - 1].chatGroupSeqId - 1;
+      for(let j = chatHistory.length - 1; j >= 0; j--){
+        if(chatHistory[j].chatGroupSeqId){
+          this.chatGroupSeqId = +chatHistory[j].chatGroupSeqId - 1;
+          flag = false;
+          break;
+        }
+      }
     }
-    refresh && refresh.complete();
+    if(refresh){
+      refresh && refresh.complete();
+      if(chatHistory.length <10 || flag){
+        this.rFlag = false;
+      }
+    }
+    
   }
   //发消息
   sendTextMsg(message,successCallBack: (id, serverMsgId) => void, msgtype, ext?) {
