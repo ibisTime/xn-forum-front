@@ -114,6 +114,7 @@ export class KefuPage implements AfterViewInit {
   }
   doRefresh(event){
     if(!this.userService.user){
+        event.complete();
         this.nav.push(LoginPage);
         return;
     }
