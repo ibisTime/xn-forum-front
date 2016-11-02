@@ -71,22 +71,22 @@ openPage($event, code, publisher) {
   getCommentToMe() {
 
       let obj = {
-          "start": this.start1,
+          "start": this.start2,
           "limit": this.limit
       }
       this.http.get("/post/myfromcomment/page",obj).then(res => {
 
-          if(this.start1 == 1){
+          if(this.start2 == 1){
               this.toMe = [];
           }
           this.toMe.push(...res.data.list);
-          this.start1 ++;
+          this.start2 ++;
 
 
           this.refreshCmp.complete();
           this.loadMoreComp.complete();
 
-          if (this.limit*this.start1 >= res.data.totalCount) {
+          if (this.limit*this.start2 >= res.data.totalCount) {
               this.loadMoreComp.enable(false);
           }
       }).catch(error => {
@@ -101,22 +101,22 @@ openPage($event, code, publisher) {
   getCommentFromMe(){
 
       let obj = {
-          "start": this.start2,
+          "start": this.start1,
           "limit": this.limit
       }
 
       this.http.get("/post/mytocomment/page",obj).then(res => {
 
-          if(this.start2 == 1){
+          if(this.start1 == 1){
               this.fromMe = [];
           }
           this.fromMe.push(...res.data.list);
-          this.start2 ++;
+          this.start1 ++;
 
           this.refreshCmp.complete();
           this.loadMoreComp.complete();
 
-          if (this.limit*this.start2 >= res.data.totalCount) {
+          if (this.limit*this.start1 >= res.data.totalCount) {
               this.loadMoreComp.enable(false);
           }
 
