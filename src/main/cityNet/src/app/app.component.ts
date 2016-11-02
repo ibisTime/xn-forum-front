@@ -9,6 +9,7 @@ import {WarnService} from "../services/warn.service";
 import {IMService} from "../services/im.service";
 import {HttpService} from "../services/http.service";
 import {KefuService} from "../services/kefu.serve";
+import { Storage } from '@ionic/storage';
 
 declare let BMap: any;
 declare let BMAP_STATUS_SUCCESS: any;
@@ -22,7 +23,6 @@ export class MyApp implements AfterViewInit{
   adDisplay = "block";
   time = 2;
   logningFlag = false;
-    contentUrl;
 
 
     constructor(public platform: Platform,
@@ -34,8 +34,10 @@ export class MyApp implements AfterViewInit{
               public http: HttpService,
               public kefuService: KefuService,
               public imServe: IMService,
-              public app: App
+              public app: App,
+              public storage: Storage
               ) {
+
     //根视图
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -46,6 +48,7 @@ export class MyApp implements AfterViewInit{
 
 
 
+    // this.storage.clear();
 
       //判断是否有城市存储
       // this.cityService.checkedCity().then(res => {
@@ -66,6 +69,7 @@ export class MyApp implements AfterViewInit{
   }
 
   ngAfterViewInit(){
+
         /*判断是否已经登陆*/
         this.userServe.whetherLogin().then(res => {
 
@@ -79,7 +83,6 @@ export class MyApp implements AfterViewInit{
                 this.getNav();
 
             }////////////////////////////
-
 
         }).catch(error => {
 
@@ -109,8 +112,7 @@ export class MyApp implements AfterViewInit{
 
         /*user-services 中发出 登陆成功*/
         this.events.subscribe("user:loginSuccess",() => {
-            console.log("loginSUccess");
-            
+
             this.logningFlag = false;
             /*客服*/
             this.kefuService.me = this.userServe.userId;
@@ -183,7 +185,7 @@ export class MyApp implements AfterViewInit{
 
               },1200);
 
-              this.contentUrl =`url('${this.cityService.ads[0]}')`;
+              // this.contentUrl =`url('${this.cityService.ads[0]}')`;
 
               setTimeout(res => {
 
@@ -192,9 +194,8 @@ export class MyApp implements AfterViewInit{
 
                   this.rootPage = TabsPage;
 
-
-
               },this.time*1500);
+
 
 
           }  else  {
@@ -213,9 +214,11 @@ export class MyApp implements AfterViewInit{
 
       }).catch(error => {
 
-          load.dismiss();
+          load.dismissAll();
           this.warnService.alert("加载失败，请重新加载",() => {
+
               this.getInfoAlreadyLogin();
+
           });
 
       });
@@ -232,7 +235,7 @@ export class MyApp implements AfterViewInit{
 
       geolocation.getCurrentPosition(r => {
 
-          console.log(r);
+          // console.log(r);
 
           if(geolocation.getStatus() == BMAP_STATUS_SUCCESS){
             //成功加载站点
@@ -242,8 +245,8 @@ export class MyApp implements AfterViewInit{
               let area = r.address.district;
 
               let zoneObj = {
-                  "province": province,
-                  "area":  area,
+                  "province": province || "未知",
+                  "area":  area || "未知",
                   "city":  city
               }
 
@@ -309,6 +312,7 @@ export class MyApp implements AfterViewInit{
               }).catch(error => {
 
                   loadNav.dismiss();
+
                   this.warnService.alert("加载失败，请重新加载",() => {
                       this.getNav();
                   });
@@ -394,9 +398,6 @@ export class MyApp implements AfterViewInit{
     });
 
   }
-
-
-
 
 
   // howLoad(){

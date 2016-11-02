@@ -210,7 +210,6 @@ export class HeadlinePage implements AfterViewInit {
         let load = this.warn.loading("");
         this.http.post("/user/signIn",obj).then(res => {
 
-            console.log(res);
             load.dismiss().then(msg => {
 
                 this.events.publish("user:signin",res.data.amount/1000);
