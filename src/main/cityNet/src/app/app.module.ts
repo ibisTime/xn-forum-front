@@ -16,9 +16,6 @@ import {TestView} from "../components/plate-choose/test-view";
     ...pages,
     ...components,
       TestView
-
-
-
   ],
   imports: [
     IonicModule.forRoot(MyApp,{
@@ -31,8 +28,7 @@ import {TestView} from "../components/plate-choose/test-view";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ...pages,
-    TestView
+    ...pages
 
   ],
   providers: [...MY_SERVE,Storage]

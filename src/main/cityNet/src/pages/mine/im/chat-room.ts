@@ -46,9 +46,6 @@ export class ChatRoomPage implements AfterViewInit {
     this.otherImg = this.params.data.photo || "assets/images/marty-avatar.png";
 
 
-    console.log(this.otherImg);
-    console.log(params);
-
     //1.哪到导航数据就去获取信息
     this.imServe.imTextMessageInner = msg => {
 

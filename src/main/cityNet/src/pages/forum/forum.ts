@@ -4,7 +4,6 @@ import {PlatDetailPage} from "./detail/platDetail";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.service";
-import {ContentPage} from "./content/content";
 import {LoginPage} from "../user/login";
 import {CityService} from "../../services/city.service";
 import {SearchUserAndArticlePage} from "../headline/search-user-article";

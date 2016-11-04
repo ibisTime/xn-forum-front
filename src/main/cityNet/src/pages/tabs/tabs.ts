@@ -93,7 +93,6 @@ export class TabsPage implements AfterViewInit{
 
   ngAfterViewInit(){
 
-    console.log(this.titleItems);
 
     let items = <any>this.titleItems;
     let arr = items._results;

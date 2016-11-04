@@ -6,7 +6,8 @@ import {App, Events} from "ionic-angular";
 import {Release} from './release'
 import {MallPage} from "../pages/headline/mall/mall";
 import {IFramePage} from "../pages/headline/iframe";
-import {InAppBrowser} from 'ionic-native';
+import { SafariViewController } from 'ionic-native';
+
 import {PlatDetailPage} from "../pages/forum/detail/platDetail";
 @Injectable()
 export class NavService {
@@ -54,10 +55,32 @@ export class NavService {
                 nav.push(IFramePage,{"url":url,"title":title});
 
             } else {
-
                 //插件跳转
-                let browser = new InAppBrowser(url);
-                browser.show();
+                // let browser = new InAppBrowser(url,"_system");
+                // browser.show();
+                SafariViewController.isAvailable().then((available: boolean) => {
+                        if (available) {
+
+                            SafariViewController.show({
+                                url: url,
+                                hidden: false,
+                                animated: false,
+                                transition: 'curl',
+                                enterReaderModeIfAvailable: true,
+                                tintColor: '#ff0000'
+                            }).then((result: any) => {
+                                // if(result.event === 'opened') console.log('Opened');
+                                // else if(result.event === 'loaded') console.log('Loaded');
+                                // else if(result.event === 'closed') console.log('Closed');
+                            }, (error: any) => console.error(error));
+
+                        } else {
+
+                            nav.push(IFramePage, {"url": url, "title": title});
+                            // use fallback browser, example InAppBrowser
+                        }
+                    }
+                );
 
             }
 

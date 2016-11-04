@@ -25,7 +25,7 @@ export interface MsgObj {
 export class IMBaseService {
 
   public url = 'im-api.easemob.com';
-  public apiUrl = '//a1.easemob.com';
+  public apiUrl = 'http://a1.easemob.com';
   public  appKey = "wlqsltz#chatapp";
   public to = "tianlei";
   public tenantId = "26192";

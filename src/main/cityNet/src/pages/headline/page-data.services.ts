@@ -133,7 +133,6 @@ export class PageDataService implements OnDestroy{
     }
 
     ngOnDestroy(){
-        console.log('分页管理被销毁');
     }
 
 }

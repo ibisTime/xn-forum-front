@@ -12,11 +12,12 @@ enum  environment{
 export namespace Release {
 
     const release = false;
+    export const weChat = true;
 
     //release false才有效
-     const  run_environment = environment.test;
-    export const weChat = true;
-    const  port = "8080";
+     const  run_environment = environment.develop_local;
+
+    // const  port = "8080";
     export const baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
     export function baiduMapUrl() {
 
@@ -24,10 +25,12 @@ export namespace Release {
 
             if(weChat) {
 
-                return "//114.55.179.135:8080/geocoder/";
+                return "http://114.55.179.135:8080/geocoder/";
 
             } else {
-                return "//api.map.baidu.com/geocoder/v2/";
+
+                return "http://api.map.baidu.com/geocoder/v2/";
+
             }
 
 
@@ -37,15 +40,15 @@ export namespace Release {
 
                 switch (run_environment){
 
-                    case environment.test: return "//120.26.222.73:" + port +"/geocoder/";
-                    case environment.develop: return "//121.43.101.148:" + port +"/geocoder/";
+                    case environment.test: return "http://120.26.222.73:8080/geocoder/";
+                    case environment.develop: return "http://121.43.101.148:8080/geocoder/";
                     case environment.develop_local:  return "http://localhost:8080/geocoder/";
 
                 }
 
             } else {
 
-                return "//api.map.baidu.com/geocoder/v2/";
+                return "http://api.map.baidu.com/geocoder/v2/";
 
             }
         }
@@ -55,14 +58,14 @@ export namespace Release {
 
         if(release){
 
-            return "//114.55.179.135:8080";
+            return "http://114.55.179.135:8080/xn-forum-front";
 
         } else {
 
             switch (run_environment){
 
-                case environment.test: return "//120.26.222.73:8080/xn-forum-front";
-                case environment.develop: return "//121.43.101.148:" + port +"/xn-forum-front";
+                case environment.test: return "http://120.26.222.73:8080/xn-forum-front";
+                case environment.develop: return "http://121.43.101.148:8080/xn-forum-front";
                 case environment.develop_local:  return "http://localhost:8080/xn-forum-front";
 
             }
@@ -77,16 +80,33 @@ export namespace Release {
         if(release){
 
 
-          return "//114.55.179.135:8080";
+            if(weChat){
+                return "http://114.55.179.135:8080/rvisitor/";
+            } else {
+
+                return "http://kefu.easemob.com/v1/Tenants/";
+            }
+
 
 
         } else {
 
-            switch (run_environment){
-                case environment.test: return "//120.26.222.73:8080";
-                case environment.develop:  return "//121.43.101.148:" + port;
-                case environment.develop_local:   return "http://localhost:8080";
-            }
+            if (weChat){
+
+                switch (run_environment) {
+                    case environment.test:
+                        return "http://120.26.222.73:8080/rvisitor/";
+                    case environment.develop:
+                        return "http://121.43.101.148:8080/rvisitor/";
+                    case environment.develop_local:
+                        return "http://localhost:8080/rvisitor/";
+                }
+
+             } else {
+
+                return "http://kefu.easemob.com/v1/Tenants/";
+
+             }
 
         }
 

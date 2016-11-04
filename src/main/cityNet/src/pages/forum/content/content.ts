@@ -7,7 +7,7 @@ import {UserService} from "../../../services/user.service";
 import {Release} from "../../../services/release";
 import {LoginPage} from "../../user/login";
 import {ReplyCommentPage} from "./reply-comment";
-
+import {Keyboard} from "ionic-native"
 
 @Component({
   templateUrl: 'content.html'
@@ -412,12 +412,16 @@ export class ContentPage {
 
                        this.warnCtrl.toast("打赏成功!");
 
+
                     }).catch(error => {
 
                     });
                 }else{
                     this.warnCtrl.toast("打赏失败!");
                 }
+                this.platform.ready().then(res => {
+                   Keyboard.close();
+                });
           }
         }
       ]
@@ -461,6 +465,10 @@ export class ContentPage {
                 }).catch(error => {
 
                 });
+
+              this.platform.ready().then(res => {
+                  Keyboard.close();
+              });
           }
         }
       ]

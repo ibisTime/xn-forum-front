@@ -23,7 +23,7 @@ class ListItem{
 export class KefuService {
 
 
-  private baseurl = '//kefu.easemob.com';
+  private baseurl = 'http://kefu.easemob.com';
   private tenantId = "26192";
   private to;
   private appkey;
@@ -162,7 +162,7 @@ export class KefuService {
   //获取机器人欢迎语
   getRobertWelcome(msdData?){
     this.ajax.get(null, null,
-      this.addr + '/rvisitor/'+this.tenantId+'/robots/visitor/greetings?tenantId='+this.tenantId)
+      this.addr + this.tenantId+'/robots/visitor/greetings?tenantId='+this.tenantId)
       .then((rGreeting)=>{
         let msg;
         switch ( rGreeting.greetingTextType ) {

@@ -76,7 +76,6 @@ export class IMService {
 
 
   imOpened(msg){
-    console.log("imService success");
     // this.getFriendList();
   }
 
@@ -131,17 +130,14 @@ export class IMService {
     //2.列表中无任何数据
     //2.1有数据,不是该条
     //3.有该数据
-    console.log(from);
-    console.log(this.listOfChatRoomData[from]);
+
     if (typeof(this.listOfChatRoomData[from]) == "undefined" || this.listOfChatRoomData[from] === null) {
 
-      console.log('未定义');
       this.listOfChatRoomData[from] = [];
       this.listOfChatRoomData[from].push(msg);
 
     } else {
 
-      console.log('已经定义');
       this.listOfChatRoomData[from].push(msg);
 
     }
@@ -151,7 +147,6 @@ export class IMService {
   /*4.对插入的外部列表数据进行处理*/
   handleExternalMsgData(msg){
 
-  console.log(msg);
 
     let linkMan = msg.from == this.me ? msg.to : msg.from ;
 
@@ -202,7 +197,6 @@ export class IMService {
         showBadge: isShowBadge,
         badgeCount: 1
       };
-      console.log(shortMsg);
 
     }
 
@@ -214,17 +208,14 @@ export class IMService {
       });
 
       let model = models[0];
-      console.log("外部列表数据 ");
-      console.log(model);
+
 
       if (typeof(model) == "undefined") {//没有找到,添加
 
-        console.log('有别人,进行添加');
         this.listOfOpposite.push(shortMsg);
 
       } else {//找到数据进行修改
 
-        console.log('有记录进行修改进行数据修改');
         // model.lastMsg = chatContent;
         // model.time = dateStr;
         model.showBadge = shortMsg.showBadge;
@@ -233,7 +224,6 @@ export class IMService {
       }
 
     } else {
-      console.log('没别人,进行添加');
       this.listOfOpposite.push(shortMsg);
     }
   }
@@ -427,7 +417,6 @@ export class IMService {
     let year = date1.getFullYear() == date2.getFullYear();
     let mon = date1.getMonth() == date2.getMonth();
     let day = date1.getDate() == date2.getDate();//每月的几号
-    // console.log(date1.getDate,date2.getDate);
 
     if(year && mon && day){
       return  this.formatStr(date1.getHours())+ ':' + this.formatStr(date1.getMinutes());

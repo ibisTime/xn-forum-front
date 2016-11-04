@@ -9,6 +9,8 @@ import {WarnService} from "../services/warn.service";
 import {IMService} from "../services/im.service";
 import {HttpService} from "../services/http.service";
 import {KefuService} from "../services/kefu.serve";
+import {Release} from "../services/release";
+
 import { Storage } from '@ionic/storage';
 
 declare let BMap: any;
@@ -37,7 +39,6 @@ export class MyApp implements AfterViewInit{
               public app: App,
               public storage: Storage
               ) {
-
     //根视图
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -45,28 +46,9 @@ export class MyApp implements AfterViewInit{
       // Keyboard.disableScroll(true);
     });
 
-
-
-
     // this.storage.clear();
-
-      //判断是否有城市存储
-      // this.cityService.checkedCity().then(res => {
-      //
-      //     if (res != null) {
-      //
-      //         this.cityService.getSiteByAddress(res);
-      //
-      //     } else {
-      //
-      //         this.getNav();
-      //
-      //     }
-      //
-      // }).catch(error => {
-      //     this.getNav();
-      // });
   }
+
 
   ngAfterViewInit(){
 
@@ -199,7 +181,6 @@ export class MyApp implements AfterViewInit{
 
 
           }  else  {
-
               //无图直接跳转
               this.rootPage = TabsPage;
           }
@@ -231,121 +212,120 @@ export class MyApp implements AfterViewInit{
   getNav(){
 
       let loadNav = this.warnService.loading("");
-      var geolocation = new BMap.Geolocation();
 
-      geolocation.getCurrentPosition(r => {
+      /*微信和 app 定位方式不同*/
+      if(Release.weChat){
+          //微信
+          var geolocation = new BMap.Geolocation();
 
-          // console.log(r);
+          geolocation.getCurrentPosition(r => {
 
-          if(geolocation.getStatus() == BMAP_STATUS_SUCCESS){
-            //成功加载站点
+              // console.log(r);
 
-              let province = r.address.province.slice(0,r.address.province.length - 1);
-              let city = r.address.city.slice(0,r.address.city.length - 1);
-              let area = r.address.district;
+              if(geolocation.getStatus() == BMAP_STATUS_SUCCESS){
+                //成功加载站点
 
-              let zoneObj = {
-                  "province": province || "未知",
-                  "area":  area ,
-                  "city":  city || "未知"
-              }
+                  let province = r.address.province.slice(0,r.address.province.length - 1);
+                  let city = r.address.city.slice(0,r.address.city.length - 1);
+                  let area = r.address.district;
 
-              if(typeof(area) == "undefined" || area.length <= 0){
-                  this.warnService.toast("不能确定您的准确位置，将进入默认站点");
-
-              } else {
-
-                  this.cityService.locationSuccessAddress = zoneObj;
-
-              }
-
-              this.cityService.getSiteByAddress(zoneObj).then(res => {
-
-
-                  loadNav.dismiss();
-
-                  //有广告图进行加载
-                  if(this.cityService.ads.length > 0){
-
-                      let num = setInterval(() => {
-
-                          if(this.time > 0){
-
-                              // document.getElementById("time-back-div").innerText = `${this.time}`;
-                              this.time --;
-                              // console.log("定时中");
-                              // console.log(this.time);
-                              // this.events.publish("timeBegin",this.time);
-
-                          }
-
-                      },1200);
-
-
-                      console.log(this.cityService.ads);
-
-
-                      this.rootPage = TabsPage;
-
-                      setTimeout(res => {
-                          // this.adDisplay = 'none';
-                          // window.clearInterval(num);
-                          // this.rootPage = TabsPage;
-                          document.getElementById("ad-bg").style.display = "none";
-                          document.getElementById("ad-bg-img").style.display = "none";
-                          // this.events.publish("adsLoadEnd");
-                          console.log("切换完成了");
-                          // console.log(this);
-                          // console.log(this.adDisplay);
-
-
-                      },this.time*1500);
-
-
-                  }  else  {
-
-                      //无图直接跳转
-                      this.rootPage = TabsPage;
+                  let zoneObj = {
+                      "province": province || "未知",
+                      "area":  area ,
+                      "city":  city || "未知"
                   }
 
+                  if(typeof(area) == "undefined" || area.length <= 0){
+                      this.warnService.toast("不能确定您的准确位置，将进入默认站点");
 
-              }).catch(error => {
+                  } else {
 
+                      // 微信在外面 获取地址   app在里面获取地址
+                      this.cityService.locationSuccessAddress = zoneObj;
+
+                  }
+
+                  this.cityService.getSiteByAddress(zoneObj).then(res => {
+
+
+                      loadNav.dismiss();
+
+                      //有广告图进行加载
+                      if(this.cityService.ads.length > 0){
+
+                          let num = setInterval(() => {
+
+                              if(this.time > 0){
+
+                                  // document.getElementById("time-back-div").innerText = `${this.time}`;
+                                  this.time --;
+                                  // console.log("定时中");
+                                  // console.log(this.time);
+                                  // this.events.publish("timeBegin",this.time);
+
+                              }
+
+                          },1200);
+
+
+                          console.log(this.cityService.ads);
+
+
+                          this.rootPage = TabsPage;
+
+                          setTimeout(res => {
+
+                              document.getElementById("ad-bg").style.display = "none";
+                              document.getElementById("ad-bg-img").style.display = "none";
+
+                          },this.time*1500);
+
+
+                      }  else  {
+
+                          //无图直接跳转
+                          this.rootPage = TabsPage;
+
+                      }
+
+
+                  }).catch(error => {
+
+                      loadNav.dismiss();
+
+                      this.warnService.alert("加载失败，请重新加载",() => {
+                          this.getNav();
+                      });
+
+                  });
+
+
+              } else {
+                //失败加载默认
                   loadNav.dismiss();
-
                   this.warnService.alert("加载失败，请重新加载",() => {
                       this.getNav();
                   });
 
-              });
+              }
 
+          },{enableHighAccuracy: true});
 
-          } else {
-            //失败加载默认
-              loadNav.dismiss();
-              this.warnService.alert("加载失败，请重新加载",() => {
-                  this.getNav();
-              });
+      } else {////手机
 
-          }
+          navigator.geolocation.getCurrentPosition(geo => {
 
-      },{enableHighAccuracy: true});
+              /*在这里定位成功的将站点进行存储*/
+              this.getDataByPosition(geo.coords.longitude, geo.coords.latitude,loadNav);
 
+          }, error => {
 
+              this.warnService.toast("不能确定您的准确位置，将进入默认站点");
+              this.getDataByPosition(0,0,loadNav);
 
-    /*加载默认*/
-    // navigator.geolocation.getCurrentPosition(geo => {
-    //
-    //   /*在这里定位成功的将站点进行存储*/
-    //   this.getDataByPosition(geo.coords.longitude, geo.coords.latitude,loadNav);
-    //
-    // }, error => {
-    //
-    //   this.warnService.toast("定位失败，将切换到默认站点");
-    //   this.getDataByPosition(0,0,loadNav);
-    //
-    // },{timeout: 10000});
-  //
+          },{timeout: 10000});
+
+      }////结束
 
   }
 
@@ -391,11 +371,15 @@ export class MyApp implements AfterViewInit{
     }).catch(error => {
 
       loadNav.dismiss();
+
       this.warnService.alert("加载失败，请重新加载",() => {
+
         this.getNav();
+
       });
 
     });
+
 
   }
 
@@ -436,9 +420,5 @@ export class MyApp implements AfterViewInit{
   //   });
   //
   // }
-
-
-
-
 
 }

@@ -45,7 +45,6 @@ export class CommentPage implements AfterViewInit{
 
   changType($event){
 
-      console.log('正在发送事件');
       this.loadMoreComp.enable(true);
 
       if($event == "left"){
