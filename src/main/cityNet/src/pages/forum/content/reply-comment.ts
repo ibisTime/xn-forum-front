@@ -6,6 +6,7 @@ import {ViewController, Platform, ModalController, NavParams, Events} from "ioni
 import {HttpService} from "../../../services/http.service";
 import {UserService} from "../../../services/user.service";
 import {WarnService} from "../../../services/warn.service";
+import {Keyboard} from "ionic-native";
 
 @Component({
   templateUrl: 'reply-comment.html'
@@ -54,6 +55,7 @@ export class ReplyCommentPage implements AfterViewInit,OnDestroy {
 
   cancle(){
       this.viewCtrl.dismiss(false);
+      Keyboard.close();
   }
 
   send(contentTextarea){

@@ -3,12 +3,11 @@ import {
 
 } from '@angular/core';
 import { NavController, NavParams} from "ionic-angular";
-import { TabsPage} from '../tabs/tabs';
-import {IMService} from "../../services/im.service";
 import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.service";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
 import {HttpService} from "../../services/http.service";
+import {IMService} from "../../services/im.service";
 
 
 @Directive({ selector: 'input' })
@@ -41,7 +40,6 @@ export class ForgetPwdPage implements AfterViewInit {
 
     if(this.para.data == "修改密码"){
       this.title = this.para.data;
-      let an =  this.userNameInput;
       this.inputDisable = "disabled";
       // this.userNameValue = this.user.userName;
     }

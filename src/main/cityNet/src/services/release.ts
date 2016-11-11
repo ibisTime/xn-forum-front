@@ -11,11 +11,11 @@ enum  environment{
 
 export namespace Release {
 
-    const release = false;
-    export const weChat = true;
+    const release = true;
+    export const weChat = false;
 
     //release false才有效
-     const  run_environment = environment.develop_local;
+     const  run_environment = environment.test;
 
     // const  port = "8080";
     export const baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
@@ -25,7 +25,7 @@ export namespace Release {
 
             if(weChat) {
 
-                return "http://114.55.179.135:8080/geocoder/";
+                return "http://cswapp.hichengdai.com/geocoder/";
 
             } else {
 
@@ -58,7 +58,7 @@ export namespace Release {
 
         if(release){
 
-            return "http://114.55.179.135:8080/xn-forum-front";
+            return "http://cswapp.hichengdai.com/xn-forum-front";
 
         } else {
 
@@ -81,12 +81,13 @@ export namespace Release {
 
 
             if(weChat){
-                return "http://114.55.179.135:8080/rvisitor/";
+
+                return "http://cswapp.hichengdai.com/rvisitor/";
+
             } else {
 
                 return "http://kefu.easemob.com/v1/Tenants/";
             }
-
 
 
         } else {
@@ -94,6 +95,7 @@ export namespace Release {
             if (weChat){
 
                 switch (run_environment) {
+
                     case environment.test:
                         return "http://120.26.222.73:8080/rvisitor/";
                     case environment.develop:
@@ -121,3 +123,4 @@ export namespace Release {
 
 }
 
+// return "http://114.55.179.135:8080/rvisitor/";

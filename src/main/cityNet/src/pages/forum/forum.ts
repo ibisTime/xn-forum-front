@@ -17,8 +17,10 @@ export class ForumPage {
   segment: string = "yliao";
   isAndroid: boolean= false;
   imgHeight: string;
-  // pHeight: string;
-  // imgUrl: string;
+
+  //pHeight: string;
+  //imgUrl: string;
+
   start: number;
   limit: number;
   items = [];

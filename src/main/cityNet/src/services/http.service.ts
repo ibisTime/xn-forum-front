@@ -7,7 +7,7 @@ import {AlertController, Events} from "ionic-angular";
 import {Release} from "./release";
 import {WarnService} from "./warn.service";
 
-const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
+// const DEBUG_ADDR = "http://localhost:8080/xn-forum-front";
 
 
 @Injectable()

@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NavController, App, NavParams, ViewController, Events, TextInput, ModalController} from "ionic-angular";
-import {IMService} from "../../services/im.service";
+import {NavController, App, NavParams, ViewController, Events, ModalController} from "ionic-angular";
 import {WarnService} from "../../services/warn.service";
 import {UserService} from "../../services/user.service";
 import {CaptchaComponent} from "../../components/captcha-view/captcha.component";
@@ -26,7 +25,6 @@ export class RegisterPage implements OnInit {
   constructor(   public navCtrl: NavController,
                  public warnCtrl: WarnService,
                  public user: UserService,
-                 public imServe: IMService,
                  public http: HttpService,
                  public app: App,
                  public navParams: NavParams,

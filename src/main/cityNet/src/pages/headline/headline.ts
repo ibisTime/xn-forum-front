@@ -1,5 +1,5 @@
 import {Component,AfterViewInit,ViewChild} from '@angular/core';
-import {NavController, Platform, ModalController, InfiniteScroll, Refresher, Events,Slides} from 'ionic-angular';
+import {NavController, Platform, ModalController, InfiniteScroll, Refresher, Events} from 'ionic-angular';
 import {UserService} from "../../services/user.service";
 import {HttpService} from "../../services/http.service";
 import {WarnService} from "../../services/warn.service";

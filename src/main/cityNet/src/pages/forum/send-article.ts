@@ -8,8 +8,9 @@ import {UserService} from "../../services/user.service";
 import {WarnService} from "../../services/warn.service";
 import {CityService} from "../../services/city.service";
 import {AtPage} from "./at";
+import {Keyboard} from "ionic-native"
 
-declare let  EXIF:any;
+declare let EXIF:any;
 
 @Component({
   templateUrl: 'send-article.html'
@@ -183,6 +184,8 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     } else{
       this.viewCtrl.dismiss(false);
     }
+
+      Keyboard.close();
 
   }
 
@@ -434,10 +437,10 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       this.handleImg(event.target.result,imgId);
 
       /*处理真是上传的图片*/
-      let img = {
-        "src": encodeURIComponent(event.target.result),
-        "id" : imgId
-      }
+      // let img = {
+      //   "src": encodeURIComponent(event.target.result),
+      //   "id" : imgId
+      // }
       /*压缩图片 并存储 zai upLoadImg*/
       // this.zipImg(event.target.result,imgId)
 

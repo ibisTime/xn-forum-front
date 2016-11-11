@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ionicframework.cutepuppypics929824" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>cutePuppyPics</name>
+    <name>csw</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
@@ -11,29 +11,75 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+
+
     <platform name="android">
+
         <allow-intent href="market:*" />
+        <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png"/>
+        <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png"/>
+        <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
+        <icon density="xhdpi" src="resources/android/icon/drawable-xhdpi-icon.png"/>
+
+
+        <splash src="resources/android/splash/splash-port-hdpi.png" density="port-hdpi"/>
+        <splash src="resources/android/splash/splash-port-ldpi.png" density="port-ldpi"/>
+        <splash src="resources/android/splash/splash-port-mdpi.png" density="port-mdpi"/>
+        <splash src="resources/android/splash/splash-port-xhdpi.png" density="port-xhdpi"/>
     </platform>
+
+
     <platform name="ios">
-        <allow-intent href="itms:*" />
-        <allow-intent href="itms-apps:*" />
+
+        <icon src="resources/ios/icon/iconiPhoneApp_60pt@3x.png" width="180" height="180"/>
+        <icon src="resources/ios/icon/iconiPhoneApp_60pt@2x.png" width="120" height="120"/>
+
+        <icon src="resources/ios/icon/iconiPhoneSpootlight7_40pt@2x.png" width="80" height="80"/>
+        <icon src="resources/ios/icon/iconiPhoneSpootlight7_40pt@3x.png" width="120" height="120"/>
+
+
+        <icon src="resources/ios/icon/iconiPhoneSpootlight5_29pt@2x.png" width="58" height="180"/>
+
+        <icon src="resources/ios/icon/iconiPhoneSpootlight5_29pt@3x.png" width="87" height="180"/>
+
+        <icon src="resources/ios/icon/iconiPhoneNotification_20pt@2x.png" width="40" height="40"/>
+
+        <icon src="resources/ios/icon/iconiPhoneNotification_20pt@3x.png" width="60" height="60"/>
+
+        <splash src="resources/ios/splash/640X960.png" width="640" height="960"/>
+
+        <splash src="resources/ios/splash/640X1136.png" width="640" height="1136"/>
+
+        <splash src="resources/ios/splash/load@2x.png" width="750" height="1134"/>
+
+        <splash src="resources/ios/splash/1242X2208.png" width="1242" height="2208"/>
+
+        <allow-intent href="itms:*"/>
+
+        <allow-intent href="itms-apps:*"/>
+
     </platform>
+
+
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
-    <preference name="SplashScreenDelay" value="0" />
+    <preference name="SplashScreenDelay" value="1000" />
     <preference name="FadeSplashScreen" value="false" />
     <preference name="FadeSplashScreenDuration" value="0" />
     <preference name="SplashScreenBackgroundColor" value="0xFFFFFFFF" />
+
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
-    <plugin name="cordova-plugin-device" spec="~1.1.3" />
-    <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
-    <plugin name="cordova-plugin-whitelist" spec="~1.3.0" />
-    <plugin name="cordova-plugin-console" spec="~1.0.4" />
-    <plugin name="cordova-plugin-statusbar" spec="~2.2.0" />
-    <plugin name="cordova-plugin-splashscreen" spec="~4.0.0" />
+
+    <plugin name = "cordova-plugin-device" spec="~1.1.3" />
+    <plugin name = "ionic-plugin-keyboard" spec="~2.2.1" />
+    <plugin name = "cordova-plugin-whitelist" spec="~1.3.0" />
+    <plugin name = "cordova-plugin-console" spec="~1.0.4" />
+    <plugin name = "cordova-plugin-statusbar" spec="~2.2.0" />
+    <plugin name = "cordova-plugin-splashscreen" spec="~4.0.0" />
+
 </widget>

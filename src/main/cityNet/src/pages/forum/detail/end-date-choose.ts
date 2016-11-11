@@ -3,10 +3,7 @@
  */
 import {Component, OnInit} from '@angular/core';
 import {NavController, NavParams} from "ionic-angular";
-import {BZPlatDetailPage} from "./bzPlatDetail";
 import {WarnService} from "../../../services/warn.service";
-import {min} from "rxjs/operator/min";
-import {DateFormatter} from "@angular/common/src/facade/intl";
 import {HttpService} from "../../../services/http.service";
 
 @Component({
@@ -55,7 +52,6 @@ export class EndDateChoose implements OnInit {
 
         // date.getMonth()
         let date = new Date();
-        let month = date.getMonth() >= 10 ? `${date.getMonth()}` : "0" + `${date.getMonth()}`;
         this.min = `${date.getFullYear()}`;
         this.max = `${date.getFullYear() + 1}`;
         // this.max = `${date.getFullYear() + 1}`+"-"+ month + "-" + `${date.getDate()}`;

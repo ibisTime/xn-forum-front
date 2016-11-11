@@ -261,7 +261,6 @@ export class ContentPage {
           return;
 
       };
-      console.log(msg);
 
       // let code = event.charCode || event.keyCode;
       if(msg != null && msg.trim() !== ""){
@@ -398,6 +397,9 @@ export class ContentPage {
         {
           text: '取消',
           handler: data => {
+              this.platform.ready().then(res => {
+                  Keyboard.close();
+              });
           }
         },
         {
@@ -443,6 +445,9 @@ export class ContentPage {
         {
           text: '取消',
           handler: data => {
+              this.platform.ready().then(res => {
+                  Keyboard.close();
+              });
           }
         },
         {
@@ -490,7 +495,13 @@ export class ContentPage {
                 {
                     text: '取消',
                     handler: data => {
+
+                        this.platform.ready().then(res => {
+                            Keyboard.close();
+                        });
+
                     }
+
                 },
                 {
                     text: '确认',
@@ -509,6 +520,11 @@ export class ContentPage {
                         }).catch(error => {
 
                         });
+
+                        this.platform.ready().then(res => {
+                            Keyboard.close();
+                        });
+
                     }
                 }
             ]

@@ -153,6 +153,7 @@ export class ForumCell implements OnInit {
         $event.stopPropagation();
         let target = $event.target;
         if (target.className == "people") {
+
             let load = this.warnCtrl.loading();
             let obj = {"nickname": target.innerText.substr(1, target.innerText.length - 1)};
             this.http.get("/user/list", obj).then(res => {
@@ -167,6 +168,7 @@ export class ForumCell implements OnInit {
                 console.log(error);
                 load.dismiss();
             });
+
         } else {
             this.navCtrl.push(ContentPage, this._item);
         }

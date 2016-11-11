@@ -12,6 +12,7 @@ import {KefuService} from "../services/kefu.serve";
 import {Release} from "../services/release";
 
 import { Storage } from '@ionic/storage';
+import {PushService} from "../services/push.service";
 
 declare let BMap: any;
 declare let BMAP_STATUS_SUCCESS: any;
@@ -37,7 +38,8 @@ export class MyApp implements AfterViewInit{
               public kefuService: KefuService,
               public imServe: IMService,
               public app: App,
-              public storage: Storage
+              public storage: Storage,
+              public pushService: PushService
               ) {
     //根视图
     platform.ready().then(() => {
@@ -47,6 +49,8 @@ export class MyApp implements AfterViewInit{
     });
 
     // this.storage.clear();
+      this.pushService.init();
+
   }
 
 
@@ -253,7 +257,7 @@ export class MyApp implements AfterViewInit{
                       //有广告图进行加载
                       if(this.cityService.ads.length > 0){
 
-                          let num = setInterval(() => {
+                           setInterval(() => {
 
                               if(this.time > 0){
 
