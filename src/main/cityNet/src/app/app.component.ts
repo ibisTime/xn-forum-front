@@ -38,8 +38,8 @@ export class MyApp implements AfterViewInit{
               public kefuService: KefuService,
               public imServe: IMService,
               public app: App,
-              public storage: Storage,
-              public pushService: PushService
+              public storage: Storage
+              // public pushService: PushService
               ) {
     //根视图
     platform.ready().then(() => {
@@ -49,7 +49,7 @@ export class MyApp implements AfterViewInit{
     });
 
     // this.storage.clear();
-      this.pushService.init();
+    //   this.pushService.init();
 
   }
 

@@ -6,6 +6,7 @@ import {IMBaseService} from "./im-base.service";
 import {HttpService} from "./http.service";
 import {CityService} from "./city.service";
 import {NavService} from "./nav.service";
+import {PushService} from "./push.service";
 
 /**
  * Created by tianlei on 16/8/30.
@@ -21,6 +22,7 @@ export const  MY_SERVE = [
   IMBaseService,
   HttpService,
   CityService,
-  NavService
+  NavService,
+  PushService
 
 ];

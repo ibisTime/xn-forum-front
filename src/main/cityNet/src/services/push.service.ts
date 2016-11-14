@@ -5,9 +5,7 @@ import {Injectable} from '@angular/core';
 import {Release} from './release'
 import {Platform} from "ionic-angular";
 
-
-declare   let plugins: any;
-
+declare  let plugins: any;
 
 @Injectable()
 export class PushService {
@@ -21,14 +19,13 @@ export class PushService {
 
         if(Release.weChat) return;
 
-        plugins.jPushPlugin.init()
+        plugins.jPushPlugin.init();
 
         plugins.jPushPlugin.getRegistrationID((data) => {
 
           Release.log(data);
 
         });
-
 
 
         document.addEventListener("jpush.openNotification", (event: any) => {
