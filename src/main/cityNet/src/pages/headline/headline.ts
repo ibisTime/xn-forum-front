@@ -203,7 +203,7 @@ export class HeadlinePage implements AfterViewInit {
     sign(){
 
 
-        this.wxService.share();
+        this.wxService.share("title");
 
 
         if(1){

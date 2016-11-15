@@ -7,6 +7,7 @@ import {HttpService} from "./http.service";
 import {CityService} from "./city.service";
 import {NavService} from "./nav.service";
 import {PushService} from "./push.service";
+import {WXService} from "./wx.service";
 
 /**
  * Created by tianlei on 16/8/30.
@@ -23,6 +24,7 @@ export const  MY_SERVE = [
   HttpService,
   CityService,
   NavService,
-  PushService
+  PushService,
+  WXService
 
 ];
