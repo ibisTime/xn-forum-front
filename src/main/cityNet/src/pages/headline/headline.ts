@@ -12,6 +12,8 @@ import {DatePipe} from "@angular/common";
 import {PageDataService} from "./page-data.services";
 import {LoginPage} from "../user/login";
 import {NavService} from "../../services/nav.service";
+import {WXService} from "../../services/wx.service";
+
 
 @Component({
   templateUrl: 'headline.html',
@@ -31,6 +33,7 @@ export class HeadlinePage implements AfterViewInit {
 
   public headlineData = {};
   h8: string;
+   w8;
   h3h;
   h3w;
   adsDisplay = "block";
@@ -51,7 +54,8 @@ export class HeadlinePage implements AfterViewInit {
               public cityS: CityService,
               public pageDataService: PageDataService,
               public events: Events,
-              public navService: NavService) {
+              public navService: NavService,
+              public wxService: WXService) {
 
   }
 
@@ -59,7 +63,9 @@ export class HeadlinePage implements AfterViewInit {
 
     let w = this.platform.width();
     this.bannerHeight = `${w/2.3}px`;
-    this.h8 = `${(w - 35)/4}px`;
+    this.w8 = `${(w - 35)/4}px`;
+      this.h8 = `${(w - 35)/6}px`
+
     this.h3w = `${(w - 36)/3}px`;
     this.h3h = `${(w - 36)/9}px`;
 
@@ -196,6 +202,13 @@ export class HeadlinePage implements AfterViewInit {
     //签到动画
     sign(){
 
+
+        this.wxService.share();
+
+
+        if(1){
+            return;
+        }
 
         //
         if(!this.userService.user){

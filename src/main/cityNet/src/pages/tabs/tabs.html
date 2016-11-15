@@ -3,7 +3,7 @@
   <div class="custom-tabbar" *ngIf="cityS.tabbarItems.length > 4;">
 
     <a (tap)="selected(i,tabTitleSpan)" *ngFor="let item of cityS.tabbarItems;  let i = index;">
-      <div>
+      <div style="text-align: center; width: 100%; " [class.kf-div]="item.url == 'page:xiaomi'">
         <img class="default-img" [class.kf-img]="item.url == 'page:xiaomi'" [src]="item.pic">
       </div>
       <span class="default-title"  #tabTitleSpan  [class.kf-title]="item.url == 'page:xiaomi'"  [class.selected-title]=" i==0" >{{item.name}}</span>

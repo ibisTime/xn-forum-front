@@ -48,11 +48,16 @@
     }
 
     .kf-img{
+
       display: block;
-      width: 100%;
-      height: auto;
+      width: auto;
+      height: 57px;
       bottom: 0px;
+    }
+    .kf-div{
       position: absolute;
+      bottom: 0px;
+      height: 57px;
     }
 
     .kf-title{

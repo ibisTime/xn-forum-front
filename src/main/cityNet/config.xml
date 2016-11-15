@@ -20,8 +20,6 @@
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png"/>
         <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
         <icon density="xhdpi" src="resources/android/icon/drawable-xhdpi-icon.png"/>
-
-
         <splash src="resources/android/splash/splash-port-hdpi.png" density="port-hdpi"/>
         <splash src="resources/android/splash/splash-port-ldpi.png" density="port-ldpi"/>
         <splash src="resources/android/splash/splash-port-mdpi.png" density="port-mdpi"/>
@@ -30,34 +28,25 @@
 
 
     <platform name="ios">
-
         <icon src="resources/ios/icon/iconiPhoneApp_60pt@3x.png" width="180" height="180"/>
         <icon src="resources/ios/icon/iconiPhoneApp_60pt@2x.png" width="120" height="120"/>
 
         <icon src="resources/ios/icon/iconiPhoneSpootlight7_40pt@2x.png" width="80" height="80"/>
         <icon src="resources/ios/icon/iconiPhoneSpootlight7_40pt@3x.png" width="120" height="120"/>
 
-
-        <icon src="resources/ios/icon/iconiPhoneSpootlight5_29pt@2x.png" width="58" height="180"/>
-
-        <icon src="resources/ios/icon/iconiPhoneSpootlight5_29pt@3x.png" width="87" height="180"/>
+        <icon src="resources/ios/icon/iconiPhoneSpootlight5_29pt@2x.png" width="58" height="58"/>
+        <icon src="resources/ios/icon/iconiPhoneSpootlight5_29pt@3x.png" width="87" height="87"/>
 
         <icon src="resources/ios/icon/iconiPhoneNotification_20pt@2x.png" width="40" height="40"/>
-
         <icon src="resources/ios/icon/iconiPhoneNotification_20pt@3x.png" width="60" height="60"/>
 
-        <splash src="resources/ios/splash/640X960.png" width="640" height="960"/>
-
-        <splash src="resources/ios/splash/640X1136.png" width="640" height="1136"/>
-
-        <splash src="resources/ios/splash/load@2x.png" width="750" height="1134"/>
-
-        <splash src="resources/ios/splash/1242X2208.png" width="1242" height="2208"/>
+        <splash src="resources/ios/splash/load640X960.png" width="640" height="960"/>
+        <splash src="resources/ios/splash/load640X1136.png" width="640" height="1136"/>
+        <splash src="resources/ios/splash/load750X1134.png" width="750" height="1134"/>
+        <splash src="resources/ios/splash/load1242X2208.png" width="1242" height="2208"/>
 
         <allow-intent href="itms:*"/>
-
         <allow-intent href="itms-apps:*"/>
-
     </platform>
 
 
@@ -70,6 +59,12 @@
     <preference name="FadeSplashScreen" value="false" />
     <preference name="FadeSplashScreenDuration" value="0" />
     <preference name="SplashScreenBackgroundColor" value="0xFFFFFFFF" />
+    <preference name="Orientation" value="portrait" />
+    <preference name="target-device" value="handset" />
+    <preference name="deployment-target" value="9.0" />
+
+
+
 
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
@@ -81,5 +76,7 @@
     <plugin name = "cordova-plugin-console" spec="~1.0.4" />
     <plugin name = "cordova-plugin-statusbar" spec="~2.2.0" />
     <plugin name = "cordova-plugin-splashscreen" spec="~4.0.0" />
+    <!--<plugin name="cordova-plugin-device" spec="https://github.com/apache/cordova-plugin-device.git#1.0.0" />-->
+
 
 </widget>
