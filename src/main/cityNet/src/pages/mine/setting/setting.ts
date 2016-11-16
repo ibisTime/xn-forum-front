@@ -41,9 +41,7 @@ export class SettingPage {
     this.navCtrl.push(AccountPage);
   }
 
-  goUs(){
-    this.navCtrl.push(AboutusPage);
-  }
+
 
   goChangeMobile(){
     this.navCtrl.push(ChangeMobilePage);

@@ -6,6 +6,8 @@ import {ImPage} from "./im/im";
 import {IMService} from "../../services/im.service";
 import {LoginPage} from "../user/login";
 import {HttpService} from "../../services/http.service";
+import {NavService} from "../../services/nav.service";
+
 import {MineDetailPage} from "./detail/detail";
 import {CollectionPage} from "./collection/collection";
 import {SettingPage} from "./setting/setting";
@@ -19,6 +21,8 @@ import {CityService} from "../../services/city.service";
 import {ForgetPwdPage} from "../user/forgetPwd";
 import {JFPage} from "./jfDetail/jfDetail";
 
+import {AboutusPage} from "./setting/aboutus";
+
 
 @Component({
   templateUrl: 'mine.html'
@@ -26,6 +30,7 @@ import {JFPage} from "./jfDetail/jfDetail";
 export class MinePage implements AfterViewInit{
 
   className = 'test-class';
+  hiddenMyPlate = true;
 
   listItem = [
     {"name":'我的物品',"src":'iconfont icon-search'},
@@ -47,6 +52,7 @@ export class MinePage implements AfterViewInit{
               public http: HttpService,
               public app :App,
               public modelCtrl :ModalController,
+              public navS: NavService,
               public events: Events,
               public cityService: CityService) {
 
@@ -59,6 +65,8 @@ export class MinePage implements AfterViewInit{
     this.events.subscribe('user:loginSuccess',res => {
 
       this.getPostNum();
+      this.goMyPlate(false);
+
 
     });
 
@@ -72,6 +80,7 @@ export class MinePage implements AfterViewInit{
 
   ngAfterViewInit(){
 
+    this.goMyPlate(false);
 
   }
 
@@ -100,6 +109,7 @@ export class MinePage implements AfterViewInit{
 
   doRefresh($event){
 
+    this.goMyPlate(false);
      this.getPostNum();
       this.userService.UpdateUserInfo().then(res => {
 
@@ -146,6 +156,13 @@ export class MinePage implements AfterViewInit{
     this.navCtrl.push(ImPage);
   }
 
+  // goUs(){
+  //   this.navCtrl.push(AboutusPage);
+  // }
+  goUs(){
+    this.navCtrl.push(AboutusPage);
+  }
+
   goCollect(){
     this.navCtrl.push(CollectionPage);
   }
@@ -158,22 +175,37 @@ export class MinePage implements AfterViewInit{
     this.navCtrl.push(DraftPage);
   }
 
-  goMyPlate(){
-    let load = this.warnCtrl.loading();
+  goMyPlate(showAlert){
+
+    let load;
+    if(showAlert){
+
+      load = this.warnCtrl.loading();
+
+    }
+
     this.http.get('/plate/list1').then(res => {
 
       let array = res.data;
-      load.dismiss();
+
+      showAlert && load.dismiss();
+
       if(array.length > 0){
 
-        this.navCtrl.push(MinePlatePage,array);
+
+        this.hiddenMyPlate = true;
+        showAlert &&  this.navCtrl.push(MinePlatePage,array);
 
       } else {
-        this.warnCtrl.toast("您还不是版主");
+        this.hiddenMyPlate = false;
+        showAlert && this.warnCtrl.toast("您还不是版主");
+
       }
 
     }).catch(error => {
-      load.dismiss();
+
+      showAlert && load.dismiss();
+
     });
 
   }
@@ -224,6 +256,12 @@ export class MinePage implements AfterViewInit{
 
   goJFList(){
     this.navCtrl.push(JFPage);
+  }
+
+  wxLogin(){
+
+    this.navS.transition("http://www.youku.com/","");
+
   }
 
 

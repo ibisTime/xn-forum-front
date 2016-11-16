@@ -37,19 +37,19 @@
         <ion-label>性别</ion-label>
         <ion-select [(ngModel)]="param.gender"
                     cancelText="取消"
-                    doneText="确定">
+                    okText="确定">
             <ion-option value="1">男</ion-option>
             <ion-option value="0">女</ion-option>
         </ion-select>
     </ion-item>
       <ion-item>
-          <ion-label floating>邮箱</ion-label>
+          <ion-label >邮箱</ion-label>
           <ion-input type="text" [(ngModel)]="param.email"></ion-input>
       </ion-item>
     <ion-item id="areaItem" class="areaItem">
         <!--<ion-label floating></ion-label>-->
         <!--<ion-input type="text" [(ngModel)]="param.introduce"></ion-input>-->
-        <ion-label floating>简介</ion-label>
+        <ion-label >简介</ion-label>
         <ion-label class="area-lable">
             <textarea class="" [(ngModel)]="param.introduce" (focus)="areaFocus($event)" (blur)="areaBlur($event)"></textarea>
         </ion-label>

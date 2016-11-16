@@ -60,7 +60,7 @@ export class WarnService {
   toast(msg: string, duration?: number, position?: string) {
     let toast = this.toastCtrl.create({
       message: msg,
-      duration: duration ? duration : 300000,
+      duration: duration ? duration : 3000,
       position: position ? position : 'top',
     });
     toast.present();

@@ -42,7 +42,7 @@ export class HeadlinePage implements AfterViewInit {
   mySlideOptions = {
     loop: false,
     pager: true,
-    autoplay: 2000
+    autoplay: 3000
   };
 
   constructor(public navCtrl: NavController,
@@ -202,25 +202,7 @@ export class HeadlinePage implements AfterViewInit {
     /*签到*/
     sign(){
 
-        // this.wxService.isInstalled().then(res => {
-        //
-        //    return this.wxService.share("title");
-        //
-        // }).then(res => {
-        //
-        //     this.warn.toast("分享成功");
-        //
-        // }).catch(error => {
-        //
-        //     if(error == "uninstall"){
-        //
-        //         this.warn.toast("微信未安装");
-        //
-        //     } else if(error == "shareFailure") {
-        //
-        //         this.warn.toast("分享失败")
-        //     }
-        // });
+
 
 
         //

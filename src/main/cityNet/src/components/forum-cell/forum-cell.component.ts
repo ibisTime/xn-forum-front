@@ -10,6 +10,7 @@ import {UserService} from "../../services/user.service";
 import {ContentPage} from "../../pages/forum/content/content";
 import {LoginPage} from "../../pages/user/login";
 import {Release} from "../../services/release";
+import {WXService} from "../../services/wx.service";
 
 @Component({
     selector: 'forum-cell',
@@ -36,7 +37,8 @@ export class ForumCell implements OnInit {
                 public alertCtrl: AlertController,
                 public http: HttpService,
                 public events: Events,
-                public app: App) {
+                public app: App,
+                public wxService: WXService) {
 
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
@@ -266,6 +268,7 @@ export class ForumCell implements OnInit {
         });
         prompt.present();
     }
+    //删除
     deleteComment(commer, code){
         
         this.http.post('/post/delete',{
@@ -282,6 +285,33 @@ export class ForumCell implements OnInit {
             this.warnCtrl.toast('删除评论成功！');
         }).catch(error => {});
     }
+
+
+   /*分享*/
+   share(item){
+
+       this.wxService.isInstalled().then(res => {
+
+          return this.wxService.share(item.title||item.content);
+
+       }).then(res => {
+
+           this.warnCtrl.toast("分享成功");
+
+       }).catch(error => {
+
+           if(error == "uninstall"){
+
+               this.warnCtrl.toast("微信未安装");
+
+           } else if(error == "shareFailure") {
+
+               this.warnCtrl.toast("分享失败")
+           }
+       });
+
+
+   }
 
 }
 

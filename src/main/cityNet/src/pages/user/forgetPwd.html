@@ -16,23 +16,23 @@
   <ion-list>
 
     <ion-item>
-      <ion-label floating>手机号</ion-label>
+      <ion-label >手机号</ion-label>
       <ion-input #account [(ngModel)]="userNameValue" [value]="userNameValue" type="text"></ion-input>
     </ion-item>
 
     <ion-item class="capt-item">
-      <ion-label floating>验证码</ion-label>
+      <ion-label >验证码</ion-label>
       <ion-input #chptcha [(ngModel)]="captchaValue" [value]="captchaValue" type="text"></ion-input>
       <button item-right (click)="captchaClick($event)">发送验证码</button>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>密码 (6~16)位，同时包含数字和字母</ion-label>
-      <ion-input #pwd type="password"></ion-input>
+      <ion-label >密码</ion-label>
+      <ion-input #pwd type="password" placeholder="(6~16)位，同时包含数字和字母"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>确认密码</ion-label>
+      <ion-label >确认密码</ion-label>
       <ion-input #rePwd type="password"></ion-input>
     </ion-item>
 

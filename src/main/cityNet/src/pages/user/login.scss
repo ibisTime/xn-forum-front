@@ -30,21 +30,36 @@ $percentage: 85%;
   .login-div{
     padding: 16px;
   }
+
   ion-list{
     margin-top: 10px;
   }
-  ion-list > .item{
-    padding-right: 16px;
+
+  ion-list{
+
+    ion-item{
+      margin-bottom: 10px;
+
+      .text-input{
+        margin-left: 7px;
+      }
+    }
   }
+
+  //ion-list > .item{
+  //  padding-right: 16px;
+  //}
   ion-list > .item:first-child{
     border-top: none;
   }
+
   ion-list > .item:last-child{
     border-bottom: none;
   }
   ion-list > .item:last-child .item-inner{
     border-bottom: 1px solid #c8c7cc;
   }
+
   .item-input ion-label{
     color: #ce3f42;
   }

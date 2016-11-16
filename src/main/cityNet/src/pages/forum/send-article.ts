@@ -9,6 +9,7 @@ import {WarnService} from "../../services/warn.service";
 import {CityService} from "../../services/city.service";
 import {AtPage} from "./at";
 import {Keyboard} from "ionic-native"
+import {document} from "@angular/platform-browser/src/facade/browser";
 
 declare let EXIF:any;
 
@@ -433,7 +434,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       console.log(event);
 
       let d = new Date();
-      let imgId =  d.toString();
+      let imgId = d.toString();
       this.handleImg(event.target.result,imgId);
 
       /*处理真是上传的图片*/
@@ -451,6 +452,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
           "src": encodeURIComponent(res),
           "id": imgId
         }
+        /*添加进数组 后续上传*/
         this.uploadImages.push(imgItem);
 
       });
@@ -458,6 +460,8 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     };
     let file = $event.target.files[0];
     if(file == null) return;
+
+
     fileReader.readAsDataURL($event.target.files[0]);
     // $event.target.files[0] = null;
   }
@@ -553,6 +557,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       this.isEditing = false;
     }
 
+
   }
 
 
@@ -560,27 +565,49 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   // @param {int} dir exif获取的方向信息
   // @param {function} next 回调方法，返回校正方向后的base64
   zipAndCorrectImg(imgSrc, next) {
+
+
+
     //获取方向
-    var direction;
-    EXIF.getData(imgSrc,function(){
+    let direction;
+    let converImg = document.createElement('img');
+    converImg.src = imgSrc;
 
-      direction = EXIF.getTag(this,'Orientation');
+    converImg.onload = res => {
 
-    });
 
-    var image = new Image();
-    image.onload = function () {
+      EXIF.getData(converImg,function(){
 
-      var degree = 0, drawWidth, drawHeight, width, height;
+        console.log(converImg.exifData);
+        console.log("获取到了方向");
+        EXIF.getAllTags(converImg);
+        direction = EXIF.getTag(converImg,'Orientation');
+        console.log(direction);
+
+      });
+
+
+    };
+
+
+
+
+    let image = new Image();
+    image.onload = function (res) {
+
+      let degree = 0, drawWidth, drawHeight, width, height;
+
       drawWidth = this.naturalWidth;
       drawHeight = this.naturalHeight;
 
       //以下改变一下图片大小
       var maxSide = Math.max(drawWidth, drawHeight);
       if (maxSide > 1024) {
+
         var minSide = Math.min(drawWidth, drawHeight);
         minSide = minSide / maxSide * 1024;
         maxSide = 1024;
+
         if (drawWidth > drawHeight) {
           drawWidth = maxSide;
           drawHeight = minSide;
@@ -588,11 +615,14 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
           drawWidth = minSide;
           drawHeight = maxSide;
         }
+
       }
 
       var canvas = document.createElement('canvas');
+
       canvas.width = width = drawWidth;
       canvas.height = height = drawHeight;
+
       var context = canvas.getContext('2d');
       //判断图片方向，重置canvas大小，确定旋转角度，iphone默认的是home键在右方的横屏拍摄方式
       switch (direction) {
@@ -626,6 +656,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       context.drawImage(this, 0, 0, drawWidth, drawHeight);
       //返回校正图片
       next(canvas.toDataURL("image/jpeg", 0.5));
+
     }
 
     image.src = imgSrc;

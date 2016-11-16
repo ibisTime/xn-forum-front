@@ -26,7 +26,8 @@
 
                 <div class="com-btn" [class.hidden]="isHideComBtn">
                     <ion-buttons class="clearfix">
-                        <button class="fl" [class.hidden]="weichat">
+                        <button class="fl" [class.hidden]="weichat"
+                           (click)="share(_item)">
                             <i class="icon iconfont">&#xe60a;</i>
                         </button>
                         <button class="sp-btn fl"

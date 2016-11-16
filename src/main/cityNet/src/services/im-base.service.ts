@@ -27,7 +27,9 @@ export class IMBaseService {
   public url = 'im-api.easemob.com';
   public apiUrl = 'http://a1.easemob.com';
   public  appKey = "wlqsltz#chatapp";
-  public to = "tianlei";
+  // public to = "tianlei";
+  public to = "18868824532";
+
   public tenantId = "26192";
 
   // http://a1.easemob.com/xiongniu-123/chatapp/users

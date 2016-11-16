@@ -342,6 +342,8 @@
     }
 
     function getImageData(img, callback) {
+
+
         function handleBinaryFile(binFile) {
             var data = findEXIFinJPEG(binFile);
             var iptcdata = findIPTCinJPEG(binFile);
@@ -707,6 +709,8 @@
 
                     case "ExifVersion" :
                     case "FlashpixVersion" :
+
+
                         exifData[tag] = String.fromCharCode(exifData[tag][0], exifData[tag][1], exifData[tag][2], exifData[tag][3]);
                         break;
 
@@ -744,7 +748,9 @@
         if ((img instanceof Image || img instanceof HTMLImageElement) && !img.complete) return false;
 
         if (!imageHasData(img)) {
+
             getImageData(img, callback);
+
         } else {
             if (callback) {
                 callback.call(img);
@@ -754,8 +760,16 @@
     }
 
     EXIF.getTag = function(img, tag) {
-        if (!imageHasData(img)) return;
-        return img.exifdata[tag];
+
+        var  con = imageHasData(img);
+        if (!con){
+            return;
+        }
+
+
+
+        var  or = img.exifdata[tag];
+        return or;
     }
 
     EXIF.getAllTags = function(img) {

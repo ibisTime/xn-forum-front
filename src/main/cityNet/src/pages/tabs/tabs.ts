@@ -33,7 +33,7 @@ export class TabsPage implements AfterViewInit{
   signinDisplay = "none";
   pHeight;
   constructor(
-              public imServe: IMService,
+              public imService: IMService,
               public cityS: CityService,
               public http: HttpService,
               public events: Events,
@@ -41,11 +41,13 @@ export class TabsPage implements AfterViewInit{
               public app: App) {
     // this tells the tabs component which Pages
     // should be each tab's root Page
+
     this.changeTab();
     this.pHeight = `${this.platform.height()}px`;
+
     this.events.subscribe("city:change",res => {
 
-      this.changeTab();
+      // this.changeTab();
 
     });
 
@@ -125,29 +127,34 @@ export class TabsPage implements AfterViewInit{
       "page:xiaomi" : KefuPage,
       "page:custom" : VideoPage,
       "page:mine" : MinePage
-
     }
 
-    this.tab1Root = tabDict[this.cityS.tabbarItems[0].url];
-    this.tab2Root = tabDict[this.cityS.tabbarItems[1].url];
-    this.tab3Root = tabDict[this.cityS.tabbarItems[2].url];
-    this.tab4Root = tabDict[this.cityS.tabbarItems[3].url];
-    this.tab5Root = tabDict[this.cityS.tabbarItems[4].url];
-
+    // this.tab1Root = tabDict[this.cityS.tabbarItems[0].url];
+    // this.tab2Root = tabDict[this.cityS.tabbarItems[1].url];
+    // this.tab3Root = tabDict[this.cityS.tabbarItems[2].url];
+    // this.tab4Root = tabDict[this.cityS.tabbarItems[3].url];
+    // this.tab5Root = tabDict[this.cityS.tabbarItems[4].url];
+    this.tab1Root = HeadlinePage;
+    this.tab2Root = ForumPage;
+    this.tab3Root = KefuPage;
+    this.tab4Root = VideoPage;
+    this.tab5Root = MinePage;
   }
 
 
   selected(i,tabTitleSpan){
 
+      let classStr = `tab-selected-title-${i}`;
+      let ele: any = document.getElementsByClassName(classStr)[0];
+
       if(typeof(this.lastSelected) != "undefined"){
         this.lastSelected.style.color = "#4b4c4d";
       }
 
-      tabTitleSpan.style.color = "rgb(208,64,66)";
-      this.lastSelected = tabTitleSpan;
+      ele.style.color = "rgb(208,64,66)";
+      this.lastSelected = ele;
       this.tabs.select(i);
   }
-
 
 
   goOther(index){
@@ -161,11 +168,11 @@ export class TabsPage implements AfterViewInit{
   }
 
 
-
   closeImg(){
     let sDiv = document.getElementById("ylImg");
     sDiv.className = sDiv.className + " hidden";
   }
+
 
 
 }

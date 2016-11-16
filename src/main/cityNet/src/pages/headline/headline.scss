@@ -57,7 +57,7 @@ $banner-text-height: 40px;
       display: -webkit-flex;
       //justify-content: space-between;
       align-content: flex-start;
-      margin-bottom: 10px;
+      margin-bottom: 7px;
       flex-wrap: wrap;
     }
     /*三个功能*/
@@ -104,7 +104,7 @@ $banner-text-height: 40px;
           position: relative;
 
           img{
-            margin-top:7%;
+            margin-top:5%;
             height: 50%;
           }
 
@@ -113,8 +113,8 @@ $banner-text-height: 40px;
             overflow: hidden;
             width: 100%;
             color: rgb(112,112,113);
-            font-size: 14px;
-            height: 17px;
+            font-size: 13px;
+            height: 16px;
           }
 
       }
@@ -281,4 +281,23 @@ body, pre{
   top: 5px;
   -webkit-transform: translate3d(5px, -100%, 0);
   transform: translate3d(5px, -100%, 0);
+}
+
+.toast-ios .toast-wrapper {
+  position: absolute;
+  right: 10px;
+  left: 10px;
+  z-index: 10;
+  display: block;
+  margin: auto;
+  max-width: 700px;
+  border-radius: 0.65rem;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+//解决安卓线消失
+.list-ios .item-block .item-inner{
+
+  border-bottom: 1.1px solid #c8c7cc;
+
 }
