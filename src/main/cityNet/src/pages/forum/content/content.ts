@@ -8,6 +8,7 @@ import {Release} from "../../../services/release";
 import {LoginPage} from "../../user/login";
 import {ReplyCommentPage} from "./reply-comment";
 import {Keyboard} from "ionic-native"
+import {WXService} from "../../../services/wx.service";
 
 @Component({
   templateUrl: 'content.html'
@@ -44,7 +45,8 @@ export class ContentPage {
               public alertCtrl: AlertController,
               public mCtrl: ModalController,
               public app: App,
-              public events: Events) {
+              public events: Events,
+              public wxService :WXService) {
 
         this.code = navPara.data.code;
         this.toUser = navPara.data.publisher;
@@ -351,7 +353,7 @@ export class ContentPage {
         buttons.unshift({
           text: '分享',
           handler: () => {
-            
+            this.share();
           }
         });
     }
@@ -596,5 +598,30 @@ export class ContentPage {
         buttons: buttons
         });
         actionSheet.present();
+    }
+
+    /*分享*/
+    share(){
+
+        this.wxService.isInstalled().then(res => {
+
+            return this.wxService.share(this.item.title || this.item.content);
+
+        }).then(res => {
+
+            this.warnCtrl.toast("分享成功");
+
+        }).catch(error => {
+
+            if(error == "uninstall"){
+
+                this.warnCtrl.toast("微信未安装");
+
+            } else if(error == "shareFailure") {
+
+                this.warnCtrl.toast("分享失败")
+            }
+        });
+
     }
 }
