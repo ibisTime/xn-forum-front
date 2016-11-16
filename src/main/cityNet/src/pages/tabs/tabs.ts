@@ -25,6 +25,8 @@ export class TabsPage implements AfterViewInit{
   lastSelected;
 
   addNum;
+  signImgSrc;
+  signedDisplay="none";
   tabItems = [];
   @ViewChild(Tabs) tabs: Tabs;
   @ViewChildren("tabTitleSpan") titleItems: QueryList<any>;
@@ -50,6 +52,18 @@ export class TabsPage implements AfterViewInit{
 
 
     this.events.subscribe("user:signin",(res) => {
+
+      if(res < 0){
+
+        this.signImgSrc = "assets/images/headline/已签到.png";
+
+
+      } else {
+
+        this.signImgSrc = "assets/images/headline/signin.png";
+        this.signedDisplay = "block";
+
+      }
 
       this.addNum = res;
       this.signinDisplay = "block";

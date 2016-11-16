@@ -62,13 +62,21 @@ export namespace Release {
 
         } else {
 
-            switch (run_environment){
+            if(weChat){
 
-                case environment.test: return "http://120.26.222.73:8080/xn-forum-front";
-                case environment.develop: return "http://121.43.101.148:8080/xn-forum-front";
-                case environment.develop_local:  return "http://localhost:8080/xn-forum-front";
+                switch (run_environment){
 
+                    case environment.test: return "http://120.26.222.73:8080/xn-forum-front";
+                    case environment.develop: return "http://121.43.101.148:8080/xn-forum-front";
+                    case environment.develop_local:  return "http://localhost:8080/xn-forum-front";
+
+                }
+
+            } else  {
+
+                return "http://121.43.101.148:8080/xn-forum-front";
             }
+
 
 
         }

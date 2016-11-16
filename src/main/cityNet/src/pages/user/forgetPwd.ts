@@ -75,11 +75,11 @@ export class ForgetPwdPage implements AfterViewInit {
         btn = btn.parentNode;
       }
       btn.setAttribute("disabled", "disabled");
-      for(var i = 0; i <= 60; i++){
+      for(var i = 0; i <= 120; i++){
         (function (i) {
           setTimeout(function(){
-            if(i < 60){
-              btn.innerText = (60 - i) + "s";
+            if(i < 120){
+              btn.innerText = "已发送" + "("+(120 - i) + "s"+")";
             }else{
               btn.removeAttribute("disabled");
               btn.innerText = "发送验证码";

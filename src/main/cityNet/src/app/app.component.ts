@@ -177,11 +177,9 @@ export class MyApp implements AfterViewInit{
 
                   this.adDisplay = 'none';
                   window.clearInterval(num);
-
                   this.rootPage = TabsPage;
 
               },this.time*1500);
-
 
 
           }  else  {
@@ -224,8 +222,6 @@ export class MyApp implements AfterViewInit{
 
           geolocation.getCurrentPosition(r => {
 
-              // console.log(r);
-
               if(geolocation.getStatus() == BMAP_STATUS_SUCCESS){
                 //成功加载站点
 
@@ -261,11 +257,7 @@ export class MyApp implements AfterViewInit{
 
                               if(this.time > 0){
 
-                                  // document.getElementById("time-back-div").innerText = `${this.time}`;
                                   this.time --;
-                                  // console.log("定时中");
-                                  // console.log(this.time);
-                                  // this.events.publish("timeBegin",this.time);
 
                               }
 
@@ -387,42 +379,13 @@ export class MyApp implements AfterViewInit{
 
   }
 
+    pass($event){
 
-  // howLoad(){
-  //
-  // return  this.userServe.whetherLogin().then((msg) => {
-  //
-  //     if (msg != null) {
-  //
-  //       /*客服*/
-  //       this.kefuService.me = this.userServe.userId;
-  //
-  //       /*im登陆*/
-  //       this.imServe.login(this.userServe.userId);
-  //
-  //       /*类 session 登陆*/
-  //      return  this.http.post('/user/login-t',{"tokenId":this.userServe.tokenId}).then(res => {
-  //
-  //         this.rootPage = TabsPage;
-  //        /*异步更新用户数据*/
-  //         this.http.get('/user').then(res => {
-  //            this.userServe.user = res.data;
-  //
-  //         });
-  //
-  //       }).catch(error => {
-  //
-  //          this.rootPage = TabsPage;
-  //
-  //       });
-  //
-  //
-  //     } else {
-  //       this.rootPage = TabsPage;
-  //     }
-  //
-  //   });
-  //
-  // }
+        this.rootPage = TabsPage;
+        this.adDisplay = "none";
+
+    }
+
+
 
 }

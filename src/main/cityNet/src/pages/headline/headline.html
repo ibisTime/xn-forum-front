@@ -39,7 +39,7 @@
     <ion-slides  [style.height]="bannerHeight" [options]="mySlideOptions">
       <ion-slide *ngFor="let banner of cityS.headlineData.banner" (tap)="goOther(banner.url,'')">
         <!--<div class="banner-content"></div>-->
-        <img src={{banner.pic}}>
+        <img src={{banner.pic}} style="height: 100%; width: 100%;">
         <div class="banner-title">{{banner.name}}</div>
       </ion-slide>
     </ion-slides>
@@ -68,7 +68,7 @@
              *ngFor="let item of cityS.headlineData.func3">
           <img class="func" src={{item.pic}} [style.width]="h3w" [style.height]="h3h"
                >
-          <div class="func3-title">{{item.name}}</div>
+          <p class="func3-title">{{item.name}}</p>
         </div>
 
       </div>
@@ -76,7 +76,7 @@
 
       <div class="eight-func">
         <div class="eight-inner-div" *ngFor="let func of cityS.headlineData.func8">
-          <div class="func" [style.height]="h8" [style.width]="h8"
+          <div class="func" [style.height]="h8" [style.width]="w8"
                (tap)="goOther(func.url,func.name)">
             <img src={{func.pic}}>
             <div class="func8-title">{{func.name}}</div>
