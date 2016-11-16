@@ -1,7 +1,7 @@
 <ion-nav [root]="rootPage"></ion-nav>
 
 <div *ngIf="cityService.ads.length > 0"  id="ad-bg" [style.display]="adDisplay">
-    <div  class="time-back" > <span id="time-back-div">{{time}}</span> s</div>
+    <div  class="time-back" (click)="pass($event)" > <span id="time-back-div">跳过( {{time}} )</span> </div>
     <!--[style.content]="contentUrl"-->
     <img id="ad-bg-img" [style.display]="adDisplay"
 

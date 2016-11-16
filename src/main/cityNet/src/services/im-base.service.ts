@@ -60,9 +60,7 @@ export class IMBaseService {
   imPresence;
 
   impFunction(imFunc,kefuFunc,msg, type?){
-    console.log("impFunction");
-    console.log(msg.from);
-    console.log(this.to);
+
     
     
     if(msg.from == this.to){

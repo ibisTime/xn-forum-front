@@ -13,41 +13,56 @@ export class WXService {
 
     }
 
-    share(title){
+    isInstalled(){
 
-        Wechat.isInstalled(function (installed) {
+        return new Promise( (resolve, reject) => {
 
-            Wechat.share({
+            Wechat.isInstalled(installed => {
 
-                message: {
-                    title: title,
-                    description: "tz",
-                    thumb: "../assets/images/icon.png",
-                    media: {
-                        type: Wechat.Type.WEBPAGE,   // webpage
-                        webpageUrl: "https://github.com/xu-li/cordova-plugin-wechat"    // webpage
-                    }
-                },
-                scene: Wechat.Scene.TIMELINE   // share to Timeline
+                installed? resolve() : reject("uninstall");
 
-            }, function () {
 
-                alert("Success");
+            },error => {
 
-            }, function (reason) {
-
-                alert("Failed: " + reason);
+                reject("uninstall");
 
             });
-
-
-        }, function (reason) {
-
-            alert("Failed: " + reason);
 
         });
 
     }
+
+    share(content,imgUrl?){
+
+        return new Promise( (resolve, reject) => {
+
+              Wechat.share({
+
+                  message: {
+                      title: content,
+                      description: "tz",
+                      thumb: imgUrl || "",
+                      media: {
+                          type: Wechat.Type.WEBPAGE,   // webpage
+                          webpageUrl: "http://cswapp.hichengdai.com"   // webpage
+                      }
+                  },
+                  scene: Wechat.Scene.TIMELINE   // share to Timeline
+
+              }, function () {
+
+                  resolve();
+
+              }, function (reason) {
+
+                  reject("shareFailure");
+
+              });
+
+        });
+
+    }
+
 
     wxLogin(){
 

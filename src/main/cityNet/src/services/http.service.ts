@@ -117,11 +117,15 @@ export class HttpService {
 
              this.events.publish('user:nouser');
 
+          } else if(resObj.msg == "今日已签到，请明日再来哦") {
+
+
           } else {
 
             this.warn.toast(resObj.msg);
+
           }
-          console.log("异常");
+          Release.log("异常");
 
         }
 
