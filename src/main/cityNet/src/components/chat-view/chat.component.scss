@@ -165,7 +165,7 @@
   .easemobWidget-left .easemobWidget-corner {
     position: absolute;
     top: 5px;
-    left: 40px;
+    left: 37px;
     width: 30px;
     height: 30px;
     color: #fff;
@@ -264,15 +264,13 @@
   }
   .easemobWidget-msg-file span {
     position: absolute;
-    right: 90px;
-    left: 66px;
+    right: 80px;
     top: 6px;
-    word-wrap: break-word;
     margin: auto;
     line-height: 24px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 38%;
+    width: 100px;
     overflow: hidden;
   }
   .easemobWidget-date {

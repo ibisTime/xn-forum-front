@@ -8,7 +8,11 @@
 
     <div *ngIf="item != null">
         <div class="content-head">
-            <h2 class="content-head">{{item.title}}</h2>
+            <div *ngIf="item.location == 'A'">
+                <img src="assets/images/jing.png" style="position: absolute;width: auto;top: 0;bottom: 0;left: 8px;margin: auto;"/>
+                <h2 class="content-head" style="padding-left:32px;">{{item.title}}</h2>
+            </div>
+            <div *ngIf="item.location != 'A'"><h2 class="content-head">{{item.title}}</h2></div>  
             <div class="read-count">
                 <ion-icon name="eye"></ion-icon>
                 <span>{{item.totalReadTimes}}</span></div>
@@ -49,6 +53,10 @@
                     </ion-card>
                 </ion-item>
             </ion-list>
+        </div>
+        <div class="dashang-div" (click)="gratuity()">
+            <div class="dashang-left"><img src="assets/images/jiangli.png"/><span>好贴就要任性打赏~</span></div>
+            <img class="dashang-right" src="assets/images/shang.png"/>
         </div>
     <!--<div *ngIf="item != null" style="border-bottom: 10px solid rgb(240,240,240)">-->
         <!--<div class="detail-outer">-->
@@ -92,7 +100,7 @@
             <!--</div>-->
         <!--</div>-->
 
-        <div style="background-color: white">
+        <div style="background-color: white;border-top: 0.55px solid #c8c7cc;">
             <ion-segment [(ngModel)]="segment">
                 <ion-segment-button value="pjia">
                     评价{{item.commentList.length}}

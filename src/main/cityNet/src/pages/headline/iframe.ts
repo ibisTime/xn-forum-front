@@ -15,7 +15,7 @@ import {WarnService} from "../../services/warn.service";
     <ion-title>{{title}}</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content class="overx-visible">
    <iframe id="testIframe" style="height: 100%; width: 100%;border:0; background-color: white;">
      <p>loading...</p>
    </iframe>

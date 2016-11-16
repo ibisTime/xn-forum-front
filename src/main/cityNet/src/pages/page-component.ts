@@ -28,6 +28,7 @@ import {EditDetailPage} from "./mine/detail/editDetail";
 import {AtPage} from "./forum/at";
 import {CollectionPage} from "./mine/collection/collection";
 import {CommentPage} from "./mine/im/comment";
+import {UpvotePage} from "./mine/im/upvote";
 import {SettingPage} from "./mine/setting/setting";
 import {AccountPage} from "./mine/setting/account";
 import {AboutusPage} from "./mine/setting/aboutus";
@@ -100,8 +101,8 @@ export const pages = [ TabsPage,
   EndDateChoose,
   AtMePage,
   ReplyCommentPage,
-    JFPage
-
+  JFPage,
+  UpvotePage
 ];
 
 export const components = [

@@ -29,6 +29,31 @@
         height: 0;
         clear: both;
     }
+    .dashang-div{
+        margin: 6px 0;
+        background: #fff;
+        line-height: 60px;
+        font-size: 1.6rem;
+        color: #999;
+        padding-left: 10px;
+        position: relative;
+        border-top: 0.55px solid #c8c7cc;
+        border-bottom: 0.55px solid #c8c7cc;
+        .dashang-left{
+            img{
+                vertical-align: middle;
+            }
+            span{
+                padding-left: 10px;
+            }
+        }
+        .dashang-right{
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            margin-top: -20px;
+        }
+    }
     .content-head{
         font-family: Microsoft YaHei,'宋体',Tahoma,Arial,sans-serif;
         position: relative;

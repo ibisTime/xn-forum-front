@@ -67,8 +67,12 @@ export class KefuPage implements AfterViewInit {
       cityData: this.cityServe.kefuData,
       type: "yliu"
     }
-    this.imServe.getCompanyWelcome(data) ;
-
+    if(!this.userService.user){
+        this.imServe.getCompanyWelcome(data);
+    }else{
+        this.chatView.me = this.imServe.me;
+        this.imServe.getHistory(null, data);
+    }
       this.otherImg = "assets/images/tab-bar-xiaomi.png";
 
       if(this.userService.user)  {
@@ -104,7 +108,7 @@ export class KefuPage implements AfterViewInit {
 
   ionViewDidEnter(){
       this.imServe.totalMsg = 0;
-      this.scrollBottom();
+      //this.scrollBottom();
       this.isActive = true;
 
   }

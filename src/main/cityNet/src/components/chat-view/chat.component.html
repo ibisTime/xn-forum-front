@@ -70,7 +70,7 @@
             <i class="easemobWidget-corner"></i>
             <div class="easemobWidget-msg-container inline_table">
               <a class="easemobWidget-noline" href="javascript:;">
-                <img class="easemobWidget-imgview" (click)="showMsg(ev)" src="{{msgItem.url}}">
+                <img class="easemobWidget-imgview" (click)="showImg($event)" src="{{msgItem.url}}">
               </a>
             </div>
           </div>
@@ -81,7 +81,7 @@
             <img class="mw30p" [src]="otherImg"/>
             <i class="easemobWidget-corner"></i>
             <div class="easemobWidget-msg-container">
-              <a target="_blank" href="{{msgItem.url}}" class="easemobWidget-fileMsg" title="{{msgItem.filename}}">
+              <a href="javascript:void(0)" (click)="go2Frame(msgItem.url, msgItem.filename)" class="easemobWidget-fileMsg">
                 <img class="easemobWidget-msg-fileicon" src="assets/images/file_download.png">
                 <span>{{msgItem.filename}}</span>
               </a>

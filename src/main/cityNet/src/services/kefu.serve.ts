@@ -103,11 +103,11 @@ export class KefuService {
       });
   }
   //获取历史消息（refresh表示是否是上滑加载历史消息）
-  getHistory(refresh?) {
+  getHistory(refresh?, msgData?) {
     //如果没有chatGroupId，则先获取
     if(this.chatGroupId === "0" || this.chatGroupId === "-1"){
       this.getChatGroupId().then(()=>{
-        this.getMyHistory(refresh);
+        this.getMyHistory(refresh, msgData);
       }).catch(()=>{
         refresh && refresh.complete();
       });
@@ -116,14 +116,14 @@ export class KefuService {
     }
   }
   //获取历史消息
-  getMyHistory(refresh?) {
+  getMyHistory(refresh?, msgData?) {
     if(this.rFlag){
       this.ajax.get(null, null,
         this.baseurl + '/v1/webimplugin/visitors/msgHistory?fromSeqId='+(this.chatGroupSeqId || 0)+'&size=10&chatGroupId='+this.chatGroupId+'&tenantId='+this.tenantId)
         .then((msg)=>{
           //第一次打开页面的时候去获取
           if(!refresh){
-            this.getCompanyWelcome();
+            this.getCompanyWelcome(msgData);
           }
           this.handleHistoryData(msg, refresh);
         }).catch(()=>{
@@ -394,7 +394,8 @@ export class KefuService {
       ext:ext || "",
       success:  (id, serverMsgId) => {
         successCallBack(id, serverMsgId);
-      }
+      },
+      agentName: "koala.mi@hichengdai.com"
     });
     this.conn.send(msg.body);
   }

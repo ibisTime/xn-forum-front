@@ -11,11 +11,11 @@ enum  environment{
 
 export namespace Release {
 
-    const release = true;
-    export const weChat = false;
+    const release = false;
+    export const weChat = true;
 
     //release false才有效
-     const  run_environment = environment.test;
+     const  run_environment = environment.develop_local;
 
     // const  port = "8080";
     export const baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";

@@ -8,6 +8,7 @@ import {UserService} from "../../../services/user.service";
 import {FriendPage} from "../friend/friend";
 import {SystemMsgPage} from "./systemMsg";
 import {AtMePage} from "./atMe";
+import {UpvotePage} from "./upvote";
 
 @Component({
   templateUrl: 'im.html'
@@ -62,7 +63,9 @@ export class ImPage implements AfterViewInit{
   searchFriend(){
     this.navCtrl.push(FriendPage);
   }
-
+  goDianZan(){
+    this.navCtrl.push(UpvotePage);
+  }
   goComment(){
     this.navCtrl.push(CommentPage);
   }

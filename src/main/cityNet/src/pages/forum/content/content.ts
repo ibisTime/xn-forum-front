@@ -318,9 +318,6 @@ export class ContentPage {
   showImg(ev){
       if( ev.target.nodeName.match(/^img$/i) ){
           let img = ev.target;
-          // let sDiv = document.getElementById("ylImg2");
-          // sDiv.className = sDiv.className.replace(/\s*hidden\s*/, "");
-          // document.getElementById("yl-img2").setAttribute("src", img.src);
           this.events.publish("displayImg",img.src);
       }
   }
@@ -365,12 +362,6 @@ export class ContentPage {
                 this.report("1");
             }
         });
-        buttons.unshift({
-            text: '打赏',
-            handler: ()=>{
-                this.gratuity();
-            }
-        });
     }
     let actionSheet = this.actionSheetCtrl.create({
       title: '操作',
@@ -381,8 +372,11 @@ export class ContentPage {
 
   //打赏
   gratuity() {
-
-
+    if (!this.uService.user) {
+        this.navCtrl.push(LoginPage);
+        return;
+    }
+    
     let prompt = this.alertCtrl.create({
       title: '打赏',
       message: "",

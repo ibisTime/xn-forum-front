@@ -4,6 +4,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Events} from "ionic-angular";
 import {UserService} from "../../services/user.service";
+import {NavService} from "../../services/nav.service";
 
 @Component({
    templateUrl: "chat.component.html",
@@ -11,7 +12,8 @@ import {UserService} from "../../services/user.service";
 })
 export class ChatViewComponent implements OnInit {
     constructor(public events: Events,
-    public uService : UserService) { }
+    public uService : UserService,
+    public navService: NavService) { }
 
   public _me;
   public _listOfChatData;
@@ -73,6 +75,10 @@ export class ChatViewComponent implements OnInit {
           this.events.publish("displayImg",img.src);
       }
       ev.stopPropagation();
+  }
+
+  go2Frame(url, title){
+    this.navService.transition(url, title);
   }
 
   ngOnInit() { }

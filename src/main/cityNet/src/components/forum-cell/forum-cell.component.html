@@ -12,11 +12,14 @@
                 <p class="time">{{_item.publishDatetime | forumDate}}</p>
                 <ion-card-content>
                     <div >
-                        <h2 style="margin: 6px 0;">{{_item.title}}</h2>
+                        <div *ngIf="_item.location == 'A'">
+                            <img src="assets/images/jing.png" class="head-jinghua-img"/><h2 style="margin: 6px 0;" class="pl22">{{_item.title}}</h2>
+                        </div>
+                        <div *ngIf="_item.location != 'A'"><h2 style="margin: 6px 0;">{{_item.title}}</h2></div>
                         <p [innerHTML]="_item.content1"></p>
                     </div>
-                    <div *ngIf="_item.picArr" class="img-cont" (click)="showImg($event)">
-                        <img class="imgs wp30 mr2p" [src]="p" *ngFor="let p of _item.picArr"/>
+                    <div *ngIf="_item.picArr" class="img-cont">
+                        <img class="imgs wp30 mr2p" (click)="showImg($event)" [src]="p" *ngFor="let p of _item.picArr"/>
                     </div>
                 </ion-card-content>
 
