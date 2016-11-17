@@ -81,6 +81,11 @@ public class PageController {
         // }
         // return (JudgeIsMoblie(request) ? "m/project/l" : "home/index");
     }
+    
+    @RequestMapping(value = "/loginrtn.htm", method = RequestMethod.GET)
+    public String loginrtnAction() {
+        return "loginrtn";
+    }
 
     @RequestMapping(value = "/{module}.htm", method = RequestMethod.GET)
     public String indexAction(@PathVariable String module,
