@@ -89,9 +89,11 @@ public class OAuth2LoginController extends BaseController {
 			// Step4-1：如果user存在，说明用户授权登录过，直接登录
 			user = users[0];
 			userId = user.get("userId");
-			sessionProvider
-            	.setUserDetail(new SessionUser(userId, ""));
-			return userId;
+			SessionUser sessionUser = new SessionUser();
+	        sessionUser.setUserId(userId);
+	        // 创建session
+	        setSessionUser(sessionUser);
+			return pwdUserId(userId);
 		} else {
 			// Step4-2：如果user不存在，说明用户未授权登录过，需从openAPI获取用户信息
 			queryParas = new HashMap<>();
@@ -109,9 +111,11 @@ public class OAuth2LoginController extends BaseController {
 			user = BizConnecter.getBizData("805151", JsonUtils.mapToJson(user),
 		              Map.class);
 			userId = user.get("userId");
-			sessionProvider
-        	.setUserDetail(new SessionUser(userId, ""));
-			return userId;
+			SessionUser sessionUser = new SessionUser();
+	        sessionUser.setUserId(userId);
+	        // 创建session
+	        setSessionUser(sessionUser);
+			return pwdUserId(userId);
 		}
 	}
     
