@@ -181,6 +181,7 @@
 		 <!-- 	找回登录密码相关 end  -->
 		 
 		  	<mvc:exclude-mapping path="/post/page"/>
+		  	<mvc:exclude-mapping path="/loginrtn.htm"/>
 			<ref bean="sessionInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
