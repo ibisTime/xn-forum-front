@@ -394,8 +394,7 @@ export class KefuService {
       ext:ext || "",
       success:  (id, serverMsgId) => {
         successCallBack(id, serverMsgId);
-      },
-      agentName: "koala.mi@hichengdai.com"
+      }
     });
     this.conn.send(msg.body);
   }

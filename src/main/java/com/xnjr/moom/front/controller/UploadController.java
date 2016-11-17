@@ -1,6 +1,8 @@
 package com.xnjr.moom.front.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.xnjr.moom.front.ao.IUserAO;
 import com.xnjr.moom.front.exception.BizException;
 import com.xnjr.moom.front.util.FileUploadUtil;
+import com.xnjr.moom.front.util.UploadUtil;
 
 @Controller
 @RequestMapping(value = "/upload")
@@ -44,5 +47,11 @@ public class UploadController extends BaseController {
                     return userAO.setAvatar(getSessionUserId(""), url);
             }
         }
+    }
+    
+    @RequestMapping(value = "/img", method = RequestMethod.POST)
+    public Object uploadImg(@RequestParam("photo") String photo) throws UnsupportedEncodingException{
+    	photo = URLDecoder.decode(photo, "UTF-8");
+    	return UploadUtil.uploadPicture(photo);
     }
 }

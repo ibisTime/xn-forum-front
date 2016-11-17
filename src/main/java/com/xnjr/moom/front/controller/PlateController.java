@@ -57,4 +57,32 @@ public class PlateController extends BaseController {
             @RequestParam(value = "code", required = true) String code) {
         return plateAO.queryPlateInfo(code);
     }
+    
+    //列表查询密码记录(环信配置)
+    @RequestMapping(value = "/pwd/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryPasswordList(
+            @RequestParam(value = "type", required = false) String type,
+            @RequestParam(value = "account", required = false) String account,
+            @RequestParam(value = "companyCode", required = false) String companyCode) {
+        return plateAO.queryPasswordList(type, account, companyCode);
+    }
+    
+    //列表查询类别
+    @RequestMapping(value = "/category/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryCategoryList(
+            @RequestParam(value = "parentCode", required = false) String parentCode,
+            @RequestParam(value = "type", required = false) String type,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "companyCode", required = false) String companyCode) {
+        return plateAO.queryCategoryList(parentCode, type, name, companyCode);
+    }
+    //详情查询类别
+    @RequestMapping(value = "/category/info", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryCategoryInfo(
+            @RequestParam(value = "code", required = false) String code) {
+        return plateAO.queryCategoryInfo(code);
+    }
 }

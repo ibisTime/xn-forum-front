@@ -32,6 +32,7 @@ import com.xnjr.moom.front.req.XN610075Req;
 import com.xnjr.moom.front.req.XN610076Req;
 import com.xnjr.moom.front.req.XN610077Req;
 import com.xnjr.moom.front.req.XN610078Req;
+import com.xnjr.moom.front.req.XN610081Req;
 import com.xnjr.moom.front.req.XN610900Req;
 
 /** 
@@ -288,5 +289,18 @@ public class PostAOImpl implements IPostAO {
     public Object lockPost(String code) {
         return BizConnecter.getBizData("610051",
             JsonUtils.string2Json("code", code), Object.class);
+    }
+    
+    @Override
+    public Object queryPraisePage(String userId, String start,
+    		String limit, String orderColumn, String orderDir){
+    	XN610081Req req = new XN610081Req();
+    	req.setUserId(userId);
+    	req.setStart(start);
+    	req.setLimit(limit);
+    	req.setOrderColumn(orderColumn);
+    	req.setOrderDir(orderDir);
+    	return BizConnecter.getBizData("610081", JsonUtils.object2Json(req),
+    		Object.class);
     }
 }

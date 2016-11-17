@@ -2,44 +2,30 @@
     <ion-navbar color="navbar-color">
         <ion-title>赞</ion-title>
     </ion-navbar>
-    <!--<ion-toolbar no-border-top>-->
-        <!--<ion-segment [(ngModel)]="segment">-->
-            <!--<ion-segment-button value="wsdd">-->
-                <!--我收到的-->
-            <!--</ion-segment-button>-->
-            <!--<ion-segment-button value="wfcd">-->
-                <!--我发出的-->
-            <!--</ion-segment-button>-->
-        <!--</ion-segment>-->
-    <!--</ion-toolbar>-->
 </ion-header>
 
 <ion-content class="forum forum-detail">
 
     <ion-refresher (ionRefresh)="refresh($event)">
-        <ion-refresher-content
-                pullingIcon="arrow-dropdown"
-                pullingText="下拉加载"
-                refreshingSpinner="circles"
-                refreshingText="加载中...">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉加载" refreshingSpinner="circles" refreshingText="加载中...">
         </ion-refresher-content>
     </ion-refresher>
 
     <ion-list>
-        <ion-item class="b-lable" *ngFor="let item of fromMe">
+        <ion-item class="b-lable" *ngFor="let item of pageData">
             <ion-card>
-                <ion-item>
-                    <ion-avatar item-left (click)="goDetail($event, uService.user.userId)">
-                        <img src="{{uService.user.userExt.photo||'assets/images/marty-avatar.png'}}">
+                <ion-item class="noborder">
+                    <ion-avatar item-left (click)="goDetail($event, item.talker)">
+                        <img src="{{item.photo||'assets/images/marty-avatar.png'}}">
                     </ion-avatar>
-                    <div (click)="openPage($event,item.postCode, item.publisher)">
+                    <div (click)="openPage($event,item.postCode, uService.user.userId)">
                         <div style="position: relative;">
                             <h2>{{item.nickname}}</h2>
                         </div>
-                        <p class="time">{{item.commDatetime|forumDate}}</p>
+                        <p class="time">{{item.talkDatetime|forumDate}}</p>
                         <ion-card-content>
-                            <div class="comment-div">@{{item.post.nickname}}:{{item.post.content}}</div>
-                            <div class="comment-div1">{{item.content}}</div>
+                            <div class="comment-div">@{{uService.user.nickname}}:{{item.postContent}}</div>
+                            <div class="comment-div1">赞了你的帖子</div>
                         </ion-card-content>
                     </div>
                 </ion-item>
@@ -52,5 +38,3 @@
     </ion-infinite-scroll>
 
 </ion-content>
-
-

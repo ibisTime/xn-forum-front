@@ -1,25 +1,25 @@
-.forum{
+.forum {
     //background-color: #fff;
-    font-family: Microsoft YaHei,'宋体',Tahoma,Arial,sans-serif;
-    .button-icon-left ion-icon{
+    font-family: Microsoft YaHei, '宋体', Tahoma, Arial, sans-serif;
+    .button-icon-left ion-icon {
         padding-right: 0;
     }
-    .mb50{
+    .mb50 {
         margin-bottom: 50px;
     }
-    .p8{
+    .p8 {
         padding: 8px;
     }
-    .wp100{
+    .wp100 {
         width: 100%;
     }
-    .iconfont{
+    .iconfont {
         margin: 0;
     }
-    .fr{
+    .fr {
         float: right;
     }
-    .fl{
+    .fl {
         float: left;
     }
     .clearfix:after {
@@ -29,7 +29,7 @@
         height: 0;
         clear: both;
     }
-    .dashang-div{
+    .dashang-div {
         margin: 6px 0;
         background: #fff;
         line-height: 60px;
@@ -39,41 +39,43 @@
         position: relative;
         border-top: 0.55px solid #c8c7cc;
         border-bottom: 0.55px solid #c8c7cc;
-        .dashang-left{
-            img{
+        .dashang-left {
+            img {
                 vertical-align: middle;
             }
-            span{
+            span {
                 padding-left: 10px;
             }
         }
-        .dashang-right{
+        .dashang-right {
             position: absolute;
             right: 10px;
             top: 50%;
             margin-top: -20px;
         }
     }
-    .content-head{
-        font-family: Microsoft YaHei,'宋体',Tahoma,Arial,sans-serif;
+    .noborder ion-label {
+        border-bottom: none !important;
+    }
+    .content-head {
+        font-family: Microsoft YaHei, '宋体', Tahoma, Arial, sans-serif;
         position: relative;
         padding-bottom: 4px;
-        h2{
+        h2 {
             font-size: 1.7rem;
             font-weight: normal;
             color: #7E0001;
-            
             margin-top: 0;
             margin-bottom: 0;
             padding: 8px;
         }
-        .read-count{
+        .read-count {
             font-size: 1.4rem;
             position: absolute;
             right: 8px;
             bottom: 0px;
             color: #a9a9a9;
-            span{
+            span {
                 padding-left: 6px;
             }
         }
@@ -81,22 +83,22 @@
     .clearfix {
         zoom: 1;
     }
-    .bd_r_e6{
+    .bd_r_e6 {
         border-right: 1px solid #E6E6E6;
     }
-    .bg_f0{
+    .bg_f0 {
         background: #F0F0F0;
     }
-    .bg_fff{
+    .bg_fff {
         background: #fff;
     }
-    .wp30{
+    .wp30 {
         width: 30%;
     }
-    .wp70{
+    .wp70 {
         width: 70%;
     }
-    .inblock{
+    .inblock {
         display: inline-block;
     }
     .t-3dot {
@@ -104,8 +106,8 @@
         overflow: hidden;
         white-space: nowrap;
     }
-    .com-btn1{
-        button{
+    .com-btn1 {
+        button {
             border-color: transparent;
             background-color: transparent;
             font-size: 1.2rem;
@@ -115,83 +117,83 @@
             margin: 10px 0 0;
             padding: 0;
         }
-        .u-msg{
+        .u-msg {
             white-space: normal;
         }
-        ion-item{
+        ion-item {
             font-size: 1.4rem;
             border-bottom: 1px solid #e6e6e6;
         }
     }
-    a.people{
+    a.people {
         padding: 5px 5px;
     }
-    .item{
+    .item {
         padding-left: 0;
         background-color: #fff;
-        .iconfont{
+        .iconfont {
             font-size: 1.6em;
         }
-        .item-inner{
+        .item-inner {
             padding-right: 0;
             border-bottom: none;
-            ion-label{
+            ion-label {
                 margin-left: 8px;
-                .time{
+                .time {
                     color: #B4B4B4;
                 }
-                ion-card{
-                    font-family: Microsoft YaHei,'宋体',Tahoma,Arial,sans-serif;
+                ion-card {
+                    font-family: Microsoft YaHei, '宋体', Tahoma, Arial, sans-serif;
                     margin: 0;
                     width: 100%;
-                    .item{
+                    .item {
                         border-bottom: 1px solid #DCDCDC;
                     }
-                    ion-card-content{
+                    ion-card-content {
                         width: 100%;
                         white-space: normal;
                         padding: 0;
                         p {
                             font-size: 1.5rem;
                         }
-                        .imgs{
+                        .imgs {
                             display: inline-block;
                             height: 84px;
                         }
-                        .img-cont{
+                        .img-cont {
                             margin-top: 8px;
                         }
                     }
-                    .com-btn{
+                    .com-btn {
                         margin-top: 20px;
                     }
-                    .com-btn button.activated{
+                    .com-btn button.activated {
                         opacity: 0.4;
                     }
-                    ion-avatar{
+                    ion-avatar {
                         position: absolute;
                         top: 0;
                         left: 0;
                         padding-top: 8px;
                         margin: 0;
-                        img{
+                        img {
                             max-height: none;
                             max-width: none;
                             width: 45px;
                             height: 45px;
                         }
                     }
-                    button{
+                    button {
                         color: #464646;
                         background: #fff;
                         border: 1px solid #B4B4B4;
                         border-radius: 4px;
                         margin: 0 0.4rem;
                     }
-                    .com-btn>ion-buttons>button:first-child{
+                    .com-btn>ion-buttons>button:first-child {
                         margin-left: 0;
                     }
-                    .comment{
+                    .comment {
                         padding: 8px;
                         background: #EEEEEE;
                         border-radius: 4px;
@@ -201,13 +203,13 @@
                             width: 16px;
                             top: -10px;
                         }
-                        .com-top{
-                            color:#7E0100;
-                            .t-3dot{
+                        .com-top {
+                            color: #7E0100;
+                            .t-3dot {
                                 font-size: 1.2rem;
                                 padding-left: 8px;
                             }
-                            button{
+                            button {
                                 background-color: transparent;
                                 border: none;
                                 padding: 0;
@@ -215,60 +217,59 @@
                                 font-size: 1.2rem;
                             }
                         }
-                        .com-bottom{
+                        .com-bottom {
                             font-size: 1.2rem;
                             padding: 6px 0px;
                             border-top: 1px solid #fff;
-                            .u-name{
+                            .u-name {
                                 color: #7D0000;
                             }
-                            .item{
+                            .item {
                                 background-color: transparent;
                                 border-top: none !important;
                                 min-height: 1.2em;
                                 line-height: 1.2em;
                                 border-bottom: none !important;
-                                .item-inner{
+                                .item-inner {
                                     margin-left: 0;
                                     border-bottom: none !important;
-                                    ion-label{
+                                    ion-label {
                                         font-size: 1.2rem;
                                         margin: 0;
                                         white-space: normal;
                                     }
                                 }
                             }
-                            
                         }
                     }
-                    .item-inner{
+                    .item-inner {
                         margin-left: 50px;
-                        .origin{
-                            position:absolute;
-                            right:0;
-                            top:0;
-                            span{
-                                color:#D23E3C;
+                        .origin {
+                            position: absolute;
+                            right: 0;
+                            top: 0;
+                            span {
+                                color: #D23E3C;
                             }
                         }
                     }
-                    h2{
+                    h2 {
                         color: #7E0001;
                     }
                 }
             }
         }
     }
-    .item.b-lable{
-        ion-label{
+    .item.b-lable {
+        ion-label {
             border-bottom: 1px solid #e6e6e6;
-            .comment-div{
+            .comment-div {
                 background: #f5f5f5;
                 margin: 1em 0;
                 padding: 0.5em;
                 color: #999;
             }
-            .comment-div1{
+            .comment-div1 {
                 color: #7E0001;
                 font-size: 1.6rem;
             }
@@ -284,33 +285,33 @@
     .pr10 {
         padding-right: 10px;
     }
-    .ltan{
-        .lt-left{
-                height: 100%;
-                position: absolute;
-                overflow-y: auto;
-            ul{
-                li{
+    .ltan {
+        .lt-left {
+            height: 100%;
+            position: absolute;
+            overflow-y: auto;
+            ul {
+                li {
                     border-bottom: 1px solid #e6e6e6;
                     padding-bottom: 10px;
                     padding-top: 10px;
                     text-align: center;
                 }
-                li.on{
+                li.on {
                     background: #fff;
                 }
             }
         }
-        .lt-right{
+        .lt-right {
             margin-left: 30%;
-            ul{
-                li{
+            ul {
+                li {
                     padding-top: 10px;
                     padding-bottom: 10px;
                     border-bottom: 1px solid #e6e6e6;
                 }
             }
-            .com-btn button{
+            .com-btn button {
                 border-color: transparent;
                 background-color: transparent;
                 font-size: 1.2rem;
@@ -322,44 +323,46 @@
             }
         }
     }
-    .mb10{
+    .mb10 {
         margin-bottom: 10px;
     }
-    .ml10{
+    .ml10 {
         margin-left: 10px !important;
     }
-    .hidden{
+    .hidden {
         display: none;
     }
 }
 
-
-
-.forum-head{
-    .icon{
+.forum-head {
+    .icon {
         font-size: 25px;
     }
-    .nav-bar-item-btn{
+    .nav-bar-item-btn {
         //background-color: $navbar-color;
-        background-color: rgba(0,0,0,0);
+        background-color: rgba(0, 0, 0, 0);
     }
-    .iconfont{
+    .iconfont {
         margin: 0;
     }
-    font-family: Microsoft YaHei,'宋体',Tahoma,Arial,sans-serif;
-    .toolbar-background{
+    font-family: Microsoft YaHei,
+    '宋体',
+    Tahoma,
+    Arial,
+    sans-serif;
+    .toolbar-background {
         background: #D23E3E;
     }
-    .toolbar-background{
+    .toolbar-background {
         border-bottom-width: 0;
     }
-    .toolbar{
+    .toolbar {
         padding: 0;
     }
-    button{
+    button {
         color: #fff;
     }
-     div.toolbar-content .segment-button{
+    div.toolbar-content .segment-button {
         border-color: white;
         font-size: 18px;
         color: #E29695;
@@ -368,7 +371,7 @@
         border-radius: 0;
         max-width: 80px;
     }
-     div.toolbar-content .segment-button.segment-activated{
+    div.toolbar-content .segment-button.segment-activated {
         color: #fff;
         border-bottom: 2px solid #fff;
     }
@@ -378,10 +381,12 @@
         border-radius: 0px;
     }
 }
-.zIndex999{
+
+.zIndex999 {
     z-index: 999 !important;
 }
-.mask{
+
+.mask {
     position: fixed;
     margin: auto;
     overflow: hidden;
@@ -391,19 +396,19 @@
     right: 0;
     bottom: 0;
     background-color: #000;
-    .wrapper{
+    .wrapper {
         float: left;
         z-index: 1;
         overflow: hidden;
         text-align: center;
         width: 100%;
         height: 100%;
-        .scroller{
+        .scroller {
             transform-origin: 0px 0px 0px;
             transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);
             transition-duration: 0ms;
             transform: translate(0px, 0px) scale(1) translateZ(0px);
-            img{
+            img {
                 max-width: 100%;
                 vertical-align: middle;
                 -webkit-transition: opacity .3s ease-out;
@@ -411,7 +416,8 @@
         }
     }
 }
-.mask>div{
+
+.mask>div {
     position: relative;
     top: 0px;
     left: 0px;
@@ -419,17 +425,22 @@
     height: 100%;
     transform: translate(0px, 0px) translateZ(0px);
 }
+
 .hidden {
     display: none !important;
 }
-ul, li{
+
+ul,
+li {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-.no-abs{
+
+.no-abs {
     position: static;
 }
-.va-t{
+
+.va-t {
     vertical-align: top;
 }

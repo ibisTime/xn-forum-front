@@ -165,6 +165,7 @@
 			<mvc:exclude-mapping path="/user/info" />
 		 	<mvc:exclude-mapping path="/user/regist" />
 		 	<mvc:exclude-mapping path="/user/getHpsList" />
+		 	<mvc:exclude-mapping path="/user/upload/img" />
 		 	<!-- 注册相关 end 
 		 	登录登出相关 start  -->
 		 	<mvc:exclude-mapping path="/user/login"/>

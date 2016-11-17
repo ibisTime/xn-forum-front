@@ -32,4 +32,25 @@ public interface IPlateAO {
      * @return
      */
     public Object queryPlateInfo(String code);
+    
+    /**
+     * 列表查询密码记录(环信配置)
+     * @param type
+     * @param account
+     * @param companyCode
+     * @return
+     */
+    public Object queryPasswordList(String type, String account, String companyCode);
+    
+    /**
+     * 列表查询类别
+     * @param parentCode
+     * @param type
+     * @param name
+     * @param companyCode
+     * @return
+     */
+    public Object queryCategoryList(String parentCode, String type, String name, String companyCode);
+    
+    public Object queryCategoryInfo(String code);
 }

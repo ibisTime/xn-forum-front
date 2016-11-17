@@ -260,4 +260,17 @@ public class PostController extends BaseController {
     public Object lockPost(@RequestParam("code") String code) {
         return postAO.lockPost(code);
     }
+    
+    // 我的帖子收到点赞分页查询
+    @RequestMapping(value = "/praise/page", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryPraisePage(
+    		@RequestParam(value = "userId", required = false) String userId,
+    		@RequestParam(value = "start", required = true) String start,
+    		@RequestParam(value = "limit", required = true) String limit,
+    		@RequestParam(value = "orderColumn", required = false) String orderColumn,
+    		@RequestParam(value = "orderDir", required = false) String orderDir) {
+        return postAO.queryPraisePage(getSessionUserId(userId),
+        		start, limit, orderColumn, orderDir);
+    }
 }

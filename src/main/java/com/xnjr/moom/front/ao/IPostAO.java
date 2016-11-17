@@ -151,4 +151,7 @@ public interface IPostAO {
     public Object setTop(String code, String location, String endDatetime);
 
     public Object lockPost(String code);
+    
+    public Object queryPraisePage(String userId, String start,
+    		String limit, String orderColumn, String orderDir);
 }

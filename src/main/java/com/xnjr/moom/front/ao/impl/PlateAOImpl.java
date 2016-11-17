@@ -14,6 +14,8 @@ import com.xnjr.moom.front.ao.IPlateAO;
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.req.XN610031Req;
+import com.xnjr.moom.front.req.XN610806Req;
+import com.xnjr.moom.front.req.XN806031Req;
 
 /** 
  * @author: xieyj 
@@ -41,4 +43,32 @@ public class PlateAOImpl implements IPlateAO {
         return BizConnecter.getBizData("610032",
             JsonUtils.string2Json("code", code), Object.class);
     }
+    
+    @Override
+    public Object queryPasswordList(String type, String account, String companyCode){
+    	XN806031Req req = new XN806031Req();
+    	req.setAccount(account);
+    	req.setCompanyCode(companyCode);
+    	req.setType(type);
+    	return BizConnecter.getBizData("806031", JsonUtils.object2Json(req),
+    		Object.class);
+    }
+
+	@Override
+	public Object queryCategoryList(String parentCode, String type,
+			String name, String companyCode) {
+		XN610806Req req = new XN610806Req();
+		req.setCompanyCode(companyCode);
+		req.setName(name);
+		req.setParentCode(parentCode);
+		req.setType(type);
+		return BizConnecter.getBizData("610806", JsonUtils.object2Json(req),
+	    	Object.class);
+	}
+
+	@Override
+	public Object queryCategoryInfo(String code) {
+		return BizConnecter.getBizData("610807", JsonUtils.string2Json("code", code),
+	    	Object.class);
+	}
 }
