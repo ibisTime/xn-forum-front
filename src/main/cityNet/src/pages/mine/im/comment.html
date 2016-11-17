@@ -1,34 +1,26 @@
 <ion-header class="forum-head">
     <ion-navbar color="navbar-color">
         <ion-title>
-            <segment-view
-                    [leftTitle]="'发出的'"
-                    [rightTitle]="'收到的'"
-                    (emitter) = "changType($event)"
-            ></segment-view>
+            <segment-view [leftTitle]="'发出的'" [rightTitle]="'收到的'" (emitter)="changType($event)"></segment-view>
         </ion-title>
 
     </ion-navbar>
     <!--<ion-toolbar no-border-top>-->
-        <!--<ion-segment [(ngModel)]="segment">-->
-            <!--<ion-segment-button value="wsdd">-->
-                <!--我收到的-->
-            <!--</ion-segment-button>-->
-            <!--<ion-segment-button value="wfcd">-->
-                <!--我发出的-->
-            <!--</ion-segment-button>-->
-        <!--</ion-segment>-->
+    <!--<ion-segment [(ngModel)]="segment">-->
+    <!--<ion-segment-button value="wsdd">-->
+    <!--我收到的-->
+    <!--</ion-segment-button>-->
+    <!--<ion-segment-button value="wfcd">-->
+    <!--我发出的-->
+    <!--</ion-segment-button>-->
+    <!--</ion-segment>-->
     <!--</ion-toolbar>-->
 </ion-header>
 
 <ion-content class="forum forum-detail">
 
     <ion-refresher (ionRefresh)="refresh($event)">
-        <ion-refresher-content
-                pullingIcon="arrow-dropdown"
-                pullingText="下拉加载"
-                refreshingSpinner="circles"
-                refreshingText="加载中...">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉加载" refreshingSpinner="circles" refreshingText="加载中...">
         </ion-refresher-content>
     </ion-refresher>
 
@@ -40,14 +32,14 @@
                     <ion-avatar item-left (click)="goDetail($event, uService.user.userId)">
                         <img src="{{uService.user.userExt.photo||'assets/images/marty-avatar.png'}}">
                     </ion-avatar>
-                    <div (click)="openPage($event,item.postCode, item.publisher)">
+                    <div (click)="openPage($event,item.postCode, item.post.publisher)">
                         <div style="position: relative;">
                             <h2>{{item.nickname}}</h2>
                         </div>
                         <p class="time">{{item.commDatetime|forumDate}}</p>
                         <ion-card-content>
-                            <div class="comment-div" *ngIf="item.parentComment">@{{item.parentComment.nickname}}:{{item.parentComment.content}}</div>
-                            <div class="comment-div" *ngIf="item.parentComment == null">@{{item.post.nickname}}:{{item.post.content}}</div>
+                            <div class="comment-div" *ngIf="item.parentComment">@{{item.parentComment.nickname}}：{{item.parentComment.content}}</div>
+                            <div class="comment-div" *ngIf="item.parentComment == null">@{{item.post.nickname}}：{{item.post.content}}</div>
                             <div class="comment-div1">{{item.content}}</div>
                         </ion-card-content>
                     </div>
@@ -63,22 +55,17 @@
                 <ion-item class="no-bottom">
                     <ion-avatar item-left (click)="goDetail($event, uService.user.userId)">
                         <!--<img (src)="assets/images/marty-avatar.png">-->
-                        <img src="{{uService.user.userExt.photo||'assets/images/marty-avatar.png'}}">
+                        <img src="{{item.photo||'assets/images/marty-avatar.png'}}">
                     </ion-avatar>
-                    <div (click)="openPage($event,item.postCode, item.publisher)">
+                    <div (click)="openPage($event,item.postCode, item.post.publisher)">
                         <div style="position: relative;">
                             <h2>{{item.nickname}}</h2>
                         </div>
-                        <p class="time">{{item.post.commDatetime|forumDate}}</p>
+                        <p class="time">{{item.commDatetime|forumDate}}</p>
                         <ion-card-content>
-                            <!--<div class="comment-div"><span>@asss</span>:改革春风吹满地，啦啦啦啦啦啦啦</div>-->
-                            <!--<div class="comment-div">@{{item.parentComment.nickname}}:{{item.parentComment.content}}</div>-->
-                            <div class="comment-div">{{item.content}}</div>
-                            <div class="comment-div1">
-                                <div *ngFor="let comment of item.nextCommentList">
-                                    <div class="t-3dot">{{comment.nickname}}：{{comment.content}}</div>
-                                </div>
-                            </div>
+                            <div class="comment-div" *ngIf="item.parentCode != item.postCode">@{{item.parentComment.nickname}}：{{item.parentComment.content}}</div>
+                            <div class="comment-div" *ngIf="item.parentCode == item.postCode">@{{item.post.nickname}}：{{item.post.content}}</div>
+                            <div class="comment-div1">{{item.content}}</div>
                         </ion-card-content>
                     </div>
                 </ion-item>
@@ -95,5 +82,3 @@
     </ion-infinite-scroll>
 
 </ion-content>
-
-
