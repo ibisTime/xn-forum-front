@@ -288,8 +288,9 @@ export class ForumCell implements OnInit {
 
 
    /*分享*/
-   share(item){
+   share($event,item){
 
+       $event.stopPropagation();
        this.wxService.isInstalled().then(res => {
 
           return this.wxService.share(item.title||item.content);

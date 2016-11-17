@@ -62,6 +62,7 @@ export class ForumPage {
           this.limit = 10;
           this.items = [];
           this.queryPostPage();
+          this.getClass();
 
       });
 
@@ -125,6 +126,7 @@ export class ForumPage {
         this.start = 1;
         this.isEnd = false;
         this.queryPostPage(event, true);
+        this.getClass();
   }
 
   doAppendData(event){
@@ -167,25 +169,46 @@ export class ForumPage {
   /*分类数据*/
     getClass() {
 
-        if(this.classification.length > 0){
-            return;
-        }
+        // if(this.classification.length > 0){
+        //     return;
+        // }
 
+        console.log("刷新了");
         let obj = {
-            "parentKey": "plate_kind"
+
+            "companyCode": this.cityService.currentCity.code
         }
-        this.http.get("/general/dict/list", obj).then(res => {
+        this.http.get("/plate/category/list", obj).then(res => {
 
             let data = res["data"];
             if(data instanceof Array){
-             this.classification = res["data"];
+
+                this.classification = res["data"];
 
             }
 
         }).catch(res => {
 
         });
+
+        // let obj = {
+        //     "parentKey": "plate_kind"
+        // }
+        // this.http.get("/general/dict/list", obj).then(res => {
+        //
+        //     let data = res["data"];
+        //     if(data instanceof Array){
+        //      this.classification = res["data"];
+        //
+        //     }
+        //
+        // }).catch(res => {
+        //
+        // });
+
+
     }
+
 
     /*板块详情*/
     goPlateDetail($event) {

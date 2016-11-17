@@ -56,6 +56,7 @@ export class PlatChooseView implements OnInit {
 
         } else {
             this.firstClassItem.push(classification[0]);
+
             this.currentdKey = this.firstClassItem[0].dkey;
             this.getPlateByKind(this.firstClassItem[0].dkey);
 
@@ -85,8 +86,8 @@ export class PlatChooseView implements OnInit {
     getPlateByKind(dkey){
        let load = this.warn.loading('加载中');
         let obj = {
-            "siteCode":this.siteCode,
-            "kind":dkey
+            "siteCode":this.siteCode || "",
+            "kind":dkey || ""
         }
         this.http.get('/plate/list',obj).then(res => {
              // = res.data;
@@ -109,6 +110,8 @@ export class PlatChooseView implements OnInit {
 
     }
 
+
+
 }
 
 /*板块信息*/
@@ -127,13 +130,13 @@ export class PlatChooseView implements OnInit {
 // userId: "U2016101302294421919"
 
 /*分类*/
-// dkey: "21"
-// dvalue: "其他"
-// id: 59
-// parentKey: "plate_kind"
-// remark: ""
-// toSystem: "8"
+// ode: "FL2016111711121313666"
+// companyCode: "GS2016103120465611137"
+// name: "亲子"
+// orderNo:
+//     1
+// parentCode: "0"
+// pic: "http://121.43.101.148:8901/2016111711/20161132211122577526341.png"
 // type: "1"
-// updateDatetime: "Oct 11, 2016 4:26:40 PM"
-// updater: "admin"
+
 
