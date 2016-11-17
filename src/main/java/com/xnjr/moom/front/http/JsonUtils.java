@@ -1,5 +1,7 @@
 package com.xnjr.moom.front.http;
 
+import java.util.Map;
+
 import com.google.gson.Gson;
 
 public class JsonUtils {
@@ -26,5 +28,17 @@ public class JsonUtils {
 
     public static String string2Json(String key, String value) {
         return "{\"" + key + "\":\"" + value + "\"}";
+    }
+    
+    /**
+     * 将Map转化为Json
+     * 
+     * @param map
+     * @return String
+     */
+    public static <T> String mapToJson(Map<String, T> map) {
+     Gson gson = new Gson();
+     String jsonStr = gson.toJson(map);
+     return jsonStr;
     }
 }
