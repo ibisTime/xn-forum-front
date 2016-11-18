@@ -462,6 +462,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     if(file == null) return;
 
 
+
     fileReader.readAsDataURL($event.target.files[0]);
     // $event.target.files[0] = null;
   }
@@ -566,39 +567,30 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
   // @param {function} next 回调方法，返回校正方向后的base64
   zipAndCorrectImg(imgSrc, next) {
 
-
-
     //获取方向
-    let direction;
     let converImg = document.createElement('img');
-    converImg.src = imgSrc;
 
     converImg.onload = res => {
 
+      let direction;
 
+      //方法为同步方法 会阻塞线程
       EXIF.getData(converImg,function(){
 
         console.log(converImg.exifData);
         console.log("获取到了方向");
         EXIF.getAllTags(converImg);
         direction = EXIF.getTag(converImg,'Orientation');
-        console.log(direction);
 
       });
 
 
-    };
 
-
-
-
-    let image = new Image();
-    image.onload = function (res) {
-
+          /**/
       let degree = 0, drawWidth, drawHeight, width, height;
 
-      drawWidth = this.naturalWidth;
-      drawHeight = this.naturalHeight;
+      drawWidth = converImg.naturalWidth;
+      drawHeight = converImg.naturalHeight;
 
       //以下改变一下图片大小
       var maxSide = Math.max(drawWidth, drawHeight);
@@ -625,6 +617,7 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
 
       var context = canvas.getContext('2d');
       //判断图片方向，重置canvas大小，确定旋转角度，iphone默认的是home键在右方的横屏拍摄方式
+
       switch (direction) {
           //iphone横屏拍摄，此时home键在左侧
         case 3:
@@ -649,19 +642,25 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
           drawHeight = height;
           break;
       }
+
       //使用canvas旋转校正
       context.rotate(degree * Math.PI / 180);
       context.fillStyle = "#fff";
       context.fillRect(0, 0, drawWidth, drawHeight);
-      context.drawImage(this, 0, 0, drawWidth, drawHeight);
+      context.drawImage(converImg, 0, 0, drawWidth, drawHeight);
       //返回校正图片
-      next(canvas.toDataURL("image/jpeg", 0.5));
+      next(canvas.toDataURL("image/jpeg",0.5));
 
-    }
+    };
 
-    image.src = imgSrc;
+
+    /*赋值 读取 图片*/
+    converImg.src = imgSrc;
 
   }
+
+
+
 
 
 }

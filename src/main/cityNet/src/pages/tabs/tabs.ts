@@ -174,6 +174,13 @@ export class TabsPage implements AfterViewInit{
   }
 
 
+  hiddenMask(){
+
+    this.signinDisplay = "none";
+
+  }
+
+
 
 }
 

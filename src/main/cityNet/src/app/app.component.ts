@@ -11,6 +11,9 @@ import {HttpService} from "../services/http.service";
 import {KefuService} from "../services/kefu.serve";
 import {Release} from "../services/release";
 
+import { Geolocation } from 'ionic-native';
+import { Splashscreen } from 'ionic-native';
+
 import { Storage } from '@ionic/storage';
 import {PushService} from "../services/push.service";
 
@@ -46,6 +49,11 @@ export class MyApp implements AfterViewInit{
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       // Keyboard.disableScroll(true);
+
+        if(!Release.weChat){
+            Splashscreen.hide();
+        }
+
     });
 
     // this.storage.clear();
@@ -55,6 +63,7 @@ export class MyApp implements AfterViewInit{
 
 
   ngAfterViewInit(){
+
 
         /*判断是否已经登陆*/
         this.userServe.whetherLogin().then(res => {
@@ -225,6 +234,7 @@ export class MyApp implements AfterViewInit{
               if(geolocation.getStatus() == BMAP_STATUS_SUCCESS){
                 //成功加载站点
 
+
                   let province = r.address.province.slice(0,r.address.province.length - 1);
                   let city = r.address.city.slice(0,r.address.city.length - 1);
                   let area = r.address.district;
@@ -263,8 +273,6 @@ export class MyApp implements AfterViewInit{
 
                           },1200);
 
-
-                          console.log(this.cityService.ads);
 
 
                           this.rootPage = TabsPage;
@@ -307,19 +315,45 @@ export class MyApp implements AfterViewInit{
 
           },{enableHighAccuracy: true});
 
-      } else {////手机
+      } else {//// 手机 app 百度 好像不行了
 
-          navigator.geolocation.getCurrentPosition(geo => {
+          if(this.platform.is("ios")){
 
-              /*在这里定位成功的将站点进行存储*/
-              this.getDataByPosition(geo.coords.longitude, geo.coords.latitude,loadNav);
+              Geolocation.getCurrentPosition().then((resp) => {
+                  // resp.coords.latitude
+                  // resp.coords.longitude
+                  this.getDataByPosition(resp.coords.longitude, resp.coords.latitude,loadNav);
 
-          }, error => {
 
-              this.warnService.toast("不能确定您的准确位置，将进入默认站点");
-              this.getDataByPosition(0,0,loadNav);
+              }).catch((error) => {
 
-          },{timeout: 10000});
+                  // console.log('Error getting location', error);
+                  this.warnService.toast("不能确定您的准确位置，将进入默认站点");
+                  this.getDataByPosition(0,0,loadNav);
+
+              });
+
+          } else {
+
+              navigator.geolocation.getCurrentPosition(geo => {
+
+                  alert(JSON.stringify(geo));
+                  /*在这里定位成功的将站点进行存储*/
+                  this.getDataByPosition(geo.coords.longitude, geo.coords.latitude,loadNav);
+
+              }, error => {
+
+                  this.warnService.toast("不能确定您的准确位置，将进入默认站点");
+                  this.getDataByPosition(0,0,loadNav);
+
+              },{timeout: 10000});
+
+
+          }
+
+
+
+
 
       }////结束
 

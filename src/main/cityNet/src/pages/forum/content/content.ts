@@ -58,10 +58,12 @@ export class ContentPage {
             /*列表帖子数据与详情没有区别*/
             let item1 = navPara.data;
             if(item1.picArr && (!item1.picArr1 || !item1.picArr1.length)){
+
                 item1.picArr1 = [];
                 for(let j = 0; j < item1.picArr.length; j++){
                     item1.picArr1.push("url("+item1.picArr[j]+")");
                 }
+
             }
             this.item = item1;
         }

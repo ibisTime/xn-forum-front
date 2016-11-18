@@ -61,7 +61,7 @@
 </ion-tabs>
 
 
-<div id="signin-mask" [style.display]="signinDisplay">
+<div id="signin-mask" [style.display]="signinDisplay" (click)="hiddenMask()">
   <img [src]="signImgSrc">
   <div  [style.display]="signedDisplay">恭喜你今天获得了</div>
   <div [style.display]="signedDisplay"><span>{{addNum}}</span>赏金</div>

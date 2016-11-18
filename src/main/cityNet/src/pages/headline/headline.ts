@@ -25,6 +25,7 @@ export class HeadlinePage implements AfterViewInit {
   cityName = "未知地点";
   redColor = "red";
   bannerHeight: string;
+
   articles = [];
 
   start = 1;
@@ -57,6 +58,9 @@ export class HeadlinePage implements AfterViewInit {
               public navService: NavService,
               public wxService: WXService) {
 
+
+      // let url = "http://121.43.101.148:8901/2016110317/20161130805475684754151.jpg";
+      // this.bk = "url(" + url + ")";
   }
 
   ngAfterViewInit(){
@@ -70,17 +74,16 @@ export class HeadlinePage implements AfterViewInit {
     this.h3h = `${(w - 36)/9}px`;
 
       this.pageDataService.url = "/post/page";
+
       this.pageDataService.reqObj = {
-         "siteCode" : this.cityS.currentCity.code,
+          "siteCode" : this.cityS.currentCity.code,
           "location": "C",
           "status" : "BD"
       };
+
       this.pageDataService.refreshComp = this.refresher;
       this.pageDataService.loadMoreComp = this.loadMoreScroll;
-
-
-      this.pageDataService.refresh();
-
+      this.pageRefresh();
 
   }
 
@@ -133,7 +136,8 @@ export class HeadlinePage implements AfterViewInit {
 
 
               /*切换城市成功，刷新下面头条帖子*/
-              this.pageDataService.refresh();
+              this.pageRefresh();
+              // this.pageDataService.refresh();
 
           }).catch(error => {
               load.dismiss();
@@ -165,8 +169,40 @@ export class HeadlinePage implements AfterViewInit {
 
     doRefresh(refresher) {
 
-        this.pageDataService.refresh();
-        this.cityS.getNavigateBySiteCode(this.cityS.currentCity.code);
+      this.pageRefresh();
+      this.cityS.getNavigateBySiteCode(this.cityS.currentCity.code);
+
+
+    };
+
+    pageRefresh(){
+
+        this.pageDataService.refresh(() => {
+
+            this.pageDataService.articles.forEach((articles:any,index,array) => {
+
+                if(articles.picArr && articles.picArr.length){
+
+                    let newUrls = [];
+                    articles.picArr.forEach((url:string,index,array) => {
+
+                        newUrls.push("url(" + url + ")");
+
+                    });
+                    let oneArticle = newUrls[0];
+
+                    articles.picArr = [];
+                    articles.picArr.push(oneArticle);
+
+                    articles.picArr1 = newUrls;
+
+                }
+
+            });
+            this.articles = this.pageDataService.articles;
+
+        });
+
 
     }
 
@@ -202,15 +238,11 @@ export class HeadlinePage implements AfterViewInit {
     /*签到*/
     sign(){
 
-
-
-
         //
         if(!this.userService.user){
             this.navCtrl.push(LoginPage);
             return;
         }
-
 
         let obj = {
             "location" : "CSW"

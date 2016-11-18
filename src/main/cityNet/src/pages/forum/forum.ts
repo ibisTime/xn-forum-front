@@ -173,6 +173,7 @@ export class ForumPage {
         //     return;
         // }
 
+
         console.log("刷新了");
         let obj = {
 

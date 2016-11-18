@@ -17,7 +17,7 @@ export class PlatChooseView implements OnInit {
     lastSelect;
     imgHeight;
     rightHeight;
-    currentdKey;
+    currentCode;
     @ViewChild('firstClass') firstClassEle: ElementRef;
 
     @Output() goPlateEmitter = new EventEmitter<any>();
@@ -30,13 +30,13 @@ export class PlatChooseView implements OnInit {
         this.rightHeight = `${platform.height() - 49 - 44}px`;
         this.events.subscribe('user:cityChange',() => {
 
-            this.getPlateByKind(this.currentdKey);
+            this.getPlateByKind(this.currentCode);
 
         });
 
         this.events.subscribe('forum:refresh',() => {
 
-            this.getPlateByKind(this.currentdKey);
+            this.getPlateByKind(this.currentCode);
 
 
         });
@@ -57,8 +57,8 @@ export class PlatChooseView implements OnInit {
         } else {
             this.firstClassItem.push(classification[0]);
 
-            this.currentdKey = this.firstClassItem[0].dkey;
-            this.getPlateByKind(this.firstClassItem[0].dkey);
+            this.currentCode = this.firstClassItem[0].code;
+            this.getPlateByKind(this.firstClassItem[0].code);
 
             let len = classification.length;
             this._classification = classification.slice(1, len);
@@ -79,20 +79,20 @@ export class PlatChooseView implements OnInit {
         $event.target.style.backgroundColor = "white";
         this.lastSelect = $event.target;
 
-       this.getPlateByKind(item.dkey);
+       this.getPlateByKind(item.code);
 
     }
 
-    getPlateByKind(dkey){
+    getPlateByKind(code){
        let load = this.warn.loading('加载中');
         let obj = {
             "siteCode":this.siteCode || "",
-            "kind":dkey || ""
+            "kind":code || ""
         }
         this.http.get('/plate/list',obj).then(res => {
              // = res.data;
 
-            this.currentdKey = dkey;
+            this.currentCode = code;
             this.currentPlats = res.data;
             // sort((a,b) => {
             //     return (+a.orderNo) - (+b.orderNo);
@@ -130,7 +130,7 @@ export class PlatChooseView implements OnInit {
 // userId: "U2016101302294421919"
 
 /*分类*/
-// ode: "FL2016111711121313666"
+// Code: "FL2016111711121313666"
 // companyCode: "GS2016103120465611137"
 // name: "亲子"
 // orderNo:

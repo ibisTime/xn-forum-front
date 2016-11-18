@@ -85,12 +85,15 @@
       </div>
 
       <div class="article">
-        <div class="article-row" *ngFor="let article of pageDataService.articles" (tap)="browserArticle(article)">
 
+        <div class="article-row" *ngFor="let article of articles" (tap)="browserArticle(article)">
           <!--!= null; article.picArr.length <= 0;-->
-          <div class="img-outer-div" *ngIf="article.picArr">
-          <img class="left-img" src={{article.picArr[0]}}>
+          <div *ngIf="article.picArr">
+            <div class="img-outer-div" *ngFor="let p of article.picArr"  [style.background-image]="p">
+              <!--<img class="left-img" src={{article.picArr[0]}}>-->
+            </div>
           </div>
+
           <div class="text-outer">
             <div class="article-title">{{article.title || article.content}}</div>
             <div class="article-date">{{article.publishDatetime | forumDate}}</div>
@@ -101,6 +104,9 @@
           </div>
         </div>
       </div>
+
+      <!--<div style="height: 100px; width: 100px; background-size: 100% 100%; background-repeat: no-repeat; background-position: center;" [style.background-image]="bk">-->
+      <!--</div>-->
 
     </div>
   </div>
