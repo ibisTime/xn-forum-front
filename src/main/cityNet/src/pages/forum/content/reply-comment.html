@@ -1,21 +1,21 @@
 <ion-header class="send-article-header">
-  <ion-navbar no-border-bottom background-theme>
-    <ion-buttons>
-      <button (click)="cancle()" style="color: black;">
+    <ion-navbar no-border-bottom background-theme>
+        <ion-buttons>
+            <button (click)="cancle()" style="color: black;">
         取消
       </button>
-    </ion-buttons>
+        </ion-buttons>
 
-    <ion-title>发布评论</ion-title>
+        <ion-title>发布评论</ion-title>
 
-    <ion-buttons end>
-      <button (click)="send(contentTextarea)">
+        <ion-buttons end>
+            <button (click)="send(contentTextarea)">
         发布
       </button>
-    </ion-buttons>
-  </ion-navbar>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 <ion-content class="send-article-content">
-  <!--正文内容-->
-  <textarea class="article-content" #contentTextarea [(ngModel)]="content"  placeholder="回复评论"></textarea>
+    <!--正文内容-->
+    <textarea class="article-content" #contentTextarea [(ngModel)]="content" [placeholder]="placeholderStr"></textarea>
 </ion-content>

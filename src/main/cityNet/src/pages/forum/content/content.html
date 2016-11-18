@@ -1,7 +1,7 @@
 <ion-header class="forum-head">
-  <ion-navbar color="navbar-color">
+    <ion-navbar color="navbar-color">
         <ion-title>帖子详情</ion-title>
-  </ion-navbar>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="forum forum-detail article-content">
@@ -9,10 +9,12 @@
     <div *ngIf="item != null">
         <div class="content-head">
             <div *ngIf="item.location == 'A'">
-                <img src="assets/images/jing.png" style="position: absolute;width: auto;top: 0;bottom: 0;left: 8px;margin: auto;"/>
+                <img src="assets/images/jing.png" style="position: absolute;width: auto;top: 0;bottom: 0;left: 8px;margin: auto;" />
                 <h2 class="content-head" style="padding-left:32px;">{{item.title}}</h2>
             </div>
-            <div *ngIf="item.location != 'A'"><h2 class="content-head">{{item.title}}</h2></div>  
+            <div *ngIf="item.location != 'A'">
+                <h2 class="content-head">{{item.title}}</h2>
+            </div>
             <div class="read-count">
                 <ion-icon name="eye"></ion-icon>
                 <span>{{item.totalReadTimes}}</span></div>
@@ -31,12 +33,10 @@
                                     <p class="time">{{item.publishDatetime | forumDate}}</p>
                                     <div class="inblock" *ngIf="!isMe">
                                         <!--{{followFlag?'hidden':''}}-->
-                                        <button outline small class="origin content-btn {{followFlag?'hidden':''}}"
-                                                (click)="follow(item.publisher)">+关注
+                                        <button outline small class="origin content-btn {{followFlag?'hidden':''}}" (click)="follow(item.publisher)">+关注
                                         </button>
 
-                                        <button outline small class="origin content-btn {{followFlag? '':'hidden'}}"
-                                                (click)="unfollow(item.publisher)">取消关注
+                                        <button outline small class="origin content-btn {{followFlag? '':'hidden'}}" (click)="unfollow(item.publisher)">取消关注
                                         </button>
 
                                     </div>
@@ -44,8 +44,9 @@
                                 <ion-card-content>
                                     <!--<h2 style="margin: 6px 0;">{{item.title}}</h2>-->
                                     <p (tap)="goUserDetail($event)" [innerHTML]="item.content"></p>
-                                    <div *ngIf="item.picArr != null" class="img-cont" (click)="showImg($event)">
-                                        <img class="imgs wp30 mr2p" src="{{p}}" *ngFor="let p of item.picArr"/>
+                                    <div *ngIf="item.picArr != null" class="img-cont">
+                                        <!--<img class="imgs wp30 mr2p" src="{{p}}" *ngFor="let p of item.picArr" />-->
+                                        <div [style.height]="imgHeight" [style.width]="imgHeight" class="imgs" *ngFor="let p of item.picArr1" [style.background-image]="p" (click)="showImg($event, p)"></div>
                                     </div>
                                 </ion-card-content>
                             </div>
@@ -55,49 +56,49 @@
             </ion-list>
         </div>
         <div class="dashang-div" (click)="gratuity()">
-            <div class="dashang-left"><img src="assets/images/jiangli.png"/><span>好贴就要任性打赏~</span></div>
-            <img class="dashang-right" src="assets/images/shang.png"/>
+            <div class="dashang-left"><img src="assets/images/jiangli.png" /><span>好贴就要任性打赏~</span></div>
+            <img class="dashang-right" src="assets/images/shang.png" />
         </div>
-    <!--<div *ngIf="item != null" style="border-bottom: 10px solid rgb(240,240,240)">-->
+        <!--<div *ngIf="item != null" style="border-bottom: 10px solid rgb(240,240,240)">-->
         <!--<div class="detail-outer">-->
-            <!--&lt;!&ndash;标题&ndash;&gt;-->
-            <!--<div class="top">-->
-                <!--<div>{{item.title}}</div>-->
-            <!--</div>-->
+        <!--&lt;!&ndash;标题&ndash;&gt;-->
+        <!--<div class="top">-->
+        <!--<div>{{item.title}}</div>-->
+        <!--</div>-->
 
-            <!--&lt;!&ndash;头像 昵称&ndash;&gt;-->
-            <!--<div class="middle">-->
-                <!--<div class="avatar">-->
-                    <!--<img src="{{item.photo || 'assets/images/marty-avatar.png'}}">-->
-                <!--</div>-->
-                <!--<div class="user-info">-->
-                    <!--<div class="nickname">{{item.nickname}}</div>-->
-                    <!--<div class="time">{{item.publishDatetime | forumDate}}</div>-->
-                <!--</div>-->
-                <!--<div class="focuse" *ngIf="!isMe">-->
-                    <!--<button outline small class="origin content-btn {{followFlag?'hidden':''}}"-->
-                            <!--(click)="follow(item.publisher)">+关注-->
-                    <!--</button>-->
-                    <!--<button outline small class="origin content-btn {{followFlag?'':'hidden'}}"-->
-                            <!--(click)="unfollow(item.publisher)">取消关注-->
-                    <!--</button>-->
-                <!--</div>-->
-            <!--</div>-->
+        <!--&lt;!&ndash;头像 昵称&ndash;&gt;-->
+        <!--<div class="middle">-->
+        <!--<div class="avatar">-->
+        <!--<img src="{{item.photo || 'assets/images/marty-avatar.png'}}">-->
+        <!--</div>-->
+        <!--<div class="user-info">-->
+        <!--<div class="nickname">{{item.nickname}}</div>-->
+        <!--<div class="time">{{item.publishDatetime | forumDate}}</div>-->
+        <!--</div>-->
+        <!--<div class="focuse" *ngIf="!isMe">-->
+        <!--<button outline small class="origin content-btn {{followFlag?'hidden':''}}"-->
+        <!--(click)="follow(item.publisher)">+关注-->
+        <!--</button>-->
+        <!--<button outline small class="origin content-btn {{followFlag?'':'hidden'}}"-->
+        <!--(click)="unfollow(item.publisher)">取消关注-->
+        <!--</button>-->
+        <!--</div>-->
+        <!--</div>-->
 
-            <!--&lt;!&ndash;正文图片 和文字&ndash;&gt;-->
-            <!--<div class="bottom">-->
-                <!--<div class="article-content">-->
-                    <!--<div (tap)="goUserDetail($event)" [innerHTML]="item.content"></div>-->
-                <!--</div>-->
-                <!--<div *ngFor="let src of item.picArr">-->
-                    <!--<img [src]="src">-->
-                <!--</div>-->
-            <!--</div>-->
+        <!--&lt;!&ndash;正文图片 和文字&ndash;&gt;-->
+        <!--<div class="bottom">-->
+        <!--<div class="article-content">-->
+        <!--<div (tap)="goUserDetail($event)" [innerHTML]="item.content"></div>-->
+        <!--</div>-->
+        <!--<div *ngFor="let src of item.picArr">-->
+        <!--<img [src]="src">-->
+        <!--</div>-->
+        <!--</div>-->
 
-            <!--<div style="text-align: right; padding-right: 3px;">-->
-                <!--<img src="assets/images/mine/read-times@2x.png" style="height: 10px;">-->
-                <!--<span>{{item.totalReadTimes}}</span>-->
-            <!--</div>-->
+        <!--<div style="text-align: right; padding-right: 3px;">-->
+        <!--<img src="assets/images/mine/read-times@2x.png" style="height: 10px;">-->
+        <!--<span>{{item.totalReadTimes}}</span>-->
+        <!--</div>-->
         <!--</div>-->
 
         <div style="background-color: white;border-top: 0.55px solid #c8c7cc;">
@@ -144,19 +145,18 @@
 <ion-footer class="forum-foot" *ngIf="item != null">
     <!--class="bootomInput"-->
     <div class="bootomInput ">
-      <ion-input #msgInput1 [(ngModel)]="inputValue" (focus)="doFocus1($event)" placeholder="回个话鼓励下楼主"></ion-input>
-      <a (click)="sendMsg1(msgInput1.value)">发送</a>
-      <button class="fl {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code)">
+        <ion-input #msgInput1 [(ngModel)]="inputValue" (focus)="doFocus1($event)" placeholder="回个话鼓励下楼主"></ion-input>
+        <button class="fl {{item.isDZ == '0'?'':'hidden'}}" (click)="praise(item.code)">
         <i class="icon iconfont">&#xe624;</i>
       </button>
-      <button class="fl {{item.isDZ == '0'?'hidden':''}}" (click)="praise(item.code, true)">
+        <button class="fl {{item.isDZ == '0'?'hidden':''}}" (click)="praise(item.code, true)">
         <!--<i class="icon iconfont">&#xe624;</i><span class="praise-total">{{item.totalDzNum}}</span>-->
         <ion-icon name="thumbs-up" style="color:#f64444;font-size:2.1em;"></ion-icon>
       </button>
-      <button class="fl {{isMe?'':'hidden'}}" (click)="deleteTz(item.code)">
+        <button class="fl {{isMe?'':'hidden'}}" (click)="deleteTz(item.code)">
         <ion-icon style="font-size:1.6em;" name="trash"></ion-icon>
       </button>
-      <button class="fl" (tap)="presentActionSheet()">
+        <button class="fl" (tap)="presentActionSheet()">
         <ion-icon style="font-size:1.6em;" name="more"></ion-icon>
       </button>
     </div>

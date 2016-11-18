@@ -11,48 +11,42 @@
                 </div>
                 <p class="time">{{_item.publishDatetime | forumDate}}</p>
                 <ion-card-content>
-                    <div >
+                    <div>
                         <div *ngIf="_item.location == 'A'">
-                            <img src="assets/images/jing.png" class="head-jinghua-img"/><h2 style="margin: 6px 0;" class="pl22">{{_item.title}}</h2>
+                            <img src="assets/images/jing.png" class="head-jinghua-img" />
+                            <h2 style="margin: 6px 0;" class="pl22">{{_item.title}}</h2>
                         </div>
-                        <div *ngIf="_item.location != 'A'"><h2 style="margin: 6px 0;">{{_item.title}}</h2></div>
+                        <div *ngIf="_item.location != 'A'">
+                            <h2 style="margin: 6px 0;">{{_item.title}}</h2>
+                        </div>
                         <p [innerHTML]="_item.content1"></p>
                     </div>
-                    <div *ngIf="_item.picArr" class="img-cont">
-                        <img class="imgs wp30 mr2p" (click)="showImg($event)" [src]="p" *ngFor="let p of _item.picArr"/>
+                    <div *ngIf="_item.picArr1" class="img-cont">
+                        <div [style.height]="imgHeight" [style.width]="imgHeight" class="imgs" *ngFor="let p of _item.picArr1" [style.background-image]="p" (click)="showImg($event, p)"></div>
+                        <!--<img class="imgs wp30 mr2p" (click)="showImg($event)" [src]="p" *ngFor="let p of _item.picArr1" />-->
                     </div>
                 </ion-card-content>
 
 
                 <div class="com-btn" [class.hidden]="isHideComBtn">
                     <ion-buttons class="clearfix">
-                        <button class="fl" [class.hidden]="weichat"
-                           (click)="share($event,_item)">
+                        <button class="fl" [class.hidden]="weichat" (click)="share($event,_item)">
                             <i class="icon iconfont">&#xe60a;</i>
                         </button>
-                        <button class="sp-btn fl"
-                                [class.hidden]="isHideSC||_item.isSC != '0'"
-                                (click)="collect($event,_item.code)">
+                        <button class="sp-btn fl" [class.hidden]="isHideSC||_item.isSC != '0'" (click)="collect($event,_item.code)">
                             <ion-icon name="star-outline"></ion-icon>
                         </button>
-                        <button class="sp-btn fl "
-                                [class.hidden]="isHideSC||_item.isSC == '0'"
-                                (click)="collect($event,_item.code,true)">
+                        <button class="sp-btn fl " [class.hidden]="isHideSC||_item.isSC == '0'" (click)="collect($event,_item.code,true)">
                             <ion-icon name="star" style="color:#f64444"></ion-icon>
                         </button>
                         <button class="fr">
                             <i class="icon iconfont">&#xe610;</i><span>{{_item.totalCommNum}}</span>
                         </button>
-                        <button class="sp-btn fr "
-                                [class.hidden]="_item.isDZ != '0'"
-                                (click)="praise($event,_item.code)">
+                        <button class="sp-btn fr " [class.hidden]="_item.isDZ != '0'" (click)="praise($event,_item.code)">
                             <i class="icon iconfont">&#xe624;</i>
                             <span class="praise-total">{{_item.totalLikeNum}}</span>
                         </button>
-                        <button class="sp-btn fr"
-                                [class.hidden]="_item.isDZ == '0'"
-                                (click)="praise($event,_item.code,true)"
-                        >
+                        <button class="sp-btn fr" [class.hidden]="_item.isDZ == '0'" (click)="praise($event,_item.code,true)">
                             <!--<i class="icon iconfont">&#xe624;</i>-->
                             <ion-icon name="thumbs-up" style="color:#f64444">
                             </ion-icon>
@@ -61,7 +55,7 @@
                     </ion-buttons>
                 </div>
                 <div class="comment mt10" [class.hidden]="isHideCom">
-                    <img class="arrow-top" src="assets/images/arrow-top.png"/>
+                    <img class="arrow-top" src="assets/images/arrow-top.png" />
                     <div class="com-top clearfix">
                         <button class="fl">
                             <i class="icon iconfont">&#xe624;</i>
@@ -101,11 +95,11 @@
 </div>
 
 <!--<div id="ylImg" class="mask hidden" (click)="closeImg()">-->
-    <!--<div>-->
-        <!--<div class="wrapper">-->
-            <!--<div class="scroller" [style.line-height]="pHeight">-->
-                <!--<img id="yl-img"/>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+<!--<div>-->
+<!--<div class="wrapper">-->
+<!--<div class="scroller" [style.line-height]="pHeight">-->
+<!--<img id="yl-img"/>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->

@@ -25,7 +25,6 @@ export class ForumCell implements OnInit {
     @Input() navCtrl: NavController;
 
     imgHeight;
-    pHeight;
     weichat = true;
     @Input() isHideCom = true;
     @Input() isHideSC = false;
@@ -41,8 +40,6 @@ export class ForumCell implements OnInit {
                 public wxService: WXService) {
 
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
-        this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
-        this.pHeight = `${this.platform.height()}px`;
         this.weichat = Release.weChat;
     }
 
@@ -61,6 +58,13 @@ export class ForumCell implements OnInit {
         if(item.commentList && item.commentList.length){
             item.commentList1 = item.commentList.slice(0,5);
         }
+        if(item.picArr && item.picArr.length){
+            item.picArr1 = [];
+            for(let j = 0; j < item.picArr.length; j++){
+                item.picArr1.push("url("+item.picArr[j]+")");
+            }
+        }
+        
         this._item = item;
     }
 
@@ -177,18 +181,10 @@ export class ForumCell implements OnInit {
     }
 
 
-    showImg(ev){
-        if( ev.target.nodeName.match(/^img$/i)){
-
-
-            let img = ev.target;
-            // let sDiv = document.getElementById("ylImg");
-            // sDiv.className = sDiv.className.replace(/\s*hidden\s*/, "");
-            // document.getElementById("yl-img").setAttribute("src", img.src);
-
-            //把图片发送出去
-            this.events.publish("displayImg",img.src);
-        }
+    showImg(ev, url){
+        url = url.replace(/^url\((.+)\)$/i, "$1");
+        //把图片发送出去
+        this.events.publish("displayImg", url);
         ev.stopPropagation();
     }
     //

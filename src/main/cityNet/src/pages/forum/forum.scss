@@ -158,7 +158,9 @@
                         }
                         .imgs {
                             display: inline-block;
-                            height: 84px;
+                            /*height: 84px;*/
+                            background-position: center;
+                            background-repeat: no-repeat;
                         }
                         .img-cont {
                             margin-top: 8px;
