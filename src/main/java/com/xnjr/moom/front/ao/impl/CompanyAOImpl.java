@@ -9,6 +9,7 @@ import com.xnjr.moom.front.ao.ICompanyAO;
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.req.XN801300Req;
+import com.xnjr.moom.front.req.XN806031Req;
 import com.xnjr.moom.front.req.XNfd2030Req;
 import com.xnjr.moom.front.req.XNfd2031Req;
 import com.xnjr.moom.front.req.XNfd2032Req;
@@ -193,5 +194,13 @@ public class CompanyAOImpl implements ICompanyAO {
         return BizConnecter.getBizData("fd2042", JsonUtils.object2Json(req),
             Object.class);
     }
+
+	@Override
+	public Object queryCompanyKefuList(String companyCode) {
+		XN806031Req req = new XN806031Req();
+		req.setCompanyCode(companyCode);
+		return BizConnecter.getBizData("806031", JsonUtils.object2Json(req),
+	            Object.class);
+	}
 
 }

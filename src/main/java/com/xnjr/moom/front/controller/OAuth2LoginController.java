@@ -109,6 +109,7 @@ public class OAuth2LoginController extends BaseController {
 		        TokenDO tokenDO = new TokenDO();
 		        tokenDO.setUserId(userId);
 		        tokenDO.setTokenId(pwdUserId(userId));
+		        tokenDO.setIsExist("1");
 				return tokenDO;
 			} else {
 				// Step4-2：如果user不存在，说明用户未授权登录过，需从openAPI获取用户信息
@@ -133,6 +134,7 @@ public class OAuth2LoginController extends BaseController {
 		        TokenDO tokenDO = new TokenDO();
 		        tokenDO.setUserId(userId);
 		        tokenDO.setTokenId(pwdUserId(userId));
+		        tokenDO.setIsExist("0");
 				return tokenDO;
 			}
 		} catch (Exception e) {

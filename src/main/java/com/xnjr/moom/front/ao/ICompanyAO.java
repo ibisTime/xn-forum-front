@@ -38,5 +38,7 @@ public interface ICompanyAO {
     Object queryRealCompanyList(String userId);
 
     Object isExistCompany(String name, String gsyyzzNo);
+    
+    Object queryCompanyKefuList(String companyCode);
 
 }

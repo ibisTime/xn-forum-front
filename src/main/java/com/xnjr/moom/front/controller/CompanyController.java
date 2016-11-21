@@ -209,4 +209,11 @@ public class CompanyController extends BaseController {
         return bankCardAO.queryCompanyBankCardPage(companyCode, start, limit,
             orderColumn, orderDir);
     }
+    
+    @RequestMapping(value = "/kefu/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryKefuList(
+            @RequestParam("companyCode") String companyCode) {
+        return companyAO.queryCompanyKefuList(companyCode);
+    }
 }
