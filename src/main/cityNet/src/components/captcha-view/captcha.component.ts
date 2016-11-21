@@ -10,7 +10,7 @@ import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 
 export class CaptchaComponent implements OnInit {
 
-  time = 60;
+  time = 120;
   disabled = false;
   btn;
   captcha: string;
@@ -41,7 +41,7 @@ export class CaptchaComponent implements OnInit {
       if (this.time == 0) {
 
         this.disabled = false;
-        this.time = 60;
+        this.time = 120;
         this.btn.innerText = "发送验证码";
         clearInterval(timer);
       }

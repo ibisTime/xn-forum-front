@@ -50,6 +50,10 @@ export class PlatChooseView implements OnInit {
     @Input() currentPlats = [];
 
     @Input() set classification(classification){
+
+        this.firstClassItem = [];
+        this._classification = [];
+
         if(classification.length <= 0){
 
             this.firstClassItem = [];
@@ -71,6 +75,7 @@ export class PlatChooseView implements OnInit {
 
 
     }
+
     selectClass($event,item){
         if(typeof(this.lastSelect)=="undefined"){
             this.lastSelect = this.firstClassEle.nativeElement;
@@ -84,7 +89,8 @@ export class PlatChooseView implements OnInit {
     }
 
     getPlateByKind(code){
-       let load = this.warn.loading('加载中');
+
+        let load = this.warn.loading('加载中');
         let obj = {
             "siteCode":this.siteCode || "",
             "kind":code || ""

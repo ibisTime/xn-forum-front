@@ -20,8 +20,9 @@ import {MineArticlePage} from "./mine-article/mine-article";
 import {CityService} from "../../services/city.service";
 import {ForgetPwdPage} from "../user/forgetPwd";
 import {JFPage} from "./jfDetail/jfDetail";
-
+import {Release} from "../../services/release"
 import {AboutusPage} from "./setting/aboutus";
+import {WXService} from "../../services/wx.service";
 
 
 @Component({
@@ -31,6 +32,7 @@ export class MinePage implements AfterViewInit{
 
   className = 'test-class';
   hiddenMyPlate = true;
+  otherLoginDisplay = "block";
 
   listItem = [
     {"name":'我的物品',"src":'iconfont icon-search'},
@@ -54,7 +56,8 @@ export class MinePage implements AfterViewInit{
               public modelCtrl :ModalController,
               public navS: NavService,
               public events: Events,
-              public cityService: CityService) {
+              public cityService: CityService,
+              public wxService: WXService) {
 
 
     this.events.subscribe('user:loginout',res => {
@@ -67,8 +70,12 @@ export class MinePage implements AfterViewInit{
       this.getPostNum();
       this.goMyPlate(false);
 
-
     });
+
+    //微信未安装    隐藏
+    if(!Release.weChat){
+      this.otherLoginDisplay = this.wxService.isInstalled ? "block" : "none";
+    }
 
 
     if(this.userService.user){
@@ -83,6 +90,8 @@ export class MinePage implements AfterViewInit{
     this.goMyPlate(false);
 
   }
+
+
 
   getMobileAndTime(){
     this.http.get("/sconfig/info", {ckey: "sysMobile"})
@@ -260,7 +269,20 @@ export class MinePage implements AfterViewInit{
 
   wxLogin(){
 
-    this.navS.transition("http://www.youku.com/","");
+    if(Release.weChat){
+      //微信
+
+      this.navS.transition("","");
+
+    } else {
+      //app
+      this.wxService.wxLogin().then(res => {
+
+      }).catch(error => {
+
+      });
+
+    }
 
   }
 

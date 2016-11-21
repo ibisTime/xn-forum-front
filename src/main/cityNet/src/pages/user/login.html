@@ -31,7 +31,9 @@
     <button class="findPwdBtn"  (click)="findPwd($event)" no-padding>找回密码</button>
   </div>
 
-
-
+<div class="other-login-plate" [style.display]="otherLoginDisplay">
+  <div id="otherLoginHint">其它社交账号登录</div>
+  <div id="wxLogin" (click)="wxLogin()"></div>
+</div>
 
 </ion-content>

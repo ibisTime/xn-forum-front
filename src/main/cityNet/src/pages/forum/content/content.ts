@@ -51,6 +51,12 @@ export class ContentPage {
         this.toUser = navPara.data.publisher;
         this.isMe = this.toUser == uService.userId ? true : false;
         this.weichat = Release.weChat;
+        //微信未安装把按钮隐藏掉
+        if(!Release.weChat ){
+            this.weichat = this.wxService.isInstalled;
+        }
+
+
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         if (navPara.data.openType == "1") {
             this.getPostDetail();
@@ -598,24 +604,18 @@ export class ContentPage {
     /*分享*/
     share() {
 
-        this.wxService.isInstalled().then(res => {
 
-            return this.wxService.share(this.item.title || this.item.content);
-
-        }).then(res => {
+        this.wxService.share(this.item.title || this.item.content).then(res => {
 
             this.warnCtrl.toast("分享成功");
 
         }).catch(error => {
 
-            if (error == "uninstall") {
-
-                this.warnCtrl.toast("微信未安装");
-
-            } else if (error == "shareFailure") {
+          if (error == "shareFailure") {
 
                 this.warnCtrl.toast("分享失败")
-            }
+           }
+
         });
 
     }

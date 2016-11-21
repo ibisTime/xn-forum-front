@@ -8,6 +8,7 @@ import {CityService} from "./city.service";
 import {NavService} from "./nav.service";
 import {PushService} from "./push.service";
 import {WXService} from "./wx.service";
+import {JPushService} from "./jpush.service";
 
 /**
  * Created by tianlei on 16/8/30.
@@ -25,6 +26,7 @@ export const  MY_SERVE = [
   CityService,
   NavService,
   PushService,
-  WXService
+  WXService,
+  JPushService
 
 ];

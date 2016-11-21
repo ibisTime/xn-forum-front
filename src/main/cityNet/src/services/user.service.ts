@@ -150,6 +150,29 @@ export class UserService {
    })
   }
 
+
+  /*微信 登陆*/
+  loginWithToken(tokenId){
+
+      return this.http.post('/user/login-t', {"tokenId": tokenId}).then(res => {
+
+          this.tokenId = tokenId;
+          return this.http.get("/user/info");
+
+      }).then(res => {
+
+          this.user = res.data;
+          this.userId = this.user.userId;
+
+          //必须在这里同时保存 才算登陆成功
+          this.saveUserInfo(this.tokenId,this.userId,this.user);
+          /*发出消息*/
+          this.events.publish("user:loginSuccess");
+
+      })
+  }
+
+
   login(params){
    return this.http.post('/user/login',params).then((res) => {
 
@@ -165,6 +188,8 @@ export class UserService {
     }).then(res => {
 
       this.user = res.data;
+
+      //必须在这里同时保存 才算登陆成功
       this.saveUserInfo(this.tokenId,this.userId,this.user);
 
       /*发出消息*/

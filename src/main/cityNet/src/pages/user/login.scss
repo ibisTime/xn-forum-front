@@ -8,6 +8,23 @@ $percentage: 85%;
   padding: 15px 0px 10px 10px;
 }
 
+#wxLogin{
+  margin-left: 25px;
+  background-image: url("../assets/images/weChat.png");
+  background-size: 100% 100%;
+  width: 40px;
+  height: 40px;
+  &:active{
+    opacity: .5;
+  }
+  //background-color: red;
+}
+#otherLoginHint{
+  text-align: center;
+  margin-left: 16px;
+  margin-bottom: 10px;
+}
+
 .login {
 
 
@@ -99,6 +116,8 @@ $percentage: 85%;
     background-color: $navbar-color;
     color: white;
   }
+
+
   //button{}
   //button, button.activated{
   //  background: #ce3f42;

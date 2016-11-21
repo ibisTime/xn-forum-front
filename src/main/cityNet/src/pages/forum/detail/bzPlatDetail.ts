@@ -157,7 +157,6 @@ export class BZPlatDetailPage {
         }).catch(error => {
             load.dismiss();
         });
-
     }
 
 

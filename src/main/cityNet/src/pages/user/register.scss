@@ -71,12 +71,17 @@ $percentage: 85%;
   }
 
   .protocol{
-    margin: 0 auto;
+    margin-left: 16px;
     width: $percentage;
+    text-align: left;
     display: flex;
     //justify-content: flex-end;
     align-items: center;
     height: 20px;
+
+    span{
+      color: $navbar-color;
+    }
   }
   .register-div{
     padding: 16px;

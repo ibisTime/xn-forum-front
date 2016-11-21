@@ -26,11 +26,12 @@ export class TabsPage implements AfterViewInit{
 
   addNum;
   signImgSrc;
-  signedDisplay="none";
+  hasSignedDisplay="block";
   tabItems = [];
   @ViewChild(Tabs) tabs: Tabs;
   @ViewChildren("tabTitleSpan") titleItems: QueryList<any>;
   signinDisplay = "none";
+
   pHeight;
   constructor(
               public imService: IMService,
@@ -58,12 +59,11 @@ export class TabsPage implements AfterViewInit{
       if(res < 0){
 
         this.signImgSrc = "assets/images/headline/已签到.png";
-
+        this.hasSignedDisplay = "none";
 
       } else {
 
         this.signImgSrc = "assets/images/headline/signin.png";
-        this.signedDisplay = "block";
 
       }
 

@@ -167,18 +167,22 @@ export class ForumPage {
 
 
   /*分类数据*/
-    getClass() {
+    getClass(isClick?) {
 
         // if(this.classification.length > 0){
         //     return;
         // }
 
+        let load;
+        if(isClick){
+             load = this.warn.loading();
+        }
 
-        console.log("刷新了");
         let obj = {
 
             "companyCode": this.cityService.currentCity.code
         }
+
         this.http.get("/plate/category/list", obj).then(res => {
 
             let data = res["data"];
@@ -188,8 +192,15 @@ export class ForumPage {
 
             }
 
+            if(isClick){
+               load.dismiss();
+            }
+
         }).catch(res => {
 
+            if(isClick){
+              load.dismiss();
+            }
         });
 
         // let obj = {

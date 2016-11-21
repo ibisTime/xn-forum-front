@@ -33,6 +33,12 @@ export class IFramePage implements AfterViewInit{
     // this.url = navPara.data.url;
     this.title = navPara.data.title;
     this.url = navPara.data.url;
+
+    //微信登陆成功
+    window.addEventListener('message',function(e){
+
+
+    },false);
   }
 
 

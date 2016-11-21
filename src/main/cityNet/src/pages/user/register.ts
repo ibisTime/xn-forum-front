@@ -6,6 +6,7 @@ import {CaptchaComponent} from "../../components/captcha-view/captcha.component"
 import {HttpService} from "../../services/http.service";
 import {CityService} from "../../services/city.service";
 import {CityChoosePage} from "../headline/city-choose";
+import {ServiceProtocolPage} from "./serviceProtocol";
 
 
 @Component({
@@ -196,6 +197,13 @@ export class RegisterPage implements OnInit {
 
   backLogin(){
     this.navCtrl.pop();
+  }
+
+  //
+  serviceProtocol(){
+
+    this.navCtrl.push(ServiceProtocolPage);
+
   }
 
 }

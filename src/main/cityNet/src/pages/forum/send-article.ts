@@ -585,7 +585,6 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
       });
 
 
-
           /**/
       let degree = 0, drawWidth, drawHeight, width, height;
 

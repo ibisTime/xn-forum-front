@@ -41,6 +41,11 @@ export class ForumCell implements OnInit {
 
         this.imgHeight = `${(this.platform.width()-16-50-16-16)/3 - 1}px`;
         this.weichat = Release.weChat;
+
+        if(!Release.weChat ){
+            this.weichat = this.wxService.isInstalled;
+        }
+
     }
 
     ngOnInit() {
@@ -287,24 +292,18 @@ export class ForumCell implements OnInit {
    share($event,item){
 
        $event.stopPropagation();
-       this.wxService.isInstalled().then(res => {
 
-          return this.wxService.share(item.title||item.content);
-
-       }).then(res => {
+       this.wxService.share(item.title||item.content).then(res => {
 
            this.warnCtrl.toast("分享成功");
 
        }).catch(error => {
 
-           if(error == "uninstall"){
-
-               this.warnCtrl.toast("微信未安装");
-
-           } else if(error == "shareFailure") {
+           if(error == "shareFailure") {
 
                this.warnCtrl.toast("分享失败")
            }
+
        });
 
 

@@ -16,6 +16,8 @@ import { Splashscreen } from 'ionic-native';
 
 import { Storage } from '@ionic/storage';
 import {PushService} from "../services/push.service";
+import {WXService} from "../services/wx.service";
+import {JPushService} from "../services/jpush.service";
 
 declare let BMap: any;
 declare let BMAP_STATUS_SUCCESS: any;
@@ -41,7 +43,9 @@ export class MyApp implements AfterViewInit{
               public kefuService: KefuService,
               public imServe: IMService,
               public app: App,
-              public storage: Storage
+              public wx: WXService,
+              public storage: Storage,
+              public jpush: JPushService
               // public pushService: PushService
               ) {
     //根视图
@@ -51,7 +55,9 @@ export class MyApp implements AfterViewInit{
       // Keyboard.disableScroll(true);
 
         if(!Release.weChat){
+            //不是微信平台 判断是否安装
             Splashscreen.hide();
+            wx.getWXIsInstalled();
         }
 
     });

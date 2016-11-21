@@ -7,7 +7,8 @@ import {WarnService} from "../../services/warn.service";
 import {ForgetPwdPage} from "./forgetPwd";
 import {HttpService} from "../../services/http.service";
 import {UserService} from "../../services/user.service";
-
+import {WXService} from "../../services/wx.service";
+import {Release } from "../../services/release"
 @Component({
 
   templateUrl: "login.html"
@@ -16,6 +17,7 @@ import {UserService} from "../../services/user.service";
 export class LoginPage  {
 
   fromReg = false;
+  otherLoginDisplay = "block";
   constructor(
               public uService: UserService,
               public navCtrl: NavController,
@@ -24,7 +26,8 @@ export class LoginPage  {
               public http: HttpService,
               public app: App,
               public viewCtrl: ViewController,
-              public events: Events
+              public events: Events,
+              public wxService: WXService
 
              ) {
 
@@ -33,6 +36,10 @@ export class LoginPage  {
     //   this.fromReg = true;
     //
     // });
+    if(!Release.weChat){
+      this.otherLoginDisplay = this.wxService.isInstalled ? "block" : "none";
+    }
+
 
   }
 
@@ -90,6 +97,24 @@ export class LoginPage  {
 
   findPwd($event){
     this.navCtrl.push(ForgetPwdPage);
+  }
+
+  wxLogin(){
+
+    if(Release.weChat){
+      //微信
+
+    } else {
+     //app
+
+      this.wxService.wxLogin().then(res => {
+
+      }).catch(error => {
+
+      });
+
+    }
+
   }
 
 }
