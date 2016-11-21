@@ -18,9 +18,11 @@ import { Storage } from '@ionic/storage';
 import {PushService} from "../services/push.service";
 import {WXService} from "../services/wx.service";
 import {JPushService} from "../services/jpush.service";
+import {IMBaseService} from "../services/im-base.service";
 
 declare let BMap: any;
 declare let BMAP_STATUS_SUCCESS: any;
+
 @Component({
   selector:"app-root-comp",
   templateUrl:"app.component.html"
@@ -45,9 +47,12 @@ export class MyApp implements AfterViewInit{
               public app: App,
               public wx: WXService,
               public storage: Storage,
-              public jpush: JPushService
+              public jpush: JPushService,
+                public imBase: IMBaseService
               // public pushService: PushService
               ) {
+
+
     //根视图
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -60,16 +65,16 @@ export class MyApp implements AfterViewInit{
             wx.getWXIsInstalled();
         }
 
+
     });
+
 
     // this.storage.clear();
     //   this.pushService.init();
-
   }
 
 
   ngAfterViewInit(){
-
 
         /*判断是否已经登陆*/
         this.userServe.whetherLogin().then(res => {
@@ -78,9 +83,8 @@ export class MyApp implements AfterViewInit{
 
                 this.getInfoAlreadyLogin();
 
-            } else  {////////////////////////////
+            } else  {//没有登陆
 
-                /*获取导航数据*/
                 this.getNav();
 
             }////////////////////////////
@@ -118,7 +122,11 @@ export class MyApp implements AfterViewInit{
             /*客服*/
             this.kefuService.me = this.userServe.userId;
 
-            /*im登陆*/
+            /*首先获取 相应参数 获取成功后 进行登陆*/
+
+            this.getAppkeyAndLoginIM(this.userServe.user.companyCode);
+
+            /*首先获取  im登陆*/
             this.imServe.login(this.userServe.userId);
 
         });
@@ -157,7 +165,7 @@ export class MyApp implements AfterViewInit{
       this.cityService.getSiteInfo(this.userServe.user.companyCode).then(res => {
 
           //获取导航信息
-          return this.cityService.getNavigateBySiteCode(this.userServe.user.companyCode);
+          return  this.cityService.getNavigateBySiteCode(this.userServe.user.companyCode);
 
 
       }).then(res => {
@@ -165,12 +173,12 @@ export class MyApp implements AfterViewInit{
           /*客服*/
           this.kefuService.me = this.userServe.userId;
 
-          /*im登陆*/
-          this.imServe.login(this.userServe.userId);
+         this.getAppkeyAndLoginIM(this.userServe.user.companyCode);
+
+
 
           /*类 session 登陆*/
           return this.http.post('/user/login-t', {"tokenId": this.userServe.tokenId});
-
 
       }).then(res => {
 
@@ -219,12 +227,69 @@ export class MyApp implements AfterViewInit{
 
           });
 
+          // this.userServe.user = null;
+          // this.imServe.me = null;
+          // this.userServe.tokenId = null;
+          // this.userServe.userId = null;
+          // this.cityService.currentCity = {"name":"未知地点"};
+          //
+          // this.getNav();
+
+
       });
 
 
   }
 
 
+  //
+
+    getAppkeyAndLoginIM(companyCode){
+
+
+        console.log("登陆成功，获取IM参数");
+
+        /*首先获取 相应参数 获取成功后 进行登陆*/
+        this.http.get("/company/kefu/list",{"companyCode":companyCode}).then(res => {
+
+            let dataArray = res["data"];
+            let appKey = "";
+            let to = "";
+            let tenantId = "";
+            dataArray.forEach((value,index,array) => {
+
+                if(value.account == "appKey"){
+
+                    appKey = value.password;
+
+                } else if(value.account == "to"){
+                    to = value.password;
+
+                } else if(value.account == "tenantId"){
+                    tenantId = value.password;
+
+                }
+            });
+
+            //im-base赋值
+            this.imBase.appKey = appKey;
+            this.imBase.to = to;
+            this.imBase.tenantId = tenantId;
+            /*im登陆*/
+            this.imServe.login(this.userServe.userId);
+            // account: "appKey"
+            // code: "PW2016112113454911284"
+            // companyCode: "GS2016110223001226117"
+            // remark: "关联的AppKey"
+            // type: "1"
+
+        }).catch(error => {
+
+
+
+        });
+
+    }
   /*用户还未登陆*/
   getNav(){
 
@@ -321,7 +386,7 @@ export class MyApp implements AfterViewInit{
 
           },{enableHighAccuracy: true});
 
-      } else {//// 手机 app 百度 好像不行了
+      } else {//  手机 app 百度 好像不行了
 
           if(this.platform.is("ios")){
 
@@ -425,6 +490,7 @@ export class MyApp implements AfterViewInit{
         this.adDisplay = "none";
 
     }
+
 
 
 

@@ -23,6 +23,7 @@ import {JFPage} from "./jfDetail/jfDetail";
 import {Release} from "../../services/release"
 import {AboutusPage} from "./setting/aboutus";
 import {WXService} from "../../services/wx.service";
+import {IFramePage} from "../headline/iframe";
 
 
 @Component({
@@ -54,7 +55,7 @@ export class MinePage implements AfterViewInit{
               public http: HttpService,
               public app :App,
               public modelCtrl :ModalController,
-              public navS: NavService,
+              public navService: NavService,
               public events: Events,
               public cityService: CityService,
               public wxService: WXService) {
@@ -81,7 +82,6 @@ export class MinePage implements AfterViewInit{
     if(this.userService.user){
       this.getPostNum();
     }
-    this.getMobileAndTime();
 
   }
 
@@ -93,16 +93,6 @@ export class MinePage implements AfterViewInit{
 
 
 
-  getMobileAndTime(){
-    this.http.get("/sconfig/info", {ckey: "sysMobile"})
-        .then((res)=>{
-          this.sMobile = res.data.cvalue;
-        });
-    this.http.get("/sconfig/info",{ckey: "serviceTime"})
-        .then((res)=>{
-          this.sTime = res.data.cvalue;
-        })
-  }
 
   goLogin(){
 
@@ -271,21 +261,35 @@ export class MinePage implements AfterViewInit{
 
     if(Release.weChat){
       //微信
-
-      this.navS.transition("","");
-
+      let url = Release.wxLoginUrl();
+      // let url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxef7fda595f81f6d6&redirect_uri=http://tcaigo.xiongniujr.com&response_type=code&scope=snsapi_userinfo&state=register&connect_redirect=1#wechat_redirect"
+      this.navCtrl.push(IFramePage,{"url":url,"title":""});
     } else {
+
       //app
+      let load = this.warnCtrl.loading();
       this.wxService.wxLogin().then(res => {
 
+        alert(JSON.stringify(res));
+        return this.userService.wxLogin(res["data"]["userId"],res["data"]["tokenId"],res["data"]["isExist"]);
+
+
+      }).then(res => {
+
+        load.dismiss();
+        this.warnCtrl.toast("登陆成功");
+        this.navCtrl.pop();
+
       }).catch(error => {
+
+        load.dismiss();
+        this.warnCtrl.toast("登陆失败");
 
       });
 
     }
 
   }
-
 
 }
 

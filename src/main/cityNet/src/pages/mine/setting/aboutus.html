@@ -4,7 +4,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="mine">
-  关于我们
+<ion-content class="aboultUs">
+
+  <div [innerHTML]="description"></div>
+  <div>联系电话：{{cityService.currentCity.mobile}}</div>
+  <div>服务时间：{{cityService.currentCity.remark}}</div>
+
+
 
 </ion-content>

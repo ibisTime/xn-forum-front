@@ -12,11 +12,11 @@
                 <p class="time">{{_item.publishDatetime | forumDate}}</p>
                 <ion-card-content>
                     <div>
-                        <div *ngIf="_item.location == 'A'">
+                        <div *ngIf="_item.location == 'B'">
                             <img src="assets/images/jing.png" class="head-jinghua-img" />
                             <h2 style="margin: 6px 0;" class="pl22">{{_item.title}}</h2>
                         </div>
-                        <div *ngIf="_item.location != 'A'">
+                        <div *ngIf="_item.location != 'B'">
                             <h2 style="margin: 6px 0;">{{_item.title}}</h2>
                         </div>
                         <p [innerHTML]="_item.content1"></p>

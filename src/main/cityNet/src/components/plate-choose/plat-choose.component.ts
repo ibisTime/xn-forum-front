@@ -51,6 +51,15 @@ export class PlatChooseView implements OnInit {
 
     @Input() set classification(classification){
 
+        console.log("选择了");
+        if(this.lastSelect){
+         console.log("选择了");
+            //
+            this.lastSelect.style.backgroundColor = 'rgb(240,240,240)';
+            this.lastSelect = document.getElementById("firstClass_li");
+            // this.lastSelect.style.backgroundColor = "white";
+        }
+
         this.firstClassItem = [];
         this._classification = [];
 
@@ -66,7 +75,6 @@ export class PlatChooseView implements OnInit {
 
             let len = classification.length;
             this._classification = classification.slice(1, len);
-            console.log(this._classification);
         }
 
     }
@@ -80,7 +88,8 @@ export class PlatChooseView implements OnInit {
         if(typeof(this.lastSelect)=="undefined"){
             this.lastSelect = this.firstClassEle.nativeElement;
         }
-       this.lastSelect.style.backgroundColor = 'rgb(240,240,240)';
+        //
+       this.lastSelect.style.backgroundColor = "rgb(240,240,240)";
         $event.target.style.backgroundColor = "white";
         this.lastSelect = $event.target;
 

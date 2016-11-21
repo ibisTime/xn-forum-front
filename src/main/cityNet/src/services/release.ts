@@ -15,10 +15,35 @@ export namespace Release {
     export const weChat = true;
 
     //release false才有效
-     const  run_environment = environment.develop_local;
+    const  run_environment = environment.develop_local;
 
-    // const  port = "8080";
+    //const  port = "80";
     export const baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
+    export function wxLoginUrl() {
+
+        let url;
+
+        if(release){
+            url =  "http://cswapp.hichengdai.com"
+        } else {
+
+            switch (run_environment){
+
+                case environment.test: url = "http://120.26.222.73:80";
+                case environment.develop: url = "http://tcaigo.xiongniujr.com:80";
+
+            }
+        }
+
+       // return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxef7fda595f81f6d6&redirect_uri="
+       //     +
+       //     url
+       //     + "&response_type=code&scope=snsapi_userinfo&state=register&connect_redirect=1#wechat_redirect";
+        return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxef7fda595f81f6d6&redirect_uri=http://tcaigo.xiongniujr.com&response_type=code&scope=snsapi_userinfo&state=register&connect_redirect=1#wechat_redirect";
+
+    }
+    
+    
     export function baiduMapUrl() {
 
         if (release) {
@@ -40,10 +65,11 @@ export namespace Release {
 
                 switch (run_environment){
 
-                    case environment.test: return "http://120.26.222.73:8080/geocoder/";
-                    case environment.develop: return "http://121.43.101.148:8080/geocoder/";
+                    case environment.test: return "http://120.26.222.73:80/geocoder/";
+                    case environment.develop: return "http://tcaigo.xiongniujr.com:80/geocoder/";
                     case environment.develop_local:  return "http://localhost:8080/geocoder/";
 
+                        // http://tcaigo.xiongniujr.com
                 }
 
             } else {
@@ -66,15 +92,15 @@ export namespace Release {
 
                 switch (run_environment){
 
-                    case environment.test: return "http://120.26.222.73:8080/xn-forum-front";
-                    case environment.develop: return "http://121.43.101.148:8080/xn-forum-front";
+                    case environment.test: return "http://120.26.222.73:80/xn-forum-front";
+                    case environment.develop: return "http://tcaigo.xiongniujr.com:80/xn-forum-front";
                     case environment.develop_local:  return "http://localhost:8080/xn-forum-front";
 
                 }
 
-            } else  {
+            } else {
 
-                return "http://121.43.101.148:8080/xn-forum-front";
+                return "http://tcaigo.xiongniujr.com:80/xn-forum-front";
             }
 
 
@@ -105,9 +131,9 @@ export namespace Release {
                 switch (run_environment) {
 
                     case environment.test:
-                        return "http://120.26.222.73:8080/rvisitor/";
+                        return "http://120.26.222.73:80/rvisitor/";
                     case environment.develop:
-                        return "http://121.43.101.148:8080/rvisitor/";
+                        return "http://tcaigo.xiongniujr.com:80/rvisitor/";
                     case environment.develop_local:
                         return "http://localhost:8080/rvisitor/";
                 }
@@ -131,4 +157,4 @@ export namespace Release {
 
 }
 
-// return "http://114.55.179.135:8080/rvisitor/";
+// return "http://114.55.179.135:80/rvisitor/";

@@ -52,8 +52,9 @@ export class ContentPage {
         this.isMe = this.toUser == uService.userId ? true : false;
         this.weichat = Release.weChat;
         //微信未安装把按钮隐藏掉
-        if(!Release.weChat ){
-            this.weichat = this.wxService.isInstalled;
+
+        if (!Release.weChat) {
+            this.weichat = !this.wxService.isInstalled;
         }
 
 

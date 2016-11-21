@@ -172,7 +172,6 @@ export class ForumPage {
         // if(this.classification.length > 0){
         //     return;
         // }
-
         let load;
         if(isClick){
              load = this.warn.loading();

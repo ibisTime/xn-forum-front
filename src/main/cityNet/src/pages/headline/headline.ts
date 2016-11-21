@@ -13,6 +13,8 @@ import {PageDataService} from "./page-data.services";
 import {LoginPage} from "../user/login";
 import {NavService} from "../../services/nav.service";
 import {WXService} from "../../services/wx.service";
+import { Release } from "../../services/release";
+
 
 
 @Component({
@@ -64,6 +66,43 @@ export class HeadlinePage implements AfterViewInit {
   }
 
   ngAfterViewInit(){
+
+
+
+      /*获取导航数据*/
+      if(Release.weChat) {
+
+          var reg = new RegExp('(^|&)' + "code" + '=([^&]*)(&|$)', 'i');
+          var r = window.location.search.substr(1).match(reg);
+
+          if (r != null) {
+
+              //微信授权登陆
+              alert(r + "微信登陆++");
+              let code = decodeURIComponent(r[2]);
+              let load = this.warn.loading();
+
+              this.http.get("/auth2/login/wx",{"code":code}).then(res => {
+
+                  alert(JSON.stringify(res));
+
+              return this.userService.wxLogin(res["data"]["userId"], res["data"]["tokenId"], res["data"]["isExist"]);
+
+              }).then(res => {
+
+                  load.dismiss();
+                  this.warn.toast("登陆成功");
+
+              }).catch(error => {
+
+                  load.dismiss();
+
+              });
+
+
+          }
+      }
+
 
     let w = this.platform.width();
     this.bannerHeight = `${w/2.3}px`;

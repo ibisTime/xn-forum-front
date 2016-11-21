@@ -2,7 +2,7 @@
 
         <div class="lt-left fl wp30 bg_f0">
             <ul>
-                <li #firstClass style="background-color: white"
+                <li #firstClass id="firstClass_li" style="background-color: white"
                     *ngFor="let item of firstClassItem" (tap)="selectClass($event,item)">
                     {{item.name}}
                 </li>

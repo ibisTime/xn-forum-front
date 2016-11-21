@@ -43,8 +43,9 @@ export class ForumCell implements OnInit {
         this.weichat = Release.weChat;
 
         if(!Release.weChat ){
-            this.weichat = this.wxService.isInstalled;
+            this.weichat = !this.wxService.isInstalled;
         }
+
 
     }
 

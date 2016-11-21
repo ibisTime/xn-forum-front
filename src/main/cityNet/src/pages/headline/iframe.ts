@@ -2,7 +2,7 @@
  * Created by tianlei on 16/9/20.
  */
 import {Component, AfterViewInit} from '@angular/core';
-import {NavParams} from "ionic-angular";
+import {NavParams, NavController} from "ionic-angular";
 import {WarnService} from "../../services/warn.service";
 
 
@@ -29,16 +29,19 @@ export class IFramePage implements AfterViewInit{
 
 
   constructor( public navPara: NavParams,
-               public warnService: WarnService) {
+               public warnService: WarnService,
+               public  navCtrl: NavController) {
     // this.url = navPara.data.url;
     this.title = navPara.data.title;
     this.url = navPara.data.url;
 
     //微信登陆成功
-    window.addEventListener('message',function(e){
+    window.addEventListener('message',e => {
 
+      this.navCtrl.popToRoot();
 
     },false);
+
   }
 
 

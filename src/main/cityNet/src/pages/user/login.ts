@@ -9,6 +9,8 @@ import {HttpService} from "../../services/http.service";
 import {UserService} from "../../services/user.service";
 import {WXService} from "../../services/wx.service";
 import {Release } from "../../services/release"
+import {NavService} from "../../services/nav.service";
+import {IFramePage} from "../headline/iframe";
 @Component({
 
   templateUrl: "login.html"
@@ -39,6 +41,12 @@ export class LoginPage  {
     if(!Release.weChat){
       this.otherLoginDisplay = this.wxService.isInstalled ? "block" : "none";
     }
+
+
+    //微信登陆成功
+    window.addEventListener('message',e => {
+      alert("微信登陆成功" + JSON.stringify(e));
+    },false);
 
 
   }
@@ -104,12 +112,31 @@ export class LoginPage  {
     if(Release.weChat){
       //微信
 
-    } else {
-     //app
+      let url = Release.wxLoginUrl();
 
+     // let url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxef7fda595f81f6d6&redirect_uri=http://tcaigo.xiongniujr.com&response_type=code&scope=snsapi_userinfo&state=register&connect_redirect=1#wechat_redirect"
+      this.navCtrl.push(IFramePage,{"url":url,"title":""});
+
+    } else {
+
+      //app
+      let load = this.warnCtrl.loading();
       this.wxService.wxLogin().then(res => {
 
+        alert(JSON.stringify(res));
+       return this.uService.wxLogin(res["data"]["userId"],res["data"]["tokenId"],res["data"]["isExist"]);
+
+
+      }).then(res => {
+
+        load.dismiss();
+        this.warnCtrl.toast("登陆成功");
+        this.navCtrl.pop();
+
       }).catch(error => {
+
+        load.dismiss();
+        this.warnCtrl.toast("登陆失败");
 
       });
 

@@ -29,7 +29,6 @@ export class IMBaseService {
   public  appKey = "wlqsltz#chatapp";
   // public to = "tianlei";
   public to = "u2016110110292218384";
-
   public tenantId = "25957";
 
   // http://a1.easemob.com/xiongniu-123/chatapp/users

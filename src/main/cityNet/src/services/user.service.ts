@@ -25,8 +25,8 @@ export interface User{
   totalFollowNum?,
   userExt?,
   companyCode?
-
 }
+
 
 @Injectable()
 export class UserService {
@@ -146,24 +146,35 @@ export class UserService {
      }
 
      return this.login(loginParams);
-
    })
+
   }
 
-
   /*微信 登陆*/
-  loginWithToken(tokenId){
+  wxLogin(userId,tokenId,isExist){
 
       return this.http.post('/user/login-t', {"tokenId": tokenId}).then(res => {
 
-          this.tokenId = tokenId;
+          alert("微信内登陆" + JSON.stringify(res));
+         this.tokenId = tokenId;
+         this.userId = userId;
+
+         if(isExist == "0"){
+             //环信注册
+             return this.imServe.register(userId,"");
+
+         } else {
+             return "hasRegister";
+         }
+
+
+      }).then(res => {
+
           return this.http.get("/user/info");
 
       }).then(res => {
 
           this.user = res.data;
-          this.userId = this.user.userId;
-
           //必须在这里同时保存 才算登陆成功
           this.saveUserInfo(this.tokenId,this.userId,this.user);
           /*发出消息*/
@@ -201,11 +212,13 @@ export class UserService {
 
   //查询所有关注的人
   queryFollowUsers(){
+
     return this.http.get('/rs/follows/list').then((res) => {
                 if(res.success){
                     this.followUsers = res.data;
                 }
             }).catch(error => {
+
             });
   }
 
