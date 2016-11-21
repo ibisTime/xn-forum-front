@@ -7,6 +7,8 @@ public class TokenDO {
     private String tokenId;
 
     private String accountNumber;
+    
+    private String isExist;
 
     public String getUserId() {
         return userId;
@@ -31,5 +33,13 @@ public class TokenDO {
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
+
+	public String getIsExist() {
+		return isExist;
+	}
+
+	public void setIsExist(String isExist) {
+		this.isExist = isExist;
+	}
 
 }

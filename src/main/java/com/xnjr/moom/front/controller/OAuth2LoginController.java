@@ -55,15 +55,17 @@ public class OAuth2LoginController extends BaseController {
     		HttpServletRequest request) {
     	// Step1：从回调URL中获取Authorization Code
     	String authCode = (String)map.get("code");
-    	String appId = (String)map.get("appId");
+    	String appId = (String)map.get("appid");
     	if (StringUtils.isEmpty(appId)) {
     		appId = WX_APP_ID;
     	}
-    	String appKey = (String)map.get("appKey");
+    	String appKey = (String)map.get("secret");
     	if (StringUtils.isEmpty(appKey)) {
     		appKey= WX_APP_KEY;
     	}
-    	System.out.println("-----------" + authCode);
+    	System.out.println("-----code------" + authCode);
+    	System.out.println("------appid-----" + appId);
+    	System.out.println("------secret-----" + appKey);
     	if (StringUtils.isBlank(authCode)) {
     		return false;
     	}
@@ -203,6 +205,7 @@ public class OAuth2LoginController extends BaseController {
 		        TokenDO tokenDO = new TokenDO();
 		        tokenDO.setUserId(userId);
 		        tokenDO.setTokenId(pwdUserId(userId));
+		        tokenDO.setIsExist("1");
 				return tokenDO;
 			} else {
 				// Step4-2：如果user不存在，说明用户未授权登录过，需从openAPI获取用户信息
@@ -228,6 +231,7 @@ public class OAuth2LoginController extends BaseController {
 		        TokenDO tokenDO = new TokenDO();
 		        tokenDO.setUserId(userId);
 		        tokenDO.setTokenId(pwdUserId(userId));
+		        tokenDO.setIsExist("0");
 				return tokenDO;
 			}
 		} catch (Exception e) {

@@ -98,6 +98,7 @@ public class MemberController extends BaseController {
         TokenDO tokenDO = new TokenDO();
         tokenDO.setUserId(userId);
         tokenDO.setTokenId(pwdUserId(userId));
+        tokenDO.setIsExist("0");
         return tokenDO;
     }
 
@@ -126,6 +127,7 @@ public class MemberController extends BaseController {
         TokenDO tokenDO = new TokenDO();
         tokenDO.setUserId(userId);
         tokenDO.setTokenId(pwdUserId(userId));
+        tokenDO.setIsExist("1");
         return tokenDO;
     }
 
