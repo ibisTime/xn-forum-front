@@ -72,6 +72,7 @@ ajaxGet($('#basePath').val() + '/auth2/login/wx', {
 	code: getQueryString('code')
 }).then(function(res) {
 	console.log(res);
+	alert('success: userId ' + res.data.userId);
 	window.parent.postMessage(res.data || '', '*');
 });
 </script>

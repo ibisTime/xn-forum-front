@@ -34,17 +34,119 @@ public class OAuth2LoginController extends BaseController {
  	public static final String GET_TOKEN_URL = "https://api.weibo.com/oauth2/access_token";
  	public static final String GET_OPENID_URL = "https://graph.qq.com/oauth2.0/me";
  	public static final String GET_USER_INFO_URL = "https://api.weibo.com/2/users/show.json";
+ 	
+ 	public static final String WX_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token";
+ 	public static final String WX_OPENID_URL = "https://graph.qq.com/oauth2.0/me";
+ 	public static final String WX_USER_INFO_URL = "https://api.weixin.qq.com/sns/userinfo";
     
  	// 一些公用的请求参数
     public static final String APP_ID = "2789943235";
 	public static final String APP_KEY = "518eb762076e998369bbce098c0415b3";
-	//public static final String REDIRECT_URL = "http://127.0.0.1:8080/xn-forum-oss/auth2/login/wx";
+	
+	public static final String WX_APP_ID = "wxef7fda595f81f6d6";
+	public static final String WX_APP_KEY = "057815f636178d3a81c3b065f395a209";
+	
 	public static final String STATE = "register";
 
     @RequestMapping(value = "/wx", method = RequestMethod.GET)
     @ResponseBody
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Object wxLogin(@RequestParam Map<String,String> map,
+    		HttpServletRequest request) {
+    	// Step1：从回调URL中获取Authorization Code
+    	String authCode = (String)map.get("code");
+    	System.out.println("-----------" + authCode);
+    	if (StringUtils.isBlank(authCode)) {
+    		return false;
+    	}
+    	// Step2：通过Authorization Code获取Access Token
+    	String accessToken = "";
+		Map<String, String> queryParas = new HashMap<>();
+		Map res = new HashMap<>();
+		
+		Properties formProperties = new Properties();
+		formProperties.put("grant_type", "authorization_code");
+		formProperties.put("appid", WX_APP_ID);
+		formProperties.put("secret", WX_APP_KEY);
+		formProperties.put("code", authCode);
+		String response;
+		try {
+			response = PostSimulater.requestPostForm(WX_TOKEN_URL,
+			    formProperties);
+			res = getMapFromResponse(response);
+			accessToken = (String) res.get("access_token");
+			if (res.get("error") != null || StringUtils.isBlank(accessToken)) {
+				return false;
+			}
+			// Step3：使用Access Token来获取用户的OpenID
+			String openId = "";
+			String userId = "";
+			openId = (String) res.get("openid");
+//			queryParas = new HashMap<>(1);
+//			queryParas.put("access_token", accessToken);
+//			res = getMapFromResponse(HttpKit.get(GET_OPENID_URL, queryParas));
+//			openId = res.get("openid");
+//			if (res.get("error") != null || StringUtils.isBlank(openId)) {
+//				return "redirect:/";
+//			}
+			// Step4：根据openId从数据库中查询用户信息（user）
+			res = new HashMap<>();
+			res.put("openId", openId);
+			Map[] users = BizConnecter.getBizData("805055", JsonUtils.mapToJson(res),
+		              Map[].class);
+			Map<String, String> user = new HashMap<>();
+			if (users.length != 0) {
+				// Step4-1：如果user存在，说明用户授权登录过，直接登录
+				user = users[0];
+				userId = user.get("userId");
+				SessionUser sessionUser = new SessionUser();
+		        sessionUser.setUserId(userId);
+		        // 创建session
+		        setSessionUser(sessionUser);
+		        TokenDO tokenDO = new TokenDO();
+		        tokenDO.setUserId(userId);
+		        tokenDO.setTokenId(pwdUserId(userId));
+				return tokenDO;
+			} else {
+				// Step4-2：如果user不存在，说明用户未授权登录过，需从openAPI获取用户信息
+				queryParas = new HashMap<>();
+				queryParas.put("access_token", accessToken);
+				queryParas.put("openid", openId);
+				queryParas.put("lang", "zh_CN");
+//				queryParas.put("oauth_consumer_key", APP_ID);
+//				queryParas.put("openid", openId);
+				res = getMapFromResponse(HttpKit.get(WX_USER_INFO_URL, queryParas));
+				String name = (String)res.get("nickname");
+				
+				user.put("openId", openId);
+				user.put("nickname", name);
+				user.put("gender", ((Double)res.get("sex") == 1) ? "1" : "0");
+				user.put("photo", (String)res.get("headimgurl"));
+				user = BizConnecter.getBizData("805151", JsonUtils.mapToJson(user),
+			              Map.class);
+				userId = user.get("userId");
+				SessionUser sessionUser = new SessionUser();
+		        sessionUser.setUserId(userId);
+		        // 创建session
+		        setSessionUser(sessionUser);
+		        TokenDO tokenDO = new TokenDO();
+		        tokenDO.setUserId(userId);
+		        tokenDO.setTokenId(pwdUserId(userId));
+				return tokenDO;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+		
+	}
+    
+    @RequestMapping(value = "/wx1", method = RequestMethod.GET)
+    @ResponseBody
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public Object wx1Login(@RequestParam Map<String,String> map,
     		HttpServletRequest request) {
     	// Step1：从回调URL中获取Authorization Code
     	String authCode = (String)map.get("code");
