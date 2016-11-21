@@ -55,6 +55,14 @@ public class OAuth2LoginController extends BaseController {
     		HttpServletRequest request) {
     	// Step1：从回调URL中获取Authorization Code
     	String authCode = (String)map.get("code");
+    	String appId = (String)map.get("appId");
+    	if (StringUtils.isEmpty(appId)) {
+    		appId = WX_APP_ID;
+    	}
+    	String appKey = (String)map.get("appKey");
+    	if (StringUtils.isEmpty(appKey)) {
+    		appKey= WX_APP_KEY;
+    	}
     	System.out.println("-----------" + authCode);
     	if (StringUtils.isBlank(authCode)) {
     		return false;
@@ -66,8 +74,8 @@ public class OAuth2LoginController extends BaseController {
 		
 		Properties formProperties = new Properties();
 		formProperties.put("grant_type", "authorization_code");
-		formProperties.put("appid", WX_APP_ID);
-		formProperties.put("secret", WX_APP_KEY);
+		formProperties.put("appid", appId);
+		formProperties.put("secret", appKey);
 		formProperties.put("code", authCode);
 		String response;
 		try {
@@ -82,13 +90,6 @@ public class OAuth2LoginController extends BaseController {
 			String openId = "";
 			String userId = "";
 			openId = (String) res.get("openid");
-//			queryParas = new HashMap<>(1);
-//			queryParas.put("access_token", accessToken);
-//			res = getMapFromResponse(HttpKit.get(GET_OPENID_URL, queryParas));
-//			openId = res.get("openid");
-//			if (res.get("error") != null || StringUtils.isBlank(openId)) {
-//				return "redirect:/";
-//			}
 			// Step4：根据openId从数据库中查询用户信息（user）
 			res = new HashMap<>();
 			res.put("openId", openId);
@@ -113,8 +114,6 @@ public class OAuth2LoginController extends BaseController {
 				queryParas.put("access_token", accessToken);
 				queryParas.put("openid", openId);
 				queryParas.put("lang", "zh_CN");
-//				queryParas.put("oauth_consumer_key", APP_ID);
-//				queryParas.put("openid", openId);
 				res = getMapFromResponse(HttpKit.get(WX_USER_INFO_URL, queryParas));
 				String name = (String)res.get("nickname");
 				
@@ -143,7 +142,8 @@ public class OAuth2LoginController extends BaseController {
 		
 	}
     
-    @RequestMapping(value = "/wx1", method = RequestMethod.GET)
+    // 微博登录
+    @RequestMapping(value = "/wb", method = RequestMethod.GET)
     @ResponseBody
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Object wx1Login(@RequestParam Map<String,String> map,
