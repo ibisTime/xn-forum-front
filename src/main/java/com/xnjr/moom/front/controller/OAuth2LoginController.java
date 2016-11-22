@@ -59,6 +59,7 @@ public class OAuth2LoginController extends BaseController {
     	String appId = (String)map.get("appid");
     	String companyCode = (String)map.get("companyCode");
     	String mobile = (String)map.get("mobile");
+    	String smsCaptcha = (String)map.get("smsCaptcha");
     	if (StringUtils.isEmpty(appId)) {
     		appId = WX_APP_ID;
     	}
@@ -73,6 +74,7 @@ public class OAuth2LoginController extends BaseController {
     	String accessToken = "";
 		Map<String, String> queryParas = new HashMap<>();
 		Map res = new HashMap<>();
+		Map wxRes = new HashMap<>();
 		
 		Properties formProperties = new Properties();
 		formProperties.put("grant_type", "authorization_code");
@@ -92,9 +94,18 @@ public class OAuth2LoginController extends BaseController {
 			String openId = "";
 			String userId = "";
 			openId = (String) res.get("openid");
+			
+			// 获取unionid
+			queryParas = new HashMap<>();
+			queryParas.put("access_token", accessToken);
+			queryParas.put("openid", openId);
+			queryParas.put("lang", "zh_CN");
+			wxRes = getMapFromResponse(HttpKit.get(WX_USER_INFO_URL, queryParas));
+			String unionid = (String)wxRes.get("unionid");
+			
 			// Step4：根据openId从数据库中查询用户信息（user）
 			res = new HashMap<>();
-			res.put("openId", openId);
+			res.put("openId", unionid);
 			Map[] users = BizConnecter.getBizData("805055", JsonUtils.mapToJson(res),
 		              Map[].class);
 			Map<String, String> user = new HashMap<>();
@@ -116,19 +127,20 @@ public class OAuth2LoginController extends BaseController {
 				return tokenDO;
 			} else {
 				// Step4-2：如果user不存在，说明用户未授权登录过，需从openAPI获取用户信息
-				queryParas = new HashMap<>();
-				queryParas.put("access_token", accessToken);
-				queryParas.put("openid", openId);
-				queryParas.put("lang", "zh_CN");
-				res = getMapFromResponse(HttpKit.get(WX_USER_INFO_URL, queryParas));
-				String name = (String)res.get("nickname");
+//				queryParas = new HashMap<>();
+//				queryParas.put("access_token", accessToken);
+//				queryParas.put("openid", openId);
+//				queryParas.put("lang", "zh_CN");
+//				res = getMapFromResponse(HttpKit.get(WX_USER_INFO_URL, queryParas));
+				String name = (String)wxRes.get("nickname");
 				
-				user.put("openId", openId);
+				user.put("openId", unionid);
 				user.put("nickname", name);
-				user.put("gender", ((Double)res.get("sex") == 1) ? "1" : "0");
-				user.put("photo", (String)res.get("headimgurl"));
+				user.put("gender", ((Double)wxRes.get("sex") == 1) ? "1" : "0");
+				user.put("photo", (String)wxRes.get("headimgurl"));
 				user.put("companyCode", companyCode);
 				user.put("mobile", mobile);
+				user.put("smsCaptcha", smsCaptcha);
 				user = BizConnecter.getBizData("805151", JsonUtils.mapToJson(user),
 			              Map.class);
 				userId = user.get("userId");
@@ -174,7 +186,6 @@ public class OAuth2LoginController extends BaseController {
 		formProperties.put("code", authCode);
 		String referer = request.getHeader("Referer");
 		formProperties.put("redirect_uri", referer.split("[?]")[0]);
-		System.out.println("-----------" + referer.split("[?]")[0]);
 		String response;
 		try {
 			response = PostSimulater.requestPostForm(GET_TOKEN_URL,
