@@ -56,6 +56,7 @@ public class OAuth2LoginController extends BaseController {
     	// Step1：从回调URL中获取Authorization Code
     	String authCode = (String)map.get("code");
     	String appId = (String)map.get("appid");
+    	String companyCode = (String)map.get("companyCode");
     	if (StringUtils.isEmpty(appId)) {
     		appId = WX_APP_ID;
     	}
@@ -63,9 +64,6 @@ public class OAuth2LoginController extends BaseController {
     	if (StringUtils.isEmpty(appKey)) {
     		appKey= WX_APP_KEY;
     	}
-    	System.out.println("-----code------" + authCode);
-    	System.out.println("------appid-----" + appId);
-    	System.out.println("------secret-----" + appKey);
     	if (StringUtils.isBlank(authCode)) {
     		return false;
     	}
@@ -124,6 +122,7 @@ public class OAuth2LoginController extends BaseController {
 				user.put("nickname", name);
 				user.put("gender", ((Double)res.get("sex") == 1) ? "1" : "0");
 				user.put("photo", (String)res.get("headimgurl"));
+				user.put("companyCode", companyCode);
 				user = BizConnecter.getBizData("805151", JsonUtils.mapToJson(user),
 			              Map.class);
 				userId = user.get("userId");
