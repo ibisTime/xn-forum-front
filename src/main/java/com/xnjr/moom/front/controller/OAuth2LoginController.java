@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xnjr.moom.front.ao.IUserAO;
+import com.xnjr.moom.front.exception.BizException;
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.http.PostSimulater;
@@ -57,6 +58,7 @@ public class OAuth2LoginController extends BaseController {
     	String authCode = (String)map.get("code");
     	String appId = (String)map.get("appid");
     	String companyCode = (String)map.get("companyCode");
+    	String mobile = (String)map.get("mobile");
     	if (StringUtils.isEmpty(appId)) {
     		appId = WX_APP_ID;
     	}
@@ -100,6 +102,9 @@ public class OAuth2LoginController extends BaseController {
 				// Step4-1：如果user存在，说明用户授权登录过，直接登录
 				user = users[0];
 				userId = user.get("userId");
+				if (!user.get("status").equals("0")) {
+		        	throw new BizException("10002", "用户被锁定");
+		        }
 				SessionUser sessionUser = new SessionUser();
 		        sessionUser.setUserId(userId);
 		        // 创建session
@@ -123,6 +128,7 @@ public class OAuth2LoginController extends BaseController {
 				user.put("gender", ((Double)res.get("sex") == 1) ? "1" : "0");
 				user.put("photo", (String)res.get("headimgurl"));
 				user.put("companyCode", companyCode);
+				user.put("mobile", mobile);
 				user = BizConnecter.getBizData("805151", JsonUtils.mapToJson(user),
 			              Map.class);
 				userId = user.get("userId");

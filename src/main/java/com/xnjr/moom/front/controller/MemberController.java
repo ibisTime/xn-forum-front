@@ -115,6 +115,10 @@ public class MemberController extends BaseController {
         if (map == null) {
             throw new BizException("10001", "用户不存在");
         }
+        
+        if (!map.get("status").equals("0")) {
+        	throw new BizException("10002", "用户被锁定");
+        }
 
         // XN805043Res res = userAO.doLogin((String)(map.get("loginName")),
         // (MD5Util.KL((String)map.get("loginPwd"))), "f1");
