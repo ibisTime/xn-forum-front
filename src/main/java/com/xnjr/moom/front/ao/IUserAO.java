@@ -139,6 +139,8 @@ public interface IUserAO {
      */
     public void doChangeMoblie(String userId, String newMobile,
             String smsCaptcha, String tradePwd);
+    
+    public Object doBindMoblie(String userId, String mobile, String smsCaptcha);
 
     /**
      * 检查是否实名

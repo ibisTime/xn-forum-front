@@ -423,6 +423,18 @@ public class MemberController extends BaseController {
             tradePwd);
         return true;
     }
+    
+    // 绑定手机号
+    @RequestMapping(value = "/mobile/bind", method = RequestMethod.POST)
+    @ResponseBody
+    public Object doBindMobile(
+            @RequestParam("mobile") String mobile,
+            @RequestParam("smsCaptcha") String smsCaptcha,
+            @RequestParam(value = "userId", required = false) String userId) {
+
+        return userAO.doBindMoblie(getSessionUserId(userId), mobile, smsCaptcha);
+        
+    }
 
     // 详情查询用户关注、粉丝、账户、发帖数
     @RequestMapping(value = "/stats", method = RequestMethod.GET)
