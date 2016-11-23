@@ -48,6 +48,99 @@ public class OAuth2LoginController extends BaseController {
 	public static final String WX_APP_KEY = "057815f636178d3a81c3b065f395a209";
 	
 	public static final String STATE = "register";
+	
+	// 根据code判断用户是否存在
+	@RequestMapping(value = "/wx/check", method = RequestMethod.GET)
+    @ResponseBody
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public Object wxLoginCheck(@RequestParam Map<String,String> map,
+    		HttpServletRequest request) {
+    	// Step1：从回调URL中获取Authorization Code
+    	String authCode = (String)map.get("code");
+    	String appId = (String)map.get("appid");
+    	if (StringUtils.isEmpty(appId)) {
+    		appId = WX_APP_ID;
+    	}
+    	String appKey = (String)map.get("secret");
+    	if (StringUtils.isEmpty(appKey)) {
+    		appKey= WX_APP_KEY;
+    	}
+    	if (StringUtils.isBlank(authCode)) {
+    		return false;
+    	}
+    	// Step2：通过Authorization Code获取Access Token
+    	String accessToken = "";
+		Map<String, String> queryParas = new HashMap<>();
+		Map res = new HashMap<>();
+		Map wxRes = new HashMap<>();
+		
+		Properties formProperties = new Properties();
+		formProperties.put("grant_type", "authorization_code");
+		formProperties.put("appid", appId);
+		formProperties.put("secret", appKey);
+		formProperties.put("code", authCode);
+		String response;
+		try {
+			response = PostSimulater.requestPostForm(WX_TOKEN_URL,
+			    formProperties);
+			res = getMapFromResponse(response);
+			accessToken = (String) res.get("access_token");
+			if (res.get("error") != null || StringUtils.isBlank(accessToken)) {
+				return false;
+			}
+			// Step3：使用Access Token来获取用户的OpenID
+			String openId = "";
+			String userId = "";
+			openId = (String) res.get("openid");
+			
+			// 获取unionid
+			queryParas = new HashMap<>();
+			queryParas.put("access_token", accessToken);
+			queryParas.put("openid", openId);
+			queryParas.put("lang", "zh_CN");
+			wxRes = getMapFromResponse(HttpKit.get(WX_USER_INFO_URL, queryParas));
+			String unionid = (String)wxRes.get("unionid");
+			if (StringUtils.isEmpty(unionid)) {
+				unionid = (String)wxRes.get("openid");
+			}
+			
+			// Step4：根据openId从数据库中查询用户信息（user）
+			res = new HashMap<>();
+			res.put("openId", unionid);
+			Map[] users = BizConnecter.getBizData("805055", JsonUtils.mapToJson(res),
+		              Map[].class);
+			Map<String, String> user = new HashMap<>();
+			if (users.length != 0) {
+				// Step4-1：如果user存在，说明用户授权登录过，直接登录
+				user = users[0];
+				userId = user.get("userId");
+				if (!user.get("status").equals("0")) {
+		        	throw new BizException("10002", "用户被锁定");
+		        }
+				SessionUser sessionUser = new SessionUser();
+		        sessionUser.setUserId(userId);
+		        // 创建session
+		        setSessionUser(sessionUser);
+		        TokenDO tokenDO = new TokenDO();
+		        tokenDO.setUserId(userId);
+		        tokenDO.setTokenId(pwdUserId(userId));
+		        tokenDO.setIsExist("1");
+				return tokenDO;
+			} else {
+				TokenDO tokenDO = new TokenDO();
+		        tokenDO.setUserId("");
+		        tokenDO.setTokenId("");
+		        tokenDO.setIsExist("0");
+				return tokenDO;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+		
+	}
 
     @RequestMapping(value = "/wx", method = RequestMethod.GET)
     @ResponseBody
@@ -102,6 +195,9 @@ public class OAuth2LoginController extends BaseController {
 			queryParas.put("lang", "zh_CN");
 			wxRes = getMapFromResponse(HttpKit.get(WX_USER_INFO_URL, queryParas));
 			String unionid = (String)wxRes.get("unionid");
+			if (StringUtils.isEmpty(unionid)) {
+				unionid = (String)wxRes.get("openid");
+			}
 			
 			// Step4：根据openId从数据库中查询用户信息（user）
 			res = new HashMap<>();
