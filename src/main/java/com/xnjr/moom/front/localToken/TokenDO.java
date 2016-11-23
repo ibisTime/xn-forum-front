@@ -9,6 +9,8 @@ public class TokenDO {
     private String accountNumber;
     
     private String isExist;
+    
+    private String mobile;
 
     public String getUserId() {
         return userId;
@@ -40,6 +42,14 @@ public class TokenDO {
 
 	public void setIsExist(String isExist) {
 		this.isExist = isExist;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 }
