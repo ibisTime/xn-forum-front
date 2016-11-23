@@ -132,6 +132,7 @@ public class MemberController extends BaseController {
         tokenDO.setUserId(userId);
         tokenDO.setTokenId(pwdUserId(userId));
         tokenDO.setIsExist("1");
+        tokenDO.setMobile((String) (map.get("mobile")));
         return tokenDO;
     }
 
