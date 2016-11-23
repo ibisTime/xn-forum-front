@@ -5,9 +5,10 @@
 </ion-header>
 
 <ion-content class="goods-detail">
-    <div class="goods-img-div" [style.height]="imgHeight">
-        <img [src]="item.pic" [style.height]="imgHeight" style="width:100%;">
+    <div style="background-size: cover;" class="goods-img-div" [style.height]="imgHeight" [style.background-image]="imgUrl">
+        <!--<img [src]="item.pic" [style.height]="imgHeight" style="width:100%;">-->
     </div>
+
     <div class="tip"><span>提示：</span>兑换的物品需要您自行提取，兑换成功后会提示您收货地址。您也可以去个人中心 我的物品栏 进行查看。</div>
     <div class="goods-description-div" [innerHTML]="item.description">
     </div>

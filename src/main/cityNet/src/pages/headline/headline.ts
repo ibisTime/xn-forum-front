@@ -14,6 +14,8 @@ import {LoginPage} from "../user/login";
 import {NavService} from "../../services/nav.service";
 import {WXService} from "../../services/wx.service";
 import { Release } from "../../services/release";
+import {WXLoginPage} from "../user/wxLogin";
+import {BindingMobilePage} from "../user/bindingMobile";
 
 
 
@@ -27,20 +29,18 @@ export class HeadlinePage implements AfterViewInit {
   cityName = "未知地点";
   redColor = "red";
   bannerHeight: string;
-
   articles = [];
-
   start = 1;
   @ViewChild(InfiniteScroll)  loadMoreScroll:  InfiniteScroll;
   @ViewChild(Refresher)  refresher:  Refresher;
 
   public headlineData = {};
   h8: string;
-   w8;
+  w8;
   h3h;
   h3w;
   adsDisplay = "block";
-    changeAds = true;
+  changeAds = true;
 
   mySlideOptions = {
     loop: false,
@@ -60,48 +60,85 @@ export class HeadlinePage implements AfterViewInit {
               public navService: NavService,
               public wxService: WXService) {
 
-
       // let url = "http://121.43.101.148:8901/2016110317/20161130805475684754151.jpg";
       // this.bk = "url(" + url + ")";
+
   }
 
   ngAfterViewInit(){
 
 
-
       /*获取导航数据*/
-      if(Release.weChat) {
+      setTimeout(res => { //延时
 
-          var reg = new RegExp('(^|&)' + "code" + '=([^&]*)(&|$)', 'i');
-          var r = window.location.search.substr(1).match(reg);
+          if(Release.weChat) {
+              var reg = new RegExp('(^|&)' + "code" + '=([^&]*)(&|$)', 'i');
+              var r = window.location.search.substr(1).match(reg);
+              if (r != null) {
 
-          if (r != null) {
+                  //微信授权登陆
+                  let code = decodeURIComponent(r[2]);
 
-              //微信授权登陆
-              alert(r + "微信登陆++");
-              let code = decodeURIComponent(r[2]);
-              let load = this.warn.loading();
+                  //1.判断用户是否存在
+                  let codeV = code;
+                  let obj = {
+                      code: codeV
+                  }
 
-              this.http.get("/auth2/login/wx",{"code":code}).then(res => {
 
-                  alert(JSON.stringify(res));
+                  let load = this.warn.loading();
+                  let wxLoginObj = {
+                     "code": code
+                  }
 
-              return this.userService.wxLogin(res["data"]["userId"], res["data"]["tokenId"], res["data"]["isExist"]);
+                  //定位成功 把地址传过去
+                  if(typeof(this.cityS.locationSuccessAddressCode) != "undefined" && this.cityS.locationSuccessAddressCode.length > 0){
+                      wxLoginObj["companyCode"] = this.cityS.locationSuccessAddressCode;
+                  }
 
-              }).then(res => {
+                  let mobile;
 
-                  load.dismiss();
-                  this.warn.toast("登陆成功");
+                  this.http.get("/auth2/login/wx",wxLoginObj).then(res => {
 
-              }).catch(error => {
+                    // alert(JSON.stringify(res));
 
-                  load.dismiss();
+                    mobile = res["data"]["mobile"];
+                    return this.userService.wxLogin(res["data"]["userId"], res["data"]["tokenId"], res["data"]["isExist"]);
 
-              });
+                  }).then(res => {
 
+                      load.dismiss();
+                      this.warn.toast("登录成功");
+                      //判断是否绑定手机号码，没绑定————绑定
+
+                      if(!mobile){
+                          this.navCtrl.push(BindingMobilePage,{"type":"mine"});
+                      }
+
+                  }).catch(error => {
+
+                      this.warn.toast("登录失败");
+                      load.dismiss();
+
+                  });
+
+
+              } else { //非登陆状态 提示下载
+
+                  setTimeout(() => {
+
+                      this.warn.alert2("前往下载城市网App",() => {
+                          window.open("http://a.app.qq.com/o/simple.jsp?pkgname=com.ionicframework.cutepuppypics929824");
+                      },() => {},"确定","取消")
+
+                  },3000);
+
+              }
 
           }
-      }
+
+      },2000); ///    延时
+
 
 
     let w = this.platform.width();

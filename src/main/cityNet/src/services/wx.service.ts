@@ -70,6 +70,26 @@ export class WXService {
 
     }
 
+    wxGetAuthCode(){
+        return new Promise((resolve,reject) => {
+
+            let scope = "snsapi_userinfo";
+            let state = "csw_wx_login";
+
+            Wechat.auth(scope, state, response => {
+
+                resolve(response["code"]);
+
+            }, reason => {
+
+                reject();
+
+            });
+
+
+        });
+
+    }
 
     wxLogin(wxWebCode?: string){
 
@@ -82,30 +102,19 @@ export class WXService {
 
             Wechat.auth(scope, state, response => {
 
-                //获取  code
-
                 // //2.通过code获取accseeToken
+                let getTokenObj;
 
-
-                let getTokenObj ;
-                if(wxWebCode && wxWebCode.length > 0){
-
-                    //web登陆
-                    getTokenObj = {
-                      "code": wxWebCode
-                    }
-
-                } else {//app登陆
-
-                    getTokenObj = {
-                        code: response["code"],
-                        appid: "wxa6c6d2544f85d4b9",
-                        secret: "eb0daccd6e456f604fc5dde0d14d6c69"
-                        // grant_type : "authorization_code"
-                    }
+                console.log("微信登陆" + response["code"])
+                getTokenObj = {
+                    code: response["code"],
+                    appid: "wxa6c6d2544f85d4b9",
+                    secret: "eb0daccd6e456f604fc5dde0d14d6c69"
+                    // grant_type : "authorization_code"
                 }
 
-                //获取userID tokenId
+                    // ,"/auth2/login/wx"
+                //获取userID tokenId  增加参数 companycode 和手机号码
                 this.http.get("/auth2/login/wx",getTokenObj).then(res => {
 
                      resolve(res);
@@ -116,34 +125,6 @@ export class WXService {
 
                 });
 
-
-                // //
-                // let url = "https://api.weixin.qq.com/sns/oauth2/access_token";
-                // //?appid=${appid}&secret=${secret}&code=${code}&grant_type=authorization_code
-                // this.http.get(null,getTokenObj,url).then(res => {
-                //
-                //     //拿到accseeToken 和 openId
-                //     //通过token 获取用户信息
-                //     console.log(res);
-                //
-                //     let token = res["access_token"];
-                //     let getInfoObj = {
-                //         scope: "snsapi_userinfo",
-                //         access_token: token
-                //     };
-                //
-                //     //获取用户信息
-                //     return this.http.get(null,getInfoObj,"https://api.weixin.qq.com/sns/userinfo");
-                //
-                // }).then(res => {
-                //
-                //     resolve();
-                //
-                // }).catch(error => {
-                //
-                //     reject();
-                //
-                // });
 
 
             }, reason => {

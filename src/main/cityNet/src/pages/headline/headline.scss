@@ -144,9 +144,10 @@ $banner-text-height: 40px;
         .img-outer-div{
           overflow: hidden;
           flex: 0 0 110px;
-          width: 110px;
+          min-width: 110px;
+          //width: 110px;
           margin-right: 10px;
-          height: 100%;
+          height: 80px;
           background-size: cover;
           background-repeat: no-repeat;
           background-position: center;
@@ -329,4 +330,13 @@ body, pre{
   color: #387ef5;
   background-color: transparent;
 
+}
+
+//导航栏一个像素问题
+.toolbar-background-ios {
+border-top-width: 0px;
+/* border-bottom-width: 0.55px; */
+border-style: solid;
+border-color: #b2b2b2;
+background: #f8f8f8;
 }

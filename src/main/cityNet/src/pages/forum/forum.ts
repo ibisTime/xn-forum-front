@@ -179,7 +179,8 @@ export class ForumPage {
 
         let obj = {
 
-            "companyCode": this.cityService.currentCity.code
+            "companyCode": this.cityService.currentCity.code,
+            "type": "1"
         }
 
         this.http.get("/plate/category/list", obj).then(res => {

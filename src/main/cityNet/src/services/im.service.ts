@@ -62,6 +62,7 @@ export class IMService {
     this.conn = this.imBase.conn;
     this.imBase.imMessage = msg => {
 
+      //收到消息统一转换为大写
       msg.from = msg.from.toUpperCase();
       msg.to = msg.to.toUpperCase();
 

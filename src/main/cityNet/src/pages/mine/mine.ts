@@ -24,6 +24,7 @@ import {Release} from "../../services/release"
 import {AboutusPage} from "./setting/aboutus";
 import {WXService} from "../../services/wx.service";
 import {IFramePage} from "../headline/iframe";
+import {BindingMobilePage} from "../user/bindingMobile";
 
 
 @Component({
@@ -263,29 +264,56 @@ export class MinePage implements AfterViewInit{
       //微信
       let url = Release.wxLoginUrl();
       // let url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxef7fda595f81f6d6&redirect_uri=http://tcaigo.xiongniujr.com&response_type=code&scope=snsapi_userinfo&state=register&connect_redirect=1#wechat_redirect"
+      console.log(url);
       this.navCtrl.push(IFramePage,{"url":url,"title":""});
     } else {
 
       //app
-      let load = this.warnCtrl.loading();
-      this.wxService.wxLogin().then(res => {
 
-        alert(JSON.stringify(res));
-        return this.userService.wxLogin(res["data"]["userId"],res["data"]["tokenId"],res["data"]["isExist"]);
+      //1.获取code
+      this.wxService.wxGetAuthCode().then(res => {
 
+        console.log("微信code" + res);
+        //1.判断用户是否存在
 
-      }).then(res => {
+        let codeV = res;
+        let obj = {
+          code: codeV,
+          appid: "wxa6c6d2544f85d4b9",
+          secret: "eb0daccd6e456f604fc5dde0d14d6c69"
+        }
 
-        load.dismiss();
-        this.warnCtrl.toast("登陆成功");
-        this.navCtrl.pop();
+        let load = this.warnCtrl.loading();
+        let mobile;
+        this.http.get("/auth2/login/wx",obj).then(res => {
+
+          // alert(JSON.stringify(res));
+
+          mobile = res["data"]["mobile"];
+          return this.userService.wxLogin(res["data"]["userId"], res["data"]["tokenId"], res["data"]["isExist"]);
+
+        }).then(res => {
+
+          load.dismiss();
+          this.warnCtrl.toast("登录成功");
+          //判断是否绑定手机号码，没绑定————绑定
+          if(!mobile){
+            this.navCtrl.push(BindingMobilePage,{"type":"mine"});
+          }
+
+        }).catch(error => {
+
+          load.dismiss();
+
+        });
+
 
       }).catch(error => {
 
-        load.dismiss();
-        this.warnCtrl.toast("登陆失败");
+        this.warnCtrl.toast("登录失败");
 
       });
+
 
     }
 

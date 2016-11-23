@@ -317,7 +317,7 @@ export class ContentPage {
         ev.stopPropagation();
     }
 
-    doFocus1(e) {
+    doFocus1($event) {
         //   setTimeout(()=>{
         //       window.scrollTo(0, 1000);
         //   }, 1);
@@ -329,6 +329,7 @@ export class ContentPage {
             code: this.item.code,
             type: "1"
         });
+        // $event.target.
         modelCtrl.present();
     }
     //更多

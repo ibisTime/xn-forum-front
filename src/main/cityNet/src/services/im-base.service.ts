@@ -62,9 +62,12 @@ export class IMBaseService {
 
   impFunction(imFunc,kefuFunc,msg, type?){
 
-    
-    
-    if(msg.from == this.to){
+    msg.from = msg.from.toUpperCase();
+    msg.to = msg.to.toUpperCase();
+
+
+    //消息统一转换为 大写 和 我方数据库相同
+    if(msg.from.toUpperCase() == this.to.toUpperCase()){
       (typeof(kefuFunc) =="function")&&(kefuFunc(msg, type));
     }else{
       (typeof(imFunc) =="function")&&(imFunc(msg));

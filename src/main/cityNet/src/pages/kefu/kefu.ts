@@ -54,7 +54,7 @@ export class KefuPage implements AfterViewInit {
 
     this.events.subscribe("user:loginSuccess",() => {
 
-        this.mineImg = this.userService.user.userExt.photo || "assets/images/marty-avatar.png";
+      this.mineImg = this.userService.user.userExt.photo || "assets/images/marty-avatar.png";
 
     });
 

@@ -54,6 +54,8 @@ export class ReplyCommentPage implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
 
+    document.getElementById("replay_textarea").focus();
+
   }
 
 

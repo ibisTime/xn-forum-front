@@ -53,6 +53,8 @@ export class MyApp implements AfterViewInit{
               ) {
 
 
+    // storage.clear();
+
     //根视图
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -256,6 +258,7 @@ export class MyApp implements AfterViewInit{
             let appKey = "";
             let to = "";
             let tenantId = "";
+
             dataArray.forEach((value,index,array) => {
 
                 if(value.account == "appKey"){
@@ -275,6 +278,8 @@ export class MyApp implements AfterViewInit{
             this.imBase.appKey = appKey;
             this.imBase.to = to;
             this.imBase.tenantId = tenantId;
+
+            this.kefuService.to = to;
             /*im登陆*/
             this.imServe.login(this.userServe.userId);
             // account: "appKey"

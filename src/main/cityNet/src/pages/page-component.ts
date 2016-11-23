@@ -55,6 +55,8 @@ import {AtMePage} from "./mine/im/atMe";
 import {ReplyCommentPage} from "./forum/content/reply-comment";
 import {JFPage} from "./mine/jfDetail/jfDetail";
 import {ServiceProtocolPage} from "./user/serviceProtocol";
+import {WXLoginPage} from "./user/wxLogin";
+import {BindingMobilePage} from "./user/bindingMobile";
 
 export const pages = [ TabsPage,
   ForumPage,
@@ -104,7 +106,9 @@ export const pages = [ TabsPage,
   ReplyCommentPage,
   JFPage,
   UpvotePage,
-  ServiceProtocolPage
+  ServiceProtocolPage,
+  WXLoginPage,
+  BindingMobilePage
 ];
 
 export const components = [
