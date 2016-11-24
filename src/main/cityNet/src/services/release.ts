@@ -15,7 +15,7 @@ export namespace Release {
     export const weChat = false;
 
     //release false才有效
-    const  run_environment = environment.develop;
+    const  run_environment = environment.test;
 
     //const  port = "80";
     export const baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
@@ -24,7 +24,9 @@ export namespace Release {
         let url;
 
         if(release){
+
             url =  "http://cswapp.hichengdai.com"
+
         } else {
 
             switch (run_environment){
@@ -106,8 +108,6 @@ export namespace Release {
             //     }
             //     // return "http://tcaigo.xiongniujr.com:80/xn-forum-front";
             // }
-
-
 
         }
 

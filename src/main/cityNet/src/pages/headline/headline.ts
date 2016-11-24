@@ -12,7 +12,7 @@ import {DatePipe} from "@angular/common";
 import {PageDataService} from "./page-data.services";
 import {LoginPage} from "../user/login";
 import {NavService} from "../../services/nav.service";
-import {WXService} from "../../services/wx.service";
+// import {WXService} from "../../services/wx.service";
 import { Release } from "../../services/release";
 import {WXLoginPage} from "../user/wxLogin";
 import {BindingMobilePage} from "../user/bindingMobile";
@@ -57,8 +57,7 @@ export class HeadlinePage implements AfterViewInit {
               public cityS: CityService,
               public pageDataService: PageDataService,
               public events: Events,
-              public navService: NavService,
-              public wxService: WXService) {
+              public navService: NavService) {
 
       // let url = "http://121.43.101.148:8901/2016110317/20161130805475684754151.jpg";
       // this.bk = "url(" + url + ")";
@@ -125,13 +124,13 @@ export class HeadlinePage implements AfterViewInit {
 
               } else { //非登陆状态 提示下载
 
-                  setTimeout(() => {
-
-                      this.warn.alert2("前往下载城市网App",() => {
-                          window.open("http://a.app.qq.com/o/simple.jsp?pkgname=com.ionicframework.cutepuppypics929824");
-                      },() => {},"确定","取消")
-
-                  },3000);
+                  // setTimeout(() => {
+                  //
+                  //     this.warn.alert2("前往下载城市网App",() => {
+                  //         window.open("http://a.app.qq.com/o/simple.jsp?pkgname=com.ionicframework.cutepuppypics929824");
+                  //     },() => {},"确定","取消")
+                  //
+                  // },3000);
 
               }
 
@@ -149,9 +148,9 @@ export class HeadlinePage implements AfterViewInit {
     this.h3w = `${(w - 36)/3}px`;
     this.h3h = `${(w - 36)/9}px`;
 
-      this.pageDataService.url = "/post/page";
+    this.pageDataService.url = "/post/page";
 
-      this.pageDataService.reqObj = {
+    this.pageDataService.reqObj = {
           "siteCode" : this.cityS.currentCity.code,
           "location": "C",
           "status" : "BD"

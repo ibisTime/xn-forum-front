@@ -65,10 +65,16 @@
 
         <!--*ngFor="let func of cityS.headlineData.func3-->
         <div (click)="goOther(item.url,item.name)" class="outer" [style.width]="h3w" [style.height]="h3h"
-             *ngFor="let item of cityS.headlineData.func3">
-          <img class="func" src={{item.pic}} [style.width]="h3w" [style.height]="h3h"
-               >
-          <p class="func3-title">{{item.name}}</p>
+             *ngFor="let item of cityS.headlineData.func3" [style.background-image]="item.pic" style="background-size: contain; background-repeat: no-repeat;" >
+
+          <div class="func3-div"  [style.width]="h3w" [style.height]="h3h" [style.line-height]="h3h"  >
+
+              {{item.name}}
+
+          </div>
+
+          <!--<img class="func" src={{item.pic}} [style.width]="h3w" [style.height]="h3h"-->
+               <!--&gt;-->
         </div>
 
       </div>

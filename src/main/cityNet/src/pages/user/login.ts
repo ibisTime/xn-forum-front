@@ -13,6 +13,7 @@ import {NavService} from "../../services/nav.service";
 import {IFramePage} from "../headline/iframe";
 import {WXLoginPage} from "./wxLogin";
 import {BindingMobilePage} from "./bindingMobile";
+import {CityService} from "../../services/city.service";
 @Component({
 
   templateUrl: "login.html"
@@ -31,7 +32,8 @@ export class LoginPage  {
               public app: App,
               public viewCtrl: ViewController,
               public events: Events,
-              public wxService: WXService
+              public wxService: WXService,
+              public cityS: CityService
 
              ) {
 
@@ -137,6 +139,10 @@ export class LoginPage  {
           secret: "eb0daccd6e456f604fc5dde0d14d6c69"
         }
 
+        if(typeof(this.cityS.locationSuccessAddressCode) != "undefined" && this.cityS.locationSuccessAddressCode.length > 0){
+          obj["companyCode"] = this.cityS.locationSuccessAddressCode;
+        }
+
         let load = this.warnCtrl.loading();
         let mobile;
         this.http.get("/auth2/login/wx",obj).then(res => {
@@ -153,6 +159,9 @@ export class LoginPage  {
             //判断是否绑定手机号码，没绑定————绑定
             if(!mobile){
                 this.navCtrl.push(BindingMobilePage,{"type":"noMine"});
+            } else {
+
+                this.navCtrl.pop();
             }
 
         }).catch(error => {

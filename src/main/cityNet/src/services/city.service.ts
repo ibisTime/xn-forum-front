@@ -91,7 +91,7 @@ export class CityService {
 
    return this.http.get('/site/list').then( res => {
 
-      if(res["data"] instanceof Array ){
+      if(res["data"]){
         /*清空原来的数据*/
         this.recommendSite = [];
 
@@ -346,6 +346,9 @@ export class CityService {
                banner.push(value_inner);
 
              } else if (value_inner.type == "3") { //
+
+               //
+               value_inner.pic = "url(" + value_inner.pic + ")";
 
                headlineDataTmp.func3.push(value_inner);
 

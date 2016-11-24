@@ -283,6 +283,12 @@ export class MinePage implements AfterViewInit{
           secret: "eb0daccd6e456f604fc5dde0d14d6c69"
         }
 
+        if(typeof(this.cityService.locationSuccessAddressCode) != "undefined" && this.cityService.locationSuccessAddressCode.length > 0){
+
+          obj["companyCode"] = this.cityService.locationSuccessAddressCode;
+
+        }
+
         let load = this.warnCtrl.loading();
         let mobile;
         this.http.get("/auth2/login/wx",obj).then(res => {

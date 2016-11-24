@@ -143,6 +143,13 @@ export class BindingMobilePage implements OnInit {
                 this.navCtrl.popToRoot();
             }
 
+            /*异步更新用户数据*/
+            this.http.get('/user/info').then(res => {
+                this.user.user = res.data;
+            }).catch(error => {
+
+            });
+
         }).catch(error => {
             loading.dismiss();
             // this.warn.toast("绑定失败"+ error);

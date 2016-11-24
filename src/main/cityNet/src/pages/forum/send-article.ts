@@ -516,13 +516,18 @@ export class SendArticlePage implements AfterViewInit,OnDestroy {
     /*处理真正的上传列表*/
     let upLoadIndex;
     this.uploadImages.find((value, index, obj) => {
+
       if (value.id == img.id) {
         upLoadIndex = index;
       }
       return value.id == img.id;
+
     });
 
-    (typeof(upLoadIndex) != "undefined")&&(this.uploadImages.slice(upLoadIndex,1));
+    //删除真正上传列表
+    (typeof(upLoadIndex) != "undefined")&&(this.uploadImages.splice(upLoadIndex,1));
+
+    let  newImages = this.uploadImages;
 
   }
 

@@ -65,6 +65,7 @@ export class TabsPage implements AfterViewInit{
       } else {
 
         this.signImgSrc = "assets/images/headline/signin.png";
+        this.hasSignedDisplay = "block";
 
       }
 
@@ -75,9 +76,9 @@ export class TabsPage implements AfterViewInit{
 
         this.signinDisplay = "none";
 
-        window.clearTimeout(num);
+        // window.clearTimeout(num);
 
-      },3500);
+      },4000);
 
     });
 

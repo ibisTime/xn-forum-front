@@ -1,5 +1,5 @@
 import {Component, AfterViewInit} from '@angular/core';
-import {Platform, Events, App} from 'ionic-angular';
+import {Platform, Events, App, LoadingController} from 'ionic-angular';
 import {TabsPage} from '../pages/tabs/tabs';
 import {UserService} from "../services/user.service";
 import {LoginPage} from "../pages/user/login";
@@ -34,6 +34,7 @@ export class MyApp implements AfterViewInit{
   time = 2;
   logningFlag = false;
 
+  loading;
 
     constructor(public platform: Platform,
               public userServe:UserService,
@@ -48,10 +49,14 @@ export class MyApp implements AfterViewInit{
               public wx: WXService,
               public storage: Storage,
               public jpush: JPushService,
-                public imBase: IMBaseService
+              public imBase: IMBaseService,
+              public loadCtrl: LoadingController
               // public pushService: PushService
               ) {
 
+        this.loading =  this.loadCtrl.create({
+            spinner: 'ios'
+        });
 
     // storage.clear();
 
@@ -125,7 +130,6 @@ export class MyApp implements AfterViewInit{
             this.kefuService.me = this.userServe.userId;
 
             /*首先获取 相应参数 获取成功后 进行登陆*/
-
             this.getAppkeyAndLoginIM(this.userServe.user.companyCode);
 
             /*首先获取  im登陆*/
@@ -162,21 +166,22 @@ export class MyApp implements AfterViewInit{
 
   getInfoAlreadyLogin(){
 
-      let load = this.warnService.loading();
+      // let load = this.warnService.loading();
+      this.loading.present();
       /*获取站点详情*/
       this.cityService.getSiteInfo(this.userServe.user.companyCode).then(res => {
 
           //获取导航信息
-          return  this.cityService.getNavigateBySiteCode(this.userServe.user.companyCode);
-
+      return  this.cityService.getNavigateBySiteCode(this.userServe.user.companyCode);
 
       }).then(res => {
 
           /*客服*/
           this.kefuService.me = this.userServe.userId;
 
-         this.getAppkeyAndLoginIM(this.userServe.user.companyCode);
-
+          //只获取客服相关信息，登陆放在外面
+          this.getAppkeyAndLoginIM(this.userServe.user.companyCode);
+          this.imServe.login(this.userServe.userId);
 
 
           /*类 session 登陆*/
@@ -184,7 +189,8 @@ export class MyApp implements AfterViewInit{
 
       }).then(res => {
 
-          load.dismiss();
+          // load.dismissAll();
+          this.loading.dismiss();
 
           if(this.cityService.ads.length > 0){
 
@@ -222,7 +228,9 @@ export class MyApp implements AfterViewInit{
 
       }).catch(error => {
 
-          load.dismissAll();
+          // load.dismissAll();
+          this.loading.dismiss();
+
           this.warnService.alert("加载失败，请重新加载",() => {
 
               this.getInfoAlreadyLogin();
@@ -236,52 +244,43 @@ export class MyApp implements AfterViewInit{
           // this.cityService.currentCity = {"name":"未知地点"};
           //
           // this.getNav();
-
-
       });
-
 
   }
 
 
-  //
-
     getAppkeyAndLoginIM(companyCode){
 
-
-        console.log("登陆成功，获取IM参数");
-
+        // console.log("登陆成功，获取IM参数");
         /*首先获取 相应参数 获取成功后 进行登陆*/
         this.http.get("/company/kefu/list",{"companyCode":companyCode}).then(res => {
 
             let dataArray = res["data"];
-            let appKey = "";
             let to = "";
             let tenantId = "";
 
             dataArray.forEach((value,index,array) => {
 
-                if(value.account == "appKey"){
+                if(value.account == "to"){
 
-                    appKey = value.password;
-
-                } else if(value.account == "to"){
                     to = value.password;
 
                 } else if(value.account == "tenantId"){
+
                     tenantId = value.password;
 
                 }
+
             });
 
-            //im-base赋值
-            this.imBase.appKey = appKey;
+            //im-base赋值  appkey不取 固定死
+            // this.imBase.appKey = appKey;
             this.imBase.to = to;
             this.imBase.tenantId = tenantId;
 
             this.kefuService.to = to;
             /*im登陆*/
-            this.imServe.login(this.userServe.userId);
+            // this.imServe.login(this.userServe.userId);
             // account: "appKey"
             // code: "PW2016112113454911284"
             // companyCode: "GS2016110223001226117"
@@ -295,13 +294,15 @@ export class MyApp implements AfterViewInit{
         });
 
     }
+
   /*用户还未登陆*/
   getNav(){
 
-      let loadNav = this.warnService.loading("");
+      // let loadNav = this.warnService.loading("");
+      this.loading.present();
 
       /*微信和 app 定位方式不同*/
-      if(Release.weChat){
+      if(Release.weChat || this.platform.is("android")){
           //微信
           var geolocation = new BMap.Geolocation();
 
@@ -309,7 +310,6 @@ export class MyApp implements AfterViewInit{
 
               if(geolocation.getStatus() == BMAP_STATUS_SUCCESS){
                 //成功加载站点
-
 
                   let province = r.address.province.slice(0,r.address.province.length - 1);
                   let city = r.address.city.slice(0,r.address.city.length - 1);
@@ -334,7 +334,8 @@ export class MyApp implements AfterViewInit{
                   this.cityService.getSiteByAddress(zoneObj).then(res => {
 
 
-                      loadNav.dismiss();
+                      // loadNav.dismiss();
+                      this.loading.dismiss();
 
                       //有广告图进行加载
                       if(this.cityService.ads.length > 0){
@@ -371,7 +372,8 @@ export class MyApp implements AfterViewInit{
 
                   }).catch(error => {
 
-                      loadNav.dismiss();
+                      // loadNav.dismiss();
+                      this.loading.dismiss();
 
                       this.warnService.alert("加载失败，请重新加载",() => {
                           this.getNav();
@@ -381,8 +383,10 @@ export class MyApp implements AfterViewInit{
 
 
               } else {
-                //失败加载默认
-                  loadNav.dismiss();
+
+                  // loadNav.dismiss();
+                  this.loading.dismiss();
+
                   this.warnService.alert("加载失败，请重新加载",() => {
                       this.getNav();
                   });
@@ -398,29 +402,29 @@ export class MyApp implements AfterViewInit{
               Geolocation.getCurrentPosition().then((resp) => {
                   // resp.coords.latitude
                   // resp.coords.longitude
-                  this.getDataByPosition(resp.coords.longitude, resp.coords.latitude,loadNav);
-
+                  // alert(JSON.stringify(resp));
+                  this.getDataByPosition(resp.coords.longitude, resp.coords.latitude);
 
               }).catch((error) => {
 
                   // console.log('Error getting location', error);
                   this.warnService.toast("不能确定您的准确位置，将进入默认站点");
-                  this.getDataByPosition(0,0,loadNav);
+                  this.getDataByPosition(0,0);
 
               });
 
           } else {
-
+          //
               navigator.geolocation.getCurrentPosition(geo => {
 
-                  alert(JSON.stringify(geo));
+                  // alert(JSON.stringify(geo));
                   /*在这里定位成功的将站点进行存储*/
-                  this.getDataByPosition(geo.coords.longitude, geo.coords.latitude,loadNav);
+                  this.getDataByPosition(geo.coords.longitude, geo.coords.latitude);
 
               }, error => {
 
                   this.warnService.toast("不能确定您的准确位置，将进入默认站点");
-                  this.getDataByPosition(0,0,loadNav);
+                  this.getDataByPosition(0,0);
 
               },{timeout: 10000});
 
@@ -428,14 +432,11 @@ export class MyApp implements AfterViewInit{
           }
 
 
-
-
-
       }////结束
 
   }
 
-  getDataByPosition(x,y,loadNav){
+  getDataByPosition(x,y){
 
     /*加载默认*/
     this.cityService.getNavByBaiduMap(x, y).then(res => {
@@ -469,20 +470,18 @@ export class MyApp implements AfterViewInit{
           this.rootPage = TabsPage;
       }
 
-
-    }).then(res => {
-
-      loadNav.dismiss();
+      this.loading.dismiss();
 
     }).catch(error => {
 
-      loadNav.dismiss();
 
+      this.loading.dismiss();
       this.warnService.alert("加载失败，请重新加载",() => {
 
         this.getNav();
 
       });
+
 
     });
 
@@ -495,8 +494,6 @@ export class MyApp implements AfterViewInit{
         this.adDisplay = "none";
 
     }
-
-
 
 
 }
