@@ -130,7 +130,9 @@ export class HttpService {
         }
 
       } else {//其他接口请求
+
         resolve(resObj);
+
       }
 
     }////////////

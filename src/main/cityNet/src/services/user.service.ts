@@ -155,7 +155,6 @@ export class UserService {
 
       return this.http.post('/user/login-t', {"tokenId": tokenId}).then(res => {
 
-          alert("微信内登陆" + JSON.stringify(res));
          this.tokenId = tokenId;
          this.userId = userId;
 

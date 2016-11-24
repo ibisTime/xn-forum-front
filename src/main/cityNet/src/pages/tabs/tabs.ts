@@ -9,7 +9,8 @@ import {Tabs, Events, Platform, App} from 'ionic-angular';
 import {IMService} from "../../services/im.service";
 import {CityService} from "../../services/city.service";
 import {HttpService} from "../../services/http.service";
-
+import { Badge } from 'ionic-native';
+import {Release} from "../../services/release";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -70,9 +71,11 @@ export class TabsPage implements AfterViewInit{
       this.addNum = res;
       this.signinDisplay = "block";
 
-      setTimeout(() => {
+    let num = setTimeout(() => {
 
         this.signinDisplay = "none";
+
+        window.clearTimeout(num);
 
       },3500);
 
@@ -108,6 +111,12 @@ export class TabsPage implements AfterViewInit{
   }
 
   ngAfterViewInit(){
+
+
+    if(!Release.weChat){
+      //清除badage
+      Badge.clear();
+    }
 
 
     let items = <any>this.titleItems;

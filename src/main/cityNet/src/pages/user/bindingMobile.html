@@ -1,0 +1,35 @@
+<ion-header [hidden]="navbarHidden">
+    <ion-navbar color="navbar-color">
+        <ion-title >
+            绑定手机号
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content   class="register" >
+
+    <div class="login-register-cancle-div" *ngIf="navbarHidden" (tap)="cancle($event)">取消</div>
+    <ion-list>
+
+        <ion-item>
+            <ion-label >手机号</ion-label>
+            <ion-input #account [(ngModel)]="userNameValue" [value]="userNameValue" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item class="capt-item">
+            <ion-label >验证码</ion-label>
+            <ion-input #chptcha [(ngModel)]="captchaValue" [value]="captchaValue" type="text"></ion-input>
+            <button item-right style="height: 35px;" class="captcha-btn" (click)="captchaClick($event)">发送验证码</button>
+        </ion-item>
+
+    </ion-list>
+
+
+
+    <div text-center class="register-div">
+        <button type="button" class="register-btn" (click)="register(account.value,chptcha.value)" >确认绑定</button>
+    </div>
+
+    <!--<div class="back-login">如果已有账户可在此 <a (click)="backLogin()" style="height: 20px" navbar-color>登录</a></div>-->
+
+</ion-content>

@@ -15,6 +15,8 @@ import {CityService} from "../../../services/city.service";
 export class GoodsDetailPage implements OnInit {
     imgHeight;
     item;
+
+    imgUrl;
     constructor(public platform:Platform,
                 public navParams: NavParams,
                 public http: HttpService,
@@ -26,12 +28,16 @@ export class GoodsDetailPage implements OnInit {
     ) {
 
         this.item = navParams.data;
+        this.imgUrl = `url(${this.item.pic})`;
         this.imgHeight = `${this.platform.width()*2/4.0}px`;
 
     }
 
     ngOnInit() {
+
+
     }
+
 
     buy(){
 

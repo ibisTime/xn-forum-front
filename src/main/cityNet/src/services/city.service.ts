@@ -21,6 +21,7 @@ export interface City{
   priority?;
   qrCode?;
   remark?;
+  mobile?;
   telephone?;
   userId?;
 }
