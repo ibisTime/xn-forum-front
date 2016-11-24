@@ -33,8 +33,6 @@ public class BizConnecter {
 
     public static final String MAIL_URL = ConfigProperties.Config.MAIL_URL;
 
-    public static final String BASE_URL = ConfigProperties.Config.BASE_URL;
-
     public static <T> T getBizData(String code, String json, Class<T> clazz) {
         String data = getBizData(code, json);
         return JsonUtils.json2Bean(data, clazz);
@@ -79,8 +77,6 @@ public class BizConnecter {
             postUrl = SMS_URL;
         } else if (code.startsWith("610")) {
             postUrl = MAIL_URL;
-        } else if (code.startsWith("809")) {
-            postUrl = BASE_URL;
         }
         return postUrl;
     }

@@ -50,7 +50,5 @@ public class ConfigProperties {
 
         public static String MOBILE_URL = props.getProperty("MOBILE_URL");
 
-        public static String BASE_URL = props.getProperty("BASE_URL");
-
     }
 }
