@@ -143,7 +143,7 @@ public class OAuth2LoginController extends BaseController {
 //				queryParas.put("openid", openId);
 //				queryParas.put("lang", "zh_CN");
 //				res = getMapFromResponse(HttpKit.get(WX_USER_INFO_URL, queryParas));
-				String name = (String)res.get("nickname");
+				String name = (String)wxRes.get("nickname");
 				
 				user.put("openId", unionid);
 				user.put("nickname", name);

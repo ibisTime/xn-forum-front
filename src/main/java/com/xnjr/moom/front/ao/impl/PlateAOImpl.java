@@ -61,7 +61,9 @@ public class PlateAOImpl implements IPlateAO {
 		req.setCompanyCode(companyCode);
 		req.setName(name);
 		req.setParentCode(parentCode);
-		req.setType(type);
+		req.setType("1");
+		req.setOrderColumn("order_no");
+		req.setOrderDir("asc");
 		return BizConnecter.getBizData("610806", JsonUtils.object2Json(req),
 	    	Object.class);
 	}

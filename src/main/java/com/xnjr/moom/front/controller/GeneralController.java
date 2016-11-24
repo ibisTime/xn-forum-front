@@ -62,6 +62,13 @@ public class GeneralController extends BaseController {
     	smsAO.sendSmsCaptcha1(mobile, ESmsBizType.REGISTER.getCode());
         return true;
     }
+    
+    @RequestMapping(value = "/bindmobile/send", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean bindMobileCode(@RequestParam("mobile") String mobile) {
+    	smsAO.sendSmsCaptcha1(mobile, ESmsBizType.BINDMOBILE.getCode());
+        return true;
+    }
 
     @RequestMapping(value = "/findloginpwd/send", method = RequestMethod.POST)
     @ResponseBody
