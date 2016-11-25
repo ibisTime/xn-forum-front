@@ -41,7 +41,7 @@ export class PushService {
 
             }
 
-            alert("open Notificaiton:" + alertContent);
+            // alert("open Notificaiton:" + alertContent);
 
         }, false);
 

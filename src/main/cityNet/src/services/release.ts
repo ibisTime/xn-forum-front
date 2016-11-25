@@ -11,7 +11,7 @@ enum  environment{
 
 export namespace Release {
 
-    const release  =  false;
+    const release  =  true;
     export const weChat = false;
 
     //release false才有效

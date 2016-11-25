@@ -154,6 +154,11 @@ export class TabsPage implements AfterViewInit{
 
   selected(i,tabTitleSpan){
 
+    if(!Release.weChat){
+      //清除badage
+      Badge.clear();
+    }
+
       let classStr = `tab-selected-title-${i}`;
       let ele: any = document.getElementsByClassName(classStr)[0];
 
