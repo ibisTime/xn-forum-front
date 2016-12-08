@@ -15,7 +15,7 @@ export namespace Release {
     export const weChat = false;
 
     //release false才有效
-    const  run_environment = environment.test;
+    const  run_environment = environment.develop_local;
 
     //const  port = "80";
     export const baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";

@@ -1,6 +1,14 @@
 <ion-header>
   <ion-navbar color="navbar-color">
+
     <ion-title>个人主页</ion-title>
+
+      <ion-buttons end *ngIf="!isMe">
+          <button (click)="lh()" ion-button icon-only>
+              <ion-icon name="more"></ion-icon>
+          </button>
+      </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 

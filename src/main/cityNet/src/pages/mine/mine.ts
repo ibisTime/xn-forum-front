@@ -266,6 +266,7 @@ export class MinePage implements AfterViewInit{
       // let url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxef7fda595f81f6d6&redirect_uri=http://tcaigo.xiongniujr.com&response_type=code&scope=snsapi_userinfo&state=register&connect_redirect=1#wechat_redirect"
       console.log(url);
       this.navCtrl.push(IFramePage,{"url":url,"title":""});
+
     } else {
 
       //app

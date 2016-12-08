@@ -146,6 +146,7 @@ export class UserService {
      }
 
      return this.login(loginParams);
+
    })
 
   }

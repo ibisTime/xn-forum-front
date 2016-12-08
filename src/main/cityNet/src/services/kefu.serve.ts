@@ -24,7 +24,7 @@ export class KefuService {
 
 
   private baseurl = 'http://kefu.easemob.com';
-  private tenantId;
+  public tenantId;
   public to;
   private appkey;
   private chatGroupId = "0";

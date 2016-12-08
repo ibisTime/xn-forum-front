@@ -1,5 +1,5 @@
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
-import {NavController, Platform, InfiniteScroll, NavParams,Refresher} from 'ionic-angular';
+import {NavController, Platform, InfiniteScroll, NavParams, Refresher, ActionSheetController} from 'ionic-angular';
 import {UserService} from "../../../services/user.service";
 import {WarnService} from "../../../services/warn.service";
 import {HttpService} from "../../../services/http.service";
@@ -29,6 +29,7 @@ export class MineDetailPage implements AfterViewInit{
   followCount: number = 0;
   followFlag:boolean = false;
   user;
+  isPB = false;
 
   totalPostNum = "0";
 
@@ -42,7 +43,8 @@ export class MineDetailPage implements AfterViewInit{
               public params: NavParams,
               public http: HttpService,
               public pageDataService: PageDataService,
-              public warn: WarnService) {
+              public warn: WarnService,
+              public actionSheetCtrl: ActionSheetController) {
 
       /*@是根据    用户名称进行    查找*/
       //  a.从帖子界面进入    b.从搜索页面进入
@@ -242,5 +244,40 @@ export class MineDetailPage implements AfterViewInit{
           this.navCtrl.push(EditDetailPage);
       }
   }
+
+  lh(){
+
+      let buttons = [
+          {
+              text: this.isPB ? '解除屏蔽' : '屏蔽私信',
+              handler: () => {
+
+
+
+                  setTimeout(() => {
+
+                    let info = this.isPB ? '解除屏蔽成功' : '屏蔽成功'
+                    this.warnCtrl.toast(info);
+
+                      this.isPB = !this.isPB;
+                  }, 500);
+
+              }
+          }, {
+              text: '取消',
+              role: 'cancel'
+          }
+      ];
+
+      let actionSheet = this.actionSheetCtrl.create({
+
+          title: '操作',
+          buttons: buttons
+      });
+
+      actionSheet.present();
+
+  }
+
 
 }

@@ -183,7 +183,6 @@ export class MyApp implements AfterViewInit{
           this.getAppkeyAndLoginIM(this.userServe.user.companyCode);
           this.imServe.login(this.userServe.userId);
 
-
           /*类 session 登陆*/
           return this.http.post('/user/login-t', {"tokenId": this.userServe.tokenId});
 
@@ -278,7 +277,11 @@ export class MyApp implements AfterViewInit{
             this.imBase.to = to;
             this.imBase.tenantId = tenantId;
 
+            /*客服重新赋值*/
+            this.kefuService.tenantId = tenantId;
             this.kefuService.to = to;
+            //
+
             /*im登陆*/
             // this.imServe.login(this.userServe.userId);
             // account: "appKey"

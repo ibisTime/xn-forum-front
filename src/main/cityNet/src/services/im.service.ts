@@ -53,9 +53,9 @@ export class IMService {
   msgTotalCount = 0;
   imTextMessageInner;
 
-  constructor(  private  imBase: IMBaseService,
+  constructor(  private imBase: IMBaseService,
                 private events: Events,
-                public http: HttpService
+                public  http: HttpService
                 ) {
 
 
