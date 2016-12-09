@@ -23,7 +23,8 @@ class ListItem {
 export class KefuService {
 
 
-  private baseurl = 'http://kefu.easemob.com';
+  // private baseurl = 'http://kefu.easemob.com';
+  private baseurl = Release.kefuUrl2();
   public tenantId;
   public to;
   private appkey;
@@ -96,7 +97,7 @@ export class KefuService {
     this.listOfChatRoomData.from = [];
   }
   getChatGroupId() {
-    return this.ajax.get(null, null, this.baseurl + '/v1/webimplugin/visitors/' + this.uService.userId +
+    return this.ajax.get(null, null, this.baseurl + 'v1/webimplugin/visitors/' + this.uService.userId +
       '/ChatGroupId?techChannelInfo=' + encodeURIComponent(this.appkey) + '%23' + this.to + '&tenantId=' + this.tenantId)
       .then((msg) => {
         this.chatGroupId = msg;
@@ -119,7 +120,7 @@ export class KefuService {
   getMyHistory(refresh?, msgData?) {
     if (this.rFlag) {
       this.ajax.get(null, null,
-        this.baseurl + '/v1/webimplugin/visitors/msgHistory?fromSeqId=' + (this.chatGroupSeqId || 0) + '&size=10&chatGroupId=' + this.chatGroupId + '&tenantId=' + this.tenantId)
+        this.baseurl + 'v1/webimplugin/visitors/msgHistory?fromSeqId=' + (this.chatGroupSeqId || 0) + '&size=10&chatGroupId=' + this.chatGroupId + '&tenantId=' + this.tenantId)
         .then((msg) => {
           //第一次打开页面的时候去获取
           if (!refresh) {
@@ -140,7 +141,7 @@ export class KefuService {
   //获取企业欢迎语
   getCompanyWelcome(msdData?) {
     this.ajax.get(null, null,
-      this.baseurl + '/v1/webimplugin/welcome?tenantId=' + this.tenantId)
+      this.baseurl + 'v1/webimplugin/welcome?tenantId=' + this.tenantId)
       .then((msg) => {
         this.getRobertWelcome(msdData);
         let msgItem;

@@ -124,13 +124,13 @@ export class HeadlinePage implements AfterViewInit {
 
               } else { //非登陆状态 提示下载
 
-                  // setTimeout(() => {
-                  //
-                  //     this.warn.alert2("前往下载城市网App",() => {
-                  //         window.open("http://a.app.qq.com/o/simple.jsp?pkgname=com.ionicframework.cutepuppypics929824");
-                  //     },() => {},"确定","取消")
-                  //
-                  // },3000);
+                  setTimeout(() => {
+
+                      this.warn.alert2("前往下载城市网App",() => {
+                          window.open("http://a.app.qq.com/o/simple.jsp?pkgname=com.zhejiangshegndian.csw");
+                      },() => {},"确定","取消");
+
+                  },3000);
 
               }
 

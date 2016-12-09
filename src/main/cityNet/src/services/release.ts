@@ -11,11 +11,11 @@ enum  environment{
 
 export namespace Release {
 
-    const release  =  true;
-    export const weChat = false;
+    const release  =  false;
+    export const weChat = true;
 
     //release false才有效
-    const  run_environment = environment.develop_local;
+    const  run_environment = environment.test;
 
     //const  port = "80";
     export const baiduMapAK = "diLP00QHyzEs57O1xvnmfDZFpUu2vt7N";
@@ -112,6 +112,44 @@ export namespace Release {
         }
 
     }
+
+    export function  kefuUrl2(){
+
+        if(release){
+
+            if(weChat){
+
+
+                return "http://cswapp.hichengdai.com/kefu/";
+
+
+            } else {
+
+                return "http://kefu.easemob.com/";
+
+            }
+
+
+        } else {
+
+            switch (run_environment) {
+
+                case environment.test:
+                    return "http://caigo.xiongniujr.com:80/kefu/";
+                case environment.develop:
+                    return "http://tcaigo.xiongniujr.com:80/kefu/";
+                case environment.develop_local:
+                    return "http://localhost:8080/kefu/";
+
+            }
+
+        }
+
+
+
+    }
+
+
 
     export function  kefuUrl(){
 
