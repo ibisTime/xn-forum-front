@@ -97,8 +97,10 @@
     <!--</plugin>-->
 
     <!--1. 推送   -->
-    <!--cordova plugin add jpush-phonegap-plugin &#45;&#45;variable API_KEY=e614d2a82d038160f707f1a8-->
+<!--
+    cordova plugin add jpush-phonegap-plugin &#45;&#45;variable API_KEY=e614d2a82d038160f707f1a8
+-->
     <!--2. 微信-->
-    <!--cordova plugin add cordova-plugin-wechat &#45;&#45;variable wechatappid=wxa6c6d2544f85d4b9-->
+<!--    cordova plugin add cordova-plugin-wechat &#45;&#45;variable wechatappid=wxa6c6d2544f85d4b9-->
 
 </widget>

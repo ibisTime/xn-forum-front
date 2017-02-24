@@ -11,8 +11,8 @@ enum  environment{
 
 export namespace Release {
 
-    const release  =  false;
-    export const weChat = true;
+    const release  =  true;
+    export const weChat  =  true;
 
     //release false才有效
     const  run_environment = environment.test;

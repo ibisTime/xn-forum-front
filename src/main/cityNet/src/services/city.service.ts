@@ -86,7 +86,6 @@ export class CityService {
 
   }
 
-
   getCity(){
 
    return this.http.get('/site/list').then( res => {

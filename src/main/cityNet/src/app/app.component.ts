@@ -22,6 +22,7 @@ import {IMBaseService} from "../services/im-base.service";
 
 declare let BMap: any;
 declare let BMAP_STATUS_SUCCESS: any;
+declare let plugins : any;
 
 @Component({
   selector:"app-root-comp",
@@ -57,6 +58,8 @@ export class MyApp implements AfterViewInit{
         this.loading =  this.loadCtrl.create({
             spinner: 'ios'
         });
+        //初始化推送
+    window.plugins.jPushPlugin.init()
 
     // storage.clear();
 
