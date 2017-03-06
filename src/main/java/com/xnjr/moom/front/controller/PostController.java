@@ -188,6 +188,15 @@ public class PostController extends BaseController {
             start, limit);
     }
 
+    // 帖子评论分页查询
+    @RequestMapping(value = "/comment/page", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryCommentPage(@RequestParam("postCode") String postCode,
+            @RequestParam("start") String start,
+            @RequestParam("limit") String limit) {
+        return postAO.queryCommentPage(postCode, start, limit);
+    }
+
     // 根据评论编号获取帖子详情
     @RequestMapping(value = "/detail/comment", method = RequestMethod.GET)
     @ResponseBody
@@ -248,7 +257,8 @@ public class PostController extends BaseController {
     // 设置/取消帖子置顶/精华/头条
     @RequestMapping(value = "/setTop", method = RequestMethod.GET)
     @ResponseBody
-    public Object setTop(@RequestParam("code") String code,
+    public Object setTop(
+            @RequestParam("code") String code,
             @RequestParam("location") String location,
             @RequestParam(value = "endDatetime", required = false) String endDatetime) {
         return postAO.setTop(code, location, endDatetime);
@@ -260,17 +270,17 @@ public class PostController extends BaseController {
     public Object lockPost(@RequestParam("code") String code) {
         return postAO.lockPost(code);
     }
-    
+
     // 我的帖子收到点赞分页查询
     @RequestMapping(value = "/praise/page", method = RequestMethod.GET)
     @ResponseBody
     public Object queryPraisePage(
-    		@RequestParam(value = "userId", required = false) String userId,
-    		@RequestParam(value = "start", required = true) String start,
-    		@RequestParam(value = "limit", required = true) String limit,
-    		@RequestParam(value = "orderColumn", required = false) String orderColumn,
-    		@RequestParam(value = "orderDir", required = false) String orderDir) {
-        return postAO.queryPraisePage(getSessionUserId(userId),
-        		start, limit, orderColumn, orderDir);
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "start", required = true) String start,
+            @RequestParam(value = "limit", required = true) String limit,
+            @RequestParam(value = "orderColumn", required = false) String orderColumn,
+            @RequestParam(value = "orderDir", required = false) String orderDir) {
+        return postAO.queryPraisePage(getSessionUserId(userId), start, limit,
+            orderColumn, orderDir);
     }
 }

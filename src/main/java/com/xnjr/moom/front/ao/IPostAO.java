@@ -129,6 +129,8 @@ public interface IPostAO {
             String dateStart, String dateEnd, String start, String limit,
             String orderColumn, String orderDir);
 
+    public Object queryCommentPage(String postCode, String start, String limit);
+
     public Object queryMyCommentToPage(String userId, String start, String limit);
 
     public Object queryMyCommentFromPage(String userId, String start,
@@ -151,7 +153,7 @@ public interface IPostAO {
     public Object setTop(String code, String location, String endDatetime);
 
     public Object lockPost(String code);
-    
-    public Object queryPraisePage(String userId, String start,
-    		String limit, String orderColumn, String orderDir);
+
+    public Object queryPraisePage(String userId, String start, String limit,
+            String orderColumn, String orderDir);
 }
