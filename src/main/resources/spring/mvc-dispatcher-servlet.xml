@@ -154,6 +154,7 @@
 			<mvc:exclude-mapping path="/post/get"/>
 			<mvc:exclude-mapping path="/post/read"/>
 			<mvc:exclude-mapping path="/post/total"/>
+			<mvc:exclude-mapping path="/post/comment/page"/>
 			
 			<mvc:exclude-mapping path="/operator/buy.htm"/>
 			<mvc:exclude-mapping path="/operators/integral/recharge"/>

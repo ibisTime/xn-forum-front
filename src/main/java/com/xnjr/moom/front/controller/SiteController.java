@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xnjr.moom.front.http.BizConnecter;
 import com.xnjr.moom.front.http.JsonUtils;
 import com.xnjr.moom.front.req.XN806013Req;
+import com.xnjr.moom.front.req.XN806017Req;
 
 @Controller
 @RequestMapping(value = "/site")
@@ -33,6 +34,28 @@ public class SiteController extends BaseController {
         req.setLocation("12");// 启用和推荐
         req.setIsDefault(isDefault);
         return BizConnecter.getBizData("806013", JsonUtils.object2Json(req),
+            Object.class);
+    }
+
+    // 列表查询站点，返回结果按首字母排序
+    @RequestMapping(value = "/list/group", method = RequestMethod.GET)
+    @ResponseBody
+    public Object siteListGroup(
+            @RequestParam(value = "code", required = false) String code,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "city", required = false) String city,
+            @RequestParam(value = "area", required = false) String area,
+            @RequestParam(value = "isDefault", required = false) String isDefault) {
+        XN806017Req req = new XN806017Req();
+        req.setCode(code);
+        req.setName(name);
+        req.setCity(city);
+        req.setArea(area);
+        req.setUserId(userId);
+        req.setLocation("12");// 启用和推荐
+        req.setIsDefault(isDefault);
+        return BizConnecter.getBizData("806017", JsonUtils.object2Json(req),
             Object.class);
     }
 
