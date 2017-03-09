@@ -48,8 +48,8 @@ public class MsgController extends BaseController {
 		XN805145Req req = new XN805145Req();
 		req.setSmsCode(smsCode);
 		req.setStatus(status);
-		// req.setUserId(this.getSessionUserId(null));
-		req.setUserId("");
+		req.setUserId(this.getSessionUserId(null));
+		// req.setUserId("");
 		req.setDateStart(dateStart);
 		req.setDateEnd(dateEnd);
 		req.setStart(start);
