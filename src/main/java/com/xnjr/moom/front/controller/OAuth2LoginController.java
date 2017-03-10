@@ -44,11 +44,11 @@ public class OAuth2LoginController extends BaseController {
 	public static final String APP_ID = "2789943235";
 	public static final String APP_KEY = "518eb762076e998369bbce098c0415b3";
 
-	// public static final String WX_APP_ID = "wxef7fda595f81f6d6";
+	public static final String WX_APP_ID = "wxef7fda595f81f6d6";
+	public static final String WX_APP_KEY = "057815f636178d3a81c3b065f395a209";
+	// public static final String WX_APP_ID = "wx8bc03dd744895352";
 	// public static final String WX_APP_KEY =
-	// "057815f636178d3a81c3b065f395a209";
-	public static final String WX_APP_ID = "wx8bc03dd744895352";
-	public static final String WX_APP_KEY = "44ebf0ef908dc54656573625a579ea82";
+	// "44ebf0ef908dc54656573625a579ea82";
 
 	public static final String STATE = "register";
 
