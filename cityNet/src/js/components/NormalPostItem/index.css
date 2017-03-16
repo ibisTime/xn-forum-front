@@ -1,0 +1,140 @@
+.rich_list{
+    width: 100%;
+    background-color: white;
+}
+.rich_list ul{
+    width: 3rem;
+    padding: 0.1rem;
+    padding-top: 0.15rem;
+}
+.rich_list ul li{
+    border-bottom:0.01rem solid #b4b4b4;
+    padding-left: 0.6rem;
+    margin-bottom: 0.15rem;
+    font-size: 0rem;
+    position: relative;
+}
+
+.rich_list li .rich-wrap{
+    height: 0.45rem;
+}
+.rich_list li .rich-listPic{
+    height: 0.45rem;
+    width: 0.45rem;
+    position: absolute;
+    top: 0rem;
+    left:0.05rem;
+
+}
+
+.rich-listPic img{
+    height: 100%;
+    width: 100%;
+    border-radius:50% ;
+}
+.rich-wrap .rich-listTopic{
+    width: 2.09rem;
+    height: 0.16rem;
+    font-size:0.14rem ;
+    position: absolute;
+    left:0.6rem;
+    top: 0.05rem;
+}
+
+.rich-wrap .rich-listData{
+    position: absolute;
+    left:0.6rem;
+    top: 0.3rem;
+    font-size: 0.12rem;
+    color: #b4b4b4;
+}
+.rich-wrap .rich-listFrom{
+    position: absolute;
+    right:0.1rem;
+    top: 0.05rem;
+    font-size: 0.14rem;
+    color: #b4b4b4;
+}
+.rich-list-content{
+    margin-bottom: 0.1rem;
+}
+.rich-list-content p{
+    font-size: 0.13rem;
+
+    color: #464646;
+    margin-top: 0.09rem;
+    margin-bottom: 0.09rem;
+    line-height: 0.18rem;
+
+}
+.rich-list-content .rich-list-title{
+    font-size: 0.14rem;
+    color: #d23e3e;
+
+    margin-top: 0.07rem;
+
+
+
+}
+.rich-list-img>img{
+    width: 0.75rem;
+    height: 0.75rem;
+    padding-bottom: 0.05rem;
+}
+.plr005rem{
+    padding-left: 0.05rem;
+    padding-right: 0.05rem;
+}
+.rich-list-content .ionPic{
+        width: 100%;
+        height:0.15rem;
+    }
+.rich-list-content .ionPic div{
+    float: right;
+    width: 0.46rem;
+}
+.rich-list-content .ionPic>div>img{
+    height: 0.14rem;
+}
+
+.rich-list-content .ionPic div span{
+   font-size: 0.16rem;
+    margin-left: 0.02rem;
+
+}
+
+.commontDetail{
+    width: 100%;
+    height:1rem;
+    margin-top: 0.1rem;
+    background-color: #e6e6e6;
+    border-radius: 0.05rem;
+}
+.clickBest{
+    width: 100%;
+    height: 0.14rem;
+    white-space:nowrap;
+    border-bottom: 0.01rem solid white;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    padding:0.08rem ;
+    font-size: 0.12rem;
+
+}
+
+
+
+    .clickBest img{
+        height: 0.14rem;
+    }
+.clickBest .names{
+    color:#7d0000;
+}
+    .comment-list div{
+        width: 100%;
+        color: #464646;
+        font-size: 0.12rem;
+        padding:0.08rem ;
+
+    }
+.comment-list .name{ color: #7d0000;}

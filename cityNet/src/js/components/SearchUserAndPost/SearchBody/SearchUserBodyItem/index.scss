@@ -1,0 +1,45 @@
+.search_user_list {
+    width: 100%;
+    background-color: white;
+    margin-bottom: 0.5rem;
+
+    ul {
+        width: 3.2rem;
+        border-top: 1px solid #cdcdcd;
+
+        li {
+            border-bottom: 1px solid #cdcdcd;
+            height: 0.59rem;
+            font-size: 0;
+            position: relative;
+
+            img {
+                height: 0.4rem;
+                width: 0.4rem;
+                border-radius: 50%;
+                position: absolute;
+                top: 0.095rem;
+                left: 0.15rem;
+            }
+
+            .userName {
+                position: absolute;
+                top: 0.12rem;
+                left: 0.65rem;
+                font-size: 0.13rem;
+                color: #d23e3e;
+            }
+
+            .userFansNum {
+                position: absolute;
+                bottom: 0.12rem;
+                left: 0.65rem;
+                color: #999;
+                font-size: 0.09rem;
+                span{
+                    color: #999;
+                }
+            }
+        }
+    }
+}

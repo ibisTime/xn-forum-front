@@ -1,0 +1,18 @@
+.post-comment-item{
+    padding: 15px 0.15rem;
+    color: #464646;
+    background-color: #fff;
+    display: flex;
+    display: -webkit-box;
+
+    .post-comment-item-title{
+        color: #7d0000;
+        font-size: 0.14rem;
+        flex: 1;
+        -webkit-box-flex: 1;
+    }
+    .post-comment-item-cont{
+        flex: 1;
+        -webkit-box-flex: 1;
+    }
+}

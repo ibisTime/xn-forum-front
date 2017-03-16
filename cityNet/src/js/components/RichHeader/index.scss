@@ -1,0 +1,45 @@
+.richHeader {
+    width: 3.2rem;
+    height: 0.44rem;
+    background-color: #d23e3e;
+    top: 0rem;
+    z-index: 2;
+}
+
+.richHeader .left {
+    position: absolute;
+    left: 0.15rem;
+    height: 0.18rem;
+    top: 0.13rem;
+}
+
+.richHeader .right {
+    position: absolute;
+    right: 0.15rem;
+    height: 0.18rem;
+    top: 0.13rem;
+}
+
+.richHeader div p {
+    width: 0.8rem;
+    height: 0.41rem;
+    line-height: 0.41rem;
+    text-align: center;
+    font-size: 0.16rem;
+    font-weight: 600;
+    color: #e49d9d;
+    margin-bottom: 0.01rem;
+    position: absolute;
+    left: 0.8rem;
+    top: 0rem;
+}
+
+.richHeader div .forum {
+    position: absolute;
+    left: 1.6rem;
+}
+
+.richHeader .active {
+    border-bottom: 0.03rem solid white;
+    color: #f3f3f3;
+}

@@ -1,0 +1,29 @@
+.normal-header {
+    width: 3.2rem;
+    height: 0.44rem;
+    background-color: #d23e3e;
+    line-height: 0.44rem;
+    text-align: center;
+    font-size: 0.16rem;
+    font-weight: 600;
+    color: #f3f3f3;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+
+    .goback {
+        position: absolute;
+        left: 0.15rem;
+        top: 0.14rem;
+        height: 0.16rem;
+    }
+
+    .protocolContent {
+        margin-top: 0.44rem;
+    }
+
+    .protocolContent p {
+        font-size: 0.12rem;
+        text-indent: 2em;
+    }
+}

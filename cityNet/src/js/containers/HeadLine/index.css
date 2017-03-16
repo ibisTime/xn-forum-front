@@ -1,0 +1,46 @@
+.headerLine-detail {
+    background-color: white;
+}
+
+.sliderPic {
+    /*margin-top: 0.44rem;*/
+    width: 3.2rem;
+    height: 1.25rem;
+    background-color: red;
+}
+
+.headerLine-nav {
+    padding: 0.1rem;
+}
+
+.headerLine-nav-header {
+    width: 3rem;
+    display: flex;
+    height: 0.3rem;
+    margin-bottom: 0.1rem;
+    justify-content: space-between;
+    font-size: 0.14rem;
+    color: #fff;
+}
+
+.headerLine-nav-header p {
+    width: 0.96rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+}
+
+.headerLine-nav-header .integral {
+    background: url('../../../images/积分商城@2x.png') no-repeat;
+    background-size: 100% 100%;
+}
+
+.headerLine-nav-header .signOn {
+    background: url('../../../images/每日签到@2x.png') no-repeat;
+    background-size: 100% 100%;
+}
+
+.headerLine-nav-header .cityWide {
+    background: url('../../../images/同城活动@2x.png') no-repeat;
+    background-size: 100% 100%;
+}

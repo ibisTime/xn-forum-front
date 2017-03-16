@@ -1,0 +1,14 @@
+.mineHeader {
+    width: 3.2rem;
+    height: 0.44rem;
+    background-color: #d23e3e;
+    line-height: 0.44rem;
+    text-align: center;
+    font-size: 0.16rem;
+    font-weight: 600;
+    color: #f3f3f3;
+    margin-bottom: 0.3rem;
+    position: fixed;
+    top: 0rem;
+    z-index: 2;
+}

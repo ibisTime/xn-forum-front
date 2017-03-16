@@ -1,0 +1,91 @@
+.am-card.post-card {
+    min-height: 0.192rem;
+    padding-bottom: 0;
+
+    .am-card-header {
+        padding: 0.01rem 0.15rem !important;
+        font-size: 0.15rem !important;
+
+        .am-card-header-content {
+            overflow: hidden;
+            height: 0.5rem;
+
+            img {
+                width: 0.4rem;
+                height: 0.4rem;
+                border-radius: 50%;
+            }
+        }
+
+        .am-card-header-extra {
+            font-size: 0.15rem;
+        }
+
+        .small-btn {
+            font-size: 0.15rem;
+            height: 0.3rem;
+            line-height: 0.3rem;
+            padding: 0 22px;
+        }
+    }
+
+    .normal-post-body.am-card-body {
+        border-top: 1px solid #dcdcdc;
+        padding: 0.1rem 0.15rem;
+        font-size: 0.15rem;
+        color: #464646;
+        min-height: 0.15rem;
+
+        .normal-post-top {
+            padding-bottom: 0.1rem;
+
+            .post-body-title {
+                color: #d23e3e;
+                padding-right: 0.15rem;
+            }
+        }
+
+        .normal-post-imgs {
+            img {
+                width: 0.96rem;
+                height: 0.96rem;
+                vertical-align: bottom;
+            }
+
+            .plr005rem {
+                padding-left: 0.05rem;
+                padding-right: 0.05rem;
+            }
+        }
+
+        .post-body-bottom {
+            height: 0.3rem;
+            padding: 4px 0 0;
+            .post-body-bottom-img-wrap {
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+                margin-right: 0.2rem;
+                font-size: 0.12rem;
+
+                .post-body-bottom-img {
+                    height: 0.12rem;
+                    margin-top: 0.08rem;
+                }
+
+                .post-body-bottom-img-more {
+                    width: 0.2rem;
+                    margin-top: 0.12rem;
+                }
+                &.fr{
+                    margin-right: 0;
+                }
+            }
+        }
+        .post-body-bottom-date{
+            color: #b4b4b4;
+            font-size: 0.12rem;
+
+        }
+    }
+}
