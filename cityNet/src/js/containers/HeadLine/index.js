@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {HeadLineHeader, Nav} from '../../components';
 import './index.css';
-import {SmallImgBlocks} from '../../components';
-import {HeadLinePosts} from '../../components';
+import {SmallImgBlocks, HeadLinePosts, Swipe} from '../../components';
 // import { RefreshControl, ListView } from 'antd-mobile';
 import Tloader from 'react-touch-loader';
 
@@ -28,7 +27,57 @@ export default class HeadLine extends Component {
                 code: "123456789965",
                 totalReadTimes: 30
             }],
-            
+            smallImgsData: [
+                {
+                    pathUrl: "/",
+                    imgUrl: require('../../../images/求助@2x.png'),
+                    imgName: "爆 料"
+                },
+                {
+                    pathUrl: "/",
+                    imgUrl: require('../../../images/求助@2x.png'),
+                    imgName: "爆 料"
+                },
+                {
+                    pathUrl: "/",
+                    imgUrl: require('../../../images/求助@2x.png'),
+                    imgName: "爆 料"
+                },
+                {
+                    pathUrl: "/",
+                    imgUrl: require('../../../images/求助@2x.png'),
+                    imgName: "爆 料"
+                },
+                {
+                    pathUrl: "/",
+                    imgUrl: require('../../../images/求助@2x.png'),
+                    imgName: "爆 料"
+                },
+                {
+                    pathUrl: "/",
+                    imgUrl: require('../../../images/求助@2x.png'),
+                    imgName: "爆 料"
+                },
+                {
+                    pathUrl: "/",
+                    imgUrl: require('../../../images/求助@2x.png'),
+                    imgName: "爆 料"
+                },
+                {
+                    pathUrl: "/",
+                    imgUrl: require('../../../images/求助@2x.png'),
+                    imgName: "爆 料"
+                }
+            ],
+            swiperData: [{
+                pic: "http://114.55.179.135:8901/2017030111/2017036011472342816883.jpg",
+                name: "虹桥门户网爆料奖现金红包",
+                url: "http://mp.weixin.qq.com/s/6kNrumIGyuBjTfPKt0OT5g"
+            }, {
+                pic: "http://114.55.179.135:8901/2017030111/2017036011192795601562.jpg",
+                name: "虹桥这家汽修店太壕了，免费洗车！",
+                url: "http://www.baidu.com"
+            }]
         }
     }
     componentWillMount() {}
@@ -84,51 +133,9 @@ export default class HeadLine extends Component {
         }, 2e3);
     }
     render() {
-        let {hasMore, initializing, refreshedAt, postData} = this.state;
+        let {hasMore, initializing, refreshedAt, postData, swiperData, smallImgsData} = this.state;
 
         let autoLoadMore = true;
-        let SmallImgsData = [
-            {
-                pathUrl: "/",
-                imgUrl: require('../../../images/求助@2x.png'),
-                imgName: "爆 料"
-            },
-            {
-                pathUrl: "/",
-                imgUrl: require('../../../images/求助@2x.png'),
-                imgName: "爆 料"
-            },
-            {
-                pathUrl: "/",
-                imgUrl: require('../../../images/求助@2x.png'),
-                imgName: "爆 料"
-            },
-            {
-                pathUrl: "/",
-                imgUrl: require('../../../images/求助@2x.png'),
-                imgName: "爆 料"
-            },
-            {
-                pathUrl: "/",
-                imgUrl: require('../../../images/求助@2x.png'),
-                imgName: "爆 料"
-            },
-            {
-                pathUrl: "/",
-                imgUrl: require('../../../images/求助@2x.png'),
-                imgName: "爆 料"
-            },
-            {
-                pathUrl: "/",
-                imgUrl: require('../../../images/求助@2x.png'),
-                imgName: "爆 料"
-            },
-            {
-                pathUrl: "/",
-                imgUrl: require('../../../images/求助@2x.png'),
-                imgName: "爆 料"
-            }
-        ];
 
         return (
             <div ref="box" className="box">
@@ -142,7 +149,7 @@ export default class HeadLine extends Component {
                     className="tloader headline">
                     <div className="headerLine-detail">
                         <div className="sliderPic">
-
+                            <Swipe data={swiperData}/>
                         </div>
                         <div className="headerLine-nav">
                             <div className="headerLine-nav-header">
@@ -150,7 +157,7 @@ export default class HeadLine extends Component {
                                 <p className="signOn">每日签到</p>
                                 <p className="cityWide">同城活动</p>
                             </div>
-                            <SmallImgBlocks imgsData={SmallImgsData}/>
+                            <SmallImgBlocks imgsData={smallImgsData}/>
                             <HeadLinePosts postData={postData}/>
                         </div>
                     </div>

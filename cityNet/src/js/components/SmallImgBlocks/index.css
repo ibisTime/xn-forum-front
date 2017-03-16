@@ -6,7 +6,7 @@
     float: left;
     width: 0.69rem;
     height: 0.69rem;
-    border: 1px solid #b4b4b4;
+    border: 1px solid #ccc;
     border-radius: 0.05rem;
     font-size: 0.12rem;
     text-align: center;
@@ -28,5 +28,4 @@
 .headerLine-nav-footer li p {
     width: 100%;
     margin-top: 0.1rem;
-    height: 70%;
 }
