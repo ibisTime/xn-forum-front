@@ -12,9 +12,20 @@
 		<meta itemprop="image" content="" />
 		<link rel="shortcut icon" href="../../images/favicon.ico" />
 		<link rel="stylesheet" href="../../css/csw.css">
+		<link rel="stylesheet" href="../../css/global.scss" />
 		<title>评论</title>
 	</head>
 	<body class="bg_fff">
+		
+		<header class="richHeader p-fixed">
+            <img class="left" src={serachIcon} alt="" onClick={this.handleClick.bind(this)}/>
+            <div>
+                <Link to={`/rich`}><p class="">发出的</p></Link>
+                <Link to={`/block`}><p class="active">收到的</p></Link>
+            </div>
+            <img class="right" src={forumIcon} alt=""/>
+        </header>
+
 		
 		<div class="wp100">
 			
@@ -59,8 +70,8 @@
 			</div>
 			
 		</div>
-	<div class="wp100 fs15 lh50 bg_fff pr">
-		<p class="tc lh400">暂无  ···</p>
+	<div class="wp100 lh50 bg_fff pr">
+		<p class="tc fs15 lh400">暂无  ···</p>
 	</div>
 	</body>
 </html>
