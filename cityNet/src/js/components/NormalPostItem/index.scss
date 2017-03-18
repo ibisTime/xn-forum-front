@@ -1,0 +1,186 @@
+.rich_list {
+    width: 100%;
+    background-color: white;
+
+    ul {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.3rem 0.2rem 0.2rem;
+
+        li {
+            border-bottom: 1px solid #b4b4b4;
+            padding-left: 1.2rem;
+            margin-bottom: 0.3rem;
+            font-size: 0;
+            position: relative;
+
+            .rich-wrap {
+                height: 0.936rem;
+            }
+
+            .rich-listPic {
+                height: 0.936rem;
+                width: 0.936rem;
+                position: absolute;
+                top: 0;
+                left: 0.1rem;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 50%;
+                }
+            }
+
+            .rich-wrap {
+                .rich-listTopic {
+                    width: 4.18rem;
+                    height: 0.32rem;
+                    font-size: 0.304rem;
+                    position: absolute;
+                    left: 1.2rem;
+                    top: 0.1rem;
+                }
+
+                .rich-listData {
+                    position: absolute;
+                    left: 1.2rem;
+                    top: 0.6rem;
+                    font-size: 0.2106rem;
+
+                    span {
+                        color: #b4b4b4;
+                    }
+                }
+
+                .rich-listFrom {
+                    position: absolute;
+                    right: 0.2rem;
+                    top: 0.1rem;
+                    font-size: 0.2106rem;
+
+                    .rich-come-title {
+                        color: #707070;
+                    }
+
+                    .rich-come-cont {
+                        color: #d23e3e;
+                    }
+                }
+            }
+
+            .rich-list-content {
+                margin-bottom: 0.2rem;
+
+                p {
+                    font-size: 0.3042rem;
+                    color: #464646;
+                    margin-top: 0.18rem;
+                    margin-bottom: 0.18rem;
+                    line-height: 0.32rem;
+                }
+
+                .rich-list-title {
+                    font-size: 0.3276rem;
+                    color: #d23e3e;
+                    margin-top: 0.14rem;
+                }
+
+                .rich-list-img {
+                    > img {
+                        width: 1.9rem;
+                        height: 1.9rem;
+                        padding-bottom: 0.1rem;
+                    }
+                }
+
+                .ionPic {
+                    width: 100%;
+                    height: 0.3rem;
+
+                    > div {
+                        float: right;
+                        width: 0.92rem;
+
+                        > img {
+                            height: 0.24rem;
+                        }
+
+                        span {
+                            font-size: 0.2106rem;
+                            margin-left: 0.04rem;
+                        }
+                    }
+                }
+                .watchAll{
+                    color: #999;
+                    font-size: 0.2574rem;
+                }
+            }
+
+            .commontDetail {
+                width: 100%;
+                margin-top: 0.2rem;
+                background-color: #f5f5f5;
+                border-radius: 5px;
+
+                .clickBest {
+                    width: 100%;
+                    height: 0.28rem;
+                    white-space: nowrap;
+                    border-bottom: 1px solid #fff;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    padding: 0.16rem;
+                    font-size: 0.2106rem;
+
+                    .comment-total-like {
+                        padding-right: 0.14rem;
+                        padding-left: 0.06rem;
+                        color: #7d0000;
+                    }
+
+                    img {
+                        height: 0.28rem;
+                    }
+
+                    .names {
+                        color: #464646;
+                        font-size: 0.2106rem;
+                    }
+                }
+
+                .comment-list {
+                    padding-top: 0.16rem;
+                    padding-bottom: 0.16rem;
+
+                    div {
+                        width: 100%;
+                        color: #464646;
+                        font-size: 0.2106rem;
+                        padding: 0 0.16rem;
+                        line-height: 0.36rem;
+                    }
+
+                    .name {
+                        color: #7d0000;
+                    }
+
+                    .comment-item-cont {
+                        color: #464646;
+                    }
+
+                    .watchAll{
+                        color: #999;
+                        font-size: 0.2106rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .plr005rem {
+        padding-left: 0.1rem;
+        padding-right: 0.1rem;
+    }
+}

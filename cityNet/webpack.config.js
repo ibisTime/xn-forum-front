@@ -29,12 +29,13 @@ module.exports = {
                         [
                             "import",
                             [
-                                // {
-                                //     "libraryName": "antd"
-                                // },
+                                {
+                                    "libraryName": "antd",
+                                    "style": "css"
+                                },
                                  {
                                     "libraryName": "antd-mobile",
-                                    "style": "css"
+                                    // "style": "css"
                                 }
                             ]
                         ]
@@ -66,6 +67,7 @@ module.exports = {
             },
             {//woff|woff2|eot|ttf|svg
                 test: /\.(png|jpg)$/,
+                // test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
                 loader: 'url-loader?limit=8192'
             },
             {

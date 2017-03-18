@@ -17,10 +17,10 @@
         }
 
         .am-tabs-tab {
-            height: 0.4rem;
-            line-height: 0.4rem;
+            height: 0.8rem;
+            line-height: 0.8rem;
             color: #464646;
-            font-size: 0.15rem;
+            font-size: 0.3rem;
 
             &.am-tabs-tab-active {
                 color: #d23e3e;
@@ -31,7 +31,7 @@
     .post-tabpane {
         display: none;
         width: 100%;
-        font-size: 0.13rem;
+        font-size: 0.26rem;
 
         &.post-tabpane-active {
             display: block;

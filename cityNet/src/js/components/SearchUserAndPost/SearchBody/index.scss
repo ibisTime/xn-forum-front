@@ -1,67 +1,7 @@
 .search-bar-wrap {
     .am-search {
-        height: 0.44rem;
-
-        .am-search-input {
-            height: 0.28rem;
-
-            .am-search-synthetic-ph {
-                height: 0.28rem;
-                line-height: 0.28rem;
-
-                .am-search-synthetic-ph-container {
-                    height: 0.28rem;
-                    line-height: 0.28rem;
-
-                    .am-search-synthetic-ph-icon {
-                        width: 0.15rem;
-                        height: 0.15rem;
-                        margin-left: 0.05rem;
-                        margin-right: 0.05rem;
-                        background-size: 0.15rem auto;
-                        vertical-align: middle;
-                    }
-
-                    .am-search-synthetic-ph-placeholder {
-                        font-size: 0.15rem;
-                        display: inline-block;
-                        vertical-align: middle;
-                    }
-                }
-            }
-
-            input[type="search"] {
-                height: 0.28rem;
-                font-size: 0.15rem;
-            }
-
-            .am-search-clear {
-                width: 0.15rem;
-                height: 0.15rem;
-                right: 0.12rem;
-                top: 0.065rem;
-                background-size: 0.15rem auto;
-            }
-        }
-
         .am-search-cancel {
-            height: 0.44rem;
-            line-height: 0.44rem;
             color: #d23e3e;
-            font-size: 0.15rem;
-        }
-
-        &.am-search-start {
-            .am-search-input {
-                input[type="search"] {
-                    padding-left: 0.35rem;
-                }
-
-                .am-search-synthetic-ph {
-                    padding-left: 0.04rem;
-                    width: 1.56rem !important;
-                }
-            }
         }
     }
 }

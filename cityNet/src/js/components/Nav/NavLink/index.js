@@ -10,10 +10,9 @@ export default class NavLink extends Component {
         return (
             <Link to={pathUrl} className={linkClass}>
                 <div>
-                    {/* icoUrl */}
                     <img src={icoUrl} className={imgClass} alt="linkName"/>
-                    <span>{linkName}</span>
                 </div>
+                <span>{linkName}</span>
             </Link>
         )
     }

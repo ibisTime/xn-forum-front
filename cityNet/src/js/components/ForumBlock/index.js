@@ -46,7 +46,7 @@ export default class ForumBlock extends Component {
                     ? loadingEl
                     : (
                         <div>
-                            <div style={{height: "0.44rem"}}></div>
+                            <div style={{height: "0.88rem"}}></div>
                             <div class="themeHeader">
                                 <div class="themePic"><img src={img} alt=""/></div>
                                 <p class="themeTopic">板块名称</p>

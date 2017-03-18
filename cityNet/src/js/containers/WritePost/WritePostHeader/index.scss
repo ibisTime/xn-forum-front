@@ -1,0 +1,33 @@
+.headerLineHeader {
+    width: 3.2rem;
+    height: 0.44rem;
+    background-color: #d23e3e;
+    line-height: 0.44rem;
+    text-align: center;
+    font-size: 0.16rem;
+    font-weight: 600;
+    position: fixed;
+    top: 0rem;
+    z-index: 2;
+    .left {
+        position: absolute;
+        left: 0.15rem;
+        height: 0.18rem;
+        top: 0.13rem;
+    }
+    .right-apply{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 4em;
+        color: #fff;
+    }
+    div {
+        span{
+            color: #fff;
+        }
+        img {
+            width: 0.14rem;
+        }
+    }
+}

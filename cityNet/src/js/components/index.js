@@ -1,6 +1,5 @@
 export { default as Nav } from './Nav';
 export { default as Swipe } from './Swipe';
-export { default as MineHeader } from './MineHeader';
 export { default as SmallImgBlocks } from './SmallImgBlocks';
 export { default as HeadLineHeader } from './HeadLineHeader';
 export { default as HeadLinePosts } from './HeadLinePosts';

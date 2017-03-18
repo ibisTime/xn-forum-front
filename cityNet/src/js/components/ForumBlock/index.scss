@@ -1,17 +1,17 @@
 .themeHeader {
     background-color: white;
-    height: 0.8rem;
-    border-bottom: 0.01rem solid #f0f0f0;
+    height: 1.872rem;
+    border-bottom: 1px solid #f0f0f0;
     font-size: 0;
     position: relative;
-    margin-bottom: 0.1rem;
+    margin-bottom: 0.2rem;
 
     .themePic {
-        width: 0.5rem;
-        height: 0.5rem;
+        width: 1.17rem;
+        height: 1.17rem;
         position: absolute;
-        top: 0.15rem;
-        left: 0.15rem;
+        top: 0.35rem;
+        left: 0.3rem;
 
         img {
             width: 100%;
@@ -21,21 +21,40 @@
 
     .themeTopic {
         position: absolute;
-        top: 0.22rem;
-        left: 0.75rem;
-        font-size: 0.14rem;
+        top: 0.515rem;
+        left: 1.67rem;
+        font-size: 0.3276rem;
         color: #333;
     }
 
     .themeNums {
         position: absolute;
-        bottom: 0.22rem;
-        left: 0.75rem;
-        font-size: 0.11rem;
+        bottom: 0.5rem;
+        left: 1.67rem;
+        font-size: 0.2574rem;
         color: #666;
 
         span {
-            margin-right: 0.1rem;
+            margin-right: 0.2rem;
+            color: #666;
+        }
+    }
+}
+.am-tabs {
+    .am-tabs-bar {
+        .am-tabs-ink-bar {
+            height: 2px;
+            background-color: #d23e3e;
+        }
+
+        .am-tabs-tab {
+            font-size: 0.3042rem;
+            height: 0.936rem;
+            line-height: 0.936rem;
+        }
+
+        .am-tabs-tab-active {
+            color: #d23e3e;
         }
     }
 }

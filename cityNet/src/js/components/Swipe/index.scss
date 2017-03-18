@@ -1,21 +1,21 @@
 .sliderPic {
     .slider-list {
-        height: 1.25rem !important;
+        height: 2.925rem !important;
         .img-responsive {
-            height: 1.25rem;
+            height: 2.925rem;
             width: 100%;
         }
 
         .swipe-item-bottom {
-            height: 0.28rem;
+            height: 0.7rem;
             width: 100%;
             position: absolute;
             bottom: 0;
             background-color: rgba(0, 0, 0, .4);
-            line-height: 0.28rem;
-            font-size: 0.15rem;
+            line-height: 0.7rem;
+            font-size: 0.3276rem;
             color: #fff;
-            padding-left: 10px;
+            padding-left: 0.35rem;
         }
     }
 }

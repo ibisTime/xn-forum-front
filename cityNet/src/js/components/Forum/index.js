@@ -28,6 +28,7 @@ export default class Forum extends Component {
                 code: "FL201610000000000000187"
             }],
             rightBlockData: [{
+                name: "闲话虹桥",
                 pic: "http://114.55.179.135:8901/2016112511/20161133011032067720607.jpg",
                 plCount: 48,
                 dzCount: 7,
@@ -72,49 +73,45 @@ export default class Forum extends Component {
                         leftLoad
                         ? loadingEl
                         : (
-                            <div>
-                                <div style={{height: "0.44rem"}}></div>
-                                <div class="classify" style={{marginBottom: "0"}}>
-                                    <ul class="classify-url" style={{overflow: "auto", display: "inline-block"}}>
-                                        {
-                                            leftNavData && leftNavData.map((nav, index) => (
+                            <div class="classify" style={{marginBottom: "0"}}>
+                                <ul class="classify-url" style={{overflow: "auto", display: "inline-block"}}>
+                                    {
+                                        leftNavData && leftNavData.map((nav, index) => (
 
-                                                <li key={`left${index}`} class={
-                                                    className({
-                                                        "active": activeIndex == index
-                                                    })
-                                                } onClick={this.handleLeftNavClick.bind(this, index)}>{nav.name}</li>
-                                            ))
-                                        }
-                                    </ul>
-                                    <div class="classify-list">
-                                        {
-                                            rightLoad
-                                            ? loadingEl
-                                            : (
-                                                <div class="moudleList">
-                                                    <ul>
-                                                        {
-                                                            rightBlockData && rightBlockData.map((block, index) => (
-                                                                <li key={`right${index}`}>
-                                                                    <Link to={`/forum/${block.code}`}>
-                                                                        <div class="moudleImg"><img src={block.pic} alt=""/></div>
-                                                                        <p>{block.name}</p>
-                                                                        <div class="moudle-ion">
-                                                                            <div><img src={commentIcon} alt=""/> <span>10</span></div>
-                                                                            <div><img src={DZIcon} alt=""/> <span>10</span></div>
-                                                                        </div>
-                                                                        <p class="moudle-enter">进入</p>
-                                                                    </Link>
-                                                                </li>
-                                                            ))
-                                                        }
-                                                    </ul>
-                                                </div>
-                                            )
-                                        }
-                                        <div style={{"height": "0.5rem"}}></div>
-                                    </div>
+                                            <li key={`left${index}`} class={
+                                                className({
+                                                    "active": activeIndex == index
+                                                })
+                                            } onClick={this.handleLeftNavClick.bind(this, index)}>{nav.name}</li>
+                                        ))
+                                    }
+                                </ul>
+                                <div class="classify-list">
+                                    {
+                                        rightLoad
+                                        ? loadingEl
+                                        : (
+                                            <div class="moudleList">
+                                                <ul>
+                                                    {
+                                                        rightBlockData && rightBlockData.map((block, index) => (
+                                                            <li key={`right${index}`}>
+                                                                <Link to={`/forum/${block.code}`}>
+                                                                    <div class="moudleImg"><img src={block.pic} alt=""/></div>
+                                                                    <p>{block.name}</p>
+                                                                    <div class="moudle-ion">
+                                                                        <div><img src={DZIcon} alt=""/> <span>10</span></div>
+                                                                        <div><img src={commentIcon} alt=""/> <span>10</span></div>
+                                                                    </div>
+                                                                    <span class="moudle-enter">进入</span>
+                                                                </Link>
+                                                            </li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </div>
+                                        )
+                                    }
                                 </div>
                             </div>
                         )

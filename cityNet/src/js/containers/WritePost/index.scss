@@ -1,0 +1,79 @@
+.write-post-form {
+    .pop-over-write-comment-content {
+        &:after {
+            border-bottom: none;
+        }
+        &.write-post-no-bottom{
+            .am-list-body{
+                border-bottom: 0 !important;
+                &:after {
+                    border-bottom: 0 !important;
+                }
+            }
+        }
+        &.write-post-list {
+            .am-list-item {
+                font-size: 0.14rem;
+                min-height: 1em;
+                height: inherit !important;
+                padding: 10px;
+
+                .am-input-control {
+                    font-size: 0.14rem;
+
+                    input {
+                        font-size: 0.14rem;
+                    }
+                }
+
+                .am-input-clear {
+                    width: 0.15rem;
+                    height: 0.15rem;
+                    background-size: 0.15rem auto;
+                    background-position: 0.015rem 0.015rem;
+                }
+                &.am-input-item:after{
+                    border-bottom: none;
+                }
+            }
+            .comment-error-tip{
+                right: 10px;
+                left: inherit !important;
+            }
+        }
+
+        .am-textarea-item {
+            padding-left: 10px;
+            padding-right: 10px;
+            min-height: 1em !important;
+            font-size: 0.14rem;
+            padding: 10px !important;
+
+            .am-textarea-control {
+                padding-top: 0;
+                padding-bottom: 0;
+
+                textarea {
+                    font-size: 0.14rem;
+                    line-height: 1.4em;
+                }
+            }
+
+            .am-textarea-count {
+                font-size: 0.12rem;
+            }
+
+            &:after {
+                border-bottom: none !important;
+            }
+        }
+
+        .comment-error-tip {
+            position: absolute;
+            color: #d23e3e;
+            font-size: 0.12rem;
+            left: 10px;
+            bottom: 12px;
+        }
+    }
+}

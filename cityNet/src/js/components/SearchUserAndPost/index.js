@@ -25,7 +25,7 @@ export default class SearchUserAndPost extends Component {
             <div>
                 <SearchHeader pFixed={true} handleNavChange={this.handleNavChange.bind(this)}/>
                 <div>
-                    <div style={{height: "0.44rem"}}></div>
+                    <div style={{height: "0.88rem"}}></div>
                     {
                         <div>
                             <div style={{display: activeIndex == 0 ? "block" : "none"}}>

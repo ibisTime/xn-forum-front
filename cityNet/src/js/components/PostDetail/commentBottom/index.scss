@@ -1,36 +1,36 @@
 .post-comment-bottom {
-    padding: 0.1rem 0.14rem;
+    padding: 0.2rem 0.28rem;
     background-color: #fff;
-    height: 0.5rem;
+    height: 1rem;
     width: 100%;
     position: absolute;
     bottom: 0;
     box-sizing: border-box;
 
     .post-comment-input {
-        width: 2.5rem;
+        width: 6rem;
         height: 100%;
-        line-height: 0.1rem;
+        line-height: 0.2rem;
         float: left;
         border-radius: 3px;
         border: 1px solid #b4b4b4;
         color: #666;
-        font-size: 0.13rem;
+        font-size: 0.26rem;
         background-color: #f5f5f5;
-        padding: 0.1rem;
+        padding: 0.2rem;
         box-sizing: border-box;
     }
 
     .post-comment-img-wrap {
         float: right;
-        width: 0.3rem;
+        width: 0.6rem;
         text-align: right;
         font-size: 0;
 
         .post-comment-img {
-            width: 0.2rem;
-            height: 0.22rem;
-            margin-top: 0.04rem;
+            width: 0.4rem;
+            height: 0.44rem;
+            margin-top: 0.08rem;
         }
     }
 }

@@ -17,7 +17,6 @@ export default class RichHeader extends Component {
             active: activeNavIndex == 0
         });
         let class1 = className({
-            forum: true,
             active: activeNavIndex == 1
         });
         let headerClass = className({

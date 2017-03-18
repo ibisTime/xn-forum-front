@@ -1,7 +1,6 @@
 import React from 'react'
 import {Route, IndexRoute} from 'react-router'
 
-// import PostDetail from './components/PostDetail/post_detail';
 const HeadLine = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('./containers/HeadLine/index').default)
@@ -37,10 +36,35 @@ const SearchUserAndPost = (location, cb) => {
         cb(null, require('./components/SearchUserAndPost').default)
     }, 'SearchUserAndPost');
 };
-
+const WritePost = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('./containers/WritePost').default)
+    }, 'WritePost');
+};
+const User = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('./containers/User').default)
+    }, 'User');
+};
+const UserPostList = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('./components/User/UserPostList').default)
+    }, 'UserPostList');
+};
+const FansOrAttention = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('./components/User/FansOrAttention').default)
+    }, 'FansOrAttention');
+};
+const UserSetting = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('./components/User/UserSetting').default)
+    }, 'UserSetting');
+};
 export default(
     <div>
         <Route path="/" getComponent={HeadLine}></Route>
+
         <Route path="/rich">
             <IndexRoute getComponent={Rich}/>
         </Route>
@@ -49,8 +73,16 @@ export default(
         <Route path="/forum/:code">
             <IndexRoute getComponent={ForumBlock}/>
         </Route>
+
+        <Route path="/write" getComponent={WritePost}/>
+
         <Route path="/search" getComponent={SearchUserAndPost}/>
-        <Route path="/user" getComponent={HeadLine}/>
+
+        <Route path="/user" getComponent={User}/>
+        <Route path="/user/post/list" getComponent={UserPostList}/>
+        <Route path="/user/fansOrAttention/:type" getComponent={FansOrAttention}/>
+        <Route path="/user/setting" getComponent={UserSetting}/>
+
         <Route path="*" getComponent={NotFoundPage}/>
     </div>
 );

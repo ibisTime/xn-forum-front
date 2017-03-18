@@ -1,46 +1,104 @@
 import React, {Component} from 'react';
-import {NormalHeader} from '../../components';
+import WritePostHeader from './WritePostHeader';
+import {WhiteSpace, List, TextareaItem, InputItem} from 'antd-mobile';
+import { createForm } from 'rc-form';
+import { Upload, Icon, Modal } from 'antd';
 
-import './index.css';
+import './index.scss';
 
-export default class WritePost extends Component {
-    constructor() {
-        super();
+class WritePost extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
-
+            previewVisible: false,
+            previewImage: '',
+            fileList: [],
+            token: 'Dc0pMP8ImFm78-uk4iGsOPpB2-vHc64D07OsOQVi:hKEO21vcgX3rQSZut7EEAW9reXQ\u003d:eyJzY29wZSI6ImIyY29zcyIsImRlYWRsaW5lIjoxNDg5NjYwMDI3fQ\u003d\u003d'
         }
     }
-    componentWillMount() {
+    handleCancel (){
+        this.setState({ previewVisible: false });
     }
-    componentDidMount() {
-
+    handlePreview (file){
+        this.setState({
+            previewImage: file.url || file.thumbUrl,
+            previewVisible: true,
+        });
+    }
+    handleChange ({ fileList }) {
+        this.setState({ fileList });
+    }
+    handleSubmit(e){
+        e.preventDefault();
+        this.props.form.validateFields((error, value) => {
+            console.log(error, value);
+        });
+        // this.props.form.getFieldsValue
+        // this.props.handleOk()
     }
 
     render() {
-
-        const loadingEl = (
-            <div style={{ width: '100%', height: document.documentElement.clientHeight * 0.6, display: 'flex', justifyContent: 'center' }}>
-                <ActivityIndicator size="small" />
+        const { getFieldProps, getFieldError } = this.props.form;
+        const { previewVisible, previewImage, token, fileList } = this.state;
+        const uploadButton = (
+            <div>
+                <Icon type="plus" />
             </div>
         );
+
+        const uploadOpt = {
+            action: "http://up-z2.qiniu.com/",
+            listType: "picture-card",
+            fileList: fileList,
+            onPreview: this.handlePreview.bind(this),
+            onChange: this.handleChange.bind(this),
+            showUploadList: {
+                showPreviewIcon: false,
+                showRemoveIcon: false
+            },
+            data: {"token": token},
+            multiple: true
+        }
+
         return (
             <div>
-
-                <div>
-                    {
-                        firstLoad
-                        ? loadingEl
-                        : (
-                            <Tloader initializing={initializing} onRefresh={this.handleRefresh.bind(this)} hasMore={hasMore} onLoadMore={this.handleLoadMore.bind(this)} autoLoadMore={autoLoadMore} className="tloader headline">
-                                <div class="rich_list">
-                                    <ul>{postItems}</ul>
-                                </div>
-                            </Tloader>
-                        )
-                    }
+                <WritePostHeader handleSubmit={this.handleSubmit.bind(this)}/>
+                <div style={{height: "0.44rem"}}></div>
+                <WhiteSpace size="sm" />
+                <div className="write-post-form">
+                    <List className="pop-over-write-comment-content write-post-list">
+                        <InputItem
+                            {...getFieldProps('title', {
+                                rules: [{required: true}]
+                            })}
+                            clear
+                            placeholder="标题"
+                            autoFocus
+                        />
+                        {getFieldError('title') ? <span class="comment-error-tip">标题不能为空</span> : null}
+                    </List>
+                    <List className="pop-over-write-comment-content write-post-no-bottom">
+                        <TextareaItem
+                            {...getFieldProps('content', {
+                              rules: [{required: true}]
+                            })}
+                            rows={4}
+                            count={100}
+                            placeholder="评论内容"
+                        />
+                        {getFieldError('content') ? <span class="comment-error-tip">评论不能为空</span> : null}
+                    </List>
+                    <div className="clearfix">
+                        <Upload {...uploadOpt}>
+                          {uploadButton}
+                        </Upload>
+                        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel.bind(this)}>
+                            <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                        </Modal>
+                    </div>
                 </div>
-                <Nav activeIndex={1}/>
             </div>
         )
     }
 }
+export default createForm()(WritePost);

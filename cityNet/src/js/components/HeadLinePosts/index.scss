@@ -6,29 +6,29 @@
     border-top: 1px solid #ccc;
     li {
         position: relative;
-        padding: 0.1rem 0;
+        padding: 0.2rem 0;
         border-bottom: 1px solid #ccc;
         .new-listPic {
-            height: 0.6rem;
-            width: 0.8rem;
+            height: 1.4rem;
+            width: 1.872rem;
             img {
                 height: 100%;
                 width: 100%;
             }
         }
         .new-listTopic {
-            width: 2.09rem;
-            font-size: 0.15rem;
+            width: 4.8rem;
+            font-size: 0.3276rem;
             position: absolute;
-            left: 0.91rem;
-            top: 0.14rem;
+            left: 2.092rem;
+            top: 0.28rem;
             color: #464646;
         }
         .new-listData {
             position: absolute;
-            left: 0.91rem;
-            bottom: 0.1rem;
-            font-size: 0.1rem;
+            left: 2.092rem;
+            bottom: 0.2rem;
+            font-size: 0.21rem;
             color: #b4b4b4;
             span{
                 color: #b4b4b4;
@@ -36,12 +36,12 @@
         }
         .new-listSee {
             position: absolute;
-            right: 0.1rem;
-            bottom: 0.1rem;
-            font-size: 0.1rem;
+            right: 0.2rem;
+            bottom: 0.2rem;
+            font-size: 0.21rem;
             color: #b4b4b4;
             img {
-                width: 0.15rem;
+                width: 0.32rem;
                 vertical-align: text-top;
             }
             span{

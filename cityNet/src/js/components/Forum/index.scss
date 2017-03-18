@@ -1,24 +1,30 @@
 .classify {
-    margin-bottom: 0.5rem;
-    position: relative;
+    bottom: 1rem;
+    width: 100%;
+    top: 0.88rem;
+    position: absolute;
 
     .classify-url {
-        height: 4.74rem;
-        width: 0.9rem;
-        /*background-color: #7d0000;*/
-        border-right: 0.01rem solid #e6e6e6;
+        top: 0;
+        position: absolute;
+        bottom: 0;
+        overflow: auto;
+        width: 28%;
+        border-right: 1px solid #e6e6e6;
+        overflow: auto;
+        display: inline-block;
 
         li {
-            font-size: 0.12rem;
+            font-size: 0.281rem;
             color: #333;
             text-align: center;
-            height: 0.48rem;
-            line-height: 0.48rem;
+            height: 1.1232rem;
+            line-height: 1.1232rem;
             border-bottom: 1px solid #e6e6e6;
         }
 
         .active {
-            background-color: white;
+            background-color: #fff;
             color: #d23e3e;
         }
     }
@@ -26,30 +32,32 @@
     .classify-list {
         position: absolute;
         top: 0;
-        left: 0.9rem;
-        width: 2.3rem;
+        left: 28%;
+        width: 72%;
         bottom: 0;
         overflow: auto;
         background-color: white;
 
         .moudleList ul {
-            padding-left: 0.1rem;
-            padding-right: 0.1rem;
+            padding-left: 0.2rem;
+            padding-right: 0.2rem;
         }
 
         .moudleList li {
-            padding-top: 0.1rem;
-            padding-bottom: 0.1rem;
+            padding-top: 0.2rem;
+            padding-bottom: 0.2rem;
             width: 100%;
-            height: 0.5rem;
+            height: 1.872rem;
             font-size: 0;
-            border-bottom: 0.01rem solid #e6e6e6;
+            border-bottom: 1px solid #e6e6e6;
             position: relative;
+            box-sizing: border-box;
         }
 
         .moudleList .moudleImg {
-            width: 0.5rem;
-            height: 0.5rem;
+            width: 1.17rem;
+            height: 1.17rem;
+            padding-top: 0.15rem;
         }
 
         .moudleList .moudleImg img {
@@ -58,45 +66,48 @@
         }
 
         .moudle-ion {
-            width: 1rem;
-            height: 0.15rem;
+            width: 2rem;
+            height: 0.3rem;
             position: absolute;
-            left: 0.5rem;
-            bottom: 0.13rem;
+            left: 1.4rem;
+            bottom: 0.41rem;
         }
 
         .moudle-ion div {
-            float: right;
-            width: 0.42rem;
+            float: left;
+            width: 0.84rem;
         }
 
         .moudle-ion div img {
-            height: 0.14rem;
+            height: 0.28rem;
         }
 
         .moudle-ion div span {
-            font-size: 0.16rem;
-            margin-left: 0.01rem;
+            font-size: 0.1755rem;
+            margin-left: 0.02rem;
         }
 
         .moudleList p {
-            font-size: 0.14rem;
+            font-size: 0.3276rem;
             color: #333333;
             position: absolute;
-            top: 0.13rem;
-            left: 0.7rem;
+            top: 0.41rem;
+            left: 1.4rem;
         }
 
         .moudleList .moudle-enter {
-            width: 0.3rem;
-            height: 0.18rem;
-            line-height: 0.18rem;
+            font-size: 0.234rem;
+            position: absolute;
+            color: #333333;
+            width: 0.702rem;
+            height: 0.421rem;
+            line-height: 0.421rem;
             text-align: center;
-            border: 0.01rem solid #d23e3e;
+            border: 1px solid #d23e3e;
             color: #d23e3e;
-            border-radius: 0.03rem;
-            left: 1.8rem;
-            top: 0.25rem;
+            border-radius: 3px;
+            right: 0;
+            top: 0.5rem;
         }
     }
 }

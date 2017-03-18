@@ -8,18 +8,18 @@
 
     header {
         background-color: #f8f8f8;
-        height: 0.44rem;
-        line-height: 0.44rem;
-        font-size: 0.16rem;
+        height: 0.88rem;
+        line-height: 0.88rem;
+        font-size: 0.32rem;
 
         .pop-over-write-comment-header-cont {
             text-align: center;
 
             .pop-over-write-comment-btn {
                 border: none;
-                font-size: 0.14rem;
-                height: 0.44rem;
-                line-height: 0.44rem;
+                font-size: 0.28rem;
+                height: 0.88rem;
+                line-height: 0.88rem;
                 background-color: transparent;
             }
         }
@@ -31,19 +31,18 @@
         }
 
         .am-textarea-item {
-            padding-left: 10px;
-            padding-right: 10px;
+            padding: 0.2rem;
 
             .am-textarea-control {
                 padding-top: 0;
 
                 textarea {
-                    font-size: 0.14rem;
+                    font-size: 0.28rem;
                 }
             }
 
             .am-textarea-count {
-                font-size: 0.12rem;
+                font-size: 0.24rem;
             }
 
             &:after {
@@ -52,9 +51,10 @@
         }
 
         .comment-error-tip {
-            font-size: 0.15rem;
+            font-size: 0.2rem;
             position: absolute;
-            bottom: 10px;
+            bottom: 0.2rem;
+            left: 0.3rem;
             color: #d23e3e;
         }
     }

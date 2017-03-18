@@ -9,7 +9,7 @@ export default class SearchUserBodyItem extends Component {
         return (
                 <li>
                     <img src={uData.photo} alt=""/>
-                    <p class="userName">{uData.username}</p>
+                    <p class="userName">{uData.nickname}</p>
                     <p class="userFansNum">粉丝：{uData.totalFansNum}</p>
                 </li>
         );

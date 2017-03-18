@@ -31,7 +31,8 @@ module.exports = {
             date = date.replace(/(12:\d\d:\d\d\s)AM$/, "$1PM");
         return new Date(date).format(format);
     },
-    historyBack: () => {
+    historyBack: (e) => {
+        e && e.preventDefault();
         window.history.back();
     },
     goPath: (path) => {
