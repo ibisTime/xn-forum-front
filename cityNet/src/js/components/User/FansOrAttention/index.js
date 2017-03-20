@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 import NormalHeader from '../../../components/NormalHeader';
-import {Nav} from '../../../components';
 import Tloader from 'react-touch-loader';
 import {ActivityIndicator} from 'antd-mobile';
 import './index.scss';
 
-const userAvatar = require('../../../../images/头像@2x.png');
-// const rightIcon = require('../../../images/_pic.png');
+const rightIcon = require('../../../../images/_pic.png');
 export default class FansOrAttention extends Component {
     constructor() {
         super();
@@ -93,10 +91,10 @@ export default class FansOrAttention extends Component {
         );
         const list = userList.length
             ? userList.map((user, index) => (
-                <li>
-                    <div class="attention-headerPic"><img src={user.photo}/></div>
-                    <p class="attention-name">{user.nickname}</p>
-                </li>
+                <Link to="/" key={`index${index}`} class="wp100 pr">
+                    <div class="follow-img plr15 w70 h50 bg_fff"><img class="wp100" src={user.photo}/></div>
+                    <div class="follow-txt h50 b_e6_b pl70 wp100">{user.nickname}<img class="follow-l" src={rightIcon}/></div>
+                </Link>
             ))
             : "暂无粉丝";
         return (
@@ -107,10 +105,9 @@ export default class FansOrAttention extends Component {
                         ? loadingEl
                         : (
                             <Tloader initializing={initializing} onRefresh={this.handleRefresh.bind(this)} hasMore={hasMore} onLoadMore={this.handleLoadMore.bind(this)} autoLoadMore={true} className="tloader headNoBottom">
-                                <div class="myAttention">
-                                    <p class="whole">全部关注</p>
-                                    <ul>{list}</ul>
-                                </div>
+                                <div class="wp100 bg_fff follow-list b_e6_b">
+                                    {list}
+                        		</div>
                             </Tloader>
                         )
 }

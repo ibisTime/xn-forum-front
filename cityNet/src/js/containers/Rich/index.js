@@ -6,6 +6,7 @@ import './index.css';
 
 import {HeadLinePosts} from '../../components';
 import Tloader from 'react-touch-loader';
+import {Ajax} from '../App';
 
 export default class Rich extends Component {
     constructor() {
@@ -60,6 +61,8 @@ export default class Rich extends Component {
         }
     }
     componentWillMount() {
+        Ajax.globalInfo.arr.push(3);
+        console.log(Ajax.globalInfo.arr.length);
     }
     componentDidMount() {
         setTimeout(() => {

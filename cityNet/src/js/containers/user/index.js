@@ -45,16 +45,16 @@ export default class User extends Component {
                                     <li><Link to='/user/post/list'><div>0</div><p>帖子</p></Link></li>
                                     <li><Link to='/user/fansOrAttention/0'><div>0</div><p>关注</p></Link></li>
                                     <li><Link to='/user/fansOrAttention/1'><div>0</div><p>粉丝</p></Link></li>
-                                    <li><div>0</div><p>赏金</p></li>
+                                    <li><Link to='/user/reward'><div>0</div><p>赏金</p></Link></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="mine-detail-content">
                             <ul>
-                                <li><Link to={`/`}><div class="goods"></div><span>我的物品</span><img src={rightIcon} alt=""/></Link></li>
-                                <li><Link to={`/`}><div class="collect"></div><span>我的收藏</span><img src={rightIcon} alt=""/></Link></li>
-                                <li><Link to={`/`}><div class="draft"></div><span>草稿箱</span><img src={rightIcon} alt=""/></Link></li>
-                                <li><Link to={`/`}><div class="msg"></div><span>我的消息</span><img src={rightIcon} alt=""/></Link></li>
+                                <li><Link to={`/user/commodity/list`}><div class="goods"></div><span>我的物品</span><img src={rightIcon} alt=""/></Link></li>
+                                <li><Link to={`/user/collection`}><div class="collect"></div><span>我的收藏</span><img src={rightIcon} alt=""/></Link></li>
+                                <li><Link to={`/user/draft`}><div class="draft"></div><span>草稿箱</span><img src={rightIcon} alt=""/></Link></li>
+                                <li><Link to={`/user/message`}><div class="msg"></div><span>我的消息</span><img src={rightIcon} alt=""/></Link></li>
                                 <li><Link to={`/`}><div class="aboutCity"></div><span>关于城市网</span><img src={rightIcon} alt=""/></Link></li>
                                 <li><Link to={`/user/setting`}><div class="set"></div><span>设置</span><img src={rightIcon} alt=""/></Link></li>
                             </ul>

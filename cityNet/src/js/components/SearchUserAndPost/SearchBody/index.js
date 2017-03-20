@@ -34,8 +34,6 @@ export default class SearchBody extends Component {
                     "status": "B",
                     "location": "C",
                     "plateCode": "BKHQ001",
-                    "validDatetimeStart": "Mar 1, 2017 12:11:28 PM",
-                    "validDatetimeEnd": "Apr 1, 2017 12:00:00 AM",
                     "loginName": "雷大叔",
                     "nickname": "雷大叔",
                     "photo": "http://114.55.179.135:8901/2017030109/2017036009393356821555.jpg",

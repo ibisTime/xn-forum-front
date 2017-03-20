@@ -21,6 +21,10 @@
     height: 0.7rem;
     line-height: 0.7rem;
     text-align: center;
+    color: #fff;
+}
+.headerLine-nav-header p a{
+    color: #fff;
 }
 
 .headerLine-nav-header .integral {

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 import {HeadLineHeader, Nav} from '../../components';
 import './index.css';
 import {SmallImgBlocks, HeadLinePosts, Swipe} from '../../components';
@@ -80,7 +81,9 @@ export default class HeadLine extends Component {
             }]
         }
     }
-    componentWillMount() {}
+    componentWillMount() {
+        console.log("headwill");
+    }
     componentDidMount() {
         // setTimeout(()=>{
         //     var limit = this.state.limit;
@@ -89,6 +92,7 @@ export default class HeadLine extends Component {
         //         initializing: 2
         //     });
         // }, 1e3);
+        console.log("headdid");
     }
     handleLoadMore(resolve){
         setTimeout(()=>{
@@ -153,7 +157,7 @@ export default class HeadLine extends Component {
                         </div>
                         <div className="headerLine-nav">
                             <div className="headerLine-nav-header">
-                                <p className="integral">积分商城</p>
+                                <p className="integral"><Link to='/mall/list'>积分商城</Link></p>
                                 <p className="signOn">每日签到</p>
                                 <p className="cityWide">同城活动</p>
                             </div>

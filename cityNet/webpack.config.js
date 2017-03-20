@@ -29,10 +29,10 @@ module.exports = {
                         [
                             "import",
                             [
-                                {
-                                    "libraryName": "antd",
-                                    "style": "css"
-                                },
+                                // {
+                                //     "libraryName": "antd",
+                                //     "style": "css"
+                                // },
                                  {
                                     "libraryName": "antd-mobile",
                                     // "style": "css"

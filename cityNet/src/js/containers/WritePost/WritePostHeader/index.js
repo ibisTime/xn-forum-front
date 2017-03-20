@@ -7,11 +7,11 @@ const Util = require('../../../util/util');
 
 export default class WritePostHeader extends Component {
     render() {
-        let {handleSubmit} = this.props;
+        let {handleSubmit, title, handleChoseClick} = this.props;
         return (
             <header class="headerLineHeader">
-                <img class="left" src={backIcon} alt="" onClick={Util.historyBack}/>
-                <div><span>选择板块</span> <img src={locationIcon} alt="下拉"/></div>
+                <img class="goback" src={backIcon} alt="" onClick={Util.historyBack}/>
+                <div class="inline_block" onClick={this.props.handleChoseClick}><span>{title || "选择板块"}</span> <img src={locationIcon} alt="下拉"/></div>
                 <div class="right-apply" onClick={handleSubmit}>发布</div>
             </header>
         )

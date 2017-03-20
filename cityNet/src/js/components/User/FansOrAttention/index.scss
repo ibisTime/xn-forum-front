@@ -1,40 +1,38 @@
-.myAttention {
-    .whole {
-        padding-left: 0.3rem;
-        height: 0.6rem;
-        font-size: 0.22rem;
-        color: #999;
-        line-height: 0.6rem;
-        border-bottom: 1px solid #cdcdcd;
-    }
-    li {
-        height: 1.18rem;
-        padding-left: 0.3rem;
-        border-bottom: 1px solid #cdcdcd;
-        font-size: 0;
-        position: relative;
-        .attention-headerPic {
-            width: 0.9rem;
-            height: 0.9rem;
-            border-radius: 50%;
+.follow-list {
+    a {
+        display: inline-block;
+
+        .follow-img {
+            box-sizing: border-box;
+            padding-bottom: 0.1rem;
             position: absolute;
-            top: 0.14rem;
+            top: 0;
+            left: 0;
+            padding-top: 0.1rem;
+
             img {
-                width: 0.9rem;
-                height: 0.9rem;
+                height: 100%;
+                width: 100%;
+                border-radius: 50%;
             }
         }
-        .attention-num {
-            position: absolute;
-            top: 0.7rem;
-            left: 1.4rem;
-            font-size: 0.18rem;
+
+        .follow-txt {
+            line-height: 1rem;
+            font-size: 0.3rem;
+
+            img {
+                height: 0.4rem;
+                position: absolute;
+                top: 0.3rem;
+                right: 0.3rem;
+            }
         }
-        .attention-name {
-            position: absolute;
-            top: 0.24rem;
-            left: 1.4rem;
-            font-size: 0.26rem;
+
+        &:last-of-type {
+            .follow-txt {
+                border: none !important;
+            }
         }
     }
 }

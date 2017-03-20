@@ -1,4 +1,5 @@
-import { hashHistory } from 'react-router'
+import { hashHistory } from 'react-router';
+
 Date.prototype.format = function(format) {
     var o = {
         "M+": this.getMonth() + 1, //month

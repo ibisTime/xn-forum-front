@@ -6,6 +6,7 @@ import Root from './containers/Root';
 import Redbox from 'redbox-react';
 import 'antd-mobile/dist/antd-mobile.css';
 import '../css/global.scss';
+import '../css/csw.scss';
 import 'normalize.css';
 const rootEl = document.getElementById('mainContainer');
 
