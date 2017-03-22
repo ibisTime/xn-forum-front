@@ -6,12 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "webpack-dev-server --contentbase src --inline --hot",
-    "prod": "NODE_ENV=production webpack"
+    "prod": "NODE_ENV=production webpack",
+    "dist": "webpack --hot"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "antd-mobile": "^1.0.5",
+    "fetch": "^1.1.0",
     "normalize.css": "^3.0.3",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
@@ -19,7 +21,6 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "superagent-bluebird-promise": "^3.0.2",
     "antd": "^2.1.0",
     "babel-cli": "^6.11.4",
     "babel-core": "^6.10.4",
@@ -53,6 +54,8 @@
     "redbox-react": "^1.3.4",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.13.1",
+    "superagent-bluebird-promise": "^3.0.2",
+    "svg-sprite-loader": "^0.3.0",
     "underscore": "^1.8.3",
     "url-loader": "~0.5.5",
     "webpack": "^1.13.2",

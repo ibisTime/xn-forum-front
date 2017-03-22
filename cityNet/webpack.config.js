@@ -1,7 +1,10 @@
 var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
 var path = require('path');
-// const pxtorem = require('postcss-pxtorem');
+const svgDirs = [
+  require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. 属于 antd-mobile 内置 svg 文件
+  // path.resolve(__dirname, 'src/my-project-svg-foler'),  // 2. 自己私人的 svg 存放目录
+];
 
 module.exports = {
     context: path.join(__dirname),
@@ -35,7 +38,7 @@ module.exports = {
                                 // },
                                  {
                                     "libraryName": "antd-mobile",
-                                    // "style": "css"
+                                    // "style": true
                                 }
                             ]
                         ]
@@ -60,19 +63,24 @@ module.exports = {
                 loader: 'style-loader!css-loader'
             }, {
                 test: /\.less$/,
-                loader: "style-loader!css-loader!less-loader"
+                loader: 'style-loader!css-loader!less-loader'
             }, {
                 test: /\.scss$/,
                 loader: 'style-loader!css-loader!sass-loader'
             },
             {//woff|woff2|eot|ttf|svg
-                test: /\.(png|jpg)$/,
+                test: /\.(png|jpg|gif)$/,
                 // test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
                 loader: 'url-loader?limit=8192'
             },
             {
-                test: /\.svg|woff|eot|ttf$/,
+                test: /\.woff|eot|ttf$/,
                 loader: require.resolve('file-loader') + '?name=[path][name].[ext]'
+            },
+            {
+               test: /\.(svg)$/i,
+               loader: 'svg-sprite',
+               include: svgDirs,  // 把 svgDirs 路径下的所有 svg 文件交给 svg-sprite-loader 插件处理
             }
         ]
     },

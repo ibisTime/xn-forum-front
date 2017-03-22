@@ -117,6 +117,16 @@ const AttentionUserList = (location, cb) => {
         cb(null, require('./components/User/Message/AttentionUserList').default)
     }, 'AttentionUserList');
 };
+const Login = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('./components/User/Login').default)
+    }, 'Login');
+};
+const Register = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('./components/User/Register').default)
+    }, 'Register');
+};
 export default(
     <div>
         <Route path="/" component={App}>
@@ -149,6 +159,8 @@ export default(
                 <Route path="like/list" getComponent={LikeList}/>
                 <Route path="mention/list" getComponent={MentionMyPostList}/>
                 <Route path="attention/list" getComponent={AttentionUserList}/>
+                <Route path="login" getComponent={Login}/>
+                <Route path="register" getComponent={Register}/>
             </Route>
             <Route path="mall">
                 <Route path="list" getComponent={CommodityList}/>

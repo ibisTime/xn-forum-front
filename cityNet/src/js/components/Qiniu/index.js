@@ -3,8 +3,8 @@ var ReactDOM = require('react-dom')
 var request = require('superagent-bluebird-promise');
 
 var isFunction = function (fn) {
- var getType = {};
- return fn && getType.toString.call(fn) === '[object Function]';
+    var getType = {};
+    return fn && getType.toString.call(fn) === '[object Function]';
 };
 function formatMaxSize(size){
     size=size.toString().toUpperCase();

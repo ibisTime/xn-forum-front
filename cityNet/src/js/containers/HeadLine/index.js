@@ -3,7 +3,6 @@ import {Link} from 'react-router';
 import {HeadLineHeader, Nav} from '../../components';
 import './index.css';
 import {SmallImgBlocks, HeadLinePosts, Swipe} from '../../components';
-// import { RefreshControl, ListView } from 'antd-mobile';
 import Tloader from 'react-touch-loader';
 
 export default class HeadLine extends Component {
@@ -93,6 +92,9 @@ export default class HeadLine extends Component {
         //     });
         // }, 1e3);
         console.log("headdid");
+    }
+    componentWillUnmount() {
+        console.log("headUnmount");
     }
     handleLoadMore(resolve){
         setTimeout(()=>{

@@ -4,7 +4,7 @@ import {render} from 'react-dom';
 import {hashHistory} from 'react-router';
 import Root from './containers/Root';
 import Redbox from 'redbox-react';
-import 'antd-mobile/dist/antd-mobile.css';
+import 'antd-mobile/dist/antd-mobile.min.css';
 import '../css/global.scss';
 import '../css/csw.scss';
 import 'normalize.css';

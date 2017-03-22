@@ -5,7 +5,8 @@ import {
     TextareaItem,
     InputItem,
     Flex,
-    Toast
+    Toast,
+    Icon
 } from 'antd-mobile';
 import {createForm} from 'rc-form';
 // import Qiniu from 'react-qiniu';
@@ -17,6 +18,7 @@ import AtUserList from './AtUserList';
 import './index.scss';
 
 const Item = Flex.Item;
+const breakImg = require('../../../images/break-img.png');
 
 class WritePost extends Component {
     constructor(props) {
@@ -25,7 +27,7 @@ class WritePost extends Component {
             start: 0,
             end: 0,
             files: [],
-            token: 'Dc0pMP8ImFm78-uk4iGsOPpB2-vHc64D07OsOQVi:Uj83ZUABt7fP0GZqU-pU3aH5_iI\u003d:eyJzY29wZSI6ImIyY29zcyIsImRlYWRsaW5lIjoxNDg5OTk0NzYwfQ\u003d\u003d',
+            token: 'Dc0pMP8ImFm78-uk4iGsOPpB2-vHc64D07OsOQVi:eJmK4WUJ9LKijtCCfXRUI_yBdAE\u003d:eyJzY29wZSI6ImIyY29zcyIsImRlYWRsaW5lIjoxNDkwMDc2NjA3fQ\u003d\u003d',
             showEmoji: false,
             showUserList: false,
             title: "",
@@ -111,12 +113,35 @@ class WritePost extends Component {
      * @param files    上传图片
      */
     onUpload(files) {
+        const _self = this;
         // set onprogress function before uploading
-        files.map(function(f) {
-            f.onprogress = function(e) {
-                console.log(e.percent);
+        files.map((file, index) => {
+            file.onprogress = (e) => {
+                file.status = e.srcElement.status;
+                let idx = _self.findFileIndex(file);
+                let stateFiles = this.state.files;
+                if(idx != -1)
+                    stateFiles.splice(idx, 1, file);
+                else
+                    stateFiles.splice(-1, 1, file);
+                _self.setState({
+                    files: stateFiles
+                });
             };
         });
+    }
+    /*
+     * 根据file找到在state的files里的下标
+     * @param file    需要寻找下标的file
+     */
+    findFileIndex(file){
+        const {files} = this.state;
+        for(let i = 0; i < files.length; i++){
+            let f = files[i];
+            if(f.preview == file.preview)
+                return i;
+        }
+        return -1;
     }
     /*
      * 处理添加图片事件，把新加入的图片拼到state的files数组里
@@ -322,7 +347,15 @@ class WritePost extends Component {
                                 {files.map((file, index) => (
                                     <div key={`index${index}`} class="write-post-img">
                                         <div class="write-post-img-div">
-                                            <img src={file.preview}/>
+                                            {
+                                                file.status ?
+                                                    (file.status == 200 ? <img src={file.preview}/> : <img class="break-img" src={breakImg}/>)
+                                                    :
+                                                    (<div>
+                                                        <img src={file.preview}/>
+                                                        <div class="center-loading"><i class="loading"></i></div>
+                                                    </div>)
+                                            }
                                             <i class="img-close" onClick={this.handleImgClose.bind(this, index)}></i>
                                         </div>
                                     </div>
